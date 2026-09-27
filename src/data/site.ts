@@ -6,10 +6,12 @@ export const navigation = [
 ];
 
 export const contact = {
-  phone: "+48 123 456 789",
-  phoneHref: "tel:+48123456789",
-  email: "email@email.pl",
-  address: "Miejscowość 1",
-  facebookUrl: "",
+  phone: "516 473 831",
+  phoneHref: "tel:+48516473831",
+  email: "lichon1988@interia.pl",
+  address: "Jasienna 171, 33-322 Korzenna, Polska",
+  facebookUrl:
+    "https://www.facebook.com/profile.php?id=61592104056766&locale=pl_PL",
+  instagramUrl: "https://www.instagram.com/pasieka_100_natura",
   directionsUrl: "",
 };

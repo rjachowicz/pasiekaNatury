@@ -1,0 +1,297 @@
+---
+import { products } from "../../data/products";
+
+const tail = products.slice(-3);
+const head = products.slice(0, 3);
+const items = [
+  ...tail.map((product) => ({ product, clone: true })),
+  ...products.map((product) => ({ product, clone: false })),
+  ...head.map((product) => ({ product, clone: true })),
+];
+---
+
+<div class="product-carousel" data-product-carousel>
+  <div
+    class="product-carousel__controls"
+    aria-label="Sterowanie karuzelą produktów"
+  >
+    <button
+      class="product-carousel__button"
+      type="button"
+      data-carousel-previous
+      aria-label="Poprzedni produkt"
+    >
+      <span aria-hidden="true">←</span>
+    </button>
+    <button
+      class="product-carousel__button"
+      type="button"
+      data-carousel-next
+      aria-label="Następny produkt"
+    >
+      <span aria-hidden="true">→</span>
+    </button>
+  </div>
+  <div
+    class="product-carousel__viewport"
+    data-carousel-viewport
+    aria-label="Miody z naszej pasieki"
+    tabindex="0"
+  >
+    {items.map(({ product, clone }, index) => (
+      <article
+        class="product-carousel__card"
+        data-carousel-card
+        data-original={clone ? undefined : "true"}
+        aria-hidden={clone ? "true" : undefined}
+        data-reveal={clone ? undefined : true}
+      >
+        <a
+          href={`/produkty/${product.id}`}
+          tabindex={clone ? "-1" : undefined}
+          aria-label={
+            clone ? undefined : `Poznaj ${product.name.toLocaleLowerCase("pl")}`
+          }
+        >
+          <div class="product-carousel__image-wrap">
+            <img
+              src={product.homeImage}
+              width="480"
+              height="520"
+              loading={index < 5 ? "eager" : "lazy"}
+              alt={
+                clone
+                  ? ""
+                  : `Tymczasowa ilustracja: ${product.name.toLocaleLowerCase("pl")}`
+              }
+            />
+          </div>
+          <div class="product-carousel__body">
+            <span class="product-carousel__number" aria-hidden="true">
+              {String(
+                products.findIndex(({ id }) => id === product.id) + 1,
+              ).padStart(2, "0")}
+            </span>
+            <h3>{product.name}</h3>
+            <p>{product.description}</p>
+            <span class="product-carousel__arrow" aria-hidden="true">
+              →
+            </span>
+          </div>
+        </a>
+      </article>
+    ))}
+  </div>
+</div>
+
+<script>
+  document
+    .querySelectorAll<HTMLElement>("[data-product-carousel]")
+    .forEach((carousel) => {
+      const viewport = carousel.querySelector<HTMLElement>(
+        "[data-carousel-viewport]",
+      );
+      const previous = carousel.querySelector<HTMLButtonElement>(
+        "[data-carousel-previous]",
+      );
+      const next = carousel.querySelector<HTMLButtonElement>(
+        "[data-carousel-next]",
+      );
+      const originals = [
+        ...carousel.querySelectorAll<HTMLElement>('[data-original="true"]'),
+      ];
+
+      if (!viewport || !previous || !next || originals.length === 0) return;
+
+      const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)");
+      const first = originals[0];
+      const last = originals[originals.length - 1];
+      const cycleStart = first.offsetLeft;
+      const cycleEnd =
+        last.offsetLeft +
+        last.offsetWidth +
+        Number.parseFloat(getComputedStyle(viewport).gap || "0");
+      const cycleWidth = cycleEnd - cycleStart;
+      let adjusting = false;
+
+      viewport.scrollLeft = cycleStart;
+
+      const keepLooping = () => {
+        if (adjusting || cycleWidth <= 0) return;
+        const maxOffset = viewport.scrollWidth - viewport.clientWidth;
+
+        if (viewport.scrollLeft < cycleStart - 2) {
+          adjusting = true;
+          viewport.scrollLeft += cycleWidth;
+          requestAnimationFrame(() => (adjusting = false));
+        } else if (
+          viewport.scrollLeft > cycleEnd - 2 &&
+          viewport.scrollLeft < maxOffset - 1
+        ) {
+          adjusting = true;
+          viewport.scrollLeft -= cycleWidth;
+          requestAnimationFrame(() => (adjusting = false));
+        }
+      };
+
+      const scrollByCard = (direction: number) => {
+        const gap = Number.parseFloat(getComputedStyle(viewport).gap || "0");
+        viewport.scrollBy({
+          left: direction * (first.offsetWidth + gap),
+          behavior: reduceMotion.matches ? "auto" : "smooth",
+        });
+      };
+
+      previous.addEventListener("click", () => scrollByCard(-1));
+      next.addEventListener("click", () => scrollByCard(1));
+      viewport.addEventListener("scroll", keepLooping, { passive: true });
+      viewport.addEventListener(
+        "wheel",
+        (event) => {
+          if (Math.abs(event.deltaY) <= Math.abs(event.deltaX)) return;
+          event.preventDefault();
+          viewport.scrollBy({ left: event.deltaY, behavior: "auto" });
+        },
+        { passive: false },
+      );
+    });
+</script>
+
+<style>
+  .product-carousel {
+    position: relative;
+    padding-top: var(--space-4);
+  }
+
+  .product-carousel__controls {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-bottom: var(--space-2);
+  }
+
+  .product-carousel__button {
+    display: grid;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+    padding: 0;
+    border: var(--border);
+    background: var(--color-white);
+    color: var(--color-dark);
+    cursor: pointer;
+    transition:
+      background-color var(--transition),
+      color var(--transition),
+      border-color var(--transition);
+  }
+
+  .product-carousel__button:hover {
+    border-color: var(--color-primary);
+    background: var(--color-primary);
+  }
+
+  .product-carousel__viewport {
+    display: grid;
+    grid-auto-columns: calc((100% - 2 * var(--space-3)) / 3);
+    grid-auto-flow: column;
+    gap: var(--space-3);
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+
+  .product-carousel__viewport::-webkit-scrollbar {
+    display: none;
+  }
+
+  .product-carousel__card {
+    min-width: 0;
+    scroll-snap-align: start;
+    border-top: var(--border);
+    border-bottom: var(--border);
+    background: var(--color-white);
+  }
+
+  .product-carousel__card > a {
+    display: grid;
+    height: 100%;
+  }
+
+  .product-carousel__image-wrap {
+    border-bottom: var(--border);
+    background: var(--color-soft);
+  }
+
+  .product-carousel__image-wrap img {
+    width: 100%;
+    aspect-ratio: 1 / 1.02;
+    object-fit: cover;
+  }
+
+  .product-carousel__body {
+    position: relative;
+    padding: var(--space-3) var(--space-3) var(--space-4);
+  }
+
+  .product-carousel__number {
+    display: block;
+    margin-bottom: var(--space-2);
+    color: var(--color-muted);
+    font-size: var(--text-eyebrow);
+    font-weight: 600;
+    letter-spacing: 0.1em;
+  }
+
+  .product-carousel h3 {
+    max-width: 12ch;
+    font-size: var(--text-card-title);
+  }
+
+  .product-carousel p {
+    max-width: 30ch;
+    margin-top: var(--space-2);
+    padding-right: var(--space-3);
+    color: var(--color-muted);
+    font-size: var(--text-small);
+  }
+
+  .product-carousel__arrow {
+    position: absolute;
+    right: var(--space-3);
+    bottom: var(--space-3);
+    color: var(--color-muted);
+    transition:
+      transform var(--transition),
+      color var(--transition);
+  }
+
+  .product-carousel__card > a:hover .product-carousel__arrow,
+  .product-carousel__card > a:focus-visible .product-carousel__arrow {
+    color: var(--color-dark);
+    transform: translateX(4px);
+  }
+
+  @media (max-width: 899px) {
+    .product-carousel__viewport {
+      grid-auto-columns: calc((100% - var(--space-3)) / 2);
+    }
+  }
+
+  @media (max-width: 639px) {
+    .product-carousel {
+      margin-right: calc(var(--gutter) * -1);
+    }
+
+    .product-carousel__controls {
+      padding-right: var(--gutter);
+    }
+
+    .product-carousel__viewport {
+      grid-auto-columns: minmax(250px, calc(100% - 52px));
+      padding-right: var(--gutter);
+    }
+  }
+</style>

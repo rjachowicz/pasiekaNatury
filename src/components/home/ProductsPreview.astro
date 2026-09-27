@@ -1,7 +1,6 @@
 ---
-import AssetImage from "../ui/AssetImage.astro";
 import SectionHeading from "../ui/SectionHeading.astro";
-import { products } from "../../data/products";
+import ProductCarousel from "./ProductCarousel.astro";
 ---
 
 <section class="products section section-divider">
@@ -21,31 +20,7 @@ import { products } from "../../data/products";
         </a>
       </div>
     </div>
-    <div class="products__collection">
-      <AssetImage
-        class="products__image"
-        sizes="(max-width: 1200px) 92vw, 1120px"
-        src="/assets/products.png"
-        loading="lazy"
-        alt="Cztery słoiki: miód faceliowy, lipowy, gryczany i spadziowy"
-      />
-      <div class="products__labels">
-        {products.slice(0, 4).map((product, index) => (
-          <a class="product-label" href={`/produkty#${product.id}`} data-reveal>
-            <span class="product-label__number" aria-hidden="true">
-              0{index + 1}
-            </span>
-            <div>
-              <h3>{product.name}</h3>
-              <p>{product.description}</p>
-            </div>
-            <span class="product-label__arrow" aria-hidden="true">
-              ↗
-            </span>
-          </a>
-        ))}
-      </div>
-    </div>
+    <ProductCarousel />
   </div>
 </section>
 <style>
@@ -88,101 +63,6 @@ import { products } from "../../data/products";
     margin-top: var(--space-2);
   }
 
-  .products__collection {
-    width: min(100%, 1120px);
-    margin: var(--space-5) auto 0;
-  }
-
-  .products__image {
-    width: 100%;
-  }
-
-  .products__labels {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    margin-top: var(--space-3);
-  }
-
-  .product-label {
-    position: relative;
-    padding: 20px 12px;
-    text-align: center;
-    border-top: 1px solid var(--color-border);
-    transition:
-      background-color var(--transition),
-      border-color var(--transition);
-  }
-
-  .product-label:hover {
-    background: var(--color-soft);
-    border-color: var(--color-primary);
-  }
-
-  .product-label__number,
-  .product-label__arrow {
-    display: none;
-  }
-
-  .product-label h3 {
-    font-size: var(--text-card-title);
-  }
-
-  .product-label p {
-    max-width: 25ch;
-    margin: var(--space-1) auto 0;
-    color: var(--color-muted);
-    font-size: var(--text-small);
-  }
-
-  @media (max-width: 1199px) {
-    .products__labels {
-      grid-template-columns: 1fr;
-      margin-top: var(--space-4);
-      border-bottom: 1px solid var(--color-border);
-    }
-
-    .product-label {
-      display: grid;
-      grid-template-columns: 32px minmax(0, 1fr) 24px;
-      align-items: center;
-      gap: var(--space-2);
-      padding: 20px 12px;
-      text-align: left;
-    }
-
-    .product-label > div {
-      display: grid;
-      grid-template-columns: 0.85fr 1fr;
-      align-items: center;
-      gap: 24px;
-    }
-
-    .product-label__number {
-      display: block;
-      color: var(--color-muted);
-      font-size: var(--text-eyebrow);
-    }
-
-    .product-label h3 {
-      font-size: var(--text-card-title);
-    }
-
-    .product-label__arrow {
-      display: inline;
-      font: 400 1rem var(--font-body);
-      transition: transform var(--transition);
-    }
-
-    .product-label:hover .product-label__arrow {
-      transform: translateX(3px);
-    }
-
-    .product-label p {
-      max-width: 40ch;
-      margin: 0;
-    }
-  }
-
   @media (max-width: 899px) {
     .products__head {
       grid-template-columns: 1fr;
@@ -192,26 +72,6 @@ import { products } from "../../data/products";
     .products__head > div {
       justify-self: start;
       max-width: 56ch;
-    }
-  }
-
-  @media (max-width: 639px) {
-    .products__collection {
-      margin-top: var(--space-4);
-    }
-
-    .product-label {
-      padding-inline: 0;
-      grid-template-columns: 24px minmax(0, 1fr) 16px;
-      gap: 12px;
-    }
-
-    .product-label > div {
-      display: block;
-    }
-
-    .product-label p {
-      margin-top: 8px;
     }
   }
 </style>

@@ -1,49 +1,37 @@
 ---
-import AssetImage from "../ui/AssetImage.astro";
+import Icon, { type IconName } from "../ui/Icon.astro";
 const values = [
   {
     title: "100% natury",
     description: "Czyste tereny i naturalne pożytki.",
-    icon: "icon-maple.png",
+    icon: "leaf",
   },
   {
     title: "Szacunek do pszczół",
     description: "Troska o pszczoły i dobre warunki w ulu.",
-    icon: "icon-heart.png",
+    icon: "heart",
   },
   {
     title: "Wędrowna pasieka",
     description: "Podążamy za kwitnieniem i różnorodnością natury.",
-    icon: null,
+    icon: "tree",
   },
   {
     title: "Tradycja i jakość",
     description: "Pszczelarskie rzemiosło i uważność na każdym etapie.",
-    icon: "icon-honey.png",
+    icon: "honey-jar",
   },
-];
+] satisfies { title: string; description: string; icon: IconName }[];
 ---
 
 <section class="values section section-divider" aria-label="Nasze wartości">
   <h2 class="sr-only">Nasze wartości</h2>
   <div class="container values__grid">
     {values.map((value) => (
-      <article class="value" data-reveal>
+      <article class="value">
         <div class="value__hex" aria-hidden="true">
           <div class="value__icon">
-            {value.icon ? (
-              <AssetImage
-                src={`/assets/${value.icon}`}
-                loading="lazy"
-                alt=""
-                aria-hidden="true"
-              />
-            ) : (
-              <svg viewBox="0 0 64 64" aria-hidden="true">
-                <path d="M32 5 18 23h9L15 38h11L17 51h30L38 38h11L37 23h9L32 5Z" />
-                <path d="M29 50h6v10h-6z" />
-              </svg>
-            )}
+            <Icon name={value.icon} size={35} />
           </div>
         </div>
         <h3>{value.title}</h3>
@@ -90,12 +78,10 @@ const values = [
     clip-path: inherit;
   }
 
-  .value__icon img,
-  .value__icon svg {
+  .value__icon :global(svg) {
     width: 35px;
     height: 35px;
-    object-fit: contain;
-    fill: var(--color-primary);
+    color: var(--color-primary);
   }
 
   h3 {

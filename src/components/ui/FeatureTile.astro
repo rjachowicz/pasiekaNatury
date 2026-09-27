@@ -1,9 +1,9 @@
 ---
-import AssetImage from "./AssetImage.astro";
+import Icon, { type IconName } from "./Icon.astro";
 interface Props {
   title: string;
   description: string;
-  icon: string;
+  icon: IconName;
   index?: number;
 }
 const { title, description, icon, index } = Astro.props;
@@ -11,12 +11,7 @@ const { title, description, icon, index } = Astro.props;
 
 <article class="feature-tile" data-reveal>
   <div class="feature-tile__top">
-    <AssetImage
-      src={`/assets/${icon}`}
-      loading="lazy"
-      alt=""
-      aria-hidden="true"
-    />
+    <Icon name={icon} size={32} />
     {index !== undefined && (
       <span aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
     )}
@@ -44,7 +39,7 @@ const { title, description, icon, index } = Astro.props;
     margin-bottom: 24px;
   }
 
-  .feature-tile__top img {
+  .feature-tile__top :global(svg) {
     width: 32px;
     height: 32px;
     object-fit: contain;

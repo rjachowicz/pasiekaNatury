@@ -1,5 +1,6 @@
 ---
 import AssetImage from "../ui/AssetImage.astro";
+import Icon from "../ui/Icon.astro";
 import PageHero from "../ui/PageHero.astro";
 import SectionHeading from "../ui/SectionHeading.astro";
 import ContactDetails from "../ui/ContactDetails.astro";
@@ -70,12 +71,7 @@ import { contact } from "../../data/site";
         </div>
         <div class="directions__details">
           <div class="directions__address">
-            <AssetImage
-              src="/assets/icon-location.png"
-              loading="lazy"
-              alt=""
-              aria-hidden="true"
-            />
+            <Icon name="location" size={32} />
             <div>
               <span class="eyebrow">Pasieka 100% Natury</span>
               <p>{contact.address}</p>
@@ -180,10 +176,11 @@ import { contact } from "../../data/site";
     margin-bottom: var(--space-3);
   }
 
-  .directions__address img {
+  .directions__address :global(svg) {
     flex-shrink: 0;
     width: 32px;
     height: 32px;
+    color: var(--color-primary);
   }
 
   .directions__address .eyebrow {

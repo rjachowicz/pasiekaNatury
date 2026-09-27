@@ -6,11 +6,13 @@ export interface Product {
   character: string;
   sizes?: string;
   preview: { src: string; index: 0 | 1 | 2 | 3; columns: number };
+  homeImage: string;
 }
 
 export const products: Product[] = [
   {
     id: "faceliowy",
+    homeImage: "/assets/product-faceliowy-placeholder.svg",
     preview: { src: "/assets/products.png", index: 0, columns: 4 },
     character: "Łagodny, kwiatowy, subtelny.",
     name: "Miód faceliowy",
@@ -20,6 +22,7 @@ export const products: Product[] = [
   },
   {
     id: "lipowy",
+    homeImage: "/assets/product-lipowy-placeholder.svg",
     preview: { src: "/assets/products.png", index: 1, columns: 4 },
     character: "Wyrazisty, z aromatem kwiatów lipy.",
     name: "Miód lipowy",
@@ -29,6 +32,7 @@ export const products: Product[] = [
   },
   {
     id: "gryczany",
+    homeImage: "/assets/product-gryczany-placeholder.svg",
     preview: { src: "/assets/products.png", index: 2, columns: 4 },
     character: "Zdecydowany, intensywny, głęboki.",
     name: "Miód gryczany",
@@ -38,6 +42,7 @@ export const products: Product[] = [
   },
   {
     id: "spadziowy",
+    homeImage: "/assets/product-spadziowy-placeholder.svg",
     preview: { src: "/assets/products.png", index: 3, columns: 4 },
     character: "Leśny, bogaty, z żywiczną nutą.",
     name: "Miód spadziowy",

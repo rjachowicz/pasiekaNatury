@@ -1,49 +1,293 @@
 ---
 import AssetImage from "../ui/AssetImage.astro";
-import { gallery } from "../../data/gallery";
+
+const gallery = [
+  { file: "hero.jpg", alt: "Pszczoła wśród białych kwiatów" },
+  { file: "apiary.jpg", alt: "Ule na kwitnącej łące" },
+  { file: "beekeeper.jpg", alt: "Pszczelarz przy ramce z pszczołami" },
+  { file: "gallery-bee.jpg", alt: "Pszczoła zbierająca nektar z kwiatu" },
+  { file: "gallery-honey.jpg", alt: "Złocisty miód spływający do słoika" },
+  { file: "gallery-comb.jpg", alt: "Pszczoły pracujące na plastrze miodu" },
+];
 ---
 
-<section class="gallery" aria-label="Z bliska — życie naszej pasieki">
-  {gallery.map(({ file, alt }) => (
-    <AssetImage
-      src={`/assets/${file}`}
-      sizes="(max-width: 639px) 100vw, 33vw"
-      loading="lazy"
-      alt={alt}
-    />
-  ))}
+<section
+  class="gallery section--sm"
+  aria-labelledby="gallery-title"
+  data-gallery
+>
+  <div class="container gallery__head" data-reveal>
+    <p class="eyebrow eyebrow--line">Z bliska</p>
+    <h2 id="gallery-title">Życie naszej pasieki</h2>
+  </div>
+  <div class="gallery__mosaic">
+    {gallery.map(({ file, alt }, index) => (
+      <button
+        class="gallery__tile"
+        type="button"
+        data-gallery-open={index}
+        aria-haspopup="dialog"
+        aria-label={`Powiększ zdjęcie: ${alt}`}
+      >
+        <AssetImage
+          src={`/assets/${file}`}
+          sizes="(max-width: 639px) 100vw, 50vw"
+          loading="lazy"
+          alt={alt}
+        />
+        <span class="gallery__overlay" aria-hidden="true">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.7"
+            stroke-linecap="round"
+          >
+            <circle cx="10.5" cy="10.5" r="5.5" />
+            <path d="m15 15 4.5 4.5M10.5 8v5M8 10.5h5" />
+          </svg>
+        </span>
+      </button>
+    ))}
+  </div>
+  <dialog
+    class="gallery__dialog"
+    data-gallery-dialog
+    aria-labelledby="gallery-dialog-title"
+  >
+    <div class="gallery__dialog-content">
+      <button
+        class="gallery__close"
+        type="button"
+        data-gallery-close
+        aria-label="Zamknij zdjęcie"
+      >
+        ×
+      </button>
+      <button
+        class="gallery__navigation gallery__navigation--previous"
+        type="button"
+        data-gallery-previous
+        aria-label="Poprzednie zdjęcie"
+      >
+        ←
+      </button>
+      <img
+        data-gallery-image
+        src="/assets/hero.jpg"
+        width="1440"
+        height="960"
+        alt=""
+      />
+      <button
+        class="gallery__navigation gallery__navigation--next"
+        type="button"
+        data-gallery-next
+        aria-label="Następne zdjęcie"
+      >
+        →
+      </button>
+      <p id="gallery-dialog-title" data-gallery-caption></p>
+    </div>
+  </dialog>
 </section>
+<script define:vars={{ gallery }}>
+  document.querySelectorAll("[data-gallery]").forEach((galleryElement) => {
+    const dialog = galleryElement.querySelector("[data-gallery-dialog]");
+    const image = galleryElement.querySelector("[data-gallery-image]");
+    const caption = galleryElement.querySelector("[data-gallery-caption]");
+    const close = galleryElement.querySelector("[data-gallery-close]");
+    const previous = galleryElement.querySelector("[data-gallery-previous]");
+    const next = galleryElement.querySelector("[data-gallery-next]");
+    const triggers = [
+      ...galleryElement.querySelectorAll("[data-gallery-open]"),
+    ];
+    let activeIndex = 0;
+
+    if (!dialog || !image || !caption || !close || !previous || !next) return;
+
+    const render = (index) => {
+      activeIndex = (index + gallery.length) % gallery.length;
+      const item = gallery[activeIndex];
+      image.src = `/assets/${item.file}`;
+      image.alt = item.alt;
+      caption.textContent = item.alt;
+    };
+
+    const closeDialog = () => dialog.close();
+
+    triggers.forEach((trigger) => {
+      trigger.addEventListener("click", () => {
+        render(Number(trigger.dataset.galleryOpen));
+        document.body.classList.add("is-scroll-locked");
+        dialog.showModal();
+        close.focus();
+      });
+    });
+
+    previous.addEventListener("click", () => render(activeIndex - 1));
+    next.addEventListener("click", () => render(activeIndex + 1));
+    close.addEventListener("click", closeDialog);
+    dialog.addEventListener("click", (event) => {
+      if (event.target === dialog) closeDialog();
+    });
+    dialog.addEventListener("close", () =>
+      document.body.classList.remove("is-scroll-locked"),
+    );
+  });
+</script>
 <style>
   .gallery {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 8px;
-    padding-top: 8px;
+    padding-bottom: 0;
   }
 
-  .gallery img {
+  .gallery__head {
+    margin-bottom: var(--space-4);
+  }
+
+  .gallery__head .eyebrow {
+    margin-bottom: var(--space-2);
+  }
+
+  .gallery__mosaic {
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr 1fr 1fr;
+    grid-template-rows: repeat(2, 230px);
+    gap: 8px;
+  }
+
+  .gallery__tile {
+    position: relative;
+    display: block;
+    min-width: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 0;
+    background: var(--color-dark);
+    color: var(--color-white);
+    cursor: zoom-in;
+  }
+
+  .gallery__tile:nth-child(1) {
+    grid-row: span 2;
+  }
+
+  .gallery__tile:nth-child(5) {
+    grid-column: span 2;
+  }
+
+  .gallery__tile :global(img) {
     width: 100%;
-    height: 320px;
+    height: 100%;
     object-fit: cover;
   }
 
-  @media (max-width: 639px) {
-    .gallery {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 6px;
-      padding-top: 6px;
-    }
-
-    .gallery img:first-child {
-      grid-column: 1 / -1;
-      height: 280px;
-      object-position: center 58%;
-    }
+  .gallery__overlay {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    background: #22222238;
+    opacity: 0;
+    transition: opacity var(--transition);
   }
 
-  @media (min-width: 640px) and (max-width: 899px) {
-    .gallery img {
-      height: 230px;
+  .gallery__overlay svg {
+    width: 38px;
+    height: 38px;
+  }
+
+  .gallery__tile:hover .gallery__overlay,
+  .gallery__tile:focus-visible .gallery__overlay {
+    opacity: 1;
+  }
+
+  .gallery__dialog {
+    width: min(100% - 32px, 1120px);
+    max-width: none;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: var(--color-white);
+  }
+
+  .gallery__dialog::backdrop {
+    background: #171713e8;
+  }
+
+  .gallery__dialog-content {
+    position: relative;
+    display: grid;
+    place-items: center;
+  }
+
+  .gallery__dialog img {
+    width: auto;
+    max-width: 100%;
+    max-height: calc(100vh - 100px);
+    object-fit: contain;
+  }
+
+  .gallery__close,
+  .gallery__navigation {
+    position: absolute;
+    z-index: 1;
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    border: 1px solid #ffffff66;
+    background: #22222299;
+    color: var(--color-white);
+    cursor: pointer;
+  }
+
+  .gallery__close {
+    top: 12px;
+    right: 12px;
+    font-size: 1.75rem;
+    line-height: 1;
+  }
+
+  .gallery__navigation {
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.25rem;
+  }
+
+  .gallery__navigation--previous {
+    left: 12px;
+  }
+
+  .gallery__navigation--next {
+    right: 12px;
+  }
+
+  .gallery__dialog p {
+    margin-top: var(--space-2);
+    font-size: var(--text-small);
+    text-align: center;
+  }
+
+  @media (max-width: 639px) {
+    .gallery__mosaic {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-rows: repeat(3, 180px);
+      gap: 6px;
+    }
+
+    .gallery__tile:nth-child(1) {
+      grid-row: span 2;
+    }
+
+    .gallery__tile:nth-child(5) {
+      grid-column: auto;
+    }
+
+    .gallery__navigation {
+      width: 38px;
+      height: 38px;
     }
   }
 </style>
