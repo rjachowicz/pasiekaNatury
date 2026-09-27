@@ -1,0 +1,79 @@
+---
+import { navigation } from '../data/site';
+const pathname = Astro.url.pathname.replace(/\/+$/, '') || '/';
+---
+<header class="header">
+  <div class="container header__inner">
+    <a class="header__logo" href="/" aria-label="Pasieka 100% Natury — strona główna">
+      <img src="/assets/logo.png" width="420" height="420" alt="Pasieka 100% Natury — Wędrowna" />
+    </a>
+    <button class="header__toggle" type="button" aria-controls="main-navigation" aria-expanded="false" aria-label="Otwórz menu" hidden>
+      <span></span><span></span><span></span>
+    </button>
+    <nav id="main-navigation" class="nav" aria-label="Nawigacja główna">
+      {navigation.map(({ href, label }) => <a class="nav__link" href={href} aria-current={pathname === href ? 'page' : undefined}>{label}</a>)}
+    </nav>
+  </div>
+</header>
+
+<script>
+  const header = document.querySelector<HTMLElement>('.header');
+  const toggle = header?.querySelector<HTMLButtonElement>('.header__toggle');
+  const nav = header?.querySelector<HTMLElement>('.nav');
+  if (header && toggle && nav) {
+    header.classList.add('header--enhanced');
+    toggle.hidden = false;
+    const closeMenu = (restoreFocus = false) => {
+      toggle.setAttribute('aria-expanded', 'false');
+      toggle.setAttribute('aria-label', 'Otwórz menu');
+      header.classList.remove('header--open');
+      if (restoreFocus) toggle.focus();
+    };
+    toggle.addEventListener('click', () => {
+      const open = toggle.getAttribute('aria-expanded') !== 'true';
+      toggle.setAttribute('aria-expanded', String(open));
+      toggle.setAttribute('aria-label', open ? 'Zamknij menu' : 'Otwórz menu');
+      header.classList.toggle('header--open', open);
+    });
+    nav.addEventListener('click', (event) => {
+      if (event.target instanceof Element && event.target.closest('a')) closeMenu();
+    });
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') closeMenu(true);
+    });
+    document.addEventListener('click', (event) => {
+      if (event.target instanceof Node && !header.contains(event.target)) closeMenu();
+    });
+    header.addEventListener('focusout', (event) => {
+      if (event.relatedTarget instanceof Node && !header.contains(event.relatedTarget)) closeMenu();
+    });
+    matchMedia('(min-width: 768px)').addEventListener('change', () => closeMenu());
+  }
+</script>
+
+<style>
+  .header { position: relative; z-index: 20; background: var(--color-dark); color: var(--color-white); }
+  .header__inner { min-height: 136px; display: flex; align-items: center; justify-content: space-between; gap: 40px; }
+  .header__logo { position: relative; z-index: 2; flex: 0 0 clamp(150px, 15vw, 244px); align-self: stretch; }
+  .header__logo img { position: absolute; top: 14px; width: 100%; }
+  .nav { display: flex; align-items: center; gap: clamp(24px, 4vw, 76px); }
+  .nav__link { position: relative; padding-block: 12px; font-size: .75rem; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; }
+  .nav__link:hover, .nav__link[aria-current] { color: var(--color-primary); }
+  .nav__link[aria-current]::after { content: ''; position: absolute; bottom: 0; left: 0; width: 56px; height: 2px; background: var(--color-primary); }
+  .header__toggle { display: none; }
+  @media (min-width: 1600px) { .header__inner { min-height: 168px; } }
+  @media (max-width: 767px) {
+    .header__inner { min-height: 88px; flex-wrap: wrap; gap: 0; }
+    .header__logo { flex-basis: 116px; min-height: 88px; }
+    .header__logo img { top: 8px; }
+    .nav { width: 100%; flex-direction: column; align-items: stretch; gap: 8px; padding-block: 44px 24px; }
+    .nav__link { padding: 12px 0; }
+    .header--enhanced .nav { display: none; position: absolute; top: 100%; left: 0; padding: 44px var(--gutter) 28px; background: var(--color-dark); }
+    .header--open .nav { display: flex; }
+    .header__toggle:not([hidden]) { display: flex; flex-direction: column; justify-content: center; gap: 6px; width: 48px; height: 48px; padding: 10px; border: 1px solid #666; background: transparent; color: var(--color-white); cursor: pointer; }
+    .header__toggle span { width: 26px; height: 2px; background: currentColor; }
+    .header--open .header__toggle span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+    .header--open .header__toggle span:nth-child(2) { opacity: 0; }
+    .header--open .header__toggle span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+  }
+</style>

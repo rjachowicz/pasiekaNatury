@@ -1,0 +1,17 @@
+:root {
+  --color-primary: #f9bd00;
+  --color-dark: #222222;
+  --color-background: #ffffff;
+  --color-text: #2a2a2a;
+  --color-muted: #66635e;
+  --color-white: #ffffff;
+  --color-border: #dedbd4;
+  --color-soft: #faf8f2;
+  --font-serif: 'Cormorant Garamond', Georgia, serif;
+  --font-sans: 'Montserrat', Arial, sans-serif;
+  --content-width: 1600px;
+  --gutter: clamp(24px, 5vw, 96px);
+  --page-inset: max(var(--gutter), calc((100% - var(--content-width)) / 2));
+  --section-space: clamp(64px, 6vw, 112px);
+  --hexagon: polygon(25% 0, 75% 0, 100% 50%, 75% 100%, 25% 100%, 0 50%);
+}

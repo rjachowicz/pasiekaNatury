@@ -1,0 +1,14 @@
+---
+interface Props { eyebrow: string; title?: string; light?: boolean; }
+const { eyebrow, title, light = false } = Astro.props;
+---
+<div class:list={['section-heading', { 'section-heading--light': light }]}>
+  <p class="eyebrow">{eyebrow}</p>
+  <h2>{title || <slot />}</h2>
+</div>
+<style>
+  .eyebrow { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; }
+  .eyebrow::before { content: ''; flex: 0 0 24px; height: 2px; background: var(--color-primary); }
+  .section-heading--light { color: var(--color-white); }
+  .section-heading--light .eyebrow { color: var(--color-primary); }
+</style>

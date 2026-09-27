@@ -1,0 +1,10 @@
+---
+interface Props { href: string; }
+const { href } = Astro.props;
+---
+<a class="button" href={href}><slot /><span aria-hidden="true">→</span></a>
+<style>
+  .button { display: inline-flex; align-items: center; justify-content: space-between; gap: 28px; max-width: 100%; min-height: 56px; padding: 18px 24px; background: var(--color-primary); color: var(--color-dark); font-family: var(--font-sans); font-size: .7rem; line-height: 1.5; font-weight: 700; letter-spacing: .035em; text-transform: uppercase; transition: background-color .18s; }
+  .button:hover { background: #e8ae00; }
+  .button span { font-size: 1.5rem; line-height: 1; }
+</style>

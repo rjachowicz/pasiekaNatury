@@ -1,0 +1,30 @@
+---
+import SectionHeading from '../SectionHeading.astro';
+import Button from '../Button.astro';
+---
+<section class="about">
+  <div class="about__copy">
+    <SectionHeading eyebrow="O pasiece" light>Z pasji do pszczół<br />i natury</SectionHeading>
+    <p>Pasieka 100% Natury to miejsce, w którym pszczelarskie rzemiosło łączy się z miłością do natury. Dbamy o pszczoły i wybieramy różnorodne pożytki, by dzielić się tym, co w miodzie najlepsze.</p>
+    <div><Button href="/o-pasiece">Nasza historia</Button></div>
+  </div>
+  <figure class="about__visual">
+    <img src="/assets/beekeeper.jpg" width="1672" height="940" loading="lazy" alt="Pszczelarz oglądający ramkę z pszczołami w słonecznej pasiece" />
+    <figcaption>Pszczoły uczą<br />pokory do natury.</figcaption>
+  </figure>
+</section>
+<style>
+  .about { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); background: var(--color-dark); color: var(--color-white); }
+  .about__copy { position: relative; isolation: isolate; display: flex; flex-direction: column; justify-content: center; padding: var(--section-space) clamp(32px, 5vw, 96px) var(--section-space) var(--page-inset); min-height: 640px; }
+  .about__copy::before { content: ''; position: absolute; z-index: -1; inset: 0; background: url('/assets/honeycomb.png') center / cover; opacity: .035; }
+  .about__copy > p { max-width: 47ch; margin-block: 32px; color: #dedcd6; font-size: .95rem; }
+  .about__visual { position: relative; min-width: 0; }
+  .about__visual img { position: absolute; width: 100%; height: 100%; object-fit: cover; object-position: 22% center; }
+  figcaption { position: absolute; right: 32px; bottom: 40px; max-width: 15ch; padding: 16px; border-bottom: 2px solid var(--color-primary); color: var(--color-white); background: #222222a8; font: italic 500 clamp(1.3rem, 2vw, 2rem)/1.2 var(--font-serif); text-align: right; }
+  @media (max-width: 767px) {
+    .about { grid-template-columns: 1fr; }
+    .about__copy { min-height: 0; padding: var(--section-space) var(--gutter); }
+    .about__visual { aspect-ratio: 4 / 3; }
+    .about__visual img { object-position: 30% center; }
+  }
+</style>

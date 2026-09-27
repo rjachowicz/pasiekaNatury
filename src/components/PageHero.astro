@@ -1,0 +1,18 @@
+---
+interface Props { eyebrow: string; title: string; }
+const { eyebrow, title } = Astro.props;
+---
+<section class="page-hero">
+  <div class="container">
+    <p class="eyebrow">{eyebrow}</p>
+    <h1>{title}</h1>
+    <span class="accent-line" aria-hidden="true"></span>
+    <div class="prose"><slot /></div>
+  </div>
+</section>
+<style>
+  .page-hero { position: relative; isolation: isolate; padding-block: clamp(104px, 9vw, 172px) 72px; background: var(--color-soft); }
+  .page-hero::before { content: ''; position: absolute; z-index: -1; inset: 0; background: url('/assets/honeycomb.png') right center / auto 100% no-repeat; opacity: .045; }
+  .eyebrow { margin-bottom: 18px; }
+  h1 { max-width: 15ch; }
+</style>

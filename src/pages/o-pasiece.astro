@@ -1,0 +1,48 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import ValuesSection from '../components/home/ValuesSection.astro';
+import ApiarySection from '../components/home/ApiarySection.astro';
+import CallToAction from '../components/CallToAction.astro';
+---
+<BaseLayout title="O pasiece — Pasieka 100% Natury" description="Poznaj pasję, wartości i codzienność Pasieki 100% Natury. Pszczoły, pszczelarskie rzemiosło i wędrówki w rytmie natury.">
+  <PageHero eyebrow="O pasiece" title="Pasja, natura i tradycja">
+    <p>Blisko pszczół, w rytmie pór roku. Poznaj to, co jest dla nas ważne w codziennej pracy przy pasiece.</p>
+  </PageHero>
+  <section class="section">
+    <div class="container split-content">
+      <div>
+        <SectionHeading eyebrow="Historia pasieki" title="Wszystko zaczyna się od ciekawości natury" />
+        <div class="prose">
+          <!-- Tekst roboczy. Uzupełnij prawdziwą historię, daty i osoby przed publikacją. -->
+          <p>Pasieka to dla nas spotkanie z naturą. Obserwowanie pszczół pozwala dostrzec, jak wiele zależy od małych, codziennych działań — i jak ważne jest otoczenie, w którym żyjemy.</p>
+          <p>Chcemy dzielić się nie tylko miodem, ale też zainteresowaniem światem pszczół. To właśnie tej idei poświęcamy naszą pasiekę: uważności, prostocie i szacunkowi do naturalnego rytmu.</p>
+        </div>
+      </div>
+      <img class="split-content__image" src="/assets/beekeeper.jpg" width="1672" height="940" loading="lazy" alt="Pszczelarz przy ulach, z ramką pszczelą w dłoniach" />
+    </div>
+  </section>
+  <section class="section soft-section">
+    <div class="container split-content">
+      <img class="split-content__image beekeeper-portrait" src="/assets/beekeeper.jpg" width="1672" height="940" loading="lazy" alt="Pszczelarz w kapeluszu ochronnym podczas przeglądu rodziny pszczelej" />
+      <div>
+        <SectionHeading eyebrow="O pszczelarzu" title="Cierpliwość jest częścią tego rzemiosła" />
+        <div class="prose">
+          <!-- Miejsce na osobistą historię i przedstawienie właściciela pasieki. -->
+          <p>Praca z pszczołami wymaga spokoju, obserwacji i gotowości do ciągłego uczenia się. Każdy przegląd ula to okazja, by lepiej poznać potrzeby pszczelej rodziny.</p>
+          <p>Najbliższe są nam proste zasady: troska o pszczoły, uważny wybór miejsc i rzetelność w pracy. O pasiece i jej codzienności najchętniej opowiadamy w rozmowie.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <ValuesSection />
+  <ApiarySection />
+  <CallToAction title="Poznaj nasze miody" href="/produkty" label="Zobacz nasze miody">
+    <p>Od delikatnych kwiatowych nut po głębokie leśne aromaty. Znajdź swój ulubiony smak.</p>
+  </CallToAction>
+</BaseLayout>
+<style>
+  .beekeeper-portrait { aspect-ratio: 1; object-position: 24% center; }
+  @media (max-width: 767px) { .beekeeper-portrait { aspect-ratio: 4 / 3; } }
+</style>

@@ -1,0 +1,39 @@
+---
+import SectionHeading from '../SectionHeading.astro';
+import { products } from '../../data/site';
+---
+<section class="products section">
+  <div class="container">
+    <div class="products__head">
+      <SectionHeading eyebrow="Nasze produkty" title="Naturalne smaki prosto z pasieki" />
+      <p class="prose">Oferujemy miody z różnych pożytków, każdy o wyjątkowym smaku, aromacie i charakterze. Poznaj cztery smaki naszej pasieki.</p>
+    </div>
+    <div class="products__collection">
+      <img class="products__image" src="/assets/products.png" width="2010" height="782" loading="lazy" alt="Cztery słoiki: miód faceliowy, lipowy, gryczany i spadziowy" />
+      <div class="products__labels">
+        {products.map((product) => <article class="product-label"><h3><a href={`/produkty#${product.id}`}>{product.name}</a></h3><p>{product.description}</p></article>)}
+      </div>
+    </div>
+  </div>
+</section>
+<style>
+  .products { position: relative; isolation: isolate; }
+  .products::before { content: ''; position: absolute; inset: 0; z-index: -1; background: url('/assets/honeycomb.png') center / cover; opacity: .045; pointer-events: none; }
+  .products__head { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 64px; align-items: end; }
+  .products__head :global(h2) { max-width: 19ch; }
+  .products__head > p { max-width: 40ch; font-size: .9rem; justify-self: end; }
+  .products__collection { width: min(100%, 1320px); margin: 48px auto 0; }
+  .products__image { width: 100%; }
+  .products__labels { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); margin-top: 16px; }
+  .product-label { padding: 0 12px; text-align: center; }
+  .product-label h3 { font-size: clamp(1.4rem, 2.2vw, 2.25rem); }
+  .product-label a:hover { text-decoration: underline; text-decoration-color: var(--color-primary); text-underline-offset: 6px; }
+  .product-label p { max-width: 25ch; margin: 12px auto 0; color: var(--color-muted); font-size: .8rem; }
+  @media (max-width: 767px) {
+    .products__head { grid-template-columns: 1fr; gap: 24px; }
+    .products__head > p { justify-self: start; }
+    .products__collection { margin-top: 32px; }
+    .products__labels { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px 12px; margin-top: 24px; }
+    .product-label { padding: 0; }
+  }
+</style>

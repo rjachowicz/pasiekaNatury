@@ -1,0 +1,39 @@
+---
+const values = [
+  { title: '100% natury', description: 'Czyste tereny i naturalne pożytki.', icon: 'icon-maple.png' },
+  { title: 'Szacunek do pszczół', description: 'Troska o pszczoły i dobre warunki w ulu.', icon: 'icon-heart.png' },
+  { title: 'Wędrowna pasieka', description: 'Podążamy za kwitnieniem i różnorodnością natury.', icon: null },
+  { title: 'Tradycja i jakość', description: 'Pszczelarskie rzemiosło i uważność na każdym etapie.', icon: 'icon-honey.png' },
+];
+---
+<section class="values section" aria-label="Nasze wartości">
+  <h2 class="sr-only">Nasze wartości</h2>
+  <div class="container values__grid">
+    {values.map((value) => <article class="value">
+      <div class="value__hex" aria-hidden="true"><div class="value__icon">
+        {value.icon ? <img src={`/assets/${value.icon}`} width="64" height="64" loading="lazy" alt="" aria-hidden="true" /> : <svg viewBox="0 0 64 64" aria-hidden="true"><path d="M32 5 18 23h9L15 38h11L17 51h30L38 38h11L37 23h9L32 5Z"/><path d="M29 50h6v10h-6z"/></svg>}
+      </div></div>
+      <h3>{value.title}</h3><p>{value.description}</p>
+    </article>)}
+  </div>
+</section>
+<style>
+  .values__grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .value { display: flex; flex-direction: column; align-items: center; padding: 8px clamp(16px, 2vw, 36px); text-align: center; border-right: 1px solid var(--color-border); }
+  .value:last-child { border-right: 0; }
+  .value__hex { display: grid; place-items: center; width: 106px; height: 94px; margin-bottom: 26px; background: var(--color-primary); clip-path: var(--hexagon); }
+  .value__icon { display: grid; place-items: center; width: 100px; height: 88px; background: var(--color-white); clip-path: inherit; }
+  .value__icon img, .value__icon svg { width: 54px; height: 54px; object-fit: contain; fill: var(--color-primary); }
+  h3 { max-width: 17ch; min-height: 3em; font: 700 .9rem/1.5 var(--font-sans); text-transform: uppercase; letter-spacing: .03em; }
+  p { max-width: 24ch; margin-top: 12px; color: var(--color-muted); font-size: .8rem; }
+  @media (max-width: 900px) {
+    .values__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 40px; }
+    .value:nth-child(2) { border-right: 0; }
+  }
+  @media (max-width: 389px) {
+    .values__grid { grid-template-columns: 1fr; }
+    .value { padding-bottom: 32px; border-right: 0; border-bottom: 1px solid var(--color-border); }
+    .value:last-child { border-bottom: 0; padding-bottom: 0; }
+    h3 { min-height: 0; }
+  }
+</style>

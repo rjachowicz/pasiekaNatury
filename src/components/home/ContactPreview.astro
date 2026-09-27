@@ -1,0 +1,26 @@
+---
+import SectionHeading from '../SectionHeading.astro';
+import Button from '../Button.astro';
+import ContactDetails from '../ContactDetails.astro';
+---
+<section class="contact section">
+  <div class="container contact__inner">
+    <div class="contact__copy">
+      <SectionHeading eyebrow="Kontakt" title="Zapraszamy do kontaktu" />
+      <p class="prose">Masz pytania o nasze miody lub pasiekę? Napisz albo zadzwoń — chętnie porozmawiamy.</p>
+      <div class="contact__bottom"><Button href="/kontakt">Skontaktuj się</Button><img src="/assets/bee-flight.png" width="2048" height="682" loading="lazy" alt="" aria-hidden="true" /></div>
+    </div>
+    <ContactDetails />
+  </div>
+  <img class="contact__flowers" src="/assets/flowers.png" width="208" height="623" loading="lazy" alt="" aria-hidden="true" />
+</section>
+<style>
+  .contact { position: relative; isolation: isolate; overflow: hidden; }
+  .contact__inner { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); align-items: center; gap: clamp(40px, 7vw, 120px); }
+  .prose { max-width: 44ch; margin-top: 28px; font-size: .9rem; }
+  .contact__bottom { display: flex; align-items: center; gap: 28px; margin-top: 32px; }
+  .contact__bottom img { width: clamp(100px, 12vw, 200px); min-width: 0; }
+  .contact__flowers { position: absolute; z-index: -1; right: -24px; bottom: 0; width: clamp(110px, 13vw, 210px); opacity: .25; pointer-events: none; }
+  @media (max-width: 900px) { .contact__inner { grid-template-columns: 1fr; gap: 44px; } }
+  @media (max-width: 389px) { .contact__bottom { flex-wrap: wrap; } }
+</style>

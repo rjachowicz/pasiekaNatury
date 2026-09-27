@@ -1,0 +1,51 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import CallToAction from '../components/CallToAction.astro';
+import { products } from '../data/site';
+---
+<BaseLayout title="Nasze miody — Pasieka 100% Natury" description="Poznaj miody faceliowy, lipowy, gryczany i spadziowy z Pasieki 100% Natury. Odkryj ich smaki i zapytaj o aktualną dostępność.">
+  <PageHero eyebrow="Nasze produkty" title="Naturalne miody prosto z pasieki">
+    <p>Cztery różne charaktery, jedna pasja. Odkryj smaki, które zmieniają się wraz z krajobrazem i porami roku.</p>
+  </PageHero>
+  <section class="section">
+    <div class="container">
+      <div class="products-intro">
+        <SectionHeading eyebrow="Smak natury" title="Każdy pożytek to inna opowieść" />
+        <p class="prose">Delikatny czy wyrazisty? Kwiatowy czy leśny? Wybierz miód według swoich upodobań. Barwa, aromat i konsystencja mogą różnić się między zbiorami — to część ich naturalnego charakteru.</p>
+      </div>
+      <img class="products-photo" src="/assets/products.png" width="2010" height="782" loading="lazy" alt="Miody faceliowy, lipowy, gryczany i spadziowy w czterech słoikach" />
+      <div class="product-grid">
+        {products.map((product, index) => <article class="product-card" id={product.id}>
+          <span class="product-card__number" aria-hidden="true">0{index + 1}</span>
+          <h2>{product.name}</h2>
+          <p class="product-card__description">{product.description}</p>
+          <p class="product-card__detail">{product.detail}</p>
+          <dl>
+            <div><dt>Charakter i właściwości</dt><dd>Szczegółowy opis danej partii uzupełnimy po zbiorach.</dd></div>
+            <div><dt>Dostępne gramatury</dt><dd>Informacje wkrótce. Zapytaj nas o aktualne rozmiary słoików.</dd></div>
+          </dl>
+        </article>)}
+      </div>
+    </div>
+  </section>
+  <CallToAction title="Zapytaj o dostępność" href="/kontakt" label="Zapytaj o dostępność">
+    <p>Dostępność miodów zależy od sezonu i zbiorów. Skontaktuj się z nami, aby poznać aktualną ofertę.</p>
+  </CallToAction>
+</BaseLayout>
+<style>
+  .products-intro { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: end; gap: 64px; }
+  .products-intro :global(h2) { max-width: 18ch; }
+  .products-photo { width: min(100%, 1320px); margin: 48px auto; }
+  .product-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px; }
+  .product-card { position: relative; padding: clamp(24px, 3vw, 48px); border: 1px solid var(--color-border); border-top: 3px solid var(--color-primary); scroll-margin-top: 24px; }
+  .product-card__number { display: block; margin-bottom: 16px; color: var(--color-muted); font-size: .75rem; letter-spacing: .1em; }
+  .product-card h2 { font-size: clamp(2rem, 3vw, 3rem); }
+  .product-card__description { margin-block: 20px 12px; }
+  .product-card__detail { color: var(--color-muted); font-size: .875rem; }
+  dl { display: grid; gap: 20px; margin: 28px 0 0; padding-top: 24px; border-top: 1px solid var(--color-border); }
+  dt { font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; }
+  dd { margin: 6px 0 0; color: var(--color-muted); font-size: .8rem; }
+  @media (max-width: 767px) { .products-intro, .product-grid { grid-template-columns: 1fr; gap: 28px; } .products-photo { margin-block: 32px; } }
+</style>

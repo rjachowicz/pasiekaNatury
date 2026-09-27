@@ -1,0 +1,34 @@
+---
+import { navigation } from '../data/site';
+const pathname = Astro.url.pathname.replace(/\/+$/, '') || '/';
+---
+<footer class="footer">
+  <img class="footer__mountains" src="/assets/mountains.png" width="1254" height="1254" loading="lazy" alt="" aria-hidden="true" />
+  <div class="container footer__content">
+    <div class="footer__top">
+      <a class="footer__logo" href="/" aria-label="Pasieka 100% Natury — strona główna"><img src="/assets/logo.png" width="420" height="420" loading="lazy" alt="Pasieka 100% Natury" /></a>
+      <nav class="footer__nav" aria-label="Nawigacja w stopce">
+        {navigation.map(({ href, label }) => <a href={href} aria-current={pathname === href ? 'page' : undefined}>{label}</a>)}
+      </nav>
+    </div>
+    <p class="footer__copyright">© 2026 Pasieka 100% Natury. Wszelkie prawa zastrzeżone.</p>
+  </div>
+</footer>
+<style>
+  .footer { position: relative; isolation: isolate; overflow: hidden; padding-block: 56px 28px; background: var(--color-dark); color: var(--color-white); }
+  .footer__mountains { position: absolute; z-index: -1; right: 0; bottom: -35%; width: min(60%, 850px); opacity: .09; filter: grayscale(1) invert(1); mix-blend-mode: screen; pointer-events: none; }
+  .footer__top { display: flex; align-items: center; gap: clamp(40px, 8vw, 140px); padding-bottom: 56px; }
+  .footer__logo { flex: 0 0 clamp(140px, 14vw, 220px); }
+  .footer__nav { display: flex; flex-wrap: wrap; gap: 24px clamp(24px, 4vw, 72px); }
+  .footer__nav a { padding-block: 10px; font-size: .75rem; font-weight: 600; border-bottom: 2px solid transparent; }
+  .footer__nav a:hover, .footer__nav a[aria-current] { color: var(--color-primary); }
+  .footer__nav a[aria-current] { border-bottom-color: var(--color-primary); }
+  .footer__copyright { padding-top: 24px; border-top: 1px solid #ffffff20; color: #bbb8b1; font-size: .7rem; }
+  @media (max-width: 767px) {
+    .footer__top { align-items: flex-start; gap: 32px; }
+    .footer__logo { flex-basis: 120px; }
+    .footer__nav { flex-direction: column; align-items: flex-start; gap: 8px; }
+    .footer__mountains { width: 100%; bottom: 0; }
+  }
+  @media (max-width: 359px) { .footer__top { flex-direction: column; } .footer__logo { flex-basis: auto; width: 120px; } }
+</style>
