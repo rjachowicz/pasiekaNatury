@@ -55,7 +55,7 @@ const items = [
         >
           <div class="product-carousel__image-wrap">
             <img
-              src={product.homeImage}
+              src={product.image}
               width="480"
               height="520"
               loading={index < 5 ? "eager" : "lazy"}
@@ -73,7 +73,7 @@ const items = [
               ).padStart(2, "0")}
             </span>
             <h3>{product.name}</h3>
-            <p>{product.description}</p>
+            <p>{product.shortDescription}</p>
             <span class="product-carousel__arrow" aria-hidden="true">
               →
             </span>

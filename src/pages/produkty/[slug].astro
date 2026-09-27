@@ -1,0 +1,353 @@
+---
+import Button from "../../components/ui/Button.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { products } from "../../data/products";
+import type { Product } from "../../data/products";
+
+export function getStaticPaths() {
+  return products.map((product) => ({
+    params: { slug: product.id },
+    props: { product },
+  }));
+}
+
+const { product } = Astro.props as { product: Product };
+const otherProducts = products.filter(({ id }) => id !== product.id);
+---
+
+<BaseLayout
+  title={`${product.name} — Pasieka 100% Natury`}
+  description={product.shortDescription}
+>
+  <section class="product-detail section">
+    <div class="container">
+      <nav class="breadcrumb" aria-label="Okruszki">
+        <a href="/">Strona główna</a>
+        <span aria-hidden="true">/</span>
+        <a href="/produkty">Produkty</a>
+        <span aria-hidden="true">/</span>
+        <span aria-current="page">{product.name}</span>
+      </nav>
+
+      <div class="product-detail__hero">
+        <div class="product-detail__image" data-reveal>
+          <img
+            src={product.image}
+            width="480"
+            height="520"
+            loading="eager"
+            alt={`Słoik: ${product.name.toLocaleLowerCase("pl")}`}
+          />
+        </div>
+        <div class="product-detail__content" data-reveal>
+          <p class="eyebrow eyebrow--line">Miód z naszej pasieki</p>
+          <h1>{product.name}</h1>
+          <p class="product-detail__lead">{product.shortDescription}</p>
+          <div class="product-detail__character">
+            <p>Charakter</p>
+            <strong>{product.character}</strong>
+          </div>
+          <ul
+            class="product-detail__tags"
+            aria-label={`Nuty smakowe: ${product.name}`}
+          >
+            {product.tags.map((tag) => (
+              <li>{tag}</li>
+            ))}
+          </ul>
+          <Button href={`/kontakt?produkt=${encodeURIComponent(product.id)}`}>
+            Zapytaj o produkt
+          </Button>
+        </div>
+      </div>
+
+      <div class="product-detail__body">
+        <div class="product-detail__description">
+          <p class="eyebrow eyebrow--line">Poznaj bliżej</p>
+          <h2>Smak i aromat</h2>
+          <p>{product.description}</p>
+        </div>
+        {product.sizes?.length && (
+          <section class="product-detail__sizes" aria-labelledby="sizes-title">
+            <p class="eyebrow eyebrow--line">Dostępne gramatury</p>
+            <h2 id="sizes-title">Wybierz pojemność</h2>
+            <ul>
+              {product.sizes.map((size) => (
+                <li>{size}</li>
+              ))}
+            </ul>
+          </section>
+        )}
+      </div>
+
+      <aside
+        class="product-detail__notice"
+        aria-label="Informacja o dostępności"
+      >
+        Prezentacja produktu ma charakter informacyjny i nie stanowi aktualnej
+        oferty sprzedaży. Dostępność, gramatury, warianty i ceny mogą się
+        zmieniać. Aby poznać aktualną ofertę, skontaktuj się ze sprzedawcą.
+      </aside>
+    </div>
+  </section>
+
+  {otherProducts.length > 0 && (
+    <section class="other-products section--sm soft-section">
+      <div class="container">
+        <div class="other-products__heading">
+          <p class="eyebrow eyebrow--line">Poznaj także</p>
+          <h2>Inne miody</h2>
+        </div>
+        <div class="other-products__grid">
+          {otherProducts.map((other) => (
+            <a href={`/produkty/${other.id}`}>
+              <span>
+                {String(
+                  products.findIndex(({ id }) => id === other.id) + 1,
+                ).padStart(2, "0")}
+              </span>
+              <div>
+                <h3>{other.name}</h3>
+                <p>{other.shortDescription}</p>
+              </div>
+              <b aria-hidden="true">→</b>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+</BaseLayout>
+
+<style>
+  .breadcrumb {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: var(--space-5);
+    color: var(--color-muted);
+    font-size: var(--text-eyebrow);
+  }
+
+  .breadcrumb a:hover {
+    color: var(--color-dark);
+    text-decoration: underline;
+    text-decoration-color: var(--color-primary);
+    text-underline-offset: 4px;
+  }
+
+  .product-detail__hero {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    align-items: stretch;
+    border: var(--border);
+  }
+
+  .product-detail__image {
+    display: grid;
+    place-items: center;
+    min-height: 540px;
+    padding: var(--space-5);
+    border-right: var(--border);
+    background: var(--color-soft);
+  }
+
+  .product-detail__image img {
+    width: min(100%, 390px);
+    max-height: 480px;
+    object-fit: contain;
+  }
+
+  .product-detail__content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    padding: clamp(2rem, 6vw, 5rem);
+  }
+
+  .product-detail__content h1 {
+    margin-top: var(--space-2);
+  }
+
+  .product-detail__lead {
+    max-width: 42ch;
+    margin-top: var(--space-3);
+    color: var(--color-muted);
+    font-size: clamp(1.05rem, 1rem + 0.25vw, 1.2rem);
+  }
+
+  .product-detail__character {
+    margin-top: var(--space-4);
+  }
+
+  .product-detail__character p {
+    margin-bottom: 4px;
+    color: var(--color-muted);
+    font-size: var(--text-eyebrow);
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .product-detail__character strong {
+    font-family: var(--font-heading);
+    font-size: 1.35rem;
+    font-weight: 600;
+  }
+
+  .product-detail__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 0;
+    margin: var(--space-3) 0 var(--space-4);
+    list-style: none;
+  }
+
+  .product-detail__tags li {
+    padding: 5px 9px;
+    border: var(--border);
+    background: var(--color-soft);
+    color: var(--color-muted);
+    font-size: var(--text-eyebrow);
+  }
+
+  .product-detail__body {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(240px, 0.6fr);
+    gap: var(--space-grid);
+    max-width: 1000px;
+    margin: var(--space-section-sm) auto;
+  }
+
+  .product-detail__description p:last-child {
+    max-width: 58ch;
+    margin-top: var(--space-3);
+    color: var(--color-muted);
+  }
+
+  .product-detail__sizes {
+    padding: var(--space-4);
+    border-left: 2px solid var(--color-primary);
+    background: var(--color-soft);
+  }
+
+  .product-detail__sizes h2 {
+    font-size: var(--text-card-title);
+  }
+
+  .product-detail__sizes ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 0;
+    margin: var(--space-3) 0 0;
+    list-style: none;
+  }
+
+  .product-detail__sizes li {
+    padding: 6px 10px;
+    border: var(--border);
+    background: var(--color-white);
+    font-size: var(--text-small);
+  }
+
+  .product-detail__notice {
+    max-width: 1000px;
+    padding: var(--space-3) var(--space-4);
+    margin-inline: auto;
+    border-left: 3px solid var(--color-primary);
+    background: var(--color-soft);
+    color: var(--color-muted);
+    font-size: var(--text-small);
+  }
+
+  .other-products__heading {
+    margin-bottom: var(--space-4);
+  }
+
+  .other-products__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-3);
+  }
+
+  .other-products__grid a {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    gap: var(--space-2);
+    align-items: start;
+    min-height: 180px;
+    padding: var(--space-3);
+    border: var(--border);
+    background: var(--color-white);
+    transition:
+      border-color var(--transition),
+      box-shadow var(--transition);
+  }
+
+  .other-products__grid a:hover,
+  .other-products__grid a:focus-visible {
+    border-color: #c2ac70;
+    box-shadow: var(--shadow-subtle);
+  }
+
+  .other-products__grid span {
+    color: var(--color-primary-hover);
+    font-size: var(--text-eyebrow);
+    font-weight: 700;
+    letter-spacing: 0.1em;
+  }
+
+  .other-products__grid h3 {
+    font-size: 1.6rem;
+  }
+
+  .other-products__grid p {
+    margin-top: var(--space-2);
+    color: var(--color-muted);
+    font-size: var(--text-small);
+  }
+
+  .other-products__grid b {
+    font-weight: 400;
+  }
+
+  @media (max-width: 899px) {
+    .product-detail__hero,
+    .product-detail__body {
+      grid-template-columns: 1fr;
+    }
+
+    .product-detail__image {
+      min-height: 420px;
+      border-right: 0;
+      border-bottom: var(--border);
+    }
+
+    .other-products__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 639px) {
+    .breadcrumb {
+      margin-bottom: var(--space-4);
+    }
+
+    .product-detail__image {
+      min-height: 310px;
+      padding: var(--space-3);
+    }
+
+    .product-detail__image img {
+      width: min(100%, 250px);
+      max-height: 280px;
+    }
+
+    .product-detail__body {
+      margin-block: var(--space-section-sm);
+    }
+  }
+</style>

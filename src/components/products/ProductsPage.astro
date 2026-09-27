@@ -4,6 +4,7 @@ import PageHero from "../ui/PageHero.astro";
 import SectionHeading from "../ui/SectionHeading.astro";
 import CallToAction from "../ui/CallToAction.astro";
 import ProductCard from "./ProductCard.astro";
+import ProductQuickNav from "./ProductQuickNav.astro";
 import FeatureTile from "../ui/FeatureTile.astro";
 import { products } from "../../data/products";
 ---
@@ -17,12 +18,12 @@ import { products } from "../../data/products";
   </PageHero>
   <section class="section">
     <div class="container">
-      <div class="products-intro">
+      <div class="products-intro" data-reveal>
         <SectionHeading
           eyebrow="Smak natury"
           title="Każdy pożytek to inna opowieść"
         />
-        <p class="prose">
+        <p class="products-intro__copy">
           Delikatny czy wyrazisty? Kwiatowy czy leśny? Wybierz miód według
           swoich upodobań. Barwa, aromat i konsystencja mogą różnić się między
           zbiorami — to część ich naturalnego charakteru.
@@ -30,15 +31,19 @@ import { products } from "../../data/products";
       </div>
       <AssetImage
         class="products-photo"
-        sizes="(max-width: 1200px) 92vw, 1120px"
+        sizes="(max-width: 960px) 100vw, 900px"
         src="/assets/products.png"
         loading="lazy"
         alt="Miody faceliowy, lipowy, gryczany i spadziowy w czterech słoikach"
       />
-      <div class="catalog-heading">
-        <p class="eyebrow eyebrow--line">Wybierz swój smak</p>
-        <span>{String(products.length).padStart(2, "0")} / Nasze miody</span>
+      <div class="catalog-heading" data-reveal>
+        <div>
+          <p class="eyebrow eyebrow--line">Wybierz swój smak</p>
+          <h2>Nasze miody</h2>
+        </div>
+        <span>{String(products.length).padStart(2, "0")} rodzaje miodu</span>
       </div>
+      <ProductQuickNav />
       <div class="product-grid">
         {products.map((product, index) => (
           <ProductCard product={product} index={index} />
@@ -82,7 +87,7 @@ import { products } from "../../data/products";
 <style>
   .products-intro {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
     align-items: end;
     gap: var(--space-grid);
   }
@@ -91,9 +96,15 @@ import { products } from "../../data/products";
     max-width: 18ch;
   }
 
+  .products-intro__copy {
+    max-width: 54ch;
+    justify-self: end;
+    color: var(--color-muted);
+  }
+
   .products-photo {
-    width: min(100%, 1120px);
-    margin: var(--space-5) auto var(--space-section-sm);
+    width: min(100%, 900px);
+    margin: clamp(2.5rem, 7vw, 5.5rem) auto var(--space-section-sm);
   }
 
   .catalog-heading {
@@ -101,8 +112,7 @@ import { products } from "../../data/products";
     justify-content: space-between;
     align-items: center;
     gap: 16px;
-    padding-block: 24px;
-    border-top: 1px solid var(--color-border);
+    padding-bottom: var(--space-3);
   }
 
   .catalog-heading > span {
@@ -110,10 +120,15 @@ import { products } from "../../data/products";
     font-size: var(--text-eyebrow);
   }
 
+  .catalog-heading h2 {
+    margin-top: var(--space-1);
+  }
+
   .product-grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 32px;
+    gap: var(--space-3);
+    margin-top: var(--space-4);
   }
 
   @media (max-width: 1199px) {
@@ -126,6 +141,10 @@ import { products } from "../../data/products";
     .products-intro {
       grid-template-columns: 1fr;
       gap: var(--space-3);
+    }
+
+    .products-intro__copy {
+      justify-self: start;
     }
   }
 
