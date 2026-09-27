@@ -44,11 +44,16 @@ import SectionHeading from "../ui/SectionHeading.astro";
     object-position: 60% center;
     -webkit-mask-image: linear-gradient(
       90deg,
-      #000 0%,
-      #000 65%,
+      var(--color-mask) 0%,
+      var(--color-mask) 65%,
       transparent 100%
     );
-    mask-image: linear-gradient(90deg, #000 0%, #000 65%, transparent 100%);
+    mask-image: linear-gradient(
+      90deg,
+      var(--color-mask) 0%,
+      var(--color-mask) 65%,
+      transparent 100%
+    );
   }
 
   .apiary::before {
@@ -58,10 +63,10 @@ import SectionHeading from "../ui/SectionHeading.astro";
     inset: 0;
     background: linear-gradient(
       90deg,
-      #172016e6 0%,
-      #172016b8 35%,
-      #17201655 58%,
-      #17201608 100%
+      var(--color-forest-90) 0%,
+      var(--color-forest-72) 35%,
+      var(--color-forest-33) 58%,
+      var(--color-forest-3) 100%
     );
   }
 
@@ -85,9 +90,9 @@ import SectionHeading from "../ui/SectionHeading.astro";
     .apiary::before {
       background: linear-gradient(
         0deg,
-        #172016ed,
-        #172016b8 52%,
-        #17201608 100%
+        var(--color-forest-93),
+        var(--color-forest-72) 52%,
+        var(--color-forest-3) 100%
       );
     }
 
@@ -95,11 +100,16 @@ import SectionHeading from "../ui/SectionHeading.astro";
       object-position: 62% center;
       -webkit-mask-image: linear-gradient(
         180deg,
-        #000 0%,
-        #000 66%,
+        var(--color-mask) 0%,
+        var(--color-mask) 66%,
         transparent 100%
       );
-      mask-image: linear-gradient(180deg, #000 0%, #000 66%, transparent 100%);
+      mask-image: linear-gradient(
+        180deg,
+        var(--color-mask) 0%,
+        var(--color-mask) 66%,
+        transparent 100%
+      );
     }
 
     .apiary__content > p {

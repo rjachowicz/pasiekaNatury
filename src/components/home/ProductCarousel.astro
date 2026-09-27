@@ -36,9 +36,10 @@ const items = [
     class="product-carousel__viewport"
     data-carousel-viewport
     aria-label="Miody z naszej pasieki"
+    role="region"
     tabindex="0"
   >
-    {items.map(({ product, clone }, index) => (
+    {items.map(({ product, clone }) => (
       <article
         class="product-carousel__card"
         data-carousel-card
@@ -58,7 +59,7 @@ const items = [
               src={product.image}
               width="480"
               height="520"
-              loading={index < 5 ? "eager" : "lazy"}
+              loading="lazy"
               alt={
                 clone
                   ? ""
@@ -106,14 +107,19 @@ const items = [
       const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)");
       const first = originals[0];
       const last = originals[originals.length - 1];
-      const cycleStart = first.offsetLeft;
-      const cycleEnd =
-        last.offsetLeft +
-        last.offsetWidth +
-        Number.parseFloat(getComputedStyle(viewport).gap || "0");
-      const cycleWidth = cycleEnd - cycleStart;
+      let cycleStart = 0;
+      let cycleEnd = 0;
+      let cycleWidth = 0;
       let adjusting = false;
 
+      const measureCycle = () => {
+        const gap = Number.parseFloat(getComputedStyle(viewport).gap || "0");
+        cycleStart = first.offsetLeft;
+        cycleEnd = last.offsetLeft + last.offsetWidth + gap;
+        cycleWidth = cycleEnd - cycleStart;
+      };
+
+      measureCycle();
       viewport.scrollLeft = cycleStart;
 
       const keepLooping = () => {
@@ -145,6 +151,10 @@ const items = [
       previous.addEventListener("click", () => scrollByCard(-1));
       next.addEventListener("click", () => scrollByCard(1));
       viewport.addEventListener("scroll", keepLooping, { passive: true });
+      new ResizeObserver(() => {
+        measureCycle();
+        keepLooping();
+      }).observe(viewport);
       viewport.addEventListener(
         "wheel",
         (event) => {

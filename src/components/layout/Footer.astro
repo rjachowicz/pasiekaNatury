@@ -23,11 +23,7 @@ const year = new Date().getFullYear();
           href="/"
           aria-label="Pasieka 100% Natury — strona główna"
         >
-          <AssetImage
-            src="/assets/logo.png"
-            loading="lazy"
-            alt="Pasieka 100% Natury"
-          />
+          <AssetImage src="/assets/logo.png" loading="lazy" alt="" />
         </a>
         <p>
           Blisko pszczół. Blisko natury.
@@ -172,7 +168,12 @@ const year = new Date().getFullYear();
     position: absolute;
     inset: 0 0 auto;
     height: 1px;
-    background: linear-gradient(90deg, #ffffff30, #f9bd0040 50%, #ffffff10);
+    background: linear-gradient(
+      90deg,
+      var(--color-white-19),
+      var(--color-primary-25) 50%,
+      var(--color-white-6)
+    );
   }
 
   .footer__bottom > span {

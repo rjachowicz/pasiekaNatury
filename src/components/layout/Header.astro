@@ -11,11 +11,7 @@ const pathname = Astro.url.pathname.replace(/\/+$/, "") || "/";
       href="/"
       aria-label="Pasieka 100% Natury — strona główna"
     >
-      <AssetImage
-        src="/assets/logo.png"
-        loading="eager"
-        alt="Pasieka 100% Natury — Wędrowna"
-      />
+      <AssetImage src="/assets/logo.png" loading="eager" alt="" />
     </a>
     <button
       class="header__toggle"
@@ -99,7 +95,7 @@ const pathname = Astro.url.pathname.replace(/\/+$/, "") || "/";
     z-index: var(--z-header);
     background: var(--color-dark);
     color: var(--color-white);
-    box-shadow: 0 1px 0 #ffffff16;
+    box-shadow: 0 1px 0 var(--color-white-9);
   }
 
   .header__inner {
@@ -193,7 +189,7 @@ const pathname = Astro.url.pathname.replace(/\/+$/, "") || "/";
 
     .nav__link {
       min-height: 56px;
-      border-bottom: 1px solid #ffffff14;
+      border-bottom: 1px solid var(--color-white-8);
     }
 
     .nav__link::after {

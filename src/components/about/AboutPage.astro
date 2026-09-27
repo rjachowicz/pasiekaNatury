@@ -190,10 +190,15 @@ import ValuesSection from "./ValuesSection.astro";
     -webkit-mask-image: linear-gradient(
       90deg,
       transparent 0%,
-      #000 28%,
-      #000 100%
+      var(--color-mask) 28%,
+      var(--color-mask) 100%
     );
-    mask-image: linear-gradient(90deg, transparent 0%, #000 28%, #000 100%);
+    mask-image: linear-gradient(
+      90deg,
+      transparent 0%,
+      var(--color-mask) 28%,
+      var(--color-mask) 100%
+    );
   }
   .about-story__photo::after {
     position: absolute;
@@ -202,10 +207,10 @@ import ValuesSection from "./ValuesSection.astro";
       linear-gradient(
         90deg,
         var(--color-white) 0%,
-        #ffffffb8 22%,
+        var(--color-white-72) 22%,
         transparent 48%
       ),
-      linear-gradient(0deg, #22222280, transparent 35%);
+      linear-gradient(0deg, var(--color-dark-50), transparent 35%);
     content: "";
     pointer-events: none;
   }
@@ -301,18 +306,23 @@ import ValuesSection from "./ValuesSection.astro";
     object-position: 58% center;
     -webkit-mask-image: linear-gradient(
       90deg,
-      #000 0%,
-      #000 62%,
+      var(--color-mask) 0%,
+      var(--color-mask) 62%,
       transparent 100%
     );
-    mask-image: linear-gradient(90deg, #000 0%, #000 62%, transparent 100%);
+    mask-image: linear-gradient(
+      90deg,
+      var(--color-mask) 0%,
+      var(--color-mask) 62%,
+      transparent 100%
+    );
   }
   .nature-rhythm__image::after {
     position: absolute;
     inset: 0;
     background:
       linear-gradient(90deg, transparent 30%, var(--color-dark) 100%),
-      linear-gradient(0deg, #1720166e, transparent 48%);
+      linear-gradient(0deg, var(--color-forest-43), transparent 48%);
     content: "";
   }
   .nature-rhythm__copy {
@@ -359,15 +369,20 @@ import ValuesSection from "./ValuesSection.astro";
       -webkit-mask-image: linear-gradient(
         180deg,
         transparent 0%,
-        #000 26%,
-        #000 100%
+        var(--color-mask) 26%,
+        var(--color-mask) 100%
       );
-      mask-image: linear-gradient(180deg, transparent 0%, #000 26%, #000 100%);
+      mask-image: linear-gradient(
+        180deg,
+        transparent 0%,
+        var(--color-mask) 26%,
+        var(--color-mask) 100%
+      );
     }
     .about-story__photo::after {
       background:
         linear-gradient(180deg, var(--color-white), transparent 38%),
-        linear-gradient(0deg, #22222280, transparent 35%);
+        linear-gradient(0deg, var(--color-dark-50), transparent 35%);
     }
     .nature-rhythm__image {
       min-height: 380px;
@@ -375,11 +390,16 @@ import ValuesSection from "./ValuesSection.astro";
     .nature-rhythm__image :global(img) {
       -webkit-mask-image: linear-gradient(
         180deg,
-        #000 0%,
-        #000 65%,
+        var(--color-mask) 0%,
+        var(--color-mask) 65%,
         transparent 100%
       );
-      mask-image: linear-gradient(180deg, #000 0%, #000 65%, transparent 100%);
+      mask-image: linear-gradient(
+        180deg,
+        var(--color-mask) 0%,
+        var(--color-mask) 65%,
+        transparent 100%
+      );
     }
     .nature-rhythm__image::after {
       background: linear-gradient(0deg, var(--color-dark), transparent 48%);

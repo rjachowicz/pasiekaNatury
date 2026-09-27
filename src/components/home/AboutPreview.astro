@@ -62,7 +62,7 @@ import Button from "../ui/Button.astro";
     background: url("/assets/honeycomb.png") right top / 400px auto no-repeat;
     opacity: 0.045;
     pointer-events: none;
-    mask-image: linear-gradient(45deg, #000, transparent 75%);
+    mask-image: linear-gradient(45deg, var(--color-mask), transparent 75%);
   }
 
   .about__copy > p {
@@ -82,8 +82,13 @@ import Button from "../ui/Button.astro";
     position: absolute;
     inset: 0;
     background:
-      linear-gradient(90deg, var(--color-dark), #222222b8 22%, transparent 44%),
-      linear-gradient(0deg, #161b1399, transparent 52%);
+      linear-gradient(
+        90deg,
+        var(--color-dark),
+        var(--color-dark-72) 22%,
+        transparent 44%
+      ),
+      linear-gradient(0deg, var(--color-olive-60), transparent 52%);
   }
 
   .about__visual img {
@@ -95,10 +100,15 @@ import Button from "../ui/Button.astro";
     -webkit-mask-image: linear-gradient(
       90deg,
       transparent 0%,
-      #000 30%,
-      #000 100%
+      var(--color-mask) 30%,
+      var(--color-mask) 100%
     );
-    mask-image: linear-gradient(90deg, transparent 0%, #000 30%, #000 100%);
+    mask-image: linear-gradient(
+      90deg,
+      transparent 0%,
+      var(--color-mask) 30%,
+      var(--color-mask) 100%
+    );
   }
 
   figcaption {
@@ -131,10 +141,10 @@ import Button from "../ui/Button.astro";
         linear-gradient(
           180deg,
           var(--color-dark),
-          #222222b8 24%,
+          var(--color-dark-72) 24%,
           transparent 44%
         ),
-        linear-gradient(0deg, #161b1399, transparent 55%);
+        linear-gradient(0deg, var(--color-olive-60), transparent 55%);
     }
 
     .about__visual {
@@ -146,10 +156,15 @@ import Button from "../ui/Button.astro";
       -webkit-mask-image: linear-gradient(
         180deg,
         transparent 0%,
-        #000 30%,
-        #000 100%
+        var(--color-mask) 30%,
+        var(--color-mask) 100%
       );
-      mask-image: linear-gradient(180deg, transparent 0%, #000 30%, #000 100%);
+      mask-image: linear-gradient(
+        180deg,
+        transparent 0%,
+        var(--color-mask) 30%,
+        var(--color-mask) 100%
+      );
     }
   }
 </style>

@@ -77,6 +77,7 @@ const gallery = [
         src="/assets/hero.jpg"
         width="1440"
         height="960"
+        loading="lazy"
         alt=""
       />
       <button
@@ -187,7 +188,7 @@ const gallery = [
     inset: 0;
     display: grid;
     place-items: center;
-    background: #22222238;
+    background: var(--color-dark-22);
     opacity: 0;
     transition: opacity var(--transition);
   }
@@ -212,7 +213,7 @@ const gallery = [
   }
 
   .gallery__dialog::backdrop {
-    background: #171713e8;
+    background: var(--color-overlay-dark);
   }
 
   .gallery__dialog-content {
@@ -237,8 +238,8 @@ const gallery = [
     width: 44px;
     height: 44px;
     padding: 0;
-    border: 1px solid #ffffff66;
-    background: #22222299;
+    border: 1px solid var(--color-white-40);
+    background: var(--color-dark-60);
     color: var(--color-white);
     cursor: pointer;
   }
