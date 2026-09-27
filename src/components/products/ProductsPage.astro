@@ -51,6 +51,26 @@ import { products } from "../../data/products";
       </div>
     </div>
   </section>
+  <section class="section--sm product-guide">
+    <div class="container product-guide__inner" data-reveal>
+      <div>
+        <p class="eyebrow eyebrow--line">Jak wybierać</p>
+        <h2>Miód, który pasuje do Twojego rytmu dnia</h2>
+      </div>
+      <div class="product-guide__copy">
+        <p>
+          Jasne miody kwiatowe są łagodne i lekkie, dlatego dobrze odnajdują się
+          w śniadaniach oraz napojach. Ciemniejsze odmiany mają bardziej
+          wyrazisty aromat i ciekawie uzupełniają wypieki, sery oraz kuchnię
+          wytrawną.
+        </p>
+        <p>
+          Krystalizacja jest naturalnym procesem. Nie zmienia wartości miodu, a
+          tempo jej przebiegu zależy od odmiany i warunków przechowywania.
+        </p>
+      </div>
+    </div>
+  </section>
   <section
     class="section--sm soft-section section-divider"
     aria-label="Blisko natury"
@@ -131,6 +151,30 @@ import { products } from "../../data/products";
     margin-top: var(--space-4);
   }
 
+  .product-guide {
+    padding-top: 0;
+  }
+
+  .product-guide__inner {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    gap: var(--space-grid);
+    padding-block: var(--space-5);
+    border-block: var(--border);
+  }
+
+  .product-guide h2 {
+    max-width: 16ch;
+    margin-top: var(--space-2);
+  }
+
+  .product-guide__copy {
+    display: grid;
+    gap: var(--space-3);
+    max-width: 58ch;
+    color: var(--color-muted);
+  }
+
   @media (max-width: 1199px) {
     .product-grid {
       grid-template-columns: 1fr;
@@ -145,6 +189,10 @@ import { products } from "../../data/products";
 
     .products-intro__copy {
       justify-self: start;
+    }
+
+    .product-guide__inner {
+      grid-template-columns: 1fr;
     }
   }
 

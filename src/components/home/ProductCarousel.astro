@@ -1,12 +1,10 @@
 ---
 import { products } from "../../data/products";
 
-const tail = products.slice(-3);
-const head = products.slice(0, 3);
 const items = [
-  ...tail.map((product) => ({ product, clone: true })),
+  ...products.map((product) => ({ product, clone: true })),
   ...products.map((product) => ({ product, clone: false })),
-  ...head.map((product) => ({ product, clone: true })),
+  ...products.map((product) => ({ product, clone: true })),
 ];
 ---
 
@@ -45,6 +43,7 @@ const items = [
         data-carousel-card
         data-original={clone ? undefined : "true"}
         aria-hidden={clone ? "true" : undefined}
+        inert={clone || undefined}
         data-reveal={clone ? undefined : true}
       >
         <a
@@ -57,13 +56,11 @@ const items = [
           <div class="product-carousel__image-wrap">
             <img
               src={product.image}
-              width="480"
-              height="520"
+              width="640"
+              height="780"
               loading="lazy"
               alt={
-                clone
-                  ? ""
-                  : `Tymczasowa ilustracja: ${product.name.toLocaleLowerCase("pl")}`
+                clone ? "" : `Słoik: ${product.name.toLocaleLowerCase("pl")}`
               }
             />
           </div>
@@ -110,60 +107,75 @@ const items = [
       let cycleStart = 0;
       let cycleEnd = 0;
       let cycleWidth = 0;
-      let adjusting = false;
+      let scrollTimer = 0;
+      let isAdjusting = false;
 
-      const measureCycle = () => {
-        const gap = Number.parseFloat(getComputedStyle(viewport).gap || "0");
+      const measure = () => {
+        const gap = Number.parseFloat(
+          getComputedStyle(viewport).columnGap || "0",
+        );
         cycleStart = first.offsetLeft;
         cycleEnd = last.offsetLeft + last.offsetWidth + gap;
         cycleWidth = cycleEnd - cycleStart;
       };
 
-      measureCycle();
-      viewport.scrollLeft = cycleStart;
+      const normalizePosition = () => {
+        if (isAdjusting || cycleWidth === 0) return;
 
-      const keepLooping = () => {
-        if (adjusting || cycleWidth <= 0) return;
-        const maxOffset = viewport.scrollWidth - viewport.clientWidth;
-
-        if (viewport.scrollLeft < cycleStart - 2) {
-          adjusting = true;
-          viewport.scrollLeft += cycleWidth;
-          requestAnimationFrame(() => (adjusting = false));
-        } else if (
-          viewport.scrollLeft > cycleEnd - 2 &&
-          viewport.scrollLeft < maxOffset - 1
-        ) {
-          adjusting = true;
-          viewport.scrollLeft -= cycleWidth;
-          requestAnimationFrame(() => (adjusting = false));
+        const position = viewport.scrollLeft;
+        if (position < cycleStart - 1) {
+          isAdjusting = true;
+          viewport.scrollTo({ left: position + cycleWidth, behavior: "auto" });
+        } else if (position >= cycleEnd - 1) {
+          isAdjusting = true;
+          viewport.scrollTo({ left: position - cycleWidth, behavior: "auto" });
+        } else {
+          return;
         }
+
+        requestAnimationFrame(() => {
+          isAdjusting = false;
+        });
       };
 
-      const scrollByCard = (direction: number) => {
-        const gap = Number.parseFloat(getComputedStyle(viewport).gap || "0");
-        viewport.scrollBy({
-          left: direction * (first.offsetWidth + gap),
+      const finishScrolling = () => {
+        window.clearTimeout(scrollTimer);
+        scrollTimer = window.setTimeout(normalizePosition, 90);
+      };
+
+      const scrollToAdjacentCard = (direction: number) => {
+        const cards = [
+          ...viewport.querySelectorAll<HTMLElement>("[data-carousel-card]"),
+        ];
+        const currentIndex = cards.reduce((closestIndex, card, index) => {
+          const closest = cards[closestIndex];
+          return Math.abs(card.offsetLeft - viewport.scrollLeft) <
+            Math.abs(closest.offsetLeft - viewport.scrollLeft)
+            ? index
+            : closestIndex;
+        }, 0);
+        const target = cards[currentIndex + direction];
+
+        if (!target) return;
+        viewport.scrollTo({
+          left: target.offsetLeft,
           behavior: reduceMotion.matches ? "auto" : "smooth",
         });
       };
 
-      previous.addEventListener("click", () => scrollByCard(-1));
-      next.addEventListener("click", () => scrollByCard(1));
-      viewport.addEventListener("scroll", keepLooping, { passive: true });
+      requestAnimationFrame(() => {
+        measure();
+        viewport.scrollLeft = cycleStart;
+      });
+
+      previous.addEventListener("click", () => scrollToAdjacentCard(-1));
+      next.addEventListener("click", () => scrollToAdjacentCard(1));
+      viewport.addEventListener("scroll", finishScrolling, { passive: true });
+      viewport.addEventListener("scrollend", normalizePosition);
       new ResizeObserver(() => {
-        measureCycle();
-        keepLooping();
+        measure();
+        normalizePosition();
       }).observe(viewport);
-      viewport.addEventListener(
-        "wheel",
-        (event) => {
-          if (Math.abs(event.deltaY) <= Math.abs(event.deltaX)) return;
-          event.preventDefault();
-          viewport.scrollBy({ left: event.deltaY, behavior: "auto" });
-        },
-        { passive: false },
-      );
     });
 </script>
 
@@ -172,21 +184,20 @@ const items = [
     position: relative;
     padding-top: var(--space-4);
   }
-
   .product-carousel__controls {
     display: flex;
     justify-content: flex-end;
     gap: 8px;
     margin-bottom: var(--space-2);
   }
-
   .product-carousel__button {
     display: grid;
-    place-items: center;
     width: 42px;
     height: 42px;
     padding: 0;
+    place-items: center;
     border: var(--border);
+    border-radius: var(--radius-sm);
     background: var(--color-white);
     color: var(--color-dark);
     cursor: pointer;
@@ -195,57 +206,58 @@ const items = [
       color var(--transition),
       border-color var(--transition);
   }
-
   .product-carousel__button:hover {
     border-color: var(--color-primary);
     background: var(--color-primary);
   }
-
   .product-carousel__viewport {
     display: grid;
-    grid-auto-columns: calc((100% - 2 * var(--space-3)) / 3);
+    grid-auto-columns: minmax(300px, 360px);
     grid-auto-flow: column;
     gap: var(--space-3);
     overflow-x: auto;
     overscroll-behavior-x: contain;
-    scroll-behavior: smooth;
     scroll-snap-type: x mandatory;
     scrollbar-width: none;
   }
-
   .product-carousel__viewport::-webkit-scrollbar {
     display: none;
   }
-
   .product-carousel__card {
     min-width: 0;
+    overflow: hidden;
     scroll-snap-align: start;
-    border-top: var(--border);
-    border-bottom: var(--border);
+    border: var(--border);
+    border-radius: var(--radius-card);
     background: var(--color-white);
+    box-shadow: var(--shadow-subtle);
   }
-
   .product-carousel__card > a {
     display: grid;
     height: 100%;
   }
-
   .product-carousel__image-wrap {
+    display: grid;
+    height: 310px;
+    padding: var(--space-2);
+    place-items: center;
     border-bottom: var(--border);
-    background: var(--color-soft);
+    background: radial-gradient(
+      circle at 50% 75%,
+      #eee8d8,
+      var(--color-soft) 65%
+    );
   }
-
   .product-carousel__image-wrap img {
-    width: 100%;
-    aspect-ratio: 1 / 1.02;
-    object-fit: cover;
+    width: min(100%, 255px);
+    height: 100%;
+    object-fit: contain;
   }
-
   .product-carousel__body {
     position: relative;
+    min-height: 220px;
     padding: var(--space-3) var(--space-3) var(--space-4);
   }
-
   .product-carousel__number {
     display: block;
     margin-bottom: var(--space-2);
@@ -254,12 +266,10 @@ const items = [
     font-weight: 600;
     letter-spacing: 0.1em;
   }
-
   .product-carousel h3 {
     max-width: 12ch;
     font-size: var(--text-card-title);
   }
-
   .product-carousel p {
     max-width: 30ch;
     margin-top: var(--space-2);
@@ -267,7 +277,6 @@ const items = [
     color: var(--color-muted);
     font-size: var(--text-small);
   }
-
   .product-carousel__arrow {
     position: absolute;
     right: var(--space-3);
@@ -277,31 +286,29 @@ const items = [
       transform var(--transition),
       color var(--transition);
   }
-
   .product-carousel__card > a:hover .product-carousel__arrow,
   .product-carousel__card > a:focus-visible .product-carousel__arrow {
     color: var(--color-dark);
     transform: translateX(4px);
   }
-
   @media (max-width: 899px) {
     .product-carousel__viewport {
-      grid-auto-columns: calc((100% - var(--space-3)) / 2);
+      grid-auto-columns: 320px;
     }
   }
-
   @media (max-width: 639px) {
     .product-carousel {
       margin-right: calc(var(--gutter) * -1);
     }
-
     .product-carousel__controls {
       padding-right: var(--gutter);
     }
-
     .product-carousel__viewport {
-      grid-auto-columns: minmax(250px, calc(100% - 52px));
+      grid-auto-columns: 276px;
       padding-right: var(--gutter);
+    }
+    .product-carousel__image-wrap {
+      height: 270px;
     }
   }
 </style>

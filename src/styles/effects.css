@@ -1,5 +1,11 @@
 .soft-section {
-  background: var(--color-soft);
+  background:
+    radial-gradient(
+      circle at 6% 18%,
+      var(--color-primary-25),
+      transparent 20rem
+    ),
+    var(--color-soft);
 }
 .section-divider {
   position: relative;

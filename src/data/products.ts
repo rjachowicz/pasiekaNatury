@@ -20,7 +20,7 @@ export const products: Product[] = [
       "Subtelny aromat dobrze komponuje się z pieczywem, jogurtem i lekkimi deserami.",
     character: "Łagodny, kwiatowy, subtelny.",
     tags: ["łagodny", "kwiatowy", "subtelny"],
-    image: "/assets/product-faceliowy-placeholder.svg",
+    image: "/assets/product-faceliowy.png",
     featured: true,
   },
   {
@@ -31,7 +31,7 @@ export const products: Product[] = [
       "Dla miłośników intensywnych kwiatowych nut. Sprawdzi się jako dodatek do letniej herbaty.",
     character: "Wyrazisty, z aromatem kwiatów lipy.",
     tags: ["wyrazisty", "lipowy", "kwiatowy"],
-    image: "/assets/product-lipowy-placeholder.svg",
+    image: "/assets/product-lipowy.png",
     featured: true,
   },
   {
@@ -42,7 +42,7 @@ export const products: Product[] = [
       "Wyrazisty towarzysz domowych wypieków, twarogu i śniadań z charakterem.",
     character: "Zdecydowany, intensywny, głęboki.",
     tags: ["zdecydowany", "intensywny", "głęboki"],
-    image: "/assets/product-gryczany-placeholder.svg",
+    image: "/assets/product-gryczany.png",
     featured: true,
   },
   {
@@ -53,7 +53,7 @@ export const products: Product[] = [
       "Bogaty aromat dla osób, które szukają mniej kwiatowych, bardziej żywicznych nut.",
     character: "Leśny, bogaty, z żywiczną nutą.",
     tags: ["leśny", "bogaty", "żywiczny"],
-    image: "/assets/product-spadziowy-placeholder.svg",
+    image: "/assets/product-spadziowy.png",
     featured: true,
   },
 ];

@@ -44,9 +44,11 @@ const number = String(index + 1).padStart(2, "0");
 <style>
   .product-card {
     display: grid;
-    grid-template-columns: minmax(180px, 0.8fr) minmax(0, 1.2fr);
+    grid-template-columns: minmax(220px, 0.9fr) minmax(0, 1.1fr);
     min-width: 0;
     border: var(--border);
+    border-radius: var(--radius-card);
+    overflow: hidden;
     background: var(--color-white);
     transition:
       border-color var(--transition),
@@ -63,15 +65,19 @@ const number = String(index + 1).padStart(2, "0");
   .product-card__image {
     display: grid;
     place-items: center;
-    min-height: 280px;
-    padding: var(--space-3);
+    min-height: 320px;
+    padding: var(--space-4);
     border-right: var(--border);
-    background: var(--color-soft);
+    background: radial-gradient(
+      circle at 50% 72%,
+      #eee8d8,
+      var(--color-soft) 68%
+    );
   }
 
   .product-card__image img {
-    width: min(100%, 260px);
-    max-height: 320px;
+    width: min(100%, 275px);
+    max-height: 350px;
     object-fit: contain;
   }
 
@@ -80,7 +86,7 @@ const number = String(index + 1).padStart(2, "0");
     min-width: 0;
     flex-direction: column;
     align-items: flex-start;
-    padding: clamp(1.5rem, 3vw, 2.5rem);
+    padding: clamp(1.75rem, 3.5vw, 3rem);
   }
 
   .product-card__number {
@@ -100,7 +106,7 @@ const number = String(index + 1).padStart(2, "0");
     flex-wrap: wrap;
     gap: 6px;
     padding: 0;
-    margin: var(--space-3) 0;
+    margin: var(--space-2) 0 var(--space-3);
     list-style: none;
   }
 
@@ -127,7 +133,7 @@ const number = String(index + 1).padStart(2, "0");
     }
 
     .product-card__image {
-      min-height: 250px;
+      min-height: 270px;
       border-right: 0;
       border-bottom: var(--border);
     }

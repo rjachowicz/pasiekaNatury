@@ -75,6 +75,9 @@ import Button from "../ui/Button.astro";
     position: relative;
     min-width: 0;
     height: 560px;
+    overflow: hidden;
+    border-radius: var(--radius-image) 0 0 var(--radius-image);
+    box-shadow: var(--shadow-image);
   }
 
   .about__visual::after {
@@ -149,6 +152,7 @@ import Button from "../ui/Button.astro";
 
     .about__visual {
       height: 400px;
+      border-radius: var(--radius-image) var(--radius-image) 0 0;
     }
 
     .about__visual img {

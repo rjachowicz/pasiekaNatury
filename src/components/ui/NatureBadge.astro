@@ -6,6 +6,14 @@
   >
     <path d="M22 18C21 9 15 4 6 2c1 8 6 13 16 16ZM25 18C26 9 32 4 41 2c-1 8-6 13-16 16Z" />
   </svg>
+  <span
+    class="nature-badge__spark nature-badge__spark--left"
+    aria-hidden="true"
+  ></span>
+  <span
+    class="nature-badge__spark nature-badge__spark--right"
+    aria-hidden="true"
+  ></span>
   <span>Czysta natura</span>
   <strong>Prawdziwy miód</strong>
   <svg
@@ -20,23 +28,35 @@
   .nature-badge {
     display: grid;
     place-items: center;
-    width: 120px;
-    aspect-ratio: 0.87;
-    padding: 17px 12px;
+    position: relative;
+    width: 148px;
+    aspect-ratio: 0.866;
+    padding: 23px 18px;
     background: var(--color-dark);
     color: var(--color-white);
     clip-path: polygon(25% 0, 75% 0, 100% 50%, 75% 100%, 25% 100%, 0 50%);
+    box-shadow: var(--shadow-image);
     text-align: center;
+  }
+
+  .nature-badge::before {
+    position: absolute;
+    inset: 5px;
+    border: 1px solid var(--color-primary-25);
+    clip-path: inherit;
+    content: "";
   }
 
   .nature-badge span,
   .nature-badge strong {
+    position: relative;
+    z-index: 1;
     display: block;
     line-height: 1.1;
   }
 
   .nature-badge span {
-    font-size: 0.62rem;
+    font-size: 0.64rem;
     letter-spacing: 0.09em;
     text-transform: uppercase;
   }
@@ -47,14 +67,33 @@
   }
 
   .nature-badge__leaves {
+    position: relative;
+    z-index: 1;
     width: 34px;
     fill: var(--color-primary);
   }
 
+  .nature-badge__spark {
+    position: absolute;
+    top: 50%;
+    width: 10px;
+    height: 10px;
+    background: var(--color-primary);
+    clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
+  }
+
+  .nature-badge__spark--left {
+    left: 20px;
+  }
+
+  .nature-badge__spark--right {
+    right: 20px;
+  }
+
   @media (max-width: 639px) {
     .nature-badge {
-      width: 94px;
-      padding: 13px 9px;
+      width: 112px;
+      padding: 17px 12px;
     }
 
     .nature-badge span {
@@ -67,6 +106,14 @@
 
     .nature-badge__leaves {
       width: 28px;
+    }
+
+    .nature-badge__spark--left {
+      left: 15px;
+    }
+
+    .nature-badge__spark--right {
+      right: 15px;
     }
   }
 </style>

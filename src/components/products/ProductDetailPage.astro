@@ -90,16 +90,25 @@ const otherProducts = products.filter(({ id }) => id !== product.id);
       <div class="other-products__grid">
         {otherProducts.map((other) => (
           <a href={`/produkty/${other.id}`}>
-            <span>
-              {String(
-                products.findIndex(({ id }) => id === other.id) + 1,
-              ).padStart(2, "0")}
-            </span>
-            <div>
+            <div class="other-products__image">
+              <img
+                src={other.image}
+                width="320"
+                height="390"
+                loading="lazy"
+                alt=""
+              />
+            </div>
+            <div class="other-products__content">
+              <span>
+                {String(
+                  products.findIndex(({ id }) => id === other.id) + 1,
+                ).padStart(2, "0")}
+              </span>
               <h3>{other.name}</h3>
               <p>{other.shortDescription}</p>
+              <b aria-hidden="true">→</b>
             </div>
-            <b aria-hidden="true">→</b>
           </a>
         ))}
       </div>
@@ -127,6 +136,9 @@ const otherProducts = products.filter(({ id }) => id !== product.id);
     grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
     align-items: stretch;
     border: var(--border);
+    border-radius: var(--radius-image);
+    overflow: hidden;
+    box-shadow: var(--shadow-subtle);
   }
   .product-detail__image {
     display: grid;
@@ -134,7 +146,11 @@ const otherProducts = products.filter(({ id }) => id !== product.id);
     min-height: 540px;
     padding: var(--space-5);
     border-right: var(--border);
-    background: var(--color-soft);
+    background: radial-gradient(
+      circle at 50% 74%,
+      #eee8d8,
+      var(--color-soft) 67%
+    );
   }
   .product-detail__image img {
     width: min(100%, 390px);
@@ -192,7 +208,7 @@ const otherProducts = products.filter(({ id }) => id !== product.id);
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(240px, 0.6fr);
     gap: var(--space-grid);
-    max-width: 1000px;
+    max-width: 1040px;
     margin: var(--space-section-sm) auto;
   }
   .product-detail__description p:last-child {
@@ -223,7 +239,7 @@ const otherProducts = products.filter(({ id }) => id !== product.id);
     font-size: var(--text-small);
   }
   .product-detail__notice {
-    max-width: 1000px;
+    max-width: 1040px;
     padding: var(--space-3) var(--space-4);
     margin-inline: auto;
     border-left: 3px solid var(--color-primary);
@@ -241,12 +257,11 @@ const otherProducts = products.filter(({ id }) => id !== product.id);
   }
   .other-products__grid a {
     display: grid;
-    grid-template-columns: auto minmax(0, 1fr) auto;
-    gap: var(--space-2);
-    align-items: start;
-    min-height: 180px;
-    padding: var(--space-3);
+    grid-template-columns: 132px minmax(0, 1fr);
+    min-height: 240px;
     border: var(--border);
+    border-radius: var(--radius-card);
+    overflow: hidden;
     background: var(--color-white);
     transition:
       border-color var(--transition),
@@ -256,6 +271,28 @@ const otherProducts = products.filter(({ id }) => id !== product.id);
   .other-products__grid a:focus-visible {
     border-color: var(--color-accent-border);
     box-shadow: var(--shadow-subtle);
+  }
+  .other-products__image {
+    display: grid;
+    padding: var(--space-2);
+    place-items: center;
+    background: radial-gradient(
+      circle at 50% 72%,
+      #eee8d8,
+      var(--color-soft) 70%
+    );
+  }
+  .other-products__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+  .other-products__content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: var(--space-3);
   }
   .other-products__grid span {
     color: var(--color-primary-hover);
@@ -272,6 +309,8 @@ const otherProducts = products.filter(({ id }) => id !== product.id);
     font-size: var(--text-small);
   }
   .other-products__grid b {
+    margin-top: auto;
+    padding-top: var(--space-2);
     font-weight: 400;
   }
   @media (max-width: 899px) {
@@ -299,6 +338,10 @@ const otherProducts = products.filter(({ id }) => id !== product.id);
     .product-detail__image img {
       width: min(100%, 250px);
       max-height: 280px;
+    }
+    .other-products__grid a {
+      grid-template-columns: 112px minmax(0, 1fr);
+      min-height: 180px;
     }
     .product-detail__body {
       margin-block: var(--space-section-sm);

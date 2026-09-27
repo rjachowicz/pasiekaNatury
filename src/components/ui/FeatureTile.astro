@@ -24,7 +24,9 @@ const { title, description, icon, index } = Astro.props;
     min-width: 0;
     padding: 28px;
     border: 1px solid var(--color-border);
+    border-radius: var(--radius-card);
     background: var(--color-white);
+    box-shadow: var(--shadow-subtle);
     transition: border-color var(--transition);
   }
 
@@ -40,8 +42,12 @@ const { title, description, icon, index } = Astro.props;
   }
 
   .feature-tile__top :global(svg) {
-    width: 32px;
-    height: 32px;
+    width: 58px;
+    height: 58px;
+    padding: 12px;
+    border: 1px solid var(--color-primary);
+    background: var(--color-soft);
+    clip-path: polygon(25% 0, 75% 0, 100% 50%, 75% 100%, 25% 100%, 0 50%);
     object-fit: contain;
   }
 
@@ -64,7 +70,7 @@ const { title, description, icon, index } = Astro.props;
   @media (max-width: 899px) {
     .feature-tile {
       display: grid;
-      grid-template-columns: 36px minmax(0, 1fr);
+      grid-template-columns: 58px minmax(0, 1fr);
       column-gap: 20px;
       padding: 24px;
     }

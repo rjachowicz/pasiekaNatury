@@ -15,17 +15,17 @@ import NatureBadge from "../ui/NatureBadge.astro";
       Prawdziwe miody z czystych terenów, prosto z natury. Z szacunkiem do
       pszczół, tradycji i otaczającego nas środowiska.
     </p>
-    <div data-reveal>
+    <div class="hero__actions" data-reveal>
       <Button href="/o-pasiece">Poznaj naszą pasiekę</Button>
+      <AssetImage
+        class="hero__bee"
+        src="/assets/bee-flight.png"
+        widths={[160, 320]}
+        sizes="160px"
+        alt=""
+        aria-hidden="true"
+      />
     </div>
-    <AssetImage
-      class="hero__bee"
-      src="/assets/bee-flight.png"
-      widths={[160, 320]}
-      sizes="160px"
-      alt=""
-      aria-hidden="true"
-    />
   </div>
   <div class="hero__visual">
     <AssetImage
@@ -52,7 +52,7 @@ import NatureBadge from "../ui/NatureBadge.astro";
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-    min-height: 640px;
+    min-height: 660px;
     padding: var(--space-section) var(--space-grid) var(--space-section)
       var(--page-inset);
   }
@@ -78,19 +78,25 @@ import NatureBadge from "../ui/NatureBadge.astro";
     color: var(--color-muted);
   }
 
+  .hero__actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+  }
+
   .hero__bee {
-    position: absolute;
-    top: 112px;
-    right: var(--space-4);
-    width: 126px;
-    opacity: 0.48;
+    width: 138px;
+    opacity: 0.58;
     pointer-events: none;
   }
 
   .hero__visual {
     position: relative;
     min-width: 0;
-    height: 640px;
+    height: 660px;
+    overflow: hidden;
+    border-radius: var(--radius-image) 0 0 var(--radius-image);
+    box-shadow: var(--shadow-image);
   }
 
   .hero__visual::after {
@@ -148,12 +154,6 @@ import NatureBadge from "../ui/NatureBadge.astro";
       max-width: 48ch;
     }
 
-    .hero__bee {
-      top: 80px;
-      right: var(--page-inset);
-      width: 112px;
-    }
-
     .hero__visual::after {
       background: linear-gradient(
         180deg,
@@ -178,6 +178,10 @@ import NatureBadge from "../ui/NatureBadge.astro";
         var(--color-mask) 100%
       );
     }
+
+    .hero__visual {
+      border-radius: var(--radius-image) var(--radius-image) 0 0;
+    }
   }
 
   @media (max-width: 639px) {
@@ -186,10 +190,8 @@ import NatureBadge from "../ui/NatureBadge.astro";
     }
 
     .hero__bee {
-      width: 96px;
-      top: 68px;
-      right: var(--gutter);
-      opacity: 0.44;
+      width: 102px;
+      opacity: 0.52;
     }
   }
 

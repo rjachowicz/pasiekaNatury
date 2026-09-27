@@ -47,7 +47,15 @@ const values = [
 
 <style>
   .values {
-    background: var(--color-white);
+    position: relative;
+    isolation: isolate;
+    background:
+      radial-gradient(
+        circle at 92% 16%,
+        var(--color-primary-25),
+        transparent 19rem
+      ),
+      var(--color-white);
   }
   .values__heading {
     max-width: 500px;
@@ -59,23 +67,26 @@ const values = [
   .values__grid {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
-    border-top: var(--border);
-    border-left: var(--border);
+    gap: var(--space-2);
   }
   .value {
-    min-height: 280px;
+    min-height: 292px;
     padding: var(--space-3);
-    border-right: var(--border);
-    border-bottom: var(--border);
+    border: var(--border);
+    border-radius: var(--radius-card);
+    background: var(--color-white);
+    box-shadow: var(--shadow-subtle);
   }
   .value__icon {
     display: grid;
     place-items: center;
-    width: 54px;
-    height: 54px;
+    width: 60px;
+    height: 60px;
     margin-bottom: var(--space-4);
     border: 1px solid var(--color-primary);
     color: var(--color-primary);
+    clip-path: polygon(25% 0, 75% 0, 100% 50%, 75% 100%, 25% 100%, 0 50%);
+    background: var(--color-soft);
   }
   .value h3 {
     font-size: var(--text-card-title);
@@ -90,7 +101,7 @@ const values = [
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
     .value {
-      min-height: 220px;
+      min-height: 232px;
     }
   }
   @media (max-width: 479px) {

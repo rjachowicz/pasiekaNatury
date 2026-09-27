@@ -99,7 +99,7 @@ const pathname = Astro.url.pathname.replace(/\/+$/, "") || "/";
   }
 
   .header__inner {
-    min-height: 96px;
+    min-height: 108px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -109,14 +109,14 @@ const pathname = Astro.url.pathname.replace(/\/+$/, "") || "/";
   .header__logo {
     position: relative;
     z-index: 2;
-    flex: 0 0 108px;
+    flex: 0 0 132px;
     align-self: stretch;
   }
 
   .header__logo img {
     position: absolute;
-    top: 8px;
-    width: 108px;
+    top: 7px;
+    width: 132px;
   }
 
   .nav {
@@ -170,13 +170,13 @@ const pathname = Astro.url.pathname.replace(/\/+$/, "") || "/";
     }
 
     .header__logo {
-      flex-basis: 84px;
-      min-height: 76px;
+      flex-basis: 98px;
+      min-height: 82px;
     }
 
     .header__logo img {
-      top: 5px;
-      width: 84px;
+      top: 6px;
+      width: 98px;
     }
 
     .nav {
@@ -200,7 +200,7 @@ const pathname = Astro.url.pathname.replace(/\/+$/, "") || "/";
       position: absolute;
       top: 100%;
       left: 0;
-      max-height: calc(100dvh - 76px);
+      max-height: calc(100dvh - 82px);
       overflow-y: auto;
       padding: var(--space-3) var(--gutter);
       background: var(--color-dark);
