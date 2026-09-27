@@ -1,0 +1,47 @@
+---
+import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
+import type { HTMLAttributes } from "astro/types";
+
+interface Props extends Omit<
+  HTMLAttributes<"img">,
+  "src" | "width" | "height"
+> {
+  src: string;
+  alt: string;
+  widths?: number[];
+}
+
+const assets = import.meta.glob<{ default: ImageMetadata }>(
+  "../../../public/assets/*.{jpg,png}",
+  { eager: true },
+);
+const { src, alt, widths: requestedWidths, sizes, ...attributes } = Astro.props;
+const asset = assets[`../../../public${src}`]?.default;
+if (!asset) throw new Error(`Unknown local image: ${src}`);
+const smallAsset = /\/icon-/.test(src);
+const defaultWidths = smallAsset
+  ? [64, 128]
+  : src.endsWith("logo.png")
+    ? [120, 240]
+    : [320, 640, 960, 1440, asset.width];
+const widths = [
+  ...new Set(
+    (requestedWidths ?? defaultWidths).filter((width) => width <= asset.width),
+  ),
+].sort((a, b) => a - b);
+---
+
+<Image
+  {...attributes}
+  src={asset}
+  alt={alt}
+  width={widths[widths.length - 1]}
+  widths={widths}
+  sizes={
+    sizes ??
+    (smallAsset ? "40px" : src.endsWith("logo.png") ? "120px" : "100vw")
+  }
+  format="webp"
+  quality={82}
+/>

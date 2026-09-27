@@ -1,0 +1,210 @@
+---
+import AssetImage from "../ui/AssetImage.astro";
+import PageHero from "../ui/PageHero.astro";
+import SectionHeading from "../ui/SectionHeading.astro";
+import ValuesSection from "./ValuesSection.astro";
+import ApiarySection from "../home/ApiarySection.astro";
+import CallToAction from "../ui/CallToAction.astro";
+import FeatureTile from "../ui/FeatureTile.astro";
+---
+
+<>
+  <PageHero eyebrow="O pasiece" title="Pasja, natura i tradycja">
+    <p>
+      Blisko pszczół, w rytmie pór roku. Poznaj to, co jest dla nas ważne w
+      codziennej pracy przy pasiece.
+    </p>
+  </PageHero>
+  <section class="section">
+    <div class="container split-content">
+      <div>
+        <SectionHeading
+          eyebrow="Historia pasieki"
+          title="Wszystko zaczyna się od ciekawości natury"
+        />
+        <div class="prose">
+          <p>
+            Pasieka to dla nas spotkanie z naturą. Obserwowanie pszczół pozwala
+            dostrzec, jak wiele zależy od małych, codziennych działań — i jak
+            ważne jest otoczenie, w którym żyjemy.
+          </p>
+          <p>
+            Chcemy dzielić się nie tylko miodem, ale też zainteresowaniem
+            światem pszczół. To właśnie tej idei poświęcamy naszą pasiekę:
+            uważności, prostocie i szacunkowi do naturalnego rytmu.
+          </p>
+        </div>
+      </div>
+      <figure class="story-photo">
+        <AssetImage
+          class="split-content__image"
+          sizes="(max-width: 899px) 92vw, 46vw"
+          src="/assets/beekeeper.jpg"
+          loading="lazy"
+          alt="Pszczelarz przy ulach, z ramką pszczelą w dłoniach"
+        />
+        <figcaption>Blisko pszczół. Blisko natury.</figcaption>
+      </figure>
+    </div>
+  </section>
+  <section class="section soft-section beekeeper-story">
+    <div class="container">
+      <div class="beekeeper-story__editorial">
+        <p class="eyebrow">O pszczelarzu</p>
+        <h2 class="sr-only">Cierpliwość jest częścią tego rzemiosła</h2>
+        <blockquote data-reveal>
+          <p>
+            Pszczoły uczą
+            <br />
+            <em>pokory do natury.</em>
+          </p>
+        </blockquote>
+        <span class="accent-line" aria-hidden="true"></span>
+        <div class="prose">
+          <p>
+            Praca z pszczołami wymaga spokoju, obserwacji i gotowości do
+            ciągłego uczenia się. Każdy przegląd ula to okazja, by lepiej poznać
+            potrzeby pszczelej rodziny.
+          </p>
+          <p>
+            Najbliższe są nam proste zasady: troska o pszczoły, uważny wybór
+            miejsc i rzetelność w pracy. O pasiece i jej codzienności
+            najchętniej opowiadamy w rozmowie.
+          </p>
+        </div>
+      </div>
+      <div class="feature-grid">
+        <FeatureTile
+          index={0}
+          title="Troska o pszczoły"
+          description="Spokój i obserwacja pozwalają nam lepiej poznawać potrzeby pszczelej rodziny."
+          icon="icon-heart.png"
+        />
+        <FeatureTile
+          index={1}
+          title="Uważny wybór miejsc"
+          description="Rytm kwitnienia i różnorodność pożytków wyznaczają drogę naszej wędrownej pasieki."
+          icon="icon-maple.png"
+        />
+        <FeatureTile
+          index={2}
+          title="Pszczelarskie rzemiosło"
+          description="Cierpliwość, rzetelność i gotowość do ciągłego uczenia się są częścią naszej codzienności."
+          icon="icon-honey.png"
+        />
+      </div>
+    </div>
+  </section>
+  <ValuesSection />
+  <ApiarySection />
+  <CallToAction
+    title="Poznaj nasze miody"
+    href="/produkty"
+    label="Zobacz nasze miody"
+  >
+    <p>
+      Od delikatnych kwiatowych nut po głębokie leśne aromaty. Znajdź swój
+      ulubiony smak.
+    </p>
+  </CallToAction>
+</>
+<style>
+  .story-photo {
+    position: relative;
+  }
+
+  .split-content__image {
+    width: 100%;
+    height: 460px;
+    object-fit: cover;
+    object-position: 35% center;
+  }
+
+  .story-photo::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(90deg, #fff9, transparent 12%),
+      linear-gradient(0deg, #2229, transparent 35%);
+    pointer-events: none;
+  }
+
+  .story-photo figcaption {
+    position: absolute;
+    z-index: 1;
+    bottom: 24px;
+    left: 24px;
+    padding-left: 16px;
+    border-left: 2px solid var(--color-primary);
+    color: var(--color-white);
+    font-size: var(--text-eyebrow);
+    letter-spacing: 0.06em;
+  }
+
+  .beekeeper-story {
+    position: relative;
+    isolation: isolate;
+  }
+
+  .beekeeper-story::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    left: 0;
+    top: 60px;
+    width: 110px;
+    height: 310px;
+    background: url("/assets/flowers.png") left bottom / contain no-repeat;
+    opacity: 0.12;
+    pointer-events: none;
+  }
+
+  .beekeeper-story__editorial {
+    max-width: 740px;
+    margin: 0 auto var(--space-section-sm);
+    text-align: center;
+  }
+
+  blockquote {
+    margin: 24px 0;
+    font: 500 var(--text-display)/1.06 var(--font-heading);
+    letter-spacing: -0.025em;
+  }
+
+  blockquote em {
+    font-weight: 500;
+  }
+
+  .beekeeper-story .accent-line {
+    margin-inline: auto;
+  }
+
+  .beekeeper-story .prose {
+    max-width: 64ch;
+    margin-inline: auto;
+    font-size: var(--text-small);
+  }
+
+  @media (max-width: 899px) {
+    .split-content__image {
+      height: 380px;
+    }
+
+    .story-photo::after {
+      background:
+        linear-gradient(180deg, #fff8, transparent 16%),
+        linear-gradient(0deg, #2229, transparent 35%);
+    }
+  }
+
+  @media (max-width: 639px) {
+    .split-content__image {
+      height: 320px;
+    }
+
+    .beekeeper-story::before {
+      display: none;
+    }
+  }
+</style>

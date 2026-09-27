@@ -1,0 +1,66 @@
+:root {
+  --color-primary: #f9bd00;
+  --color-primary-hover: #e9ad00;
+  --color-dark: #222222;
+  --color-background: #ffffff;
+  --color-text: #222222;
+  --color-muted: #65615a;
+  --color-white: #ffffff;
+  --color-border: #e3dfd5;
+  --color-soft: #faf8f2;
+  --color-on-dark: #d3d0c9;
+  --font-heading: "Cormorant Garamond", Georgia, serif;
+  --font-body: "Montserrat", Arial, sans-serif;
+  --text-display: clamp(3rem, 4.4vw, 5.25rem);
+  --text-page-title: clamp(2.75rem, 2rem + 2.1vw, 4.1rem);
+  --text-section-title: clamp(2.3rem, 1.65rem + 2.4vw, 3.75rem);
+  --text-card-title: clamp(1.5rem, 2.1vw, 2rem);
+  --text-body: clamp(0.9375rem, 0.9rem + 0.12vw, 1rem);
+  --text-small: 0.8125rem;
+  --text-eyebrow: 0.75rem;
+  --container-wide: 1360px;
+  --container-content: 1280px;
+  --container-text: 720px;
+  --gutter: clamp(20px, 4vw, 48px);
+  --page-inset: max(
+    var(--gutter),
+    calc((100vw - var(--container-content)) / 2)
+  );
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2rem;
+  --space-5: 3rem;
+  --space-section: 6rem;
+  --space-section-sm: 4rem;
+  --space-grid: clamp(2rem, 5vw, 4.5rem);
+  --border-width: 1px;
+  --border: var(--border-width) solid var(--color-border);
+  --radius-none: 0;
+  --transition: 200ms ease;
+  --shadow-subtle: 0 12px 20px #22222212;
+  --z-base: 1;
+  --z-header: 30;
+  --z-overlay: 40;
+  --z-skip-link: 100;
+}
+
+@media (max-width: 1199px) {
+  :root {
+    --space-section: 5rem;
+  }
+}
+
+@media (max-width: 899px) {
+  :root {
+    --space-section: 4.5rem;
+    --space-section-sm: 3rem;
+  }
+}
+
+@media (max-width: 639px) {
+  :root {
+    --space-section: 3.5rem;
+    --space-section-sm: 2.5rem;
+  }
+}

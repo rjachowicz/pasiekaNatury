@@ -1,114 +1,136 @@
 ---
-import AssetImage from '../AssetImage.astro';
-import SectionHeading from '../SectionHeading.astro';
-import Button from '../Button.astro';
+import AssetImage from "../ui/AssetImage.astro";
+import SectionHeading from "../ui/SectionHeading.astro";
+import Button from "../ui/Button.astro";
 ---
+
 <section class="about">
-    <div class="about__copy">
-        <SectionHeading eyebrow="O pasiece" light>Z pasji do pszczół<br/>i natury</SectionHeading>
-        <p>Pasieka 100% Natury to miejsce, w którym pszczelarskie rzemiosło łączy się z miłością do natury. Dbamy o
-            pszczoły i wybieramy różnorodne pożytki, by dzielić się tym, co w miodzie najlepsze.</p>
-        <div data-reveal>
-            <Button href="/o-pasiece">Nasza historia</Button>
-        </div>
+  <div class="about__copy">
+    <SectionHeading eyebrow="O pasiece" light>
+      Z pasji do pszczół
+      <br />i natury
+    </SectionHeading>
+    <p>
+      Pasieka 100% Natury to miejsce, w którym pszczelarskie rzemiosło łączy się
+      z miłością do natury. Dbamy o pszczoły i wybieramy różnorodne pożytki, by
+      dzielić się tym, co w miodzie najlepsze.
+    </p>
+    <div data-reveal>
+      <Button href="/o-pasiece">Nasza historia</Button>
     </div>
-    <figure class="about__visual">
-        <AssetImage src="/assets/beekeeper.jpg"
-                    sizes="(max-width: 639px) 640px, (max-width: 899px) 100vw, max(50vw, 1000px)" loading="lazy"
-                    alt="Pszczelarz oglądający ramkę z pszczołami w słonecznej pasiece"/>
-        <figcaption>Pszczoły uczą<br/>pokory do natury.</figcaption>
-    </figure>
+  </div>
+  <figure class="about__visual">
+    <AssetImage
+      src="/assets/beekeeper.jpg"
+      sizes="(max-width: 639px) 640px, (max-width: 899px) 100vw, max(50vw, 1000px)"
+      loading="lazy"
+      alt="Pszczelarz oglądający ramkę z pszczołami w słonecznej pasiece"
+    />
+    <figcaption>
+      Pszczoły uczą
+      <br />
+      pokory do natury.
+    </figcaption>
+  </figure>
 </section>
 <style>
+  .about {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: center;
+    background: var(--color-dark);
+    color: var(--color-white);
+  }
+
+  .about__copy {
+    position: relative;
+    isolation: isolate;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 48px var(--space-grid) 48px var(--page-inset);
+  }
+
+  .about__copy::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    left: 0;
+    bottom: 0;
+    width: 180px;
+    height: 180px;
+    background: url("/assets/honeycomb.png") right top / 400px auto no-repeat;
+    opacity: 0.045;
+    pointer-events: none;
+    mask-image: linear-gradient(45deg, #000, transparent 75%);
+  }
+
+  .about__copy > p {
+    max-width: 44ch;
+    margin-block: var(--space-3) var(--space-4);
+    color: var(--color-on-dark);
+  }
+
+  .about__visual {
+    position: relative;
+    min-width: 0;
+    height: 560px;
+  }
+
+  .about__visual::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(90deg, var(--color-dark), transparent 16%),
+      linear-gradient(0deg, #161b1399, transparent 45%);
+  }
+
+  .about__visual img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 32% center;
+  }
+
+  figcaption {
+    position: absolute;
+    z-index: 1;
+    right: var(--space-4);
+    bottom: var(--space-4);
+    padding-right: var(--space-2);
+    border-right: 2px solid var(--color-primary);
+    color: var(--color-white);
+    font: italic 500 var(--text-card-title)/1.15 var(--font-heading);
+    text-align: right;
+  }
+
+  @media (max-width: 899px) {
     .about {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        align-items: center;
-        background: var(--color-dark);
-        color: var(--color-white);
+      grid-template-columns: 1fr;
     }
 
     .about__copy {
-        position: relative;
-        isolation: isolate;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        padding: 48px var(--space-grid) 48px var(--page-inset);
-    }
-
-    .about__copy::before {
-        content: '';
-        position: absolute;
-        z-index: -1;
-        left: 0;
-        bottom: 0;
-        width: 180px;
-        height: 180px;
-        background: url('/assets/honeycomb.png') right top / 400px auto no-repeat;
-        opacity: .045;
-        pointer-events: none;
-        mask-image: linear-gradient(45deg, #000, transparent 75%);
+      padding: var(--space-section) var(--gutter);
     }
 
     .about__copy > p {
-        max-width: 44ch;
-        margin-block: var(--space-3) var(--space-4);
-        color: var(--color-on-dark);
-    }
-
-    .about__visual {
-        position: relative;
-        min-width: 0;
-        height: var(--media-about);
+      max-width: 56ch;
     }
 
     .about__visual::after {
-        content: '';
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(90deg, var(--color-dark), transparent 16%), linear-gradient(0deg, #161b1399, transparent 45%);
+      background:
+        linear-gradient(180deg, var(--color-dark), transparent 18%),
+        linear-gradient(0deg, #161b1399, transparent 50%);
+    }
+
+    .about__visual {
+      height: 400px;
     }
 
     .about__visual img {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        object-position: 32% center;
+      object-position: 30% center;
     }
-
-    figcaption {
-        position: absolute;
-        z-index: 1;
-        right: var(--space-4);
-        bottom: var(--space-4);
-        padding-right: var(--space-2);
-        border-right: 2px solid var(--color-primary);
-        color: var(--color-white);
-        font: italic 500 clamp(1.4rem, 2vw, 1.8rem)/1.15 var(--font-serif);
-        text-align: right;
-    }
-
-    @media (max-width: 899px) {
-        .about {
-            grid-template-columns: 1fr;
-        }
-
-        .about__copy {
-            padding: var(--space-section) var(--gutter);
-        }
-
-        .about__copy > p {
-            max-width: 56ch;
-        }
-
-        .about__visual::after {
-            background: linear-gradient(180deg, var(--color-dark), transparent 18%), linear-gradient(0deg, #161b1399, transparent 50%);
-        }
-
-        .about__visual img {
-            object-position: 30% center;
-        }
-    }
+  }
 </style>
