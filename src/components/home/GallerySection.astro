@@ -11,10 +11,9 @@ const photos = [
 </section>
 <style>
   .gallery { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; padding-top: 8px; }
-  .gallery img { width: 100%; height: clamp(240px, 26vw, 420px); object-fit: cover; }
+  .gallery img { width: 100%; height: var(--media-gallery); object-fit: cover; }
   @media (max-width: 639px) {
     .gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; padding-top: 6px; }
-    .gallery img { height: clamp(150px, 42vw, 240px); }
-    .gallery img:first-child { grid-column: 1 / -1; height: clamp(210px, 55vw, 300px); object-position: center 58%; }
+    .gallery img:first-child { grid-column: 1 / -1; height: 280px; object-position: center 58%; }
   }
 </style>

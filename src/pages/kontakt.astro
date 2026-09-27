@@ -22,19 +22,21 @@ import { contact } from '../data/site';
       <ContactDetails />
     </div>
   </section>
-  <section class="section soft-section">
+  <section class="section--sm directions-section">
     <div class="container">
       <div class="directions">
+        <AssetImage class="directions__landscape" src="/assets/mountains.png" widths={[320, 640]} sizes="400px" loading="lazy" alt="" aria-hidden="true" />
         <div>
-          <SectionHeading eyebrow="Odwiedź nas" title="Dojazd do pasieki" />
+          <SectionHeading eyebrow="Odwiedź nas" title="Dojazd do pasieki" light />
           <p class="prose">Przed przyjazdem zadzwoń, aby ustalić termin i szczegóły dojazdu. Chętnie pomożemy zaplanować wizytę.</p>
+          <p class="directions__note"><span aria-hidden="true"></span>Wizyta po wcześniejszym umówieniu</p>
         </div>
         <div class="directions__details">
           <div class="directions__address">
             <AssetImage src="/assets/icon-location.png" loading="lazy" alt="" aria-hidden="true" />
             <div><span class="eyebrow">Pasieka 100% Natury</span><p>{contact.address}</p></div>
           </div>
-          {contact.directionsUrl ? <Button href={contact.directionsUrl}>Wyznacz trasę</Button> : <Button href={contact.phoneHref}>Zapytaj o dojazd</Button>}
+          <div data-reveal>{contact.directionsUrl ? <Button href={contact.directionsUrl}>Wyznacz trasę</Button> : <Button href={contact.phoneHref}>Zapytaj o dojazd</Button>}</div>
         </div>
       </div>
     </div>
@@ -45,15 +47,21 @@ import { contact } from '../data/site';
 </BaseLayout>
 <style>
   .contact-page__bee { width: 160px; margin-top: var(--space-4); opacity: .65; }
-  .directions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: center; gap: var(--space-grid); }
-  .directions .prose { margin-top: var(--space-3); max-width: 46ch; }
-  .directions__details { padding-left: var(--space-grid); border-left: 1px solid var(--color-border); }
+  .directions-section { padding-top: 0; padding-bottom: var(--space-section); }
+  .directions { position: relative; isolation: isolate; display: grid; grid-template-columns: 1.2fr 1fr; align-items: center; gap: var(--space-grid); padding: 56px; background: var(--color-dark); color: var(--color-white); border-top: 2px solid var(--color-primary); }
+  .directions > div { min-width: 0; }
+  .directions__landscape { position: absolute; z-index: -1; right: 0; bottom: 0; width: 400px; height: 100%; object-fit: contain; object-position: right bottom; opacity: .08; filter: grayscale(1) invert(1); pointer-events: none; }
+  .directions .prose { margin-top: var(--space-3); max-width: 46ch; color: var(--color-on-dark); font-size: .875rem; }
+  .directions__note { display: flex; align-items: center; gap: 10px; margin-top: 24px; font-size: .6875rem; color: var(--color-on-dark); }
+  .directions__note span { flex: 0 0 6px; height: 6px; background: var(--color-primary); }
+  .directions__details { padding-left: 40px; border-left: 1px solid #ffffff26; }
   .directions__address { display: flex; align-items: center; gap: var(--space-2); margin-bottom: var(--space-3); }
   .directions__address img { flex-shrink: 0; width: 32px; height: 32px; }
-  .directions__address .eyebrow { font-size: .625rem; }
+  .directions__address .eyebrow { font-size: .625rem; color: var(--color-on-dark); }
   .directions__address p { margin-top: 4px; font: 600 1.9rem/1.2 var(--font-serif); overflow-wrap: anywhere; }
   @media (max-width: 899px) {
-    .directions { grid-template-columns: 1fr; }
-    .directions__details { padding: var(--space-4) 0 0; border-left: 0; border-top: 1px solid var(--color-border); }
+    .directions { grid-template-columns: 1fr; padding: 40px; gap: 32px; }
+    .directions__details { padding: var(--space-4) 0 0; border-left: 0; border-top: 1px solid #ffffff26; }
   }
+  @media (max-width: 639px) { .directions { padding: 32px 24px; } .contact-page__bee { display: none; } }
 </style>

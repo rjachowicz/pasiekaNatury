@@ -36,7 +36,7 @@ const year = new Date().getFullYear();
   </div>
 </footer>
 <style>
-  .footer { position: relative; isolation: isolate; padding-top: var(--space-section-sm); background: var(--color-dark); color: var(--color-white); }
+  .footer { position: relative; isolation: isolate; padding-top: 72px; background: var(--color-dark); color: var(--color-white); }
   .footer__mountains { position: absolute; z-index: -1; right: 0; bottom: 0; width: min(45%, 560px); height: 100%; object-fit: contain; object-position: right bottom; opacity: .07; filter: grayscale(1) invert(1); pointer-events: none; }
   .footer__grid { display: grid; grid-template-columns: 1.5fr 1fr 1.2fr; gap: var(--space-grid); padding-bottom: var(--space-section-sm); }
   .footer__grid > * { min-width: 0; }
@@ -47,7 +47,8 @@ const year = new Date().getFullYear();
   .footer__nav a, .footer__contact a, .footer__contact > span { display: flex; align-items: center; min-height: 44px; max-width: 100%; overflow-wrap: anywhere; }
   .footer a:hover, .footer a[aria-current] { color: var(--color-primary); }
   .footer__note { margin-top: var(--space-2); color: var(--color-on-dark); font-size: .75rem; }
-  .footer__bottom { display: flex; justify-content: space-between; gap: var(--space-3); padding-block: var(--space-3); border-top: 1px solid #ffffff20; color: var(--color-on-dark); font-size: .75rem; }
+  .footer__bottom { position: relative; display: flex; justify-content: space-between; gap: var(--space-3); padding-block: 28px; color: var(--color-on-dark); font-size: .6875rem; }
+  .footer__bottom::before { content: ''; position: absolute; inset: 0 0 auto; height: 1px; background: linear-gradient(90deg, #ffffff30, #f9bd0040 50%, #ffffff10); }
   .footer__bottom > span { flex-shrink: 0; }
   @media (max-width: 899px) {
     .footer__grid { grid-template-columns: 1fr 1fr; gap: var(--space-4); }
@@ -55,6 +56,7 @@ const year = new Date().getFullYear();
     .footer__logo { flex: 0 0 104px; margin: 0; }
   }
   @media (max-width: 639px) {
+    .footer { padding-top: 48px; }
     .footer__grid { grid-template-columns: 1fr; }
     .footer__brand { display: block; }
     .footer__logo { width: 104px; margin-bottom: var(--space-3); }

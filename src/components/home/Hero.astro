@@ -4,52 +4,47 @@ import Button from '../Button.astro';
 ---
 <section class="hero" aria-labelledby="hero-title">
   <div class="hero__copy">
-    <p class="eyebrow">Naturalne miody</p>
-    <h1 id="hero-title">Pasieka <span>100% Natury</span></h1>
+    <p class="eyebrow eyebrow--line">Naturalne miody</p>
+    <h1 id="hero-title" data-reveal>Pasieka <span>100% Natury</span></h1>
     <span class="accent-line" aria-hidden="true"></span>
     <p class="hero__text">Prawdziwe miody z czystych terenów, prosto z natury. Z szacunkiem do pszczół, tradycji i otaczającego nas środowiska.</p>
-    <div><Button href="/o-pasiece">Poznaj naszą pasiekę</Button></div>
+    <div data-reveal><Button href="/o-pasiece">Poznaj naszą pasiekę</Button></div>
     <AssetImage class="hero__bee" src="/assets/bee-flight.png" widths={[160, 320]} sizes="160px" alt="" aria-hidden="true" />
   </div>
   <div class="hero__visual">
-    <AssetImage class="hero__photo" sizes="(max-width: 639px) 640px, (max-width: 999px) 100vw, max(58vw, 1200px)" src="/assets/hero.jpg" alt="Pszczoła wśród białych kwiatów w ciepłym świetle słońca" loading="eager" fetchpriority="high" />
+    <AssetImage class="hero__photo" sizes="(max-width: 999px) 100vw, 58vw" src="/assets/hero.jpg" alt="Pszczoła wśród białych kwiatów w ciepłym świetle słońca" loading="eager" fetchpriority="high" />
     <div class="hero__badge">
       <AssetImage src="/assets/icon-leaf.png" alt="" aria-hidden="true" />
-      <span><strong>Czysta natura</strong><span>Prawdziwy miód</span></span>
+      <span>Czysta natura</span>
     </div>
   </div>
 </section>
 <style>
-  .hero { display: grid; grid-template-columns: minmax(0, 42fr) minmax(0, 58fr); min-height: clamp(600px, 44vw, 680px); background: var(--color-soft); }
-  .hero__copy { position: relative; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; padding: 64px 32px 100px var(--page-inset); }
+  .hero { display: grid; grid-template-columns: minmax(0, 42fr) minmax(0, 58fr); background: var(--color-soft); }
+  .hero__copy { position: relative; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; padding: 48px 32px 64px var(--page-inset); }
   .eyebrow { margin-bottom: var(--space-3); }
-  h1 { font-size: clamp(3.2rem, 4.4vw, 5.25rem); font-weight: 600; text-transform: uppercase; letter-spacing: -.045em; line-height: .98; }
+  h1 { font-size: clamp(3.2rem, 4.4vw, 5.25rem); font-weight: 500; letter-spacing: -.045em; line-height: 1; }
   h1 span { display: block; }
   .hero__text { max-width: 36ch; margin-bottom: var(--space-4); color: var(--color-muted); }
-  .hero__bee { position: absolute; right: 32px; bottom: 24px; width: 160px; opacity: .75; pointer-events: none; }
-  .hero__visual { position: relative; min-width: 0; }
+  .hero__bee { position: absolute; right: 20px; bottom: 28px; width: 150px; opacity: .4; pointer-events: none; }
+  .hero__visual { position: relative; min-width: 0; height: var(--media-hero); }
+  .hero__visual::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, var(--color-soft), transparent 9%); pointer-events: none; }
   .hero__photo { position: absolute; width: 100%; height: 100%; object-fit: cover; object-position: 47% center; }
-  .hero__badge { position: absolute; right: var(--gutter); bottom: var(--space-4); display: flex; align-items: center; gap: 12px; padding: 14px 18px; color: var(--color-white); background: var(--color-dark); }
+  .hero__badge { position: absolute; z-index: 1; right: var(--page-inset); bottom: var(--space-4); display: flex; align-items: center; gap: 10px; padding: 12px 16px; color: var(--color-white); background: var(--color-dark); border-left: 2px solid var(--color-primary); font-size: .6875rem; letter-spacing: .1em; text-transform: uppercase; }
   .hero__badge img { width: 25px; height: 25px; object-fit: contain; }
-  .hero__badge strong { display: block; font: 500 1.3rem/1.1 var(--font-serif); }
-  .hero__badge span span { display: block; margin-top: 4px; font-size: .625rem; letter-spacing: .07em; text-transform: uppercase; }
-  @media (min-width: 1600px) {
-    .hero { grid-template-columns: minmax(0, calc(50% - 112px)) minmax(0, 1fr); }
-  }
   @media (max-width: 999px) {
     .hero { grid-template-columns: 1fr; min-height: 0; }
     .hero__copy { padding: var(--space-section-sm) var(--page-inset); }
     h1 { font-size: clamp(3.2rem, 7.5vw, 5rem); }
     .hero__text { max-width: 48ch; }
     .hero__bee { right: var(--gutter); bottom: var(--space-4); width: 140px; }
-    .hero__visual { height: clamp(280px, 45vw, 440px); }
+    .hero__visual::after { background: linear-gradient(180deg, var(--color-soft), transparent 12%); }
     .hero__photo { object-position: 50% 46%; }
   }
   @media (max-width: 639px) {
     .hero__copy { padding-block: 48px 64px; }
     h1 { font-size: clamp(2.9rem, 10.5vw, 4.2rem); }
     .hero__bee { width: 96px; bottom: 12px; right: var(--gutter); opacity: .6; }
-    .hero__visual { height: clamp(250px, 65vw, 350px); }
     .hero__badge { right: var(--gutter); bottom: var(--space-2); padding: 10px 14px; }
   }
 </style>

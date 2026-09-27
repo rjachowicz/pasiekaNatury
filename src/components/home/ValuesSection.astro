@@ -7,10 +7,10 @@ const values = [
   { title: 'Tradycja i jakość', description: 'Pszczelarskie rzemiosło i uważność na każdym etapie.', icon: 'icon-honey.png' },
 ];
 ---
-<section class="values section" aria-label="Nasze wartości">
+<section class="values section section-divider" aria-label="Nasze wartości">
   <h2 class="sr-only">Nasze wartości</h2>
-  <div class="container values__grid">
-    {values.map((value) => <article class="value">
+  <div class="container values__grid" data-reveal-group>
+    {values.map((value) => <article class="value" data-reveal>
       <div class="value__hex" aria-hidden="true"><div class="value__icon">
         {value.icon ? <AssetImage src={`/assets/${value.icon}`} loading="lazy" alt="" aria-hidden="true" /> : <svg viewBox="0 0 64 64" aria-hidden="true"><path d="M32 5 18 23h9L15 38h11L17 51h30L38 38h11L37 23h9L32 5Z"/><path d="M29 50h6v10h-6z"/></svg>}
       </div></div>

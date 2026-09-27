@@ -6,6 +6,7 @@ import SectionHeading from '../components/SectionHeading.astro';
 import ValuesSection from '../components/home/ValuesSection.astro';
 import ApiarySection from '../components/home/ApiarySection.astro';
 import CallToAction from '../components/CallToAction.astro';
+import FeatureTile from '../components/FeatureTile.astro';
 ---
 <BaseLayout title="O pasiece — Pasieka 100% Natury" description="Poznaj pasję, wartości i codzienność Pasieki 100% Natury. Pszczoły, pszczelarskie rzemiosło i wędrówki w rytmie natury.">
   <PageHero eyebrow="O pasiece" title="Pasja, natura i tradycja">
@@ -21,21 +22,28 @@ import CallToAction from '../components/CallToAction.astro';
           <p>Chcemy dzielić się nie tylko miodem, ale też zainteresowaniem światem pszczół. To właśnie tej idei poświęcamy naszą pasiekę: uważności, prostocie i szacunkowi do naturalnego rytmu.</p>
         </div>
       </div>
-      <AssetImage class="split-content__image" sizes="(max-width: 899px) 92vw, 46vw" src="/assets/beekeeper.jpg" loading="lazy" alt="Pszczelarz przy ulach, z ramką pszczelą w dłoniach" />
+      <figure class="story-photo">
+        <AssetImage class="split-content__image" sizes="(max-width: 899px) 92vw, 46vw" src="/assets/beekeeper.jpg" loading="lazy" alt="Pszczelarz przy ulach, z ramką pszczelą w dłoniach" />
+        <figcaption>Blisko pszczół. Blisko natury.</figcaption>
+      </figure>
     </div>
   </section>
   <section class="section soft-section beekeeper-story">
-    <div class="container beekeeper-story__inner">
-      <div class="beekeeper-story__heading">
-        <SectionHeading eyebrow="O pszczelarzu" title="Cierpliwość jest częścią tego rzemiosła" />
-        <p class="beekeeper-story__motto">Pszczoły uczą<br /><em>pokory do natury.</em></p>
-      </div>
-      <div>
+    <div class="container">
+      <div class="beekeeper-story__editorial">
+        <p class="eyebrow">O pszczelarzu</p>
+        <h2 class="sr-only">Cierpliwość jest częścią tego rzemiosła</h2>
+        <blockquote data-reveal><p>Pszczoły uczą<br /><em>pokory do natury.</em></p></blockquote>
+        <span class="accent-line" aria-hidden="true"></span>
         <div class="prose">
-          <!-- Miejsce na osobistą historię i przedstawienie właściciela pasieki. -->
           <p>Praca z pszczołami wymaga spokoju, obserwacji i gotowości do ciągłego uczenia się. Każdy przegląd ula to okazja, by lepiej poznać potrzeby pszczelej rodziny.</p>
           <p>Najbliższe są nam proste zasady: troska o pszczoły, uważny wybór miejsc i rzetelność w pracy. O pasiece i jej codzienności najchętniej opowiadamy w rozmowie.</p>
         </div>
+      </div>
+      <div class="feature-grid" data-reveal-group>
+        <FeatureTile index={0} title="Troska o pszczoły" description="Spokój i obserwacja pozwalają nam lepiej poznawać potrzeby pszczelej rodziny." icon="icon-heart.png" />
+        <FeatureTile index={1} title="Uważny wybór miejsc" description="Rytm kwitnienia i różnorodność pożytków wyznaczają drogę naszej wędrownej pasieki." icon="icon-maple.png" />
+        <FeatureTile index={2} title="Pszczelarskie rzemiosło" description="Cierpliwość, rzetelność i gotowość do ciągłego uczenia się są częścią naszej codzienności." icon="icon-honey.png" />
       </div>
     </div>
   </section>
@@ -46,10 +54,16 @@ import CallToAction from '../components/CallToAction.astro';
   </CallToAction>
 </BaseLayout>
 <style>
+  .story-photo { position: relative; }
+  .story-photo::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, #fff9, transparent 12%), linear-gradient(0deg, #2229, transparent 35%); pointer-events: none; }
+  .story-photo figcaption { position: absolute; z-index: 1; bottom: 24px; left: 24px; padding-left: 16px; border-left: 2px solid var(--color-primary); color: var(--color-white); font-size: .6875rem; letter-spacing: .06em; }
   .beekeeper-story { position: relative; isolation: isolate; }
-  .beekeeper-story::before { content: ''; position: absolute; z-index: -1; inset: 0; background: url('/assets/honeycomb.png') left center / 600px auto no-repeat; opacity: .045; pointer-events: none; }
-  .beekeeper-story__inner { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-grid); align-items: center; }
-  .beekeeper-story__motto { margin-top: var(--space-4); padding-left: var(--space-3); border-left: 2px solid var(--color-primary); font: 500 clamp(1.8rem, 2.5vw, 2.4rem)/1.2 var(--font-serif); }
-  .beekeeper-story .prose { max-width: 49ch; }
-  @media (max-width: 899px) { .beekeeper-story__inner { grid-template-columns: 1fr; } }
+  .beekeeper-story::before { content: ''; position: absolute; z-index: -1; left: 0; top: 60px; width: 110px; height: 310px; background: url('/assets/flowers.png') left bottom / contain no-repeat; opacity: .12; pointer-events: none; }
+  .beekeeper-story__editorial { max-width: 740px; margin: 0 auto var(--space-section-sm); text-align: center; }
+  blockquote { margin: 24px 0; font: 500 clamp(2.75rem, 5vw, 4.5rem)/1.06 var(--font-serif); letter-spacing: -.025em; }
+  blockquote em { font-weight: 500; }
+  .beekeeper-story .accent-line { margin-inline: auto; }
+  .beekeeper-story .prose { max-width: 64ch; margin-inline: auto; font-size: .875rem; }
+  @media (max-width: 899px) { .story-photo::after { background: linear-gradient(180deg, #fff8, transparent 16%), linear-gradient(0deg, #2229, transparent 35%); } }
+  @media (max-width: 639px) { .beekeeper-story::before { display: none; } }
 </style>

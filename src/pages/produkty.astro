@@ -1,9 +1,11 @@
----
+﻿---
 import AssetImage from '../components/AssetImage.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
 import SectionHeading from '../components/SectionHeading.astro';
 import CallToAction from '../components/CallToAction.astro';
+import ProductCard from '../components/ProductCard.astro';
+import FeatureTile from '../components/FeatureTile.astro';
 import { products } from '../data/site';
 ---
 <BaseLayout title="Nasze miody — Pasieka 100% Natury" description="Poznaj miody faceliowy, lipowy, gryczany i spadziowy z Pasieki 100% Natury. Odkryj ich smaki i zapytaj o aktualną dostępność.">
@@ -17,18 +19,17 @@ import { products } from '../data/site';
         <p class="prose">Delikatny czy wyrazisty? Kwiatowy czy leśny? Wybierz miód według swoich upodobań. Barwa, aromat i konsystencja mogą różnić się między zbiorami — to część ich naturalnego charakteru.</p>
       </div>
       <AssetImage class="products-photo" sizes="(max-width: 1200px) 92vw, 1120px" src="/assets/products.png" loading="lazy" alt="Miody faceliowy, lipowy, gryczany i spadziowy w czterech słoikach" />
-      <div class="product-grid">
-        {products.map((product, index) => <article class="product-entry" id={product.id}>
-          <span class="product-entry__number" aria-hidden="true">0{index + 1} <span> / Z naszej pasieki</span></span>
-          <h2>{product.name}</h2>
-          <p class="product-entry__description">{product.description}</p>
-          <p class="product-entry__detail">{product.detail}</p>
-          <dl>
-            <div><dt>Charakter</dt><dd>{product.character}</dd></div>
-            <div><dt>Gramatury</dt><dd>{product.sizes || 'Zapytaj nas o aktualne rozmiary słoików.'}</dd></div>
-          </dl>
-        </article>)}
+      <div class="catalog-heading"><p class="eyebrow eyebrow--line">Wybierz swój smak</p><span>{String(products.length).padStart(2, '0')} / Nasze miody</span></div>
+      <div class="product-grid" data-reveal-group>
+        {products.map((product, index) => <ProductCard product={product} index={index} />)}
       </div>
+    </div>
+  </section>
+  <section class="section--sm soft-section section-divider" aria-label="Blisko natury">
+    <div class="container feature-grid" data-reveal-group>
+      <FeatureTile title="100% natury" description="Barwa, aromat i konsystencja mogą różnić się między zbiorami. To część naturalnego charakteru miodu." icon="icon-leaf.png" />
+      <FeatureTile title="Wędrowna pasieka" description="Podążamy za kwitnieniem. Każdy pożytek nadaje naszym miodom inny smak i aromat." icon="icon-maple.png" />
+      <FeatureTile title="Tradycja i jakość" description="Pszczelarskie rzemiosło i uważność na każdym etapie pracy przy pasiece." icon="icon-honey.png" />
     </div>
   </section>
   <CallToAction title="Zapytaj o dostępność" href="/kontakt" label="Zapytaj o dostępność">
@@ -39,17 +40,10 @@ import { products } from '../data/site';
   .products-intro { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: end; gap: var(--space-grid); }
   .products-intro :global(h2) { max-width: 18ch; }
   .products-photo { width: min(100%, 1120px); margin: var(--space-5) auto var(--space-section-sm); }
-  .product-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--space-grid); row-gap: var(--space-5); }
-  .product-entry { padding-top: var(--space-4); border-top: 1px solid var(--color-border); }
-  .product-entry__number { display: block; margin-bottom: var(--space-2); font-size: .75rem; font-weight: 600; letter-spacing: .08em; }
-  .product-entry__number > span { margin-left: var(--space-2); color: var(--color-muted); font-size: .625rem; font-weight: 500; text-transform: uppercase; }
-  .product-entry h2 { font-size: clamp(2.2rem, 3vw, 3rem); }
-  .product-entry__description { margin-block: var(--space-3) 12px; max-width: 44ch; }
-  .product-entry__detail { max-width: 48ch; color: var(--color-muted); font-size: .875rem; }
-  dl { display: grid; gap: var(--space-2); margin: var(--space-3) 0 0; }
-  dl > div { display: grid; grid-template-columns: 100px minmax(0, 1fr); gap: var(--space-2); }
-  dt { padding-top: 2px; font-size: .6875rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; }
-  dd { margin: 0; color: var(--color-muted); font-size: var(--text-small); }
+  .catalog-heading { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding-block: 24px; border-top: 1px solid var(--color-border); }
+  .catalog-heading > span { color: var(--color-muted); font-size: .6875rem; }
+  .product-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px; }
+  @media (max-width: 1199px) { .product-grid { grid-template-columns: 1fr; } }
   @media (max-width: 899px) { .products-intro { grid-template-columns: 1fr; gap: var(--space-3); } }
-  @media (max-width: 639px) { .product-grid { grid-template-columns: 1fr; gap: var(--space-4); } .products-photo { margin-block: var(--space-4); } dl > div { grid-template-columns: 1fr; gap: 4px; } }
+  @media (max-width: 639px) { .products-photo { margin-block: var(--space-4); } .catalog-heading { align-items: flex-start; flex-direction: column; gap: 8px; } }
 </style>

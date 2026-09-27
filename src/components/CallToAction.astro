@@ -3,15 +3,15 @@ import Button from './Button.astro';
 interface Props { title: string; href: string; label: string; }
 const { title, href, label } = Astro.props;
 ---
-<section class="cta-section section">
-  <div class="container cta-section__inner">
+<section class="cta-section section section-divider">
+  <div class="container cta-section__inner" data-reveal>
     <div><h2>{title}</h2><div class="prose"><slot /></div></div>
     <Button href={href}>{label}</Button>
   </div>
 </section>
 <style>
 
-  .cta-section { background: var(--color-soft); border-top: 1px solid var(--color-border); padding-block: var(--space-section-sm); }
+  .cta-section { background: var(--color-soft); padding-block: var(--space-section-sm); }
   .cta-section__inner { display: flex; align-items: center; justify-content: space-between; gap: var(--space-grid); }
   h2 { max-width: 22ch; font-size: clamp(2.3rem, 3.4vw, 3.25rem); }
   .prose { margin-top: var(--space-2); max-width: 54ch; }

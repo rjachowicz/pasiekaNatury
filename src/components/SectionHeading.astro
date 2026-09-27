@@ -2,7 +2,7 @@
 interface Props { eyebrow: string; title?: string; light?: boolean; }
 const { eyebrow, title, light = false } = Astro.props;
 ---
-<div class:list={['section-heading', { 'section-heading--light': light }]}>
+<div class:list={['section-heading', { 'section-heading--light': light }]} data-reveal>
   <p class="eyebrow">{eyebrow}</p>
   <h2>{title || <slot />}</h2>
 </div>
