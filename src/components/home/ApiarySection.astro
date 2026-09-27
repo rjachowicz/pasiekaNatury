@@ -1,22 +1,28 @@
 ---
+import AssetImage from '../AssetImage.astro';
 import SectionHeading from '../SectionHeading.astro';
 ---
 <section class="apiary">
-  <img class="apiary__image" src="/assets/apiary.jpg" width="2048" height="768" loading="lazy" alt="Ule na kwitnącej łące z górami i lasem w tle" />
+  <AssetImage class="apiary__image" sizes="(max-width: 899px) 1440px, 100vw" src="/assets/apiary.jpg" loading="lazy" alt="Ule na kwitnącej łące z górami i lasem w tle" />
   <div class="container apiary__content">
     <SectionHeading eyebrow="Wędrowna pasieka" light>Z naturą<br />w najlepszych miejscach</SectionHeading>
     <p>Nasza pasieka wędruje w poszukiwaniu różnorodnych, bogatych pożytków. Rytm kwitnienia wyznacza kolejne przystanki, a każde miejsce nadaje miodom wyjątkowy charakter i smak.</p>
   </div>
 </section>
 <style>
-  .apiary { position: relative; isolation: isolate; display: grid; align-items: center; min-height: clamp(520px, 38vw, 720px); padding-block: var(--section-space); background: var(--color-dark); color: var(--color-white); }
-  .apiary__image { position: absolute; z-index: -2; width: 100%; height: 100%; object-fit: cover; object-position: center; }
-  .apiary::before { content: ''; position: absolute; z-index: -1; inset: 0; background: linear-gradient(90deg, #151811e8 0%, #151811b8 40%, #15181120 80%); }
-  .apiary__content :global(h2) { max-width: 24ch; }
-  .apiary__content > p { max-width: 46ch; margin-top: 32px; font-size: .95rem; }
-  @media (max-width: 767px) {
-    .apiary { min-height: 540px; }
-    .apiary::before { background: linear-gradient(90deg, #151811e8, #151811a8); }
-    .apiary__image { object-position: 65% center; }
+  .apiary { position: relative; isolation: isolate; display: grid; align-items: center; min-height: clamp(520px, 39vw, 620px); padding-block: var(--space-section); background: var(--color-dark); color: var(--color-white); }
+  .apiary__image { position: absolute; z-index: -2; width: 100%; height: 100%; object-fit: cover; object-position: 60% center; }
+  .apiary::before { content: ''; position: absolute; z-index: -1; inset: 0; background: linear-gradient(90deg, #172016d9, #17201699 32%, #1720160d 75%); }
+  .apiary__content :global(h2) { max-width: 15ch; font-size: clamp(2.4rem, 3.6vw, 3.8rem); }
+  .apiary__content > p { max-width: 39ch; margin-top: var(--space-3); font-size: .9375rem; }
+  @media (max-width: 899px) {
+    .apiary { min-height: 580px; align-items: end; padding-block: var(--space-section-sm); }
+    .apiary::before { background: linear-gradient(0deg, #172016ed, #172016a6 45%, #17201608 100%); }
+    .apiary__image { object-position: 62% center; }
+    .apiary__content > p { max-width: 46ch; }
+  }
+  @media (max-width: 639px) {
+    .apiary { min-height: 560px; }
+    .apiary__image { object-position: 64% center; }
   }
 </style>

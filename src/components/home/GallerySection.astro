@@ -1,4 +1,5 @@
 ---
+import AssetImage from '../AssetImage.astro';
 const photos = [
   { file: 'gallery-bee.jpg', alt: 'Pszczoła zbierająca nektar z kwiatu' },
   { file: 'gallery-honey.jpg', alt: 'Złocisty miód spływający z nabieraka do słoika' },
@@ -6,10 +7,14 @@ const photos = [
 ];
 ---
 <section class="gallery" aria-label="Z bliska — życie naszej pasieki">
-  {photos.map(({ file, alt }) => <img src={`/assets/${file}`} width="623" height="623" loading="lazy" alt={alt} />)}
+  {photos.map(({ file, alt }) => <AssetImage src={`/assets/${file}`} sizes="(max-width: 639px) 100vw, 33vw" loading="lazy" alt={alt} />)}
 </section>
 <style>
   .gallery { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; padding-top: 8px; }
-  .gallery img { width: 100%; height: 100%; aspect-ratio: 1; object-fit: cover; }
-  @media (max-width: 767px) { .gallery { grid-template-columns: 1fr; } .gallery img { aspect-ratio: 4 / 3; } }
+  .gallery img { width: 100%; height: clamp(240px, 26vw, 420px); object-fit: cover; }
+  @media (max-width: 639px) {
+    .gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; padding-top: 6px; }
+    .gallery img { height: clamp(150px, 42vw, 240px); }
+    .gallery img:first-child { grid-column: 1 / -1; height: clamp(210px, 55vw, 300px); object-position: center 58%; }
+  }
 </style>

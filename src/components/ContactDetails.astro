@@ -1,4 +1,5 @@
 ---
+import AssetImage from './AssetImage.astro';
 import { contact } from '../data/site';
 const details = [
   { label: 'Telefon', text: contact.phone, href: contact.phoneHref, icon: 'icon-phone.png' },
@@ -11,17 +12,18 @@ const details = [
   {details.map(({ label, text, href, icon }) => {
     const Tag = href ? 'a' : 'div';
     return <Tag class="contact-row" href={href || undefined}>
-      <span class="contact-row__hex"><img src={`/assets/${icon}`} width="32" height="32" loading="lazy" alt="" aria-hidden="true" /></span>
+      <span class="contact-row__hex"><AssetImage src={`/assets/${icon}`} loading="lazy" alt="" aria-hidden="true" /></span>
       <span><span class="contact-row__label">{label}</span><span>{text}</span></span>
     </Tag>;
   })}
 </address>
 <style>
-  .contact-details { display: grid; gap: 20px; font-style: normal; }
-  .contact-row { display: flex; align-items: center; gap: 20px; width: fit-content; max-width: 100%; font-size: .9rem; overflow-wrap: anywhere; }
-  a.contact-row:hover { text-decoration: underline; text-underline-offset: 4px; }
-  .contact-row__label { display: block; color: var(--color-muted); font-size: .65rem; letter-spacing: .07em; text-transform: uppercase; }
-  .contact-row__hex { position: relative; flex: 0 0 56px; display: grid; place-items: center; width: 56px; height: 50px; background: var(--color-primary); clip-path: var(--hexagon); }
-  .contact-row__hex::before { content: ''; position: absolute; inset: 2px; background: var(--color-white); clip-path: inherit; }
-  .contact-row__hex img { position: relative; width: 29px; height: 29px; object-fit: contain; }
+  .contact-details { display: grid; gap: 0; font-style: normal; }
+  .contact-row { display: flex; align-items: center; gap: var(--space-2); min-height: 76px; padding-block: var(--space-2); border-bottom: 1px solid var(--color-border); font-size: .9375rem; overflow-wrap: anywhere; }
+  .contact-row:last-child { border-bottom: 0; }
+  .contact-row > span:last-child { min-width: 0; }
+  a.contact-row:hover { text-decoration: underline; text-decoration-color: var(--color-primary); text-underline-offset: 4px; }
+  .contact-row__label { display: block; margin-bottom: 3px; color: var(--color-muted); font-size: .6875rem; font-weight: 600; letter-spacing: .09em; text-transform: uppercase; }
+  .contact-row__hex { position: relative; flex: 0 0 44px; display: grid; place-items: center; width: 44px; height: 40px; }
+  .contact-row__hex img { width: 25px; height: 25px; object-fit: contain; }
 </style>

@@ -1,4 +1,5 @@
 ---
+import AssetImage from '../components/AssetImage.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
 import SectionHeading from '../components/SectionHeading.astro';
@@ -20,14 +21,16 @@ import CallToAction from '../components/CallToAction.astro';
           <p>Chcemy dzielić się nie tylko miodem, ale też zainteresowaniem światem pszczół. To właśnie tej idei poświęcamy naszą pasiekę: uważności, prostocie i szacunkowi do naturalnego rytmu.</p>
         </div>
       </div>
-      <img class="split-content__image" src="/assets/beekeeper.jpg" width="1672" height="940" loading="lazy" alt="Pszczelarz przy ulach, z ramką pszczelą w dłoniach" />
+      <AssetImage class="split-content__image" sizes="(max-width: 899px) 92vw, 46vw" src="/assets/beekeeper.jpg" loading="lazy" alt="Pszczelarz przy ulach, z ramką pszczelą w dłoniach" />
     </div>
   </section>
-  <section class="section soft-section">
-    <div class="container split-content">
-      <img class="split-content__image beekeeper-portrait" src="/assets/beekeeper.jpg" width="1672" height="940" loading="lazy" alt="Pszczelarz w kapeluszu ochronnym podczas przeglądu rodziny pszczelej" />
-      <div>
+  <section class="section soft-section beekeeper-story">
+    <div class="container beekeeper-story__inner">
+      <div class="beekeeper-story__heading">
         <SectionHeading eyebrow="O pszczelarzu" title="Cierpliwość jest częścią tego rzemiosła" />
+        <p class="beekeeper-story__motto">Pszczoły uczą<br /><em>pokory do natury.</em></p>
+      </div>
+      <div>
         <div class="prose">
           <!-- Miejsce na osobistą historię i przedstawienie właściciela pasieki. -->
           <p>Praca z pszczołami wymaga spokoju, obserwacji i gotowości do ciągłego uczenia się. Każdy przegląd ula to okazja, by lepiej poznać potrzeby pszczelej rodziny.</p>
@@ -43,6 +46,10 @@ import CallToAction from '../components/CallToAction.astro';
   </CallToAction>
 </BaseLayout>
 <style>
-  .beekeeper-portrait { aspect-ratio: 1; object-position: 24% center; }
-  @media (max-width: 767px) { .beekeeper-portrait { aspect-ratio: 4 / 3; } }
+  .beekeeper-story { position: relative; isolation: isolate; }
+  .beekeeper-story::before { content: ''; position: absolute; z-index: -1; inset: 0; background: url('/assets/honeycomb.png') left center / 600px auto no-repeat; opacity: .045; pointer-events: none; }
+  .beekeeper-story__inner { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-grid); align-items: center; }
+  .beekeeper-story__motto { margin-top: var(--space-4); padding-left: var(--space-3); border-left: 2px solid var(--color-primary); font: 500 clamp(1.8rem, 2.5vw, 2.4rem)/1.2 var(--font-serif); }
+  .beekeeper-story .prose { max-width: 49ch; }
+  @media (max-width: 899px) { .beekeeper-story__inner { grid-template-columns: 1fr; } }
 </style>

@@ -4,6 +4,8 @@ import Footer from '../components/Footer.astro';
 import '../styles/global.css';
 interface Props { title: string; description: string; }
 const { title, description } = Astro.props;
+// Emit absolute URLs only when the production domain has been configured.
+const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site) : undefined;
 ---
 <!doctype html>
 <html lang="pl">
@@ -13,6 +15,17 @@ const { title, description } = Astro.props;
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="theme-color" content="#222222" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="pl_PL" />
+    <meta property="og:site_name" content="Pasieka 100% Natury" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    {canonical && <>
+      <link rel="canonical" href={canonical} />
+      <meta property="og:url" content={canonical} />
+      <meta property="og:image" content={new URL('/assets/hero.jpg', Astro.site)} />
+      <meta property="og:image:alt" content="Pszczoła wśród kwiatów — Pasieka 100% Natury" />
+    </>}
     <link rel="icon" type="image/png" href="/assets/logo.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

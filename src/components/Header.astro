@@ -1,11 +1,12 @@
 ---
+import AssetImage from './AssetImage.astro';
 import { navigation } from '../data/site';
 const pathname = Astro.url.pathname.replace(/\/+$/, '') || '/';
 ---
 <header class="header">
   <div class="container header__inner">
     <a class="header__logo" href="/" aria-label="Pasieka 100% Natury — strona główna">
-      <img src="/assets/logo.png" width="420" height="420" alt="Pasieka 100% Natury — Wędrowna" />
+      <AssetImage src="/assets/logo.png" loading="eager" alt="Pasieka 100% Natury — Wędrowna" />
     </a>
     <button class="header__toggle" type="button" aria-controls="main-navigation" aria-expanded="false" aria-label="Otwórz menu" hidden>
       <span></span><span></span><span></span>
@@ -47,31 +48,33 @@ const pathname = Astro.url.pathname.replace(/\/+$/, '') || '/';
     header.addEventListener('focusout', (event) => {
       if (event.relatedTarget instanceof Node && !header.contains(event.relatedTarget)) closeMenu();
     });
-    matchMedia('(min-width: 768px)').addEventListener('change', () => closeMenu());
+    matchMedia('(min-width: 900px)').addEventListener('change', () => closeMenu());
   }
 </script>
 
 <style>
-  .header { position: relative; z-index: 20; background: var(--color-dark); color: var(--color-white); }
-  .header__inner { min-height: 136px; display: flex; align-items: center; justify-content: space-between; gap: 40px; }
-  .header__logo { position: relative; z-index: 2; flex: 0 0 clamp(150px, 15vw, 244px); align-self: stretch; }
-  .header__logo img { position: absolute; top: 14px; width: 100%; }
-  .nav { display: flex; align-items: center; gap: clamp(24px, 4vw, 76px); }
-  .nav__link { position: relative; padding-block: 12px; font-size: .75rem; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; }
+  .header { position: sticky; top: 0; z-index: 30; background: var(--color-dark); color: var(--color-white); box-shadow: 0 1px 0 #ffffff16; }
+  .header__inner { min-height: var(--header-height); display: flex; align-items: center; justify-content: space-between; gap: var(--space-4); }
+  .header__logo { position: relative; z-index: 2; flex: 0 0 108px; align-self: stretch; }
+  .header__logo img { position: absolute; top: 8px; width: 108px; }
+  .nav { display: flex; align-items: center; gap: clamp(28px, 3.5vw, 56px); }
+  .nav__link { position: relative; display: flex; align-items: center; min-height: 48px; font-size: .75rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; }
   .nav__link:hover, .nav__link[aria-current] { color: var(--color-primary); }
-  .nav__link[aria-current]::after { content: ''; position: absolute; bottom: 0; left: 0; width: 56px; height: 2px; background: var(--color-primary); }
+  .nav__link::after { content: ''; position: absolute; bottom: 4px; left: 0; width: 24px; height: 1px; background: var(--color-primary); transform: scaleX(0); transform-origin: left; transition: transform var(--transition); }
+  .nav__link:hover::after, .nav__link[aria-current]::after { transform: scaleX(1); }
   .header__toggle { display: none; }
-  @media (min-width: 1600px) { .header__inner { min-height: 168px; } }
-  @media (max-width: 767px) {
-    .header__inner { min-height: 88px; flex-wrap: wrap; gap: 0; }
-    .header__logo { flex-basis: 116px; min-height: 88px; }
-    .header__logo img { top: 8px; }
-    .nav { width: 100%; flex-direction: column; align-items: stretch; gap: 8px; padding-block: 44px 24px; }
-    .nav__link { padding: 12px 0; }
-    .header--enhanced .nav { display: none; position: absolute; top: 100%; left: 0; padding: 44px var(--gutter) 28px; background: var(--color-dark); }
-    .header--open .nav { display: flex; }
-    .header__toggle:not([hidden]) { display: flex; flex-direction: column; justify-content: center; gap: 6px; width: 48px; height: 48px; padding: 10px; border: 1px solid #666; background: transparent; color: var(--color-white); cursor: pointer; }
-    .header__toggle span { width: 26px; height: 2px; background: currentColor; }
+  @media (max-width: 899px) {
+    .header__inner { flex-wrap: wrap; gap: 0; }
+    .header__logo { flex-basis: 84px; min-height: var(--header-height); }
+    .header__logo img { top: 5px; width: 84px; }
+    .nav { width: 100%; flex-direction: column; align-items: stretch; gap: 0; padding-block: var(--space-3); }
+    .nav__link { min-height: 56px; border-bottom: 1px solid #ffffff14; }
+    .nav__link::after { bottom: 10px; }
+    .header--enhanced .nav { position: absolute; top: 100%; left: 0; max-height: calc(100dvh - var(--header-height)); overflow-y: auto; padding: var(--space-3) var(--gutter); background: var(--color-dark); visibility: hidden; opacity: 0; transform: translateY(-8px); transition: opacity var(--transition), transform var(--transition), visibility var(--transition); box-shadow: 0 12px 20px #22222212; }
+    .header--open .nav { visibility: visible; opacity: 1; transform: translateY(0); }
+    .header__toggle:not([hidden]) { display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 6px; width: 48px; height: 48px; padding: 10px; border: 0; background: transparent; color: var(--color-white); cursor: pointer; }
+    .header__toggle:hover { color: var(--color-primary); }
+    .header__toggle span { width: 26px; height: 2px; background: currentColor; transition: transform var(--transition), opacity var(--transition); }
     .header--open .header__toggle span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
     .header--open .header__toggle span:nth-child(2) { opacity: 0; }
     .header--open .header__toggle span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }

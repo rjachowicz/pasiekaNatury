@@ -1,9 +1,11 @@
 ---
+import AssetImage from '../components/AssetImage.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
 import SectionHeading from '../components/SectionHeading.astro';
 import ContactDetails from '../components/ContactDetails.astro';
 import CallToAction from '../components/CallToAction.astro';
+import Button from '../components/Button.astro';
 import { contact } from '../data/site';
 ---
 <BaseLayout title="Kontakt — Pasieka 100% Natury" description="Skontaktuj się z Pasieką 100% Natury. Zapytaj o miody, dostępne gramatury i możliwość odbioru. Chętnie odpowiemy na Twoje pytania.">
@@ -15,23 +17,25 @@ import { contact } from '../data/site';
       <div>
         <SectionHeading eyebrow="Bądźmy w kontakcie" title="Napisz lub zadzwoń" />
         <div class="prose"><p>Chcesz poznać dostępne miody, zapytać o gramatury lub ustalić odbiór? Skontaktuj się z nami. Przed wizytą w pasiece umów dogodny termin.</p></div>
-        <img class="contact-page__bee" src="/assets/bee-flight.png" width="2048" height="682" loading="lazy" alt="" aria-hidden="true" />
+        <AssetImage class="contact-page__bee" src="/assets/bee-flight.png" widths={[160, 320]} sizes="160px" loading="lazy" alt="" aria-hidden="true" />
       </div>
       <ContactDetails />
     </div>
-    <img class="contact-page__flowers" src="/assets/flowers.png" width="208" height="623" loading="lazy" alt="" aria-hidden="true" />
   </section>
   <section class="section soft-section">
     <div class="container">
-      <div class="map-heading">
-        <SectionHeading eyebrow="Odwiedź nas" title="Jak do nas trafić" />
-        <p class="prose">Przed przyjazdem zadzwoń, aby ustalić termin i szczegóły dojazdu.</p>
-      </div>
-      <div class="map-placeholder" role="region" aria-label="Miejsce na mapę dojazdu — mapa nie jest jeszcze dostępna">
-        <img src="/assets/icon-location.png" width="512" height="512" loading="lazy" alt="" aria-hidden="true" />
-        <p class="map-placeholder__address">{contact.address}</p>
-        <p>Mapa dojazdu pojawi się tutaj.</p>
-        <a href={contact.phoneHref}>Zadzwoń i zapytaj o dojazd <span aria-hidden="true">→</span></a>
+      <div class="directions">
+        <div>
+          <SectionHeading eyebrow="Odwiedź nas" title="Dojazd do pasieki" />
+          <p class="prose">Przed przyjazdem zadzwoń, aby ustalić termin i szczegóły dojazdu. Chętnie pomożemy zaplanować wizytę.</p>
+        </div>
+        <div class="directions__details">
+          <div class="directions__address">
+            <AssetImage src="/assets/icon-location.png" loading="lazy" alt="" aria-hidden="true" />
+            <div><span class="eyebrow">Pasieka 100% Natury</span><p>{contact.address}</p></div>
+          </div>
+          {contact.directionsUrl ? <Button href={contact.directionsUrl}>Wyznacz trasę</Button> : <Button href={contact.phoneHref}>Zapytaj o dojazd</Button>}
+        </div>
       </div>
     </div>
   </section>
@@ -40,15 +44,16 @@ import { contact } from '../data/site';
   </CallToAction>
 </BaseLayout>
 <style>
-  .contact-page { position: relative; isolation: isolate; overflow: hidden; }
-  .contact-page__bee { width: 220px; margin-top: 32px; }
-  .contact-page__flowers { position: absolute; z-index: -1; right: -20px; bottom: 0; width: 150px; opacity: .2; }
-  .map-heading { display: flex; align-items: end; justify-content: space-between; gap: 40px; margin-bottom: 40px; }
-  .map-heading > p { max-width: 38ch; font-size: .9rem; }
-  .map-placeholder { min-height: 360px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px 24px; border: 1px solid var(--color-border); background: var(--color-background); text-align: center; }
-  .map-placeholder img { width: 48px; height: 48px; margin-bottom: 20px; }
-  .map-placeholder__address { font-family: var(--font-serif); font-size: 2rem; }
-  .map-placeholder > p + p { margin-top: 8px; color: var(--color-muted); font-size: .85rem; }
-  .map-placeholder a { margin-top: 24px; padding: 8px 0; border-bottom: 2px solid var(--color-primary); font-size: .8rem; font-weight: 600; }
-  @media (max-width: 767px) { .map-heading { flex-direction: column; align-items: flex-start; gap: 24px; } }
+  .contact-page__bee { width: 160px; margin-top: var(--space-4); opacity: .65; }
+  .directions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: center; gap: var(--space-grid); }
+  .directions .prose { margin-top: var(--space-3); max-width: 46ch; }
+  .directions__details { padding-left: var(--space-grid); border-left: 1px solid var(--color-border); }
+  .directions__address { display: flex; align-items: center; gap: var(--space-2); margin-bottom: var(--space-3); }
+  .directions__address img { flex-shrink: 0; width: 32px; height: 32px; }
+  .directions__address .eyebrow { font-size: .625rem; }
+  .directions__address p { margin-top: 4px; font: 600 1.9rem/1.2 var(--font-serif); overflow-wrap: anywhere; }
+  @media (max-width: 899px) {
+    .directions { grid-template-columns: 1fr; }
+    .directions__details { padding: var(--space-4) 0 0; border-left: 0; border-top: 1px solid var(--color-border); }
+  }
 </style>

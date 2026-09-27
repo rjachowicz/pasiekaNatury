@@ -1,4 +1,4 @@
-﻿# Pasieka 100% Natury
+# Pasieka 100% Natury
 
 Statyczna witryna w Astro, ze zwykłym CSS i niewielkim skryptem menu mobilnego. Projekt korzysta z istniejących plików w `public/assets`; nie wymaga frameworka UI ani adaptera serwerowego.
 
@@ -24,21 +24,27 @@ W PowerShell z blokadą skryptów można użyć `npm.cmd` zamiast `npm`. W proje
 - `src/layouts/BaseLayout.astro` — dokument HTML, fonty, nagłówek, treść i stopka.
 - `src/components/` — wspólna nawigacja, przyciski, nagłówki sekcji, dane kontaktowe i CTA.
 - `src/components/home/` — siedem sekcji strony głównej; wartości i wędrowna pasieka są też używane na stronie o pasiece.
-- `src/styles/variables.css` — kolory, fonty, szerokość kontenera i odstępy.
+- `src/styles/variables.css` — kolory, fluid type scale, trzy szerokości kontenerów, odstępy, wysokość nagłówka i czas przejść.
 - `src/styles/global.css` — reset, typografia, kontener i wspólne układy.
 - `src/data/site.ts` — menu, kontakt i podstawowe opisy produktów.
 - `public/assets/` — istniejące zdjęcia, logo oraz dekoracje.
 
-Style poszczególnych komponentów są lokalne. Dwie kolumny hero na desktopie mają proporcje 42/58. Wysokości sekcji wynikają z treści, odstępów i ograniczonych wartości `min-height`; obrazy korzystają z `object-fit` i `aspect-ratio`.
+Style poszczególnych komponentów są lokalne. Kontener treści ma maksymalnie 1280 px, szeroki 1360 px, tekstowy 720 px. Hero przechodzi na jedną kolumnę poniżej 1000 px, nawigacja poniżej 900 px, a pozostałe układy dopasowują się przy 600 i 640 px. Nagłówek sticky ma 96 px na desktopie i 76 px na mobile.
+
+`src/components/AssetImage.astro` korzysta z wbudowanej optymalizacji Astro. Generuje WebP i `srcset`, zachowuje proporcje źródła oraz przekazuje klasy, opisy i atrybuty ładowania. Oryginały pozostają w `public/assets`. Zdjęcie hero ładuje się z wysokim priorytetem, zdjęcia poniżej pierwszego ekranu korzystają z lazy loading.
 
 ## Uzupełnianie szablonu
 
 Dane kontaktowe w `src/data/site.ts` są robocze. Pole `facebookUrl` pozostaje puste, dopóki nie zostanie podany właściwy adres profilu; wtedy komponent automatycznie wyświetli link. Obecnie Facebook jest etykietą bez fikcyjnego odnośnika.
 
-Teksty historii i opisu pszczelarza w `o-pasiece.astro` są szablonowe. Opisy właściwości konkretnych partii i gramatury należy uzupełnić w `produkty.astro`. Strona nie zawiera cen ani funkcji sklepu. Kontakt ma oznaczony kontener pod przyszłą mapę, bez integracji z usługą mapową.
+Teksty historii i opisu pszczelarza w `o-pasiece.astro` są szablonowe. Gramatury można uzupełnić w opcjonalnym polu `sizes` produktów w `src/data/site.ts`; do tego czasu katalog zachęca do zapytania o dostępne rozmiary. Strona nie zawiera cen ani funkcji sklepu.
 
-W momencie przebudowy w repozytorium nie było `reference/home-desktop.png`. Układ powstał na podstawie opisu projektu i dostępnych grafik; porównanie z referencją wymaga dodania tego pliku.
+Panel dojazdu korzysta z adresu w `src/data/site.ts`. Po uzupełnieniu `contact.directionsUrl` wyświetli przycisk „Wyznacz trasę”; bez adresu mapy wyświetla kontakt telefoniczny. Nie ładuje zewnętrznej mapy.
+
+Przegląd zmian i zakres weryfikacji: [docs/UI-REVIEW.md](docs/UI-REVIEW.md).
 
 ## Wdrożenie
 
 Na Vercel wybierz preset Astro, polecenie budowania `npm run build` i katalog wynikowy `dist`. Astro generuje cztery statyczne strony. Fonty Cormorant Garamond i Montserrat są pobierane z Google Fonts, z lokalnymi fontami zastępczymi na wypadek braku połączenia.
+
+Ustaw zmienną środowiskową `SITE_URL` na potwierdzony adres produkcyjny (pełny adres HTTPS). `astro.config.mjs` przekazuje ją do `site`, a layout generuje canonical, `og:url` i bezwzględny adres zdjęcia Open Graph. Bez tej zmiennej pozostają metadane tytułu, opisu, języka i marki oraz favicon; nie generujemy adresów z localhost ani zgadywanej domeny. Po zmianie `SITE_URL` wykonaj ponowny build.
