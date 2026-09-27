@@ -1,19 +1,40 @@
 ---
 import AssetImage from '../AssetImage.astro';
 const photos = [
-  { file: 'gallery-bee.jpg', alt: 'Pszczoła zbierająca nektar z kwiatu' },
-  { file: 'gallery-honey.jpg', alt: 'Złocisty miód spływający z nabieraka do słoika' },
-  { file: 'gallery-comb.jpg', alt: 'Pszczoły pracujące na plastrze miodu' },
+    {file: 'gallery-bee.jpg', alt: 'Pszczoła zbierająca nektar z kwiatu'},
+    {file: 'gallery-honey.jpg', alt: 'Złocisty miód spływający z nabieraka do słoika'},
+    {file: 'gallery-comb.jpg', alt: 'Pszczoły pracujące na plastrze miodu'},
 ];
 ---
 <section class="gallery" aria-label="Z bliska — życie naszej pasieki">
-  {photos.map(({ file, alt }) => <AssetImage src={`/assets/${file}`} sizes="(max-width: 639px) 100vw, 33vw" loading="lazy" alt={alt} />)}
+    {photos.map(({file, alt}) =>
+            <AssetImage src={`/assets/${file}`} sizes="(max-width: 639px) 100vw, 33vw" loading="lazy" alt={alt}/>)}
 </section>
 <style>
-  .gallery { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; padding-top: 8px; }
-  .gallery img { width: 100%; height: var(--media-gallery); object-fit: cover; }
-  @media (max-width: 639px) {
-    .gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; padding-top: 6px; }
-    .gallery img:first-child { grid-column: 1 / -1; height: 280px; object-position: center 58%; }
-  }
+    .gallery {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 8px;
+        padding-top: 8px;
+    }
+
+    .gallery img {
+        width: 100%;
+        height: var(--media-gallery);
+        object-fit: cover;
+    }
+
+    @media (max-width: 639px) {
+        .gallery {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 6px;
+            padding-top: 6px;
+        }
+
+        .gallery img:first-child {
+            grid-column: 1 / -1;
+            height: 280px;
+            object-position: center 58%;
+        }
+    }
 </style>

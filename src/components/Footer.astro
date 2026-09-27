@@ -1,67 +1,194 @@
 ---
 import AssetImage from './AssetImage.astro';
-import { contact, navigation } from '../data/site';
+import {contact, navigation} from '../data/site';
 const pathname = Astro.url.pathname.replace(/\/+$/, '') || '/';
 const year = new Date().getFullYear();
 ---
 <footer class="footer">
-  <AssetImage class="footer__mountains" widths={[320, 640]} sizes="(max-width: 639px) 100vw, 45vw" src="/assets/mountains.png" loading="lazy" alt="" aria-hidden="true" />
-  <div class="container">
-    <div class="footer__grid">
-      <div class="footer__brand">
-        <a class="footer__logo" href="/" aria-label="Pasieka 100% Natury — strona główna"><AssetImage src="/assets/logo.png" loading="lazy" alt="Pasieka 100% Natury" /></a>
-        <p>Blisko pszczół. Blisko natury.<br />Naturalne miody z wędrownej pasieki.</p>
-      </div>
-      <div>
-        <h2 class="eyebrow">Poznaj pasiekę</h2>
-        <nav class="footer__nav" aria-label="Nawigacja w stopce">
-          {navigation.map(({ href, label }) => <a href={href} aria-current={pathname === href ? 'page' : undefined}>{label}</a>)}
-        </nav>
-      </div>
-      <div>
-        <h2 class="eyebrow">Porozmawiajmy</h2>
-        <address class="footer__contact">
-          <a href={contact.phoneHref}>{contact.phone}</a>
-          <a href={`mailto:${contact.email}`}>{contact.email}</a>
-          <span>{contact.address}</span>
-          {contact.facebookUrl && <a href={contact.facebookUrl}>Facebook <span aria-hidden="true">↗</span></a>}
-        </address>
-        <p class="footer__note">Przed wizytą umów dogodny termin.</p>
-      </div>
+    <AssetImage class="footer__mountains" widths={[320, 640]} sizes="(max-width: 639px) 100vw, 45vw"
+                src="/assets/mountains.png" loading="lazy" alt="" aria-hidden="true"/>
+    <div class="container">
+        <div class="footer__grid">
+            <div class="footer__brand">
+                <a class="footer__logo" href="/" aria-label="Pasieka 100% Natury — strona główna">
+                    <AssetImage src="/assets/logo.png" loading="lazy" alt="Pasieka 100% Natury"/>
+                </a>
+                <p>Blisko pszczół. Blisko natury.<br/>Naturalne miody z wędrownej pasieki.</p>
+            </div>
+            <div>
+                <h2 class="eyebrow">Poznaj pasiekę</h2>
+                <nav class="footer__nav" aria-label="Nawigacja w stopce">
+                    {navigation.map(({href, label}) => <a href={href}
+                                                          aria-current={pathname === href ? 'page' : undefined}>{label}</a>)}
+                </nav>
+            </div>
+            <div>
+                <h2 class="eyebrow">Porozmawiajmy</h2>
+                <address class="footer__contact">
+                    <a href={contact.phoneHref}>{contact.phone}</a>
+                    <a href={`mailto:${contact.email}`}>{contact.email}</a>
+                    <span>{contact.address}</span>
+                    {contact.facebookUrl &&
+                            <a href={contact.facebookUrl}>Facebook <span aria-hidden="true">↗</span></a>}
+                </address>
+                <p class="footer__note">Przed wizytą umów dogodny termin.</p>
+            </div>
+        </div>
+        <div class="footer__bottom">
+            <p>© {year} Pasieka 100% Natury. Wszelkie prawa zastrzeżone.</p>
+            <span>W rytmie natury</span>
+        </div>
     </div>
-    <div class="footer__bottom">
-      <p>© {year} Pasieka 100% Natury. Wszelkie prawa zastrzeżone.</p>
-      <span>W rytmie natury</span>
-    </div>
-  </div>
 </footer>
 <style>
-  .footer { position: relative; isolation: isolate; padding-top: 72px; background: var(--color-dark); color: var(--color-white); }
-  .footer__mountains { position: absolute; z-index: -1; right: 0; bottom: 0; width: min(45%, 560px); height: 100%; object-fit: contain; object-position: right bottom; opacity: .07; filter: grayscale(1) invert(1); pointer-events: none; }
-  .footer__grid { display: grid; grid-template-columns: 1.5fr 1fr 1.2fr; gap: var(--space-grid); padding-bottom: var(--space-section-sm); }
-  .footer__grid > * { min-width: 0; }
-  .footer__logo { display: block; width: 120px; margin-bottom: var(--space-3); }
-  .footer__brand p { color: var(--color-on-dark); font-size: var(--text-small); line-height: 1.7; }
-  .eyebrow { margin-block: var(--space-2) var(--space-3); color: var(--color-primary); }
-  .footer__nav, .footer__contact { display: flex; flex-direction: column; align-items: flex-start; font-size: var(--text-small); font-style: normal; }
-  .footer__nav a, .footer__contact a, .footer__contact > span { display: flex; align-items: center; min-height: 44px; max-width: 100%; overflow-wrap: anywhere; }
-  .footer a:hover, .footer a[aria-current] { color: var(--color-primary); }
-  .footer__note { margin-top: var(--space-2); color: var(--color-on-dark); font-size: .75rem; }
-  .footer__bottom { position: relative; display: flex; justify-content: space-between; gap: var(--space-3); padding-block: 28px; color: var(--color-on-dark); font-size: .6875rem; }
-  .footer__bottom::before { content: ''; position: absolute; inset: 0 0 auto; height: 1px; background: linear-gradient(90deg, #ffffff30, #f9bd0040 50%, #ffffff10); }
-  .footer__bottom > span { flex-shrink: 0; }
-  @media (max-width: 899px) {
-    .footer__grid { grid-template-columns: 1fr 1fr; gap: var(--space-4); }
-    .footer__brand { grid-column: 1 / -1; display: flex; align-items: center; gap: var(--space-4); }
-    .footer__logo { flex: 0 0 104px; margin: 0; }
-  }
-  @media (max-width: 639px) {
-    .footer { padding-top: 48px; }
-    .footer__grid { grid-template-columns: 1fr; }
-    .footer__brand { display: block; }
-    .footer__logo { width: 104px; margin-bottom: var(--space-3); }
-    .eyebrow { margin-top: 0; margin-bottom: var(--space-2); }
-    .footer__bottom { flex-direction: column; gap: var(--space-1); }
-    .footer__mountains { width: 100%; max-height: 340px; }
-  }
+    .footer {
+        position: relative;
+        isolation: isolate;
+        padding-top: 72px;
+        background: var(--color-dark);
+        color: var(--color-white);
+    }
+
+    .footer__mountains {
+        position: absolute;
+        z-index: -1;
+        right: 0;
+        bottom: 0;
+        width: min(45%, 560px);
+        height: 100%;
+        object-fit: contain;
+        object-position: right bottom;
+        opacity: .07;
+        filter: grayscale(1) invert(1);
+        pointer-events: none;
+    }
+
+    .footer__grid {
+        display: grid;
+        grid-template-columns: 1.5fr 1fr 1.2fr;
+        gap: var(--space-grid);
+        padding-bottom: var(--space-section-sm);
+    }
+
+    .footer__grid > * {
+        min-width: 0;
+    }
+
+    .footer__logo {
+        display: block;
+        width: 120px;
+        margin-bottom: var(--space-3);
+    }
+
+    .footer__brand p {
+        color: var(--color-on-dark);
+        font-size: var(--text-small);
+        line-height: 1.7;
+    }
+
+    .eyebrow {
+        margin-block: var(--space-2) var(--space-3);
+        color: var(--color-primary);
+    }
+
+    .footer__nav, .footer__contact {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        font-size: var(--text-small);
+        font-style: normal;
+    }
+
+    .footer__nav a, .footer__contact a, .footer__contact > span {
+        display: flex;
+        align-items: center;
+        min-height: 44px;
+        max-width: 100%;
+        overflow-wrap: anywhere;
+    }
+
+    .footer a:hover, .footer a[aria-current] {
+        color: var(--color-primary);
+    }
+
+    .footer__note {
+        margin-top: var(--space-2);
+        color: var(--color-on-dark);
+        font-size: .75rem;
+    }
+
+    .footer__bottom {
+        position: relative;
+        display: flex;
+        justify-content: space-between;
+        gap: var(--space-3);
+        padding-block: 28px;
+        color: var(--color-on-dark);
+        font-size: .6875rem;
+    }
+
+    .footer__bottom::before {
+        content: '';
+        position: absolute;
+        inset: 0 0 auto;
+        height: 1px;
+        background: linear-gradient(90deg, #ffffff30, #f9bd0040 50%, #ffffff10);
+    }
+
+    .footer__bottom > span {
+        flex-shrink: 0;
+    }
+
+    @media (max-width: 899px) {
+        .footer__grid {
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-4);
+        }
+
+        .footer__brand {
+            grid-column: 1 / -1;
+            display: flex;
+            align-items: center;
+            gap: var(--space-4);
+        }
+
+        .footer__logo {
+            flex: 0 0 104px;
+            margin: 0;
+        }
+    }
+
+    @media (max-width: 639px) {
+        .footer {
+            padding-top: 48px;
+        }
+
+        .footer__grid {
+            grid-template-columns: 1fr;
+        }
+
+        .footer__brand {
+            display: block;
+        }
+
+        .footer__logo {
+            width: 104px;
+            margin-bottom: var(--space-3);
+        }
+
+        .eyebrow {
+            margin-top: 0;
+            margin-bottom: var(--space-2);
+        }
+
+        .footer__bottom {
+            flex-direction: column;
+            gap: var(--space-1);
+        }
+
+        .footer__mountains {
+            width: 100%;
+            max-height: 340px;
+        }
+    }
 </style>

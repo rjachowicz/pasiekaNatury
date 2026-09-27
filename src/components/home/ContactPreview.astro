@@ -5,29 +5,81 @@ import Button from '../Button.astro';
 import ContactDetails from '../ContactDetails.astro';
 ---
 <section class="contact section">
-  <div class="container contact__inner">
-    <div class="contact__copy">
-      <SectionHeading eyebrow="Kontakt" title="Zapraszamy do kontaktu" />
-      <p class="prose">Masz pytania o nasze miody lub pasiekę? Napisz albo zadzwoń — chętnie porozmawiamy.</p>
-      <div class="contact__bottom" data-reveal><Button href="/kontakt">Skontaktuj się</Button><AssetImage src="/assets/bee-flight.png" widths={[160, 320]} sizes="160px" loading="lazy" alt="" aria-hidden="true" /></div>
+    <div class="container contact__inner">
+        <div class="contact__copy">
+            <SectionHeading eyebrow="Kontakt" title="Zapraszamy do kontaktu"/>
+            <p class="prose">Masz pytania o nasze miody lub pasiekę? Napisz albo zadzwoń — chętnie porozmawiamy.</p>
+            <div class="contact__bottom" data-reveal>
+                <Button href="/kontakt">Skontaktuj się</Button>
+                <AssetImage src="/assets/bee-flight.png" widths={[160, 320]} sizes="160px" loading="lazy" alt=""
+                            aria-hidden="true"/>
+            </div>
+        </div>
+        <ContactDetails/>
     </div>
-    <ContactDetails />
-  </div>
-  <AssetImage class="contact__flowers" src="/assets/flowers.png" loading="lazy" alt="" aria-hidden="true" />
+    <AssetImage class="contact__flowers" src="/assets/flowers.png" loading="lazy" alt="" aria-hidden="true"/>
 </section>
 <style>
-  .contact { position: relative; isolation: isolate; }
-  .contact__inner { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); align-items: center; gap: var(--space-grid); }
-  .contact__copy { min-width: 0; }
-  .prose { max-width: 43ch; margin-top: var(--space-3); }
-  .contact__bottom { display: flex; align-items: center; gap: var(--space-3); margin-top: var(--space-4); }
-  .contact__bottom img { width: 120px; min-width: 0; opacity: .65; }
-  .contact__flowers { position: absolute; z-index: -1; right: 12px; bottom: 0; width: clamp(40px, calc((100vw - var(--container-content)) / 2 - 24px), 112px); opacity: .3; pointer-events: none; }
-  @media (max-width: 1399px) { .contact__flowers { display: none; } }
-  @media (max-width: 899px) {
-    .contact__inner { grid-template-columns: 1fr; gap: var(--space-5); }
-  }
-  @media (max-width: 639px) {
-    .contact__bottom img { display: none; }
-  }
+    .contact {
+        position: relative;
+        isolation: isolate;
+    }
+
+    .contact__inner {
+        display: grid;
+        grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+        align-items: center;
+        gap: var(--space-grid);
+    }
+
+    .contact__copy {
+        min-width: 0;
+    }
+
+    .prose {
+        max-width: 43ch;
+        margin-top: var(--space-3);
+    }
+
+    .contact__bottom {
+        display: flex;
+        align-items: center;
+        gap: var(--space-3);
+        margin-top: var(--space-4);
+    }
+
+    .contact__bottom img {
+        width: 120px;
+        min-width: 0;
+        opacity: .65;
+    }
+
+    .contact__flowers {
+        position: absolute;
+        z-index: -1;
+        right: 12px;
+        bottom: 0;
+        width: clamp(40px, calc((100vw - var(--container-content)) / 2 - 24px), 112px);
+        opacity: .3;
+        pointer-events: none;
+    }
+
+    @media (max-width: 1399px) {
+        .contact__flowers {
+            display: none;
+        }
+    }
+
+    @media (max-width: 899px) {
+        .contact__inner {
+            grid-template-columns: 1fr;
+            gap: var(--space-5);
+        }
+    }
+
+    @media (max-width: 639px) {
+        .contact__bottom img {
+            display: none;
+        }
+    }
 </style>

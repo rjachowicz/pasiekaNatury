@@ -1,57 +1,88 @@
 :root {
-  --color-primary: #f9bd00;
-  --color-primary-hover: #e9ad00;
-  --color-dark: #222222;
-  --color-background: #ffffff;
-  --color-text: #222222;
-  --color-muted: #65615a;
-  --color-white: #ffffff;
-  --color-border: #e3dfd5;
-  --color-soft: #faf8f2;
-  --color-on-dark: #d3d0c9;
-  --font-serif: 'Cormorant Garamond', Georgia, serif;
-  --font-sans: 'Montserrat', Arial, sans-serif;
+    --color-primary: #f9bd00;
+    --color-primary-hover: #e9ad00;
+    --color-dark: #222222;
+    --color-background: #ffffff;
+    --color-text: #222222;
+    --color-muted: #65615a;
+    --color-white: #ffffff;
+    --color-border: #e3dfd5;
+    --color-soft: #faf8f2;
+    --color-on-dark: #d3d0c9;
+    --font-serif: 'Cormorant Garamond', Georgia, serif;
+    --font-sans: 'Montserrat', Arial, sans-serif;
 
-  --text-small: .8125rem;
-  --text-body: clamp(.9375rem, .9rem + .12vw, 1rem);
-  --text-h1: clamp(2.8rem, 2rem + 3vw, 5rem);
-  --text-h2: clamp(2.3rem, 1.65rem + 2.4vw, 3.75rem);
-  --text-h3: clamp(1.65rem, 1.4rem + .6vw, 2rem);
+    --text-small: .8125rem;
+    --text-body: clamp(.9375rem, .9rem + .12vw, 1rem);
+    --text-h1: clamp(2.8rem, 2rem + 3vw, 5rem);
+    --text-h2: clamp(2.3rem, 1.65rem + 2.4vw, 3.75rem);
+    --text-h3: clamp(1.65rem, 1.4rem + .6vw, 2rem);
 
-  --container-wide: 1360px;
-  --container-content: 1280px;
-  --container-text: 720px;
-  --gutter: clamp(20px, 4vw, 48px);
-  --page-inset: max(var(--gutter), calc((100vw - var(--container-content)) / 2));
-  --space-section: 96px;
-  --space-section-sm: 64px;
-  --space-grid: clamp(32px, 5vw, 72px);
-  --space-1: 8px;
-  --space-2: 16px;
-  --space-3: 24px;
-  --space-4: 32px;
-  --space-5: 48px;
-  --header-height: 96px;
-  --transition: 200ms ease;
-  --hexagon: polygon(25% 0, 75% 0, 100% 50%, 75% 100%, 25% 100%, 0 50%);
-  --media-hero: 640px;
-  --media-about: 560px;
-  --media-apiary: 520px;
-  --media-gallery: 320px;
-  --media-split: 460px;
+    --container-wide: 1360px;
+    --container-content: 1280px;
+    --container-text: 720px;
+    --gutter: clamp(20px, 4vw, 48px);
+    --page-inset: max(var(--gutter), calc((100vw - var(--container-content)) / 2));
+    --space-section: 96px;
+    --space-section-sm: 64px;
+    --space-grid: clamp(32px, 5vw, 72px);
+    --space-1: 8px;
+    --space-2: 16px;
+    --space-3: 24px;
+    --space-4: 32px;
+    --space-5: 48px;
+    --header-height: 96px;
+    --transition: 200ms ease;
+    --hexagon: polygon(25% 0, 75% 0, 100% 50%, 75% 100%, 25% 100%, 0 50%);
+    --media-hero: 640px;
+    --media-about: 560px;
+    --media-apiary: 520px;
+    --media-gallery: 320px;
+    --media-split: 460px;
 }
+
 @media (max-width: 1199px) {
-  :root { --space-section: 80px; --media-hero: 580px; --media-about: 520px; --media-apiary: 480px; --media-gallery: 270px; --media-split: 420px; }
+    :root {
+        --space-section: 80px;
+        --media-hero: 580px;
+        --media-about: 520px;
+        --media-apiary: 480px;
+        --media-gallery: 270px;
+        --media-split: 420px;
+    }
 }
+
 @media (max-width: 999px) {
-  :root { --media-hero: 380px; }
+    :root {
+        --media-hero: 380px;
+    }
 }
+
 @media (max-width: 899px) {
-  :root { --header-height: 76px; --space-section: 72px; --space-section-sm: 48px; --media-about: 400px; --media-gallery: 230px; --media-split: 380px; }
+    :root {
+        --header-height: 76px;
+        --space-section: 72px;
+        --space-section-sm: 48px;
+        --media-about: 400px;
+        --media-gallery: 230px;
+        --media-split: 380px;
+    }
 }
+
 @media (max-width: 639px) {
-  :root { --space-section: 56px; --space-section-sm: 40px; --media-hero: 300px; --media-about: 320px; --media-apiary: 480px; --media-gallery: 180px; --media-split: 320px; }
+    :root {
+        --space-section: 56px;
+        --space-section-sm: 40px;
+        --media-hero: 300px;
+        --media-about: 320px;
+        --media-apiary: 480px;
+        --media-gallery: 180px;
+        --media-split: 320px;
+    }
 }
+
 @media (prefers-reduced-motion: reduce) {
-  :root { --transition: 0s; }
+    :root {
+        --transition: 0s;
+    }
 }
