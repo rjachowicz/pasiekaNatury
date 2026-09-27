@@ -55,7 +55,11 @@ const year = new Date().getFullYear();
           <a href={`mailto:${contact.email}`}>{contact.email}</a>
           <span>{contact.address}</span>
           {contact.facebookUrl && (
-            <a href={contact.facebookUrl}>
+            <a
+              href={contact.facebookUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               Facebook <span aria-hidden="true">↗</span>
             </a>
           )}
@@ -64,6 +68,9 @@ const year = new Date().getFullYear();
       </div>
     </div>
     <div class="footer__bottom">
+      <button class="footer__privacy" type="button" data-privacy-settings>
+        Ustawienia prywatności
+      </button>
       <p>© {year} Pasieka 100% Natury. Wszelkie prawa zastrzeżone.</p>
       <span>W rytmie natury</span>
     </div>
@@ -170,6 +177,22 @@ const year = new Date().getFullYear();
 
   .footer__bottom > span {
     flex-shrink: 0;
+  }
+
+  .footer__privacy {
+    flex-shrink: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    cursor: pointer;
+    text-decoration: underline;
+    text-decoration-color: var(--color-primary);
+    text-underline-offset: 4px;
+  }
+
+  .footer__privacy:hover {
+    color: var(--color-primary);
   }
 
   @media (max-width: 899px) {

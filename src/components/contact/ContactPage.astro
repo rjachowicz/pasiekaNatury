@@ -1,220 +1,280 @@
 ---
-import AssetImage from "../ui/AssetImage.astro";
+import CallToAction from "../ui/CallToAction.astro";
+import ContactDetails from "../ui/ContactDetails.astro";
+import GoogleMap from "../ui/GoogleMap.astro";
 import Icon from "../ui/Icon.astro";
 import PageHero from "../ui/PageHero.astro";
 import SectionHeading from "../ui/SectionHeading.astro";
-import ContactDetails from "../ui/ContactDetails.astro";
-import CallToAction from "../ui/CallToAction.astro";
-import Button from "../ui/Button.astro";
+import { products } from "../../data/products";
 import { contact } from "../../data/site";
+
+const productOptions = products.map(({ id, name }) => ({ id, name }));
 ---
 
 <>
-  <PageHero eyebrow="Kontakt" title="Zapraszamy do kontaktu">
+  <PageHero eyebrow="Kontakt" title="Porozmawiajmy o miodzie">
     <p>
-      Porozmawiajmy o miodzie i pszczołach. Chętnie odpowiemy na pytania i
-      pomożemy wybrać smak dla Ciebie.
+      Zapytaj o aktualną dostępność, gramatury i szczegóły. Jesteśmy do
+      dyspozycji przez telefon i e-mail.
     </p>
   </PageHero>
-  <section class="section contact-page">
-    <div class="container split-content">
+
+  <section class="contact-intro section--sm">
+    <div class="container contact-intro__inner">
+      <p class="eyebrow eyebrow--line">Bądźmy w kontakcie</p>
+      <p>
+        Wybierz wygodną formę kontaktu. Przed przyjazdem do pasieki skontaktuj
+        się z nami, aby ustalić termin.
+      </p>
+    </div>
+  </section>
+
+  <section class="contact-details-section section">
+    <div class="container">
+      <div
+        class="contextual-product"
+        hidden
+        data-products={JSON.stringify(productOptions)}
+      >
+        <p class="eyebrow">Pytasz o</p>
+        <p class="contextual-product__name" data-product-name></p>
+        <p>
+          Skontaktuj się z nami, aby sprawdzić aktualną dostępność, gramatury i
+          szczegóły.
+        </p>
+      </div>
+      <div class="contact-details-section__heading">
+        <SectionHeading eyebrow="Dane kontaktowe" title="Napisz lub zadzwoń" />
+      </div>
+      <ContactDetails variant="tiles" />
+    </div>
+  </section>
+
+  <section class="social-section section--sm">
+    <div class="container social-section__inner">
       <div>
         <SectionHeading
-          eyebrow="Bądźmy w kontakcie"
-          title="Napisz lub zadzwoń"
-        />
-        <div class="prose">
-          <p>
-            Chcesz poznać dostępne miody, zapytać o gramatury lub ustalić
-            odbiór? Skontaktuj się z nami. Przed wizytą w pasiece umów dogodny
-            termin.
-          </p>
-        </div>
-        <AssetImage
-          class="contact-page__bee"
-          src="/assets/bee-flight.png"
-          widths={[160, 320]}
-          sizes="160px"
-          loading="lazy"
-          alt=""
-          aria-hidden="true"
+          eyebrow="Na bieżąco"
+          title="Znajdź nas w mediach społecznościowych"
         />
       </div>
-      <ContactDetails />
+      <div class="social-links">
+        <a href={contact.facebookUrl} target="_blank" rel="noopener noreferrer">
+          <Icon name="facebook" size={28} />
+          <span>
+            <strong>Facebook</strong>
+            <small>Odwiedź profil pasieki</small>
+          </span>
+          <Icon name="arrow-up-right" size={18} />
+        </a>
+        <a
+          href={contact.instagramUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <Icon name="instagram" size={28} />
+          <span>
+            <strong>Instagram</strong>
+            <small>@pasieka_100_natura</small>
+          </span>
+          <Icon name="arrow-up-right" size={18} />
+        </a>
+      </div>
     </div>
   </section>
-  <section class="section--sm directions-section">
+
+  <section class="map-section section">
     <div class="container">
-      <div class="directions">
-        <AssetImage
-          class="directions__landscape"
-          src="/assets/mountains.png"
-          widths={[320, 640]}
-          sizes="400px"
-          loading="lazy"
-          alt=""
-          aria-hidden="true"
-        />
-        <div>
-          <SectionHeading
-            eyebrow="Odwiedź nas"
-            title="Dojazd do pasieki"
-            light
-          />
-          <p class="prose">
-            Przed przyjazdem zadzwoń, aby ustalić termin i szczegóły dojazdu.
-            Chętnie pomożemy zaplanować wizytę.
-          </p>
-          <p class="directions__note">
-            <span aria-hidden="true"></span>Wizyta po wcześniejszym umówieniu
-          </p>
-        </div>
-        <div class="directions__details">
-          <div class="directions__address">
-            <Icon name="location" size={32} />
-            <div>
-              <span class="eyebrow">Pasieka 100% Natury</span>
-              <p>{contact.address}</p>
-            </div>
-          </div>
-          <div data-reveal>
-            {contact.directionsUrl ? (
-              <Button href={contact.directionsUrl}>Wyznacz trasę</Button>
-            ) : (
-              <Button href={contact.phoneHref}>Zapytaj o dojazd</Button>
-            )}
-          </div>
-        </div>
+      <div class="map-section__heading">
+        <SectionHeading eyebrow="Dojazd" title="Odwiedź pasiekę" />
+        <p>Jasienna 171, 33-322 Korzenna, Polska</p>
+      </div>
+      <GoogleMap />
+    </div>
+  </section>
+
+  <section class="visit-note section--sm">
+    <div class="container">
+      <div class="visit-note__inner">
+        <Icon name="phone" size={28} />
+        <p>Przed przyjazdem skontaktuj się z nami</p>
+        <a href={contact.phoneHref}>{contact.phone}</a>
       </div>
     </div>
   </section>
+
   <CallToAction
-    title="Dobry miód zaczyna się od rozmowy"
+    title="Poznaj nasze miody"
     href="/produkty"
-    label="Poznaj nasze miody"
+    label="Zobacz produkty"
   >
     <p>
-      Nie wiesz, który smak wybrać? Poznaj nasze miody — a o szczegóły zapytaj
-      nas telefonicznie lub mailowo.
+      Sprawdź smaki, które są dostępne w naszej ofercie, a o szczegóły zapytaj
+      nas bezpośrednio.
     </p>
   </CallToAction>
 </>
-<style>
-  .contact-page__bee {
-    width: 160px;
-    margin-top: var(--space-4);
-    opacity: 0.65;
-  }
 
-  .directions-section {
+<script>
+  const contextualBox = document.querySelector<HTMLElement>(
+    ".contextual-product",
+  );
+  const productName = document.querySelector<HTMLElement>(
+    "[data-product-name]",
+  );
+  const productId = new URLSearchParams(window.location.search).get("produkt");
+  const productOptions = JSON.parse(
+    contextualBox?.dataset.products ?? "[]",
+  ) as Array<{ id: string; name: string }>;
+  const product = productOptions.find(({ id }) => id === productId);
+
+  if (contextualBox && productName && product) {
+    productName.textContent = product.name;
+    contextualBox.hidden = false;
+  }
+</script>
+
+<style>
+  .contact-intro {
+    border-bottom: var(--border);
+    background: var(--color-soft);
+  }
+  .contact-intro__inner {
+    display: grid;
+    grid-template-columns: minmax(180px, 0.7fr) minmax(0, 1fr);
+    align-items: center;
+    gap: var(--space-grid);
+  }
+  .contact-intro__inner > p:last-child {
+    max-width: 54ch;
+    color: var(--color-muted);
+  }
+  .contextual-product {
+    max-width: 720px;
+    margin-bottom: var(--space-5);
+    padding: var(--space-3);
+    border-left: 3px solid var(--color-primary);
+    background: var(--color-soft);
+  }
+  .contextual-product__name {
+    margin-top: 4px;
+    font: 600 var(--text-card-title)/1.15 var(--font-heading);
+  }
+  .contextual-product p:last-child {
+    margin-top: var(--space-2);
+    color: var(--color-muted);
+    font-size: var(--text-small);
+  }
+  .contact-details-section__heading {
+    margin-bottom: var(--space-4);
+  }
+  .social-section {
+    background: var(--color-soft);
+    border-block: var(--border);
+  }
+  .social-section__inner {
+    display: grid;
+    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1fr);
+    gap: var(--space-grid);
+    align-items: center;
+  }
+  .social-links {
+    display: grid;
+    gap: var(--space-2);
+  }
+  .social-links a {
+    display: grid;
+    grid-template-columns: 32px minmax(0, 1fr) 20px;
+    align-items: center;
+    gap: var(--space-2);
+    min-height: 84px;
+    padding: var(--space-3);
+    border: var(--border);
+    background: var(--color-white);
+  }
+  .social-links a:hover {
+    border-color: var(--color-primary);
+  }
+  .social-links > a > :global(svg:first-child) {
+    color: var(--color-primary);
+  }
+  .social-links > a > :global(svg:last-child) {
+    justify-self: end;
+  }
+  .social-links strong,
+  .social-links small {
+    display: block;
+  }
+  .social-links strong {
+    font: 600 var(--text-card-title)/1.1 var(--font-heading);
+  }
+  .social-links small {
+    margin-top: 4px;
+    color: var(--color-muted);
+    font-size: var(--text-eyebrow);
+  }
+  .map-section__heading {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: var(--space-4);
+    margin-bottom: var(--space-4);
+  }
+  .map-section__heading > p {
+    padding-bottom: 8px;
+    color: var(--color-muted);
+    font-size: var(--text-small);
+  }
+  .visit-note {
     padding-top: 0;
     padding-bottom: var(--space-section);
   }
-
-  .directions {
-    position: relative;
-    isolation: isolate;
-    display: grid;
-    grid-template-columns: 1.2fr 1fr;
-    align-items: center;
-    gap: var(--space-grid);
-    padding: 56px;
-    background: var(--color-dark);
-    color: var(--color-white);
-    border-top: 2px solid var(--color-primary);
-  }
-
-  .directions > div {
-    min-width: 0;
-  }
-
-  .directions__landscape {
-    position: absolute;
-    z-index: -1;
-    right: 0;
-    bottom: 0;
-    width: 400px;
-    height: 100%;
-    object-fit: contain;
-    object-position: right bottom;
-    opacity: 0.08;
-    filter: grayscale(1) invert(1);
-    pointer-events: none;
-  }
-
-  .directions .prose {
-    margin-top: var(--space-3);
-    max-width: 46ch;
-    color: var(--color-on-dark);
-    font-size: var(--text-small);
-  }
-
-  .directions__note {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-top: 24px;
-    font-size: var(--text-eyebrow);
-    color: var(--color-on-dark);
-  }
-
-  .directions__note span {
-    flex: 0 0 6px;
-    height: 6px;
-    background: var(--color-primary);
-  }
-
-  .directions__details {
-    padding-left: 40px;
-    border-left: 1px solid #ffffff26;
-  }
-
-  .directions__address {
+  .visit-note__inner {
     display: flex;
     align-items: center;
     gap: var(--space-2);
-    margin-bottom: var(--space-3);
+    padding: var(--space-3);
+    border-block: var(--border);
   }
-
-  .directions__address :global(svg) {
-    flex-shrink: 0;
-    width: 32px;
-    height: 32px;
+  .visit-note__inner :global(svg) {
     color: var(--color-primary);
   }
-
-  .directions__address .eyebrow {
-    font-size: var(--text-eyebrow);
-    color: var(--color-on-dark);
+  .visit-note__inner p {
+    font: 500 var(--text-card-title)/1.2 var(--font-heading);
   }
-
-  .directions__address p {
-    margin-top: 4px;
-    font: 600 var(--text-card-title)/1.2 var(--font-heading);
-    overflow-wrap: anywhere;
+  .visit-note__inner a {
+    margin-left: auto;
+    color: var(--color-muted);
+    font-size: var(--text-small);
+    text-decoration: underline;
+    text-decoration-color: var(--color-primary);
+    text-underline-offset: 5px;
   }
-
   @media (max-width: 899px) {
-    .directions {
+    .contact-intro__inner,
+    .social-section__inner {
       grid-template-columns: 1fr;
-      padding: 40px;
-      gap: 32px;
+      gap: var(--space-3);
     }
-
-    .directions__details {
-      padding: var(--space-4) 0 0;
-      border-left: 0;
-      border-top: 1px solid #ffffff26;
+    .map-section__heading {
+      display: block;
+    }
+    .map-section__heading > p {
+      margin-top: var(--space-2);
+      padding: 0;
     }
   }
-
   @media (max-width: 639px) {
-    .directions {
-      padding: 32px 24px;
+    .visit-note__inner {
+      align-items: flex-start;
+      flex-wrap: wrap;
     }
-
-    .contact-page__bee {
-      display: none;
+    .visit-note__inner p {
+      flex: 1 1 200px;
+    }
+    .visit-note__inner a {
+      width: 100%;
+      margin-left: 36px;
     }
   }
 </style>

@@ -1,210 +1,431 @@
 ---
 import AssetImage from "../ui/AssetImage.astro";
+import CallToAction from "../ui/CallToAction.astro";
+import FeatureTile from "../ui/FeatureTile.astro";
 import PageHero from "../ui/PageHero.astro";
 import SectionHeading from "../ui/SectionHeading.astro";
 import ValuesSection from "./ValuesSection.astro";
-import ApiarySection from "../home/ApiarySection.astro";
-import CallToAction from "../ui/CallToAction.astro";
-import FeatureTile from "../ui/FeatureTile.astro";
 ---
 
 <>
-  <PageHero eyebrow="O pasiece" title="Pasja, natura i tradycja">
+  <PageHero eyebrow="O pasiece" title="Blisko pszczół, blisko natury">
     <p>
-      Blisko pszczół, w rytmie pór roku. Poznaj to, co jest dla nas ważne w
-      codziennej pracy przy pasiece.
+      Poznaj podejście, w którym uważna obserwacja natury spotyka się z
+      pszczelarskim rzemiosłem.
     </p>
   </PageHero>
-  <section class="section">
-    <div class="container split-content">
-      <div>
+
+  <section class="about-story section">
+    <div class="container about-story__inner">
+      <div class="about-story__copy">
         <SectionHeading
-          eyebrow="Historia pasieki"
-          title="Wszystko zaczyna się od ciekawości natury"
+          eyebrow="Nasze podejście"
+          title="Rzemiosło zaczyna się od uważności"
         />
         <div class="prose">
           <p>
-            Pasieka to dla nas spotkanie z naturą. Obserwowanie pszczół pozwala
-            dostrzec, jak wiele zależy od małych, codziennych działań — i jak
-            ważne jest otoczenie, w którym żyjemy.
+            Pasieka to codzienna obecność przy pszczołach i szacunek do ich
+            naturalnego rytmu. Obserwujemy zmiany pór roku, kwitnienie roślin i
+            to, co dzieje się wokół uli.
           </p>
           <p>
-            Chcemy dzielić się nie tylko miodem, ale też zainteresowaniem
-            światem pszczół. To właśnie tej idei poświęcamy naszą pasiekę:
-            uważności, prostocie i szacunkowi do naturalnego rytmu.
+            W pracy liczą się cierpliwość, prostota i gotowość do uczenia się.
+            To z tych małych, powtarzalnych czynności wyrasta pszczelarskie
+            rzemiosło.
           </p>
         </div>
       </div>
-      <figure class="story-photo">
+      <figure class="about-story__photo">
         <AssetImage
-          class="split-content__image"
-          sizes="(max-width: 899px) 92vw, 46vw"
           src="/assets/beekeeper.jpg"
+          sizes="(max-width: 899px) 92vw, 46vw"
           loading="lazy"
-          alt="Pszczelarz przy ulach, z ramką pszczelą w dłoniach"
+          alt="Pszczelarz przy ulach z ramką pszczelą w dłoniach"
         />
-        <figcaption>Blisko pszczół. Blisko natury.</figcaption>
+        <figcaption>Uważność w każdej porze roku</figcaption>
       </figure>
     </div>
   </section>
-  <section class="section soft-section beekeeper-story">
+
+  <section class="photo-story section--sm" aria-labelledby="photo-story-title">
     <div class="container">
-      <div class="beekeeper-story__editorial">
-        <p class="eyebrow">O pszczelarzu</p>
-        <h2 class="sr-only">Cierpliwość jest częścią tego rzemiosła</h2>
-        <blockquote data-reveal>
-          <p>
-            Pszczoły uczą
-            <br />
-            <em>pokory do natury.</em>
-          </p>
-        </blockquote>
-        <span class="accent-line" aria-hidden="true"></span>
-        <div class="prose">
-          <p>
-            Praca z pszczołami wymaga spokoju, obserwacji i gotowości do
-            ciągłego uczenia się. Każdy przegląd ula to okazja, by lepiej poznać
-            potrzeby pszczelej rodziny.
-          </p>
-          <p>
-            Najbliższe są nam proste zasady: troska o pszczoły, uważny wybór
-            miejsc i rzetelność w pracy. O pasiece i jej codzienności
-            najchętniej opowiadamy w rozmowie.
-          </p>
-        </div>
+      <div class="photo-story__heading">
+        <p class="eyebrow">Codzienność pasieki</p>
+        <h2 id="photo-story-title">Natura w zbliżeniu</h2>
+      </div>
+      <div class="photo-story__grid">
+        <figure class="photo-story__bee">
+          <AssetImage
+            src="/assets/gallery-bee.jpg"
+            sizes="(max-width: 639px) 92vw, 28vw"
+            loading="lazy"
+            alt="Pszczoła zbierająca nektar z kwiatu"
+          />
+        </figure>
+        <figure class="photo-story__honey">
+          <AssetImage
+            src="/assets/gallery-honey.jpg"
+            sizes="(max-width: 639px) 92vw, 48vw"
+            loading="lazy"
+            alt="Złocisty miód spływający do słoika"
+          />
+        </figure>
+        <figure class="photo-story__comb">
+          <AssetImage
+            src="/assets/gallery-comb.jpg"
+            sizes="(max-width: 639px) 92vw, 30vw"
+            loading="lazy"
+            alt="Pszczoły pracujące na plastrze miodu"
+          />
+        </figure>
+        <figure class="photo-story__apiary">
+          <AssetImage
+            src="/assets/apiary.jpg"
+            sizes="(max-width: 639px) 92vw, 70vw"
+            loading="lazy"
+            alt="Ule na łące z górami i lasem w tle"
+          />
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="bees-focus section">
+    <div class="container">
+      <div class="bees-focus__heading">
+        <SectionHeading
+          eyebrow="U podstaw"
+          title="Pszczoły w centrum naszej pracy"
+        />
+        <p>
+          Każda decyzja w pasiece zaczyna się od troski o pszczelą rodzinę i
+          środowisko, w którym żyje.
+        </p>
       </div>
       <div class="feature-grid">
         <FeatureTile
           index={0}
-          title="Troska o pszczoły"
-          description="Spokój i obserwacja pozwalają nam lepiej poznawać potrzeby pszczelej rodziny."
           icon="heart"
+          title="Szacunek do pszczół"
+          description="Spokój i obserwacja pomagają dostrzegać potrzeby pszczelej rodziny."
         />
         <FeatureTile
           index={1}
-          title="Uważny wybór miejsc"
-          description="Rytm kwitnienia i różnorodność pożytków wyznaczają drogę naszej wędrownej pasieki."
-          icon="tree"
+          icon="leaf"
+          title="Różnorodność pożytków"
+          description="Szukamy miejsc, w których natura daje pszczołom różne źródła nektaru i pyłku."
         />
         <FeatureTile
           index={2}
-          title="Pszczelarskie rzemiosło"
-          description="Cierpliwość, rzetelność i gotowość do ciągłego uczenia się są częścią naszej codzienności."
           icon="honey-jar"
+          title="Sezonowe rzemiosło"
+          description="Rytm prac wyznaczają pory roku oraz to, co w danym czasie dzieje się w ulu."
         />
       </div>
     </div>
   </section>
+
+  <section class="nature-rhythm">
+    <div class="nature-rhythm__image">
+      <AssetImage
+        src="/assets/apiary.jpg"
+        sizes="(max-width: 899px) 100vw, 58vw"
+        loading="lazy"
+        alt="Wędrowna pasieka wśród łąk i gór"
+      />
+    </div>
+    <div class="nature-rhythm__copy">
+      <p class="eyebrow eyebrow--line">Wędrowna pasieka</p>
+      <h2>W rytmie natury</h2>
+      <span class="accent-line" aria-hidden="true"></span>
+      <p>
+        Wędrowna pasieka podąża za sezonem i różnorodnością pożytków. Rytm
+        kwitnienia wskazuje kolejne miejsca, a każda zmiana krajobrazu
+        przypomina, jak mocno miód jest związany z naturą.
+      </p>
+    </div>
+  </section>
+
+  <section class="about-quote section">
+    <div class="container about-quote__inner">
+      <p class="eyebrow">Z pasieki</p>
+      <blockquote>„Pszczoły uczą pokory do natury.”</blockquote>
+    </div>
+  </section>
+
   <ValuesSection />
-  <ApiarySection />
+
   <CallToAction
     title="Poznaj nasze miody"
     href="/produkty"
-    label="Zobacz nasze miody"
+    label="Zobacz produkty"
   >
     <p>
-      Od delikatnych kwiatowych nut po głębokie leśne aromaty. Znajdź swój
-      ulubiony smak.
+      Od delikatnych nut kwiatowych po głębsze aromaty. Zobacz miody dostępne w
+      naszej ofercie.
     </p>
   </CallToAction>
 </>
-<style>
-  .story-photo {
-    position: relative;
-  }
 
-  .split-content__image {
+<style>
+  .about-story__inner {
+    display: grid;
+    grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+    align-items: center;
+    gap: var(--space-grid);
+  }
+  .about-story__copy .prose {
+    margin-top: var(--space-3);
+  }
+  .about-story__photo {
+    position: relative;
+    min-height: 520px;
+    overflow: hidden;
+  }
+  .about-story__photo :global(img) {
     width: 100%;
-    height: 460px;
+    height: 520px;
     object-fit: cover;
     object-position: 35% center;
+    -webkit-mask-image: linear-gradient(
+      90deg,
+      transparent 0%,
+      #000 28%,
+      #000 100%
+    );
+    mask-image: linear-gradient(90deg, transparent 0%, #000 28%, #000 100%);
   }
-
-  .story-photo::after {
-    content: "";
+  .about-story__photo::after {
     position: absolute;
     inset: 0;
     background:
-      linear-gradient(90deg, #fff9, transparent 12%),
-      linear-gradient(0deg, #2229, transparent 35%);
+      linear-gradient(
+        90deg,
+        var(--color-white) 0%,
+        #ffffffb8 22%,
+        transparent 48%
+      ),
+      linear-gradient(0deg, #22222280, transparent 35%);
+    content: "";
     pointer-events: none;
   }
-
-  .story-photo figcaption {
+  .about-story__photo figcaption {
     position: absolute;
     z-index: 1;
-    bottom: 24px;
-    left: 24px;
-    padding-left: 16px;
-    border-left: 2px solid var(--color-primary);
+    right: var(--space-3);
+    bottom: var(--space-3);
+    padding-right: var(--space-2);
+    border-right: 2px solid var(--color-primary);
     color: var(--color-white);
-    font-size: var(--text-eyebrow);
-    letter-spacing: 0.06em;
+    font: italic 500 var(--text-card-title)/1.1 var(--font-heading);
+    text-align: right;
   }
-
-  .beekeeper-story {
+  .photo-story {
+    padding-bottom: var(--space-section);
+    background: var(--color-soft);
+  }
+  .photo-story__heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    gap: var(--space-3);
+    margin-bottom: var(--space-4);
+  }
+  .photo-story__grid {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    grid-template-rows: 230px 310px;
+    gap: 8px;
+    border-block: 1px solid var(--color-border);
+    padding-block: 8px;
+  }
+  .photo-story figure {
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+  }
+  .photo-story :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 500ms ease;
+  }
+  .photo-story figure:hover :global(img) {
+    transform: scale(1.025);
+  }
+  .photo-story__bee {
+    grid-column: 1 / 4;
+    grid-row: 1 / 3;
+  }
+  .photo-story__honey {
+    grid-column: 4 / 9;
+    grid-row: 1;
+  }
+  .photo-story__comb {
+    grid-column: 9 / 13;
+    grid-row: 1;
+  }
+  .photo-story__apiary {
+    grid-column: 4 / 13;
+    grid-row: 2;
+  }
+  .bees-focus {
+    border-bottom: var(--border);
+  }
+  .bees-focus__heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    gap: var(--space-grid);
+    margin-bottom: var(--space-4);
+  }
+  .bees-focus__heading > p {
+    max-width: 42ch;
+    color: var(--color-muted);
+  }
+  .nature-rhythm {
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+    min-height: 540px;
+    background: var(--color-dark);
+    color: var(--color-white);
+  }
+  .nature-rhythm__image {
     position: relative;
-    isolation: isolate;
+    min-height: 100%;
+    overflow: hidden;
   }
-
-  .beekeeper-story::before {
-    content: "";
+  .nature-rhythm__image :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 58% center;
+    -webkit-mask-image: linear-gradient(
+      90deg,
+      #000 0%,
+      #000 62%,
+      transparent 100%
+    );
+    mask-image: linear-gradient(90deg, #000 0%, #000 62%, transparent 100%);
+  }
+  .nature-rhythm__image::after {
     position: absolute;
-    z-index: -1;
-    left: 0;
-    top: 60px;
-    width: 110px;
-    height: 310px;
-    background: url("/assets/flowers.png") left bottom / contain no-repeat;
-    opacity: 0.12;
-    pointer-events: none;
+    inset: 0;
+    background:
+      linear-gradient(90deg, transparent 30%, var(--color-dark) 100%),
+      linear-gradient(0deg, #1720166e, transparent 48%);
+    content: "";
   }
-
-  .beekeeper-story__editorial {
-    max-width: 740px;
-    margin: 0 auto var(--space-section-sm);
+  .nature-rhythm__copy {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: var(--space-section-sm) var(--page-inset) var(--space-section-sm)
+      var(--space-grid);
+  }
+  .nature-rhythm__copy h2 {
+    max-width: 12ch;
+    font-size: var(--text-section-title);
+  }
+  .nature-rhythm__copy > p:last-child {
+    max-width: 42ch;
+    color: var(--color-on-dark);
+  }
+  .about-quote {
+    background: var(--color-soft);
+  }
+  .about-quote__inner {
+    max-width: 900px;
     text-align: center;
   }
-
-  blockquote {
-    margin: 24px 0;
-    font: 500 var(--text-display)/1.06 var(--font-heading);
-    letter-spacing: -0.025em;
+  .about-quote .eyebrow {
+    color: var(--color-muted);
   }
-
-  blockquote em {
-    font-weight: 500;
+  .about-quote blockquote {
+    margin-top: var(--space-3);
+    font: italic 500 var(--text-display)/1.05 var(--font-heading);
+    letter-spacing: -0.03em;
   }
-
-  .beekeeper-story .accent-line {
-    margin-inline: auto;
-  }
-
-  .beekeeper-story .prose {
-    max-width: 64ch;
-    margin-inline: auto;
-    font-size: var(--text-small);
-  }
-
   @media (max-width: 899px) {
-    .split-content__image {
-      height: 380px;
+    .about-story__inner,
+    .nature-rhythm {
+      grid-template-columns: 1fr;
     }
-
-    .story-photo::after {
+    .about-story__photo,
+    .about-story__photo :global(img) {
+      min-height: 420px;
+      height: 420px;
+    }
+    .about-story__photo :global(img) {
+      -webkit-mask-image: linear-gradient(
+        180deg,
+        transparent 0%,
+        #000 26%,
+        #000 100%
+      );
+      mask-image: linear-gradient(180deg, transparent 0%, #000 26%, #000 100%);
+    }
+    .about-story__photo::after {
       background:
-        linear-gradient(180deg, #fff8, transparent 16%),
-        linear-gradient(0deg, #2229, transparent 35%);
+        linear-gradient(180deg, var(--color-white), transparent 38%),
+        linear-gradient(0deg, #22222280, transparent 35%);
+    }
+    .nature-rhythm__image {
+      min-height: 380px;
+    }
+    .nature-rhythm__image :global(img) {
+      -webkit-mask-image: linear-gradient(
+        180deg,
+        #000 0%,
+        #000 65%,
+        transparent 100%
+      );
+      mask-image: linear-gradient(180deg, #000 0%, #000 65%, transparent 100%);
+    }
+    .nature-rhythm__image::after {
+      background: linear-gradient(0deg, var(--color-dark), transparent 48%);
+    }
+    .nature-rhythm__copy {
+      padding: var(--space-section-sm) var(--gutter);
     }
   }
-
   @media (max-width: 639px) {
-    .split-content__image {
-      height: 320px;
+    .photo-story__heading,
+    .bees-focus__heading {
+      display: block;
     }
-
-    .beekeeper-story::before {
-      display: none;
+    .photo-story__heading h2,
+    .bees-focus__heading > p {
+      margin-top: var(--space-2);
+    }
+    .photo-story__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-rows: 220px 170px 250px;
+      gap: 6px;
+      padding-block: 6px;
+    }
+    .photo-story__bee {
+      grid-column: 1;
+      grid-row: 1 / 3;
+    }
+    .photo-story__honey {
+      grid-column: 2;
+      grid-row: 1;
+    }
+    .photo-story__comb {
+      grid-column: 2;
+      grid-row: 2;
+    }
+    .photo-story__apiary {
+      grid-column: 1 / 3;
+      grid-row: 3;
+    }
+    .about-story__photo,
+    .about-story__photo :global(img) {
+      min-height: 340px;
+      height: 340px;
+    }
+    .nature-rhythm__image {
+      min-height: 300px;
     }
   }
 </style>

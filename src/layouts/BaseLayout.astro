@@ -1,6 +1,7 @@
 ---
 import Header from "../components/layout/Header.astro";
 import Footer from "../components/layout/Footer.astro";
+import PrivacyConsent from "../components/ui/PrivacyConsent.astro";
 import "../styles/global.css";
 interface Props {
   title: string;
@@ -59,6 +60,7 @@ const canonical = Astro.site
       <slot />
     </main>
     <Footer />
+    <PrivacyConsent />
     <script>
       import "../scripts/reveal";
     </script>

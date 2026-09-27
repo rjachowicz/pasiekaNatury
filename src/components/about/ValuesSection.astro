@@ -1,155 +1,104 @@
 ---
 import Icon, { type IconName } from "../ui/Icon.astro";
+
 const values = [
-  {
-    title: "100% natury",
-    description: "Czyste tereny i naturalne pożytki.",
-    icon: "leaf",
-  },
   {
     title: "Szacunek do pszczół",
     description: "Troska o pszczoły i dobre warunki w ulu.",
     icon: "heart",
   },
   {
-    title: "Wędrowna pasieka",
-    description: "Podążamy za kwitnieniem i różnorodnością natury.",
+    title: "Obserwacja natury",
+    description: "Uważność na to, co przynosi każda pora roku.",
+    icon: "leaf",
+  },
+  {
+    title: "Różnorodne pożytki",
+    description: "Wędrujemy za kwitnieniem i bogactwem roślin.",
     icon: "tree",
   },
   {
-    title: "Tradycja i jakość",
-    description: "Pszczelarskie rzemiosło i uważność na każdym etapie.",
+    title: "Pszczelarskie rzemiosło",
+    description: "Cierpliwość i rzetelność obecne na każdym etapie pracy.",
     icon: "honey-jar",
   },
 ] satisfies { title: string; description: string; icon: IconName }[];
 ---
 
-<section class="values section section-divider" aria-label="Nasze wartości">
-  <h2 class="sr-only">Nasze wartości</h2>
-  <div class="container values__grid">
-    {values.map((value) => (
-      <article class="value">
-        <div class="value__hex" aria-hidden="true">
+<section class="values section" aria-labelledby="values-title">
+  <div class="container">
+    <div class="values__heading">
+      <p class="eyebrow">Wartości</p>
+      <h2 id="values-title">To, co jest dla nas ważne</h2>
+    </div>
+    <div class="values__grid">
+      {values.map((value) => (
+        <article class="value">
           <div class="value__icon">
-            <Icon name={value.icon} size={35} />
+            <Icon name={value.icon} size={34} />
           </div>
-        </div>
-        <h3>{value.title}</h3>
-        <p>{value.description}</p>
-      </article>
-    ))}
+          <h3>{value.title}</h3>
+          <p>{value.description}</p>
+        </article>
+      ))}
+    </div>
   </div>
 </section>
+
 <style>
+  .values {
+    background: var(--color-white);
+  }
+  .values__heading {
+    max-width: 500px;
+    margin-bottom: var(--space-5);
+  }
+  .values__heading h2 {
+    margin-top: var(--space-2);
+  }
   .values__grid {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
+    border-top: var(--border);
+    border-left: var(--border);
   }
-
   .value {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 0 var(--space-3);
-    text-align: center;
-    border-right: 1px solid var(--color-border);
+    min-height: 280px;
+    padding: var(--space-3);
+    border-right: var(--border);
+    border-bottom: var(--border);
   }
-
-  .value:last-child {
-    border-right: 0;
-  }
-
-  .value__hex {
-    display: grid;
-    place-items: center;
-    width: 72px;
-    height: 64px;
-    margin-bottom: var(--space-3);
-    background: var(--color-primary);
-    clip-path: polygon(25% 0, 75% 0, 100% 50%, 75% 100%, 25% 100%, 0 50%);
-  }
-
   .value__icon {
     display: grid;
     place-items: center;
-    width: 69px;
-    height: 61px;
-    background: var(--color-white);
-    clip-path: inherit;
-  }
-
-  .value__icon :global(svg) {
-    width: 35px;
-    height: 35px;
+    width: 54px;
+    height: 54px;
+    margin-bottom: var(--space-4);
+    border: 1px solid var(--color-primary);
     color: var(--color-primary);
   }
-
-  h3 {
-    max-width: 20ch;
-    font: 600 var(--text-small)/1.45 var(--font-body);
-    text-transform: uppercase;
-    letter-spacing: 0.025em;
+  .value h3 {
+    font-size: var(--text-card-title);
   }
-
-  p {
-    max-width: 26ch;
-    margin-top: 12px;
+  .value p {
+    margin-top: var(--space-2);
     color: var(--color-muted);
     font-size: var(--text-small);
   }
-
-  @media (max-width: 1199px) {
+  @media (max-width: 899px) {
     .values__grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      row-gap: var(--space-5);
     }
-
-    .value:nth-child(2) {
-      border-right: 0;
+    .value {
+      min-height: 220px;
     }
   }
-
-  @media (max-width: 639px) {
+  @media (max-width: 479px) {
     .values__grid {
       grid-template-columns: 1fr;
-      gap: var(--space-3);
     }
-
     .value {
-      display: grid;
-      grid-template-columns: 64px minmax(0, 1fr);
-      column-gap: var(--space-3);
-      padding: 0 0 var(--space-3);
-      border-right: 0;
-      border-bottom: 1px solid var(--color-border);
-      text-align: left;
-    }
-
-    .value:last-child {
-      border-bottom: 0;
-      padding-bottom: 0;
-    }
-
-    .value__hex {
-      grid-row: span 2;
-      width: 64px;
-      height: 57px;
-      margin: 0;
-    }
-
-    .value__icon {
-      width: 61px;
-      height: 54px;
-    }
-
-    h3 {
-      max-width: none;
-      align-self: end;
-    }
-
-    p {
-      margin-top: 6px;
-      align-self: start;
+      min-height: 0;
     }
   }
 </style>

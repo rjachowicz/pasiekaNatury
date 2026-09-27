@@ -100,8 +100,8 @@ import NatureBadge from "../ui/NatureBadge.astro";
     background: linear-gradient(
       90deg,
       var(--color-soft) 0%,
-      #faf8f2e6 5%,
-      transparent 18%
+      #faf8f2e6 12%,
+      transparent 34%
     );
     pointer-events: none;
   }
@@ -112,6 +112,13 @@ import NatureBadge from "../ui/NatureBadge.astro";
     height: 100%;
     object-fit: cover;
     object-position: 47% center;
+    -webkit-mask-image: linear-gradient(
+      90deg,
+      transparent 0%,
+      #000 28%,
+      #000 100%
+    );
+    mask-image: linear-gradient(90deg, transparent 0%, #000 28%, #000 100%);
   }
 
   .hero__visual :global(.nature-badge) {
@@ -146,13 +153,20 @@ import NatureBadge from "../ui/NatureBadge.astro";
       background: linear-gradient(
         180deg,
         var(--color-soft) 0%,
-        #faf8f2dd 8%,
-        transparent 24%
+        #faf8f2dd 14%,
+        transparent 38%
       );
     }
 
     .hero__photo {
       object-position: 50% 46%;
+      -webkit-mask-image: linear-gradient(
+        180deg,
+        transparent 0%,
+        #000 28%,
+        #000 100%
+      );
+      mask-image: linear-gradient(180deg, transparent 0%, #000 28%, #000 100%);
     }
   }
 

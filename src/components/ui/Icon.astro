@@ -8,7 +8,8 @@ export type IconName =
   | "email"
   | "location"
   | "facebook"
-  | "instagram";
+  | "instagram"
+  | "arrow-up-right";
 
 interface Props {
   name: IconName;
@@ -80,4 +81,5 @@ const labelled = Boolean(title);
       <path d="M17.5 6.5h.01" />
     </>
   )}
+  {name === "arrow-up-right" && <path d="M6 18 18 6M9 6h9v9" />}
 </svg>

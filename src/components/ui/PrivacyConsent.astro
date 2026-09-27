@@ -1,0 +1,75 @@
+<dialog class="privacy-consent" aria-labelledby="privacy-consent-title">
+  <div class="privacy-consent__content">
+    <p class="eyebrow">Prywatność</p>
+    <h2 id="privacy-consent-title">Mapa Google Maps</h2>
+    <p>
+      Na stronie kontaktowej możemy wyświetlić mapę Google Maps. To zewnętrzna
+      usługa, która zostanie załadowana dopiero po Twojej zgodzie.
+    </p>
+    <div class="privacy-consent__actions">
+      <button class="privacy-consent__accept" type="button" data-consent-accept>
+        Akceptuję mapę Google
+      </button>
+      <button class="privacy-consent__deny" type="button" data-consent-deny>
+        Tylko niezbędne
+      </button>
+    </div>
+  </div>
+</dialog>
+
+<script>
+  import "../../scripts/consent";
+</script>
+
+<style>
+  .privacy-consent {
+    width: min(calc(100% - 32px), 520px);
+    padding: 0;
+    border: 1px solid var(--color-border);
+    background: var(--color-white);
+    color: var(--color-text);
+    box-shadow: 0 24px 70px #2222222e;
+  }
+  .privacy-consent::backdrop {
+    background: #22222280;
+  }
+  .privacy-consent__content {
+    padding: clamp(24px, 5vw, 40px);
+  }
+  .privacy-consent h2 {
+    margin-top: var(--space-2);
+  }
+  .privacy-consent p:not(.eyebrow) {
+    margin-top: var(--space-3);
+    color: var(--color-muted);
+    font-size: var(--text-small);
+  }
+  .privacy-consent__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin-top: var(--space-4);
+  }
+  .privacy-consent button {
+    min-height: 46px;
+    padding: 12px 18px;
+    border: 1px solid var(--color-dark);
+    font: 700 var(--text-eyebrow)/1.4 var(--font-body);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+  .privacy-consent__accept {
+    background: var(--color-primary);
+    color: var(--color-dark);
+  }
+  .privacy-consent__deny {
+    background: var(--color-white);
+    color: var(--color-text);
+  }
+  @media (max-width: 479px) {
+    .privacy-consent__actions button {
+      width: 100%;
+    }
+  }
+</style>

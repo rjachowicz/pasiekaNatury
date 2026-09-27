@@ -42,6 +42,13 @@ import SectionHeading from "../ui/SectionHeading.astro";
     height: 100%;
     object-fit: cover;
     object-position: 60% center;
+    -webkit-mask-image: linear-gradient(
+      90deg,
+      #000 0%,
+      #000 65%,
+      transparent 100%
+    );
+    mask-image: linear-gradient(90deg, #000 0%, #000 65%, transparent 100%);
   }
 
   .apiary::before {
@@ -49,7 +56,13 @@ import SectionHeading from "../ui/SectionHeading.astro";
     position: absolute;
     z-index: -1;
     inset: 0;
-    background: linear-gradient(90deg, #172016d9, #17201699 32%, #1720160d 75%);
+    background: linear-gradient(
+      90deg,
+      #172016e6 0%,
+      #172016b8 35%,
+      #17201655 58%,
+      #17201608 100%
+    );
   }
 
   .apiary__content :global(h2) {
@@ -73,13 +86,20 @@ import SectionHeading from "../ui/SectionHeading.astro";
       background: linear-gradient(
         0deg,
         #172016ed,
-        #172016a6 45%,
+        #172016b8 52%,
         #17201608 100%
       );
     }
 
     .apiary__image {
       object-position: 62% center;
+      -webkit-mask-image: linear-gradient(
+        180deg,
+        #000 0%,
+        #000 66%,
+        transparent 100%
+      );
+      mask-image: linear-gradient(180deg, #000 0%, #000 66%, transparent 100%);
     }
 
     .apiary__content > p {

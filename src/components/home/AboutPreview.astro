@@ -82,8 +82,8 @@ import Button from "../ui/Button.astro";
     position: absolute;
     inset: 0;
     background:
-      linear-gradient(90deg, var(--color-dark), transparent 16%),
-      linear-gradient(0deg, #161b1399, transparent 45%);
+      linear-gradient(90deg, var(--color-dark), #222222b8 22%, transparent 44%),
+      linear-gradient(0deg, #161b1399, transparent 52%);
   }
 
   .about__visual img {
@@ -92,6 +92,13 @@ import Button from "../ui/Button.astro";
     height: 100%;
     object-fit: cover;
     object-position: 32% center;
+    -webkit-mask-image: linear-gradient(
+      90deg,
+      transparent 0%,
+      #000 30%,
+      #000 100%
+    );
+    mask-image: linear-gradient(90deg, transparent 0%, #000 30%, #000 100%);
   }
 
   figcaption {
@@ -121,8 +128,13 @@ import Button from "../ui/Button.astro";
 
     .about__visual::after {
       background:
-        linear-gradient(180deg, var(--color-dark), transparent 18%),
-        linear-gradient(0deg, #161b1399, transparent 50%);
+        linear-gradient(
+          180deg,
+          var(--color-dark),
+          #222222b8 24%,
+          transparent 44%
+        ),
+        linear-gradient(0deg, #161b1399, transparent 55%);
     }
 
     .about__visual {
@@ -131,6 +143,13 @@ import Button from "../ui/Button.astro";
 
     .about__visual img {
       object-position: 30% center;
+      -webkit-mask-image: linear-gradient(
+        180deg,
+        transparent 0%,
+        #000 30%,
+        #000 100%
+      );
+      mask-image: linear-gradient(180deg, transparent 0%, #000 30%, #000 100%);
     }
   }
 </style>
