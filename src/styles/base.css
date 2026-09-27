@@ -13,9 +13,9 @@ body {
   margin: 0;
   background:
     radial-gradient(
-      circle at 92% 12%,
+      circle at 94% 8%,
       var(--color-primary-25),
-      transparent 17rem
+      transparent 22rem
     ),
     var(--color-background);
   color: var(--color-text);

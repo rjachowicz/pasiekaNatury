@@ -174,45 +174,55 @@ import ValuesSection from "./ValuesSection.astro";
     align-items: center;
     gap: var(--space-grid);
   }
+  .about-story {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(
+      105deg,
+      var(--color-background),
+      var(--color-soft) 80%,
+      var(--color-background)
+    );
+  }
+  .about-story::after {
+    position: absolute;
+    right: -120px;
+    bottom: -180px;
+    width: 420px;
+    height: 420px;
+    border: 1px solid var(--color-primary-25);
+    border-radius: 50%;
+    box-shadow: 0 0 0 46px var(--color-primary-25);
+    content: "";
+    opacity: 0.45;
+    pointer-events: none;
+  }
   .about-story__copy .prose {
     margin-top: var(--space-3);
   }
+  .about-story__copy {
+    position: relative;
+    z-index: 1;
+  }
   .about-story__photo {
     position: relative;
-    min-height: 520px;
+    min-height: 540px;
     overflow: hidden;
     border-radius: var(--radius-image);
     box-shadow: var(--shadow-image);
   }
   .about-story__photo :global(img) {
     width: 100%;
-    height: 520px;
+    height: 540px;
     object-fit: cover;
-    object-position: 35% center;
-    -webkit-mask-image: linear-gradient(
-      90deg,
-      transparent 0%,
-      var(--color-mask) 28%,
-      var(--color-mask) 100%
-    );
-    mask-image: linear-gradient(
-      90deg,
-      transparent 0%,
-      var(--color-mask) 28%,
-      var(--color-mask) 100%
-    );
+    object-position: center;
   }
   .about-story__photo::after {
     position: absolute;
     inset: 0;
     background:
-      linear-gradient(
-        90deg,
-        var(--color-white) 0%,
-        var(--color-white-72) 22%,
-        transparent 48%
-      ),
-      linear-gradient(0deg, var(--color-dark-50), transparent 35%);
+      linear-gradient(0deg, var(--color-dark-60), transparent 38%),
+      linear-gradient(90deg, var(--color-dark-18), transparent 42%);
     content: "";
     pointer-events: none;
   }
@@ -249,6 +259,13 @@ import ValuesSection from "./ValuesSection.astro";
     border: 1px solid var(--color-border);
     border-radius: var(--radius-card);
     box-shadow: var(--shadow-subtle);
+    transition:
+      transform var(--transition),
+      box-shadow var(--transition);
+  }
+  .photo-story figure:hover {
+    box-shadow: var(--shadow-image);
+    transform: translateY(-2px);
   }
   .photo-story :global(img) {
     width: 100%;
@@ -272,7 +289,7 @@ import ValuesSection from "./ValuesSection.astro";
     grid-row: 2;
   }
   .bees-focus {
-    border-bottom: var(--border);
+    background: var(--color-background);
   }
   .bees-focus__heading {
     display: flex;
@@ -288,7 +305,7 @@ import ValuesSection from "./ValuesSection.astro";
   .nature-rhythm {
     display: grid;
     grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
-    min-height: 540px;
+    min-height: 560px;
     background: var(--color-dark);
     color: var(--color-white);
   }
@@ -362,25 +379,6 @@ import ValuesSection from "./ValuesSection.astro";
     .about-story__photo :global(img) {
       min-height: 420px;
       height: 420px;
-    }
-    .about-story__photo :global(img) {
-      -webkit-mask-image: linear-gradient(
-        180deg,
-        transparent 0%,
-        var(--color-mask) 26%,
-        var(--color-mask) 100%
-      );
-      mask-image: linear-gradient(
-        180deg,
-        transparent 0%,
-        var(--color-mask) 26%,
-        var(--color-mask) 100%
-      );
-    }
-    .about-story__photo::after {
-      background:
-        linear-gradient(180deg, var(--color-white), transparent 38%),
-        linear-gradient(0deg, var(--color-dark-50), transparent 35%);
     }
     .nature-rhythm__image {
       min-height: 380px;

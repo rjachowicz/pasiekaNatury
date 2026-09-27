@@ -1,5 +1,10 @@
 <dialog class="privacy-consent" aria-labelledby="privacy-consent-title">
   <div class="privacy-consent__content">
+    <div class="privacy-consent__mark" aria-hidden="true">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
     <p class="eyebrow">Prywatność</p>
     <h2 id="privacy-consent-title">Mapa Google Maps</h2>
     <p>
@@ -23,53 +28,111 @@
 
 <style>
   .privacy-consent {
-    width: min(calc(100% - 32px), 520px);
+    width: min(calc(100% - 32px), 540px);
     padding: 0;
+    overflow: hidden;
     border: 1px solid var(--color-border);
+    border-radius: 28px;
     background: var(--color-white);
     color: var(--color-text);
-    box-shadow: 0 24px 70px var(--color-dark-18);
+    box-shadow:
+      0 32px 96px var(--color-dark-60),
+      0 4px 16px var(--color-dark-22);
   }
+
   .privacy-consent::backdrop {
     background: var(--color-dark-50);
+    backdrop-filter: blur(6px);
   }
+
   .privacy-consent__content {
-    padding: clamp(24px, 5vw, 40px);
+    position: relative;
+    isolation: isolate;
+    padding: clamp(28px, 6vw, 48px);
+    background:
+      radial-gradient(
+        circle at 100% 0,
+        var(--color-primary-25),
+        transparent 11rem
+      ),
+      var(--color-white);
   }
+
+  .privacy-consent__mark {
+    display: flex;
+    gap: 5px;
+    width: max-content;
+    padding: 10px;
+    margin-bottom: var(--space-3);
+    border-radius: 14px;
+    background: var(--color-primary);
+  }
+
+  .privacy-consent__mark span {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--color-dark);
+  }
+
   .privacy-consent h2 {
-    margin-top: var(--space-2);
+    margin-top: var(--space-1);
+    font-size: clamp(2.1rem, 5vw, 3rem);
   }
+
   .privacy-consent p:not(.eyebrow) {
+    max-width: 45ch;
     margin-top: var(--space-3);
     color: var(--color-muted);
     font-size: var(--text-small);
   }
+
   .privacy-consent__actions {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.85fr);
     gap: var(--space-2);
     margin-top: var(--space-4);
   }
+
   .privacy-consent button {
-    min-height: 46px;
-    padding: 12px 18px;
+    min-height: 50px;
+    padding: 13px 18px;
     border: 1px solid var(--color-dark);
+    border-radius: var(--radius-pill);
     font: 700 var(--text-eyebrow)/1.4 var(--font-body);
     letter-spacing: 0.04em;
     text-transform: uppercase;
     cursor: pointer;
+    transition:
+      transform var(--transition),
+      box-shadow var(--transition),
+      background-color var(--transition);
   }
+
+  .privacy-consent button:hover {
+    transform: translateY(-2px);
+  }
+
   .privacy-consent__accept {
     background: var(--color-primary);
     color: var(--color-dark);
+    box-shadow: 0 10px 20px var(--color-primary-25);
   }
+
   .privacy-consent__deny {
+    border-color: var(--color-border) !important;
     background: var(--color-white);
     color: var(--color-text);
   }
-  @media (max-width: 479px) {
-    .privacy-consent__actions button {
-      width: 100%;
+
+  @media (max-width: 639px) {
+    .privacy-consent {
+      width: min(calc(100% - 24px), 540px);
+      border-radius: 24px;
+    }
+
+    .privacy-consent__actions {
+      grid-template-columns: 1fr;
     }
   }
 </style>

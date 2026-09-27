@@ -59,6 +59,15 @@ const year = new Date().getFullYear();
               Facebook <span aria-hidden="true">↗</span>
             </a>
           )}
+          {contact.instagramUrl && (
+            <a
+              href={contact.instagramUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Instagram <span aria-hidden="true">↗</span>
+            </a>
+          )}
         </address>
         <p class="footer__note">Przed wizytą umów dogodny termin.</p>
       </div>

@@ -35,29 +35,35 @@ import { contact } from "../../data/site";
 
 <script>
   const storageKey = "pasieka_google_maps_consent_v1";
-  const iframe = document.querySelector<HTMLIFrameElement>(
-    ".google-map__iframe",
-  );
-  const placeholder = document.querySelector<HTMLElement>(
+  const map = document.querySelector<HTMLElement>(".google-map");
+  const iframe = map?.querySelector<HTMLIFrameElement>(".google-map__iframe");
+  const placeholder = map?.querySelector<HTMLElement>(
     ".google-map__placeholder",
   );
-  const enableButton = document.querySelector<HTMLButtonElement>(
+  const enableButton = map?.querySelector<HTMLButtonElement>(
     "[data-enable-google-map]",
   );
+
   const loadMap = () => {
-    if (!iframe || iframe.getAttribute("src")) return;
-    iframe.src = iframe.dataset.src ?? "";
+    if (!iframe) return;
+    if (!iframe.getAttribute("src")) iframe.src = iframe.dataset.src ?? "";
     placeholder?.setAttribute("hidden", "");
     iframe.removeAttribute("hidden");
+    map?.setAttribute("data-map-ready", "true");
   };
+
   const unloadMap = () => {
     if (!iframe) return;
     iframe.removeAttribute("src");
     iframe.setAttribute("hidden", "");
     placeholder?.removeAttribute("hidden");
+    map?.removeAttribute("data-map-ready");
   };
+
   const hasConsent = () => localStorage.getItem(storageKey) === "accepted";
+
   if (hasConsent()) loadMap();
+
   enableButton?.addEventListener("click", () => {
     if (hasConsent()) {
       loadMap();
@@ -65,6 +71,7 @@ import { contact } from "../../data/site";
     }
     window.dispatchEvent(new CustomEvent("pasieka:open-privacy-settings"));
   });
+
   window.addEventListener("pasieka:google-maps-consent", (event) => {
     if ((event as CustomEvent<string>).detail === "accepted") {
       loadMap();
@@ -78,33 +85,53 @@ import { contact } from "../../data/site";
   .google-map {
     position: relative;
     min-height: 440px;
+    overflow: hidden;
     border: var(--border);
-    background:
-      linear-gradient(135deg, var(--color-soft) 0 49%, transparent 49%),
-      linear-gradient(
-        45deg,
-        var(--color-surface-pattern) 0 49%,
-        var(--color-soft) 49%
-      );
+    border-radius: var(--radius-image);
+    background: var(--color-soft);
+    box-shadow: var(--shadow-subtle);
   }
+
   .google-map__placeholder {
+    position: relative;
+    isolation: isolate;
     display: grid;
-    place-items: center;
-    align-content: center;
     min-height: 440px;
     padding: var(--space-4);
+    place-items: center;
+    align-content: center;
+    background:
+      radial-gradient(
+        circle at 50% 42%,
+        var(--color-primary-25),
+        transparent 12rem
+      ),
+      linear-gradient(135deg, var(--color-soft), var(--color-warm));
     text-align: center;
   }
+
+  .google-map__placeholder::before {
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    background: url("/assets/honeycomb.png") center / 580px auto no-repeat;
+    content: "";
+    opacity: 0.055;
+  }
+
   .google-map__placeholder > :global(svg) {
     margin-bottom: var(--space-2);
     color: var(--color-primary);
+    filter: drop-shadow(0 8px 10px var(--color-dark-18));
   }
+
   .google-map address {
     display: grid;
     margin-top: var(--space-2);
     font: 500 var(--text-card-title)/1.2 var(--font-heading);
     font-style: normal;
   }
+
   .google-map__actions {
     display: flex;
     flex-wrap: wrap;
@@ -112,6 +139,7 @@ import { contact } from "../../data/site";
     gap: var(--space-2);
     margin-top: var(--space-4);
   }
+
   .google-map__actions button,
   .google-map__actions a {
     display: inline-flex;
@@ -119,30 +147,46 @@ import { contact } from "../../data/site";
     justify-content: center;
     min-height: 46px;
     gap: 8px;
-    padding: 12px 16px;
+    padding: 12px 18px;
     border: 1px solid var(--color-dark);
+    border-radius: var(--radius-pill);
     background: var(--color-dark);
     color: var(--color-white);
     font: 700 var(--text-eyebrow)/1.4 var(--font-body);
     letter-spacing: 0.035em;
     text-transform: uppercase;
     cursor: pointer;
+    transition:
+      transform var(--transition),
+      background-color var(--transition),
+      border-color var(--transition);
   }
+
+  .google-map__actions button:hover,
+  .google-map__actions a:hover {
+    transform: translateY(-2px);
+  }
+
   .google-map__actions a {
-    background: transparent;
+    border-color: var(--color-border);
+    background: var(--color-white-72);
     color: var(--color-text);
   }
+
   .google-map__iframe {
     width: 100%;
     min-height: 440px;
     border: 0;
+    background: var(--color-soft);
   }
+
   @media (max-width: 479px) {
     .google-map,
     .google-map__placeholder,
     .google-map__iframe {
       min-height: 380px;
     }
+
     .google-map__actions {
       display: grid;
       width: 100%;

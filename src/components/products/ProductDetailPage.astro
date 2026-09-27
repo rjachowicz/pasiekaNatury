@@ -200,6 +200,7 @@ const otherProducts = products.filter(({ id }) => id !== product.id);
   .product-detail__tags li {
     padding: 5px 9px;
     border: var(--border);
+    border-radius: var(--radius-pill);
     background: var(--color-soft);
     color: var(--color-muted);
     font-size: var(--text-eyebrow);
@@ -218,7 +219,8 @@ const otherProducts = products.filter(({ id }) => id !== product.id);
   }
   .product-detail__sizes {
     padding: var(--space-4);
-    border-left: 2px solid var(--color-primary);
+    border: var(--border);
+    border-radius: var(--radius-card);
     background: var(--color-soft);
   }
   .product-detail__sizes h2 {
@@ -235,6 +237,7 @@ const otherProducts = products.filter(({ id }) => id !== product.id);
   .product-detail__sizes li {
     padding: 6px 10px;
     border: var(--border);
+    border-radius: var(--radius-pill);
     background: var(--color-white);
     font-size: var(--text-small);
   }
@@ -242,7 +245,9 @@ const otherProducts = products.filter(({ id }) => id !== product.id);
     max-width: 1040px;
     padding: var(--space-3) var(--space-4);
     margin-inline: auto;
+    border: var(--border);
     border-left: 3px solid var(--color-primary);
+    border-radius: var(--radius-sm);
     background: var(--color-soft);
     color: var(--color-muted);
     font-size: var(--text-small);
