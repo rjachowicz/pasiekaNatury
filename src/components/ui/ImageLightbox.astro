@@ -1,0 +1,220 @@
+---
+---
+
+<dialog
+  class="image-lightbox"
+  data-image-lightbox
+  aria-labelledby="image-lightbox-caption"
+>
+  <div class="image-lightbox__content">
+    <button
+      class="image-lightbox__close"
+      type="button"
+      data-lightbox-close
+      aria-label="Zamknij powiększone zdjęcie"
+    >
+      <span aria-hidden="true">×</span>
+    </button>
+    <button
+      class="image-lightbox__navigation image-lightbox__navigation--previous"
+      type="button"
+      data-lightbox-previous
+      aria-label="Poprzednie zdjęcie"
+    >
+      <span aria-hidden="true">←</span>
+    </button>
+    <img data-lightbox-image src="/assets/hero.jpg" alt="" />
+    <button
+      class="image-lightbox__navigation image-lightbox__navigation--next"
+      type="button"
+      data-lightbox-next
+      aria-label="Następne zdjęcie"
+    >
+      <span aria-hidden="true">→</span>
+    </button>
+    <p id="image-lightbox-caption" data-lightbox-caption></p>
+  </div>
+</dialog>
+
+<script>
+  const dialog = document.querySelector<HTMLDialogElement>(
+    "[data-image-lightbox]",
+  );
+  const image = dialog?.querySelector<HTMLImageElement>(
+    "[data-lightbox-image]",
+  );
+  const caption = dialog?.querySelector<HTMLElement>("[data-lightbox-caption]");
+  const close = dialog?.querySelector<HTMLButtonElement>(
+    "[data-lightbox-close]",
+  );
+  const previous = dialog?.querySelector<HTMLButtonElement>(
+    "[data-lightbox-previous]",
+  );
+  const next = dialog?.querySelector<HTMLButtonElement>("[data-lightbox-next]");
+
+  if (dialog && image && caption && close && previous && next) {
+    let activeIndex = 0;
+    let activeGroup = "";
+    let opener: HTMLElement | null = null;
+    let originalBodyPadding = "";
+
+    const getItems = () =>
+      [...document.querySelectorAll<HTMLElement>("[data-lightbox-src]")].filter(
+        (item) => (item.dataset.lightboxGroup ?? "default") === activeGroup,
+      );
+
+    const lockScroll = () => {
+      const scrollbarWidth =
+        window.innerWidth - document.documentElement.clientWidth;
+      originalBodyPadding = document.body.style.paddingRight;
+      if (scrollbarWidth > 0) {
+        document.body.style.paddingRight = `${scrollbarWidth}px`;
+      }
+      document.body.classList.add("is-scroll-locked");
+    };
+
+    const unlockScroll = () => {
+      document.body.classList.remove("is-scroll-locked");
+      document.body.style.paddingRight = originalBodyPadding;
+    };
+
+    const render = (index: number) => {
+      const items = getItems();
+      if (items.length === 0) return;
+
+      activeIndex = (index + items.length) % items.length;
+      const item = items[activeIndex];
+      const alt = item.dataset.lightboxAlt ?? "";
+      image.src = item.dataset.lightboxSrc ?? "";
+      image.alt = alt;
+      caption.textContent = alt;
+    };
+
+    const closeDialog = () => dialog.close();
+
+    const openDialog = (trigger: HTMLElement) => {
+      activeGroup = trigger.dataset.lightboxGroup ?? "default";
+      const items = getItems();
+      const index = items.indexOf(trigger);
+      if (index === -1) return;
+
+      opener = trigger;
+      render(index);
+      lockScroll();
+      dialog.showModal();
+      close.focus();
+    };
+
+    document
+      .querySelectorAll<HTMLElement>("[data-lightbox-src]")
+      .forEach((trigger) => {
+        trigger.addEventListener("click", () => openDialog(trigger));
+      });
+
+    previous.addEventListener("click", () => render(activeIndex - 1));
+    next.addEventListener("click", () => render(activeIndex + 1));
+    close.addEventListener("click", closeDialog);
+
+    dialog.addEventListener("click", (event) => {
+      if (event.target === dialog) closeDialog();
+    });
+
+    dialog.addEventListener("keydown", (event) => {
+      if (event.key === "ArrowLeft") {
+        event.preventDefault();
+        render(activeIndex - 1);
+      }
+      if (event.key === "ArrowRight") {
+        event.preventDefault();
+        render(activeIndex + 1);
+      }
+    });
+
+    dialog.addEventListener("close", () => {
+      unlockScroll();
+      opener?.focus();
+      opener = null;
+    });
+  }
+</script>
+
+<style>
+  .image-lightbox {
+    width: min(100% - 32px, 1120px);
+    max-width: none;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: var(--color-white);
+  }
+
+  .image-lightbox::backdrop {
+    background: var(--color-overlay-dark);
+  }
+
+  .image-lightbox__content {
+    position: relative;
+    display: grid;
+    place-items: center;
+  }
+
+  .image-lightbox img {
+    width: auto;
+    max-width: 100%;
+    max-height: calc(100vh - 100px);
+    object-fit: contain;
+  }
+
+  .image-lightbox__close,
+  .image-lightbox__navigation {
+    position: absolute;
+    z-index: 1;
+    display: grid;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    place-items: center;
+    border: 1px solid var(--color-white-40);
+    background: var(--color-dark-60);
+    color: var(--color-white);
+    cursor: pointer;
+  }
+
+  .image-lightbox__close {
+    top: 12px;
+    right: 12px;
+    font-size: 1.75rem;
+    line-height: 1;
+  }
+
+  .image-lightbox__navigation {
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.25rem;
+  }
+
+  .image-lightbox__navigation--previous {
+    left: 12px;
+  }
+
+  .image-lightbox__navigation--next {
+    right: 12px;
+  }
+
+  .image-lightbox p {
+    margin-top: var(--space-2);
+    font-size: var(--text-small);
+    text-align: center;
+  }
+
+  @media (max-width: 639px) {
+    .image-lightbox {
+      width: min(100% - 24px, 1120px);
+    }
+
+    .image-lightbox__navigation {
+      width: 38px;
+      height: 38px;
+    }
+  }
+</style>

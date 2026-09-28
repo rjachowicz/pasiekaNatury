@@ -8,11 +8,15 @@ import SectionHeading from "../ui/SectionHeading.astro";
 import { products } from "../../data/products";
 import { contact } from "../../data/site";
 
-const productOptions = products.map(({ id, name }) => ({ id, name }));
+const productOptions = products.map(({ id, name, sizes, variants }) => ({
+  id,
+  name,
+  variants: [...(sizes ?? []), ...(variants ?? [])],
+}));
 ---
 
 <>
-  <PageHero eyebrow="Kontakt" title="Porozmawiajmy o miodzie">
+  <PageHero eyebrow="Kontakt" title="Porozmawiajmy o produktach pasieki">
     <p>
       Zapytaj o aktualną dostępność, gramatury i szczegóły. Jesteśmy do
       dyspozycji przez telefon, e-mail i media społecznościowe.
@@ -27,11 +31,10 @@ const productOptions = products.map(({ id, name }) => ({ id, name }));
           hidden
           data-products={JSON.stringify(productOptions)}
         >
-          <p class="eyebrow">Pytasz o</p>
           <p class="contextual-product__name" data-product-name></p>
           <p>
             Sprawdzimy aktualną dostępność, gramatury i szczegóły wybranego
-            miodu.
+            produktu.
           </p>
         </div>
 
@@ -57,7 +60,7 @@ const productOptions = products.map(({ id, name }) => ({ id, name }));
             <p class="eyebrow">Wizyta w pasiece</p>
             <h3>Jasienna, blisko natury</h3>
             <p>
-              Chętnie opowiemy o dostępnych miodach i wskażemy drogę. Każdą
+              Chętnie opowiemy o dostępnych produktach i wskażemy drogę. Każdą
               wizytę najlepiej umówić wcześniej.
             </p>
             <a
@@ -128,12 +131,12 @@ const productOptions = products.map(({ id, name }) => ({ id, name }));
   </div>
 
   <CallToAction
-    title="Poznaj nasze miody"
+    title="Poznaj nasze produkty"
     href="/produkty"
     label="Zobacz produkty"
   >
     <p>
-      Sprawdź smaki dostępne w naszej ofercie, a o szczegóły zapytaj nas
+      Sprawdź produkty prezentowane w naszej ofercie, a o szczegóły zapytaj nas
       bezpośrednio.
     </p>
   </CallToAction>
@@ -146,17 +149,24 @@ const productOptions = products.map(({ id, name }) => ({ id, name }));
   const productName = document.querySelector<HTMLElement>(
     "[data-product-name]",
   );
-  const productId = new URLSearchParams(window.location.search).get("produkt");
+  const searchParams = new URLSearchParams(window.location.search);
+  const productId = searchParams.get("produkt");
+  const variant = searchParams.get("wariant");
   const productOptions = JSON.parse(
     contextualBox?.dataset.products ?? "[]",
   ) as Array<{
     id: string;
     name: string;
+    variants: string[];
   }>;
   const product = productOptions.find(({ id }) => id === productId);
 
   if (contextualBox && productName && product) {
-    productName.textContent = product.name;
+    const validVariant =
+      variant && product.variants.includes(variant) ? variant : null;
+    productName.textContent = `Pytasz o: ${product.name}${
+      validVariant ? ` — ${validVariant}` : ""
+    }`;
     contextualBox.hidden = false;
   }
 </script>

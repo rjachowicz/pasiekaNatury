@@ -1,5 +1,6 @@
 ---
 import { products } from "../../data/products";
+import AssetImage from "../ui/AssetImage.astro";
 
 const items = [
   ...products.map((product) => ({ product, clone: true })),
@@ -33,7 +34,7 @@ const items = [
   <div
     class="product-carousel__viewport"
     data-carousel-viewport
-    aria-label="Miody z naszej pasieki"
+    aria-label="Produkty z naszej pasieki"
     role="region"
     tabindex="0"
   >
@@ -54,10 +55,9 @@ const items = [
           }
         >
           <div class="product-carousel__image-wrap">
-            <img
+            <AssetImage
               src={product.image}
-              width="640"
-              height="780"
+              sizes="255px"
               loading="lazy"
               alt={
                 clone ? "" : `Słoik: ${product.name.toLocaleLowerCase("pl")}`
@@ -243,7 +243,7 @@ const items = [
     border-bottom: var(--border);
     background: var(--color-soft);
   }
-  .product-carousel__image-wrap img {
+  .product-carousel__image-wrap :global(img) {
     width: min(100%, 255px);
     height: 100%;
     object-fit: contain;

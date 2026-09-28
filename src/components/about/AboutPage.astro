@@ -36,12 +36,25 @@ import ValuesSection from "./ValuesSection.astro";
         </div>
       </div>
       <figure class="about-story__photo">
-        <AssetImage
-          src="/assets/beekeeper.jpg"
-          sizes="(max-width: 899px) 92vw, 46vw"
-          loading="lazy"
-          alt="Pszczelarz przy ulach z ramką pszczelą w dłoniach"
-        />
+        <button
+          class="image-zoom-trigger"
+          type="button"
+          data-lightbox-src="/assets/beekeeper.jpg"
+          data-lightbox-alt="Pszczelarz przy ulach z ramką pszczelą w dłoniach"
+          data-lightbox-group="about-gallery"
+          aria-haspopup="dialog"
+          aria-label="Powiększ zdjęcie: Pszczelarz przy ulach z ramką pszczelą w dłoniach"
+        >
+          <AssetImage
+            src="/assets/beekeeper.jpg"
+            sizes="(max-width: 899px) 92vw, 46vw"
+            loading="lazy"
+            alt="Pszczelarz przy ulach z ramką pszczelą w dłoniach"
+          />
+          <span class="image-zoom-trigger__icon" aria-hidden="true">
+            ⌕
+          </span>
+        </button>
         <figcaption>Uważność w każdej porze roku</figcaption>
       </figure>
     </div>
@@ -55,36 +68,88 @@ import ValuesSection from "./ValuesSection.astro";
       </div>
       <div class="photo-story__grid">
         <figure class="photo-story__bee">
-          <AssetImage
-            src="/assets/gallery-bee.jpg"
-            sizes="(max-width: 639px) 92vw, 28vw"
-            loading="lazy"
-            alt="Pszczoła zbierająca nektar z kwiatu"
-          />
+          <button
+            class="image-zoom-trigger"
+            type="button"
+            data-lightbox-src="/assets/gallery-bee.jpg"
+            data-lightbox-alt="Pszczoła zbierająca nektar z kwiatu"
+            data-lightbox-group="about-gallery"
+            aria-haspopup="dialog"
+            aria-label="Powiększ zdjęcie: Pszczoła zbierająca nektar z kwiatu"
+          >
+            <AssetImage
+              src="/assets/gallery-bee.jpg"
+              sizes="(max-width: 639px) 92vw, 28vw"
+              loading="lazy"
+              alt="Pszczoła zbierająca nektar z kwiatu"
+            />
+            <span class="image-zoom-trigger__icon" aria-hidden="true">
+              ⌕
+            </span>
+          </button>
         </figure>
         <figure class="photo-story__honey">
-          <AssetImage
-            src="/assets/gallery-honey.jpg"
-            sizes="(max-width: 639px) 92vw, 48vw"
-            loading="lazy"
-            alt="Złocisty miód spływający do słoika"
-          />
+          <button
+            class="image-zoom-trigger"
+            type="button"
+            data-lightbox-src="/assets/gallery-honey.jpg"
+            data-lightbox-alt="Złocisty miód spływający do słoika"
+            data-lightbox-group="about-gallery"
+            aria-haspopup="dialog"
+            aria-label="Powiększ zdjęcie: Złocisty miód spływający do słoika"
+          >
+            <AssetImage
+              src="/assets/gallery-honey.jpg"
+              sizes="(max-width: 639px) 92vw, 48vw"
+              loading="lazy"
+              alt="Złocisty miód spływający do słoika"
+            />
+            <span class="image-zoom-trigger__icon" aria-hidden="true">
+              ⌕
+            </span>
+          </button>
         </figure>
         <figure class="photo-story__comb">
-          <AssetImage
-            src="/assets/gallery-comb.jpg"
-            sizes="(max-width: 639px) 92vw, 30vw"
-            loading="lazy"
-            alt="Pszczoły pracujące na plastrze miodu"
-          />
+          <button
+            class="image-zoom-trigger"
+            type="button"
+            data-lightbox-src="/assets/gallery-comb.jpg"
+            data-lightbox-alt="Pszczoły pracujące na plastrze miodu"
+            data-lightbox-group="about-gallery"
+            aria-haspopup="dialog"
+            aria-label="Powiększ zdjęcie: Pszczoły pracujące na plastrze miodu"
+          >
+            <AssetImage
+              src="/assets/gallery-comb.jpg"
+              sizes="(max-width: 639px) 92vw, 30vw"
+              loading="lazy"
+              alt="Pszczoły pracujące na plastrze miodu"
+            />
+            <span class="image-zoom-trigger__icon" aria-hidden="true">
+              ⌕
+            </span>
+          </button>
         </figure>
         <figure class="photo-story__apiary">
-          <AssetImage
-            src="/assets/apiary.jpg"
-            sizes="(max-width: 639px) 92vw, 70vw"
-            loading="lazy"
-            alt="Ule na łące z górami i lasem w tle"
-          />
+          <button
+            class="image-zoom-trigger"
+            type="button"
+            data-lightbox-src="/assets/apiary.jpg"
+            data-lightbox-alt="Ule na łące z górami i lasem w tle"
+            data-lightbox-group="about-gallery"
+            aria-haspopup="dialog"
+            aria-label="Powiększ zdjęcie: Ule na łące z górami i lasem w tle"
+          >
+            <AssetImage
+              src="/assets/apiary.jpg"
+              sizes="(max-width: 639px) 92vw, 70vw"
+              loading="lazy"
+              alt="Ule na łące z górami i lasem w tle"
+            />
+            <span class="image-zoom-trigger__icon" aria-hidden="true">
+              ⌕
+            </span>
+          </button>
         </figure>
       </div>
     </div>
@@ -127,12 +192,25 @@ import ValuesSection from "./ValuesSection.astro";
 
   <section class="nature-rhythm">
     <div class="nature-rhythm__image">
-      <AssetImage
-        src="/assets/apiary.jpg"
-        sizes="(max-width: 899px) 100vw, 58vw"
-        loading="lazy"
-        alt="Wędrowna pasieka wśród łąk i gór"
-      />
+      <button
+        class="image-zoom-trigger"
+        type="button"
+        data-lightbox-src="/assets/apiary.jpg"
+        data-lightbox-alt="Wędrowna pasieka wśród łąk i gór"
+        data-lightbox-group="about-gallery"
+        aria-haspopup="dialog"
+        aria-label="Powiększ zdjęcie: Wędrowna pasieka wśród łąk i gór"
+      >
+        <AssetImage
+          src="/assets/apiary.jpg"
+          sizes="(max-width: 899px) 100vw, 58vw"
+          loading="lazy"
+          alt="Wędrowna pasieka wśród łąk i gór"
+        />
+        <span class="image-zoom-trigger__icon" aria-hidden="true">
+          ⌕
+        </span>
+      </button>
     </div>
     <div class="nature-rhythm__copy">
       <p class="eyebrow eyebrow--line">Wędrowna pasieka</p>
@@ -156,13 +234,13 @@ import ValuesSection from "./ValuesSection.astro";
   <ValuesSection />
 
   <CallToAction
-    title="Poznaj nasze miody"
+    title="Poznaj nasze produkty"
     href="/produkty"
     label="Zobacz produkty"
   >
     <p>
-      Od delikatnych nut kwiatowych po głębsze aromaty. Zobacz miody dostępne w
-      naszej ofercie.
+      Zobacz produkty dostępne w naszej ofercie i poznaj ich naturalny
+      charakter.
     </p>
   </CallToAction>
 </>
@@ -194,6 +272,35 @@ import ValuesSection from "./ValuesSection.astro";
     height: 540px;
     object-fit: cover;
     object-position: center;
+  }
+  .image-zoom-trigger {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    cursor: zoom-in;
+  }
+  .image-zoom-trigger :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .image-zoom-trigger__icon {
+    position: absolute;
+    right: var(--space-2);
+    bottom: var(--space-2);
+    color: var(--color-white);
+    font-size: 2rem;
+    line-height: 1;
+    opacity: 0;
+    transition: opacity var(--transition);
+  }
+  .image-zoom-trigger:hover .image-zoom-trigger__icon,
+  .image-zoom-trigger:focus-visible .image-zoom-trigger__icon {
+    opacity: 1;
   }
   .about-story__photo::after {
     position: absolute;
@@ -300,6 +407,7 @@ import ValuesSection from "./ValuesSection.astro";
     inset: 0;
     background: linear-gradient(90deg, transparent 30%, var(--color-dark) 100%);
     content: "";
+    pointer-events: none;
   }
   .nature-rhythm__copy {
     display: flex;
@@ -337,7 +445,8 @@ import ValuesSection from "./ValuesSection.astro";
       grid-template-columns: 1fr;
     }
     .about-story__photo,
-    .about-story__photo :global(img) {
+    .about-story__photo :global(img),
+    .about-story__photo .image-zoom-trigger {
       min-height: 420px;
       height: 420px;
     }
@@ -382,7 +491,8 @@ import ValuesSection from "./ValuesSection.astro";
       grid-row: 3;
     }
     .about-story__photo,
-    .about-story__photo :global(img) {
+    .about-story__photo :global(img),
+    .about-story__photo .image-zoom-trigger {
       min-height: 340px;
       height: 340px;
     }

@@ -22,11 +22,13 @@ const gallery = [
   </div>
   <div class="container">
     <div class="gallery__mosaic">
-      {gallery.map(({ file, alt }, index) => (
+      {gallery.map(({ file, alt }) => (
         <button
           class="gallery__tile"
           type="button"
-          data-gallery-open={index}
+          data-lightbox-src={`/assets/${file}`}
+          data-lightbox-alt={alt}
+          data-lightbox-group="homepage-gallery"
           aria-haspopup="dialog"
           aria-label={`Powiększ zdjęcie: ${alt}`}
         >
@@ -52,93 +54,7 @@ const gallery = [
       ))}
     </div>
   </div>
-  <dialog
-    class="gallery__dialog"
-    data-gallery-dialog
-    aria-labelledby="gallery-dialog-title"
-  >
-    <div class="gallery__dialog-content">
-      <button
-        class="gallery__close"
-        type="button"
-        data-gallery-close
-        aria-label="Zamknij zdjęcie"
-      >
-        ×
-      </button>
-      <button
-        class="gallery__navigation gallery__navigation--previous"
-        type="button"
-        data-gallery-previous
-        aria-label="Poprzednie zdjęcie"
-      >
-        ←
-      </button>
-      <img
-        data-gallery-image
-        src="/assets/hero.jpg"
-        width="1440"
-        height="960"
-        loading="lazy"
-        alt=""
-      />
-      <button
-        class="gallery__navigation gallery__navigation--next"
-        type="button"
-        data-gallery-next
-        aria-label="Następne zdjęcie"
-      >
-        →
-      </button>
-      <p id="gallery-dialog-title" data-gallery-caption></p>
-    </div>
-  </dialog>
 </section>
-<script define:vars={{ gallery }}>
-  document.querySelectorAll("[data-gallery]").forEach((galleryElement) => {
-    const dialog = galleryElement.querySelector("[data-gallery-dialog]");
-    const image = galleryElement.querySelector("[data-gallery-image]");
-    const caption = galleryElement.querySelector("[data-gallery-caption]");
-    const close = galleryElement.querySelector("[data-gallery-close]");
-    const previous = galleryElement.querySelector("[data-gallery-previous]");
-    const next = galleryElement.querySelector("[data-gallery-next]");
-    const triggers = [
-      ...galleryElement.querySelectorAll("[data-gallery-open]"),
-    ];
-    let activeIndex = 0;
-
-    if (!dialog || !image || !caption || !close || !previous || !next) return;
-
-    const render = (index) => {
-      activeIndex = (index + gallery.length) % gallery.length;
-      const item = gallery[activeIndex];
-      image.src = `/assets/${item.file}`;
-      image.alt = item.alt;
-      caption.textContent = item.alt;
-    };
-
-    const closeDialog = () => dialog.close();
-
-    triggers.forEach((trigger) => {
-      trigger.addEventListener("click", () => {
-        render(Number(trigger.dataset.galleryOpen));
-        document.body.classList.add("is-scroll-locked");
-        dialog.showModal();
-        close.focus();
-      });
-    });
-
-    previous.addEventListener("click", () => render(activeIndex - 1));
-    next.addEventListener("click", () => render(activeIndex + 1));
-    close.addEventListener("click", closeDialog);
-    dialog.addEventListener("click", (event) => {
-      if (event.target === dialog) closeDialog();
-    });
-    dialog.addEventListener("close", () =>
-      document.body.classList.remove("is-scroll-locked"),
-    );
-  });
-</script>
 <style>
   .gallery {
     padding-bottom: 0;
@@ -210,74 +126,6 @@ const gallery = [
     box-shadow: var(--shadow-subtle);
   }
 
-  .gallery__dialog {
-    width: min(100% - 32px, 1120px);
-    max-width: none;
-    padding: 0;
-    border: 0;
-    background: transparent;
-    color: var(--color-white);
-  }
-
-  .gallery__dialog::backdrop {
-    background: var(--color-overlay-dark);
-  }
-
-  .gallery__dialog-content {
-    position: relative;
-    display: grid;
-    place-items: center;
-  }
-
-  .gallery__dialog img {
-    width: auto;
-    max-width: 100%;
-    max-height: calc(100vh - 100px);
-    object-fit: contain;
-  }
-
-  .gallery__close,
-  .gallery__navigation {
-    position: absolute;
-    z-index: 1;
-    display: grid;
-    place-items: center;
-    width: 44px;
-    height: 44px;
-    padding: 0;
-    border: 1px solid var(--color-white-40);
-    background: var(--color-dark-60);
-    color: var(--color-white);
-    cursor: pointer;
-  }
-
-  .gallery__close {
-    top: 12px;
-    right: 12px;
-    font-size: 1.75rem;
-    line-height: 1;
-  }
-
-  .gallery__navigation {
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 1.25rem;
-  }
-
-  .gallery__navigation--previous {
-    left: 12px;
-  }
-
-  .gallery__navigation--next {
-    right: 12px;
-  }
-
-  .gallery__dialog p {
-    margin-top: var(--space-2);
-    font-size: var(--text-small);
-    text-align: center;
-  }
-
   @media (max-width: 639px) {
     .gallery__mosaic {
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -291,11 +139,6 @@ const gallery = [
 
     .gallery__tile:nth-child(5) {
       grid-column: auto;
-    }
-
-    .gallery__navigation {
-      width: 38px;
-      height: 38px;
     }
   }
 </style>

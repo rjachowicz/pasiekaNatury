@@ -1,5 +1,6 @@
 ---
 import type { Product } from "../../data/products";
+import AssetImage from "../ui/AssetImage.astro";
 
 interface Props {
   product: Product;
@@ -15,6 +16,7 @@ const number = String(index + 1).padStart(2, "0");
   id={product.id}
   aria-labelledby={`title-${product.id}`}
   data-reveal
+  data-product-category={product.category}
 >
   <a
     class="product-card__image"
@@ -22,14 +24,22 @@ const number = String(index + 1).padStart(2, "0");
     tabindex="-1"
     aria-hidden="true"
   >
-    <img src={product.image} width="480" height="520" loading="lazy" alt="" />
+    <AssetImage
+      src={product.image}
+      sizes="(max-width: 639px) 220px, (max-width: 1199px) 275px, 22vw"
+      loading="lazy"
+      alt=""
+    />
   </a>
   <div class="product-card__body">
     <p class="product-card__number" aria-hidden="true">
       {number}
     </p>
     <h2 id={`title-${product.id}`}>{product.name}</h2>
-    <ul class="product-card__tags" aria-label={`Nuty smakowe: ${product.name}`}>
+    <ul
+      class="product-card__tags"
+      aria-label={`Cechy produktu: ${product.name}`}
+    >
       {product.tags.slice(0, 3).map((tag) => (
         <li>{tag}</li>
       ))}
