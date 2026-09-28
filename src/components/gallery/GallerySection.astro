@@ -170,7 +170,6 @@ const gallery = [
     background: var(--color-dark);
     color: var(--color-white);
     cursor: zoom-in;
-    box-shadow: var(--shadow-subtle);
   }
 
   .gallery__tile:nth-child(1) {
@@ -205,6 +204,10 @@ const gallery = [
   .gallery__tile:hover .gallery__overlay,
   .gallery__tile:focus-visible .gallery__overlay {
     opacity: 1;
+  }
+
+  .gallery__tile:hover {
+    box-shadow: var(--shadow-subtle);
   }
 
   .gallery__dialog {

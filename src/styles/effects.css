@@ -1,11 +1,5 @@
 .soft-section {
-  background:
-    radial-gradient(
-      circle at 6% 18%,
-      var(--color-primary-25),
-      transparent 20rem
-    ),
-    var(--color-soft);
+  background: var(--color-soft);
 }
 .section-divider {
   position: relative;
@@ -16,14 +10,7 @@
   bottom: 0;
   left: var(--page-inset);
   height: 1px;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    var(--color-border) 15%,
-    var(--color-primary) 50%,
-    var(--color-border) 85%,
-    transparent
-  );
+  background: var(--color-border);
   content: "";
 }
 .accent-line {

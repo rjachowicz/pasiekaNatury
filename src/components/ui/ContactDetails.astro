@@ -71,7 +71,6 @@ const details = [
     border: var(--border);
     border-radius: var(--radius-card);
     background: var(--color-white);
-    box-shadow: var(--shadow-subtle);
     transition:
       border-color var(--transition),
       box-shadow var(--transition),
@@ -79,8 +78,7 @@ const details = [
   }
   .contact-details--tiles .contact-row:hover {
     border-color: var(--color-accent-border);
-    box-shadow: var(--shadow-image);
-    transform: translateY(-2px);
+    box-shadow: var(--shadow-subtle);
   }
   .contact-row > span:last-child {
     min-width: 0;
@@ -107,14 +105,6 @@ const details = [
     width: 38px;
     height: 38px;
     color: var(--color-primary);
-  }
-  .contact-details--tiles .contact-row__hex {
-    flex-basis: 46px;
-    width: 46px;
-    height: 46px;
-    border: 1px solid var(--color-primary);
-    border-radius: 14px;
-    background: var(--color-soft);
   }
   @media (max-width: 639px) {
     .contact-details--tiles {

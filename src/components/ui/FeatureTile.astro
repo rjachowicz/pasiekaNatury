@@ -29,7 +29,6 @@ const { title, description, icon, index } = Astro.props;
     border: var(--border);
     border-radius: var(--radius-card);
     background: var(--color-white);
-    box-shadow: var(--shadow-subtle);
     transition:
       border-color var(--transition),
       box-shadow var(--transition);
@@ -37,7 +36,7 @@ const { title, description, icon, index } = Astro.props;
 
   .feature-tile:hover {
     border-color: var(--color-accent-border);
-    box-shadow: var(--shadow-image);
+    box-shadow: var(--shadow-subtle);
   }
 
   .feature-tile__top {

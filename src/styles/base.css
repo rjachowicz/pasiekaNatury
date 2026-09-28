@@ -11,13 +11,7 @@ html {
 
 body {
   margin: 0;
-  background:
-    radial-gradient(
-      circle at 94% 8%,
-      var(--color-primary-25),
-      transparent 22rem
-    ),
-    var(--color-background);
+  background: var(--color-background);
   color: var(--color-text);
   font: 400 var(--text-body) / 1.6 var(--font-body);
   -webkit-font-smoothing: antialiased;

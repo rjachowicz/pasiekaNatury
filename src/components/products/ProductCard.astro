@@ -59,7 +59,7 @@ const number = String(index + 1).padStart(2, "0");
   .product-card:hover,
   .product-card:focus-within {
     border-color: var(--color-accent-border);
-    box-shadow: var(--shadow-image);
+    box-shadow: var(--shadow-subtle);
   }
 
   .product-card__image {
@@ -68,11 +68,7 @@ const number = String(index + 1).padStart(2, "0");
     min-height: 320px;
     padding: var(--space-4);
     border-right: var(--border);
-    background: radial-gradient(
-      circle at 50% 72%,
-      #eee8d8,
-      var(--color-soft) 68%
-    );
+    background: var(--color-soft);
   }
 
   .product-card__image img {

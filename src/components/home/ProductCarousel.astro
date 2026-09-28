@@ -230,7 +230,6 @@ const items = [
     border: var(--border);
     border-radius: var(--radius-card);
     background: var(--color-white);
-    box-shadow: var(--shadow-subtle);
   }
   .product-carousel__card > a {
     display: grid;
@@ -242,11 +241,7 @@ const items = [
     padding: var(--space-2);
     place-items: center;
     border-bottom: var(--border);
-    background: radial-gradient(
-      circle at 50% 75%,
-      #eee8d8,
-      var(--color-soft) 65%
-    );
+    background: var(--color-soft);
   }
   .product-carousel__image-wrap img {
     width: min(100%, 255px);

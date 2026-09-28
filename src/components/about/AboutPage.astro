@@ -175,41 +175,19 @@ import ValuesSection from "./ValuesSection.astro";
     gap: var(--space-grid);
   }
   .about-story {
-    position: relative;
-    overflow: hidden;
-    background: linear-gradient(
-      105deg,
-      var(--color-background),
-      var(--color-soft) 80%,
-      var(--color-background)
-    );
-  }
-  .about-story::after {
-    position: absolute;
-    right: -120px;
-    bottom: -180px;
-    width: 420px;
-    height: 420px;
-    border: 1px solid var(--color-primary-25);
-    border-radius: 50%;
-    box-shadow: 0 0 0 46px var(--color-primary-25);
-    content: "";
-    opacity: 0.45;
-    pointer-events: none;
+    background: var(--color-background);
   }
   .about-story__copy .prose {
     margin-top: var(--space-3);
   }
   .about-story__copy {
-    position: relative;
-    z-index: 1;
   }
   .about-story__photo {
     position: relative;
     min-height: 540px;
     overflow: hidden;
+    border: var(--border);
     border-radius: var(--radius-image);
-    box-shadow: var(--shadow-image);
   }
   .about-story__photo :global(img) {
     width: 100%;
@@ -220,9 +198,7 @@ import ValuesSection from "./ValuesSection.astro";
   .about-story__photo::after {
     position: absolute;
     inset: 0;
-    background:
-      linear-gradient(0deg, var(--color-dark-60), transparent 38%),
-      linear-gradient(90deg, var(--color-dark-18), transparent 42%);
+    background: linear-gradient(0deg, var(--color-dark-60), transparent 38%);
     content: "";
     pointer-events: none;
   }
@@ -258,13 +234,12 @@ import ValuesSection from "./ValuesSection.astro";
     overflow: hidden;
     border: 1px solid var(--color-border);
     border-radius: var(--radius-card);
-    box-shadow: var(--shadow-subtle);
     transition:
       transform var(--transition),
       box-shadow var(--transition);
   }
   .photo-story figure:hover {
-    box-shadow: var(--shadow-image);
+    box-shadow: var(--shadow-subtle);
     transform: translateY(-2px);
   }
   .photo-story :global(img) {
@@ -319,25 +294,11 @@ import ValuesSection from "./ValuesSection.astro";
     height: 100%;
     object-fit: cover;
     object-position: 58% center;
-    -webkit-mask-image: linear-gradient(
-      90deg,
-      var(--color-mask) 0%,
-      var(--color-mask) 62%,
-      transparent 100%
-    );
-    mask-image: linear-gradient(
-      90deg,
-      var(--color-mask) 0%,
-      var(--color-mask) 62%,
-      transparent 100%
-    );
   }
   .nature-rhythm__image::after {
     position: absolute;
     inset: 0;
-    background:
-      linear-gradient(90deg, transparent 30%, var(--color-dark) 100%),
-      linear-gradient(0deg, var(--color-forest-43), transparent 48%);
+    background: linear-gradient(90deg, transparent 30%, var(--color-dark) 100%);
     content: "";
   }
   .nature-rhythm__copy {
@@ -383,22 +344,8 @@ import ValuesSection from "./ValuesSection.astro";
     .nature-rhythm__image {
       min-height: 380px;
     }
-    .nature-rhythm__image :global(img) {
-      -webkit-mask-image: linear-gradient(
-        180deg,
-        var(--color-mask) 0%,
-        var(--color-mask) 65%,
-        transparent 100%
-      );
-      mask-image: linear-gradient(
-        180deg,
-        var(--color-mask) 0%,
-        var(--color-mask) 65%,
-        transparent 100%
-      );
-    }
     .nature-rhythm__image::after {
-      background: linear-gradient(0deg, var(--color-dark), transparent 48%);
+      background: linear-gradient(0deg, var(--color-dark), transparent 52%);
     }
     .nature-rhythm__copy {
       padding: var(--space-section-sm) var(--gutter);

@@ -4,8 +4,6 @@ import PageHero from "../ui/PageHero.astro";
 import SectionHeading from "../ui/SectionHeading.astro";
 import CallToAction from "../ui/CallToAction.astro";
 import ProductCard from "./ProductCard.astro";
-import ProductQuickNav from "./ProductQuickNav.astro";
-import FeatureTile from "../ui/FeatureTile.astro";
 import { products } from "../../data/products";
 ---
 
@@ -38,12 +36,10 @@ import { products } from "../../data/products";
       />
       <div class="catalog-heading" data-reveal>
         <div>
-          <p class="eyebrow eyebrow--line">Wybierz swój smak</p>
           <h2>Nasze miody</h2>
         </div>
         <span>{String(products.length).padStart(2, "0")} rodzaje miodu</span>
       </div>
-      <ProductQuickNav />
       <div class="product-grid">
         {products.map((product, index) => (
           <ProductCard product={product} index={index} />
@@ -51,48 +47,10 @@ import { products } from "../../data/products";
       </div>
     </div>
   </section>
-  <section class="section--sm product-guide">
-    <div class="container product-guide__inner" data-reveal>
-      <div>
-        <p class="eyebrow eyebrow--line">Jak wybierać</p>
-        <h2>Miód, który pasuje do Twojego rytmu dnia</h2>
-      </div>
-      <div class="product-guide__copy">
-        <p>
-          Jasne miody kwiatowe są łagodne i lekkie, dlatego dobrze odnajdują się
-          w śniadaniach oraz napojach. Ciemniejsze odmiany mają bardziej
-          wyrazisty aromat i ciekawie uzupełniają wypieki, sery oraz kuchnię
-          wytrawną.
-        </p>
-        <p>
-          Krystalizacja jest naturalnym procesem. Nie zmienia wartości miodu, a
-          tempo jej przebiegu zależy od odmiany i warunków przechowywania.
-        </p>
-      </div>
-    </div>
-  </section>
-  <section
-    class="section--sm soft-section section-divider"
-    aria-label="Blisko natury"
-  >
-    <div class="container feature-grid">
-      <FeatureTile
-        title="100% natury"
-        description="Barwa, aromat i konsystencja mogą różnić się między zbiorami. To część naturalnego charakteru miodu."
-        icon="leaf"
-      />
-      <FeatureTile
-        title="Wędrowna pasieka"
-        description="Podążamy za kwitnieniem. Każdy pożytek nadaje naszym miodom inny smak i aromat."
-        icon="tree"
-      />
-      <FeatureTile
-        title="Tradycja i jakość"
-        description="Pszczelarskie rzemiosło i uważność na każdym etapie pracy przy pasiece."
-        icon="honey-jar"
-      />
-    </div>
-  </section>
+  <aside class="product-guide container" aria-label="Jak wybierać miód">
+    Jasne miody są zwykle łagodniejsze, a ciemniejsze mają wyraźniejszy aromat.
+    Krystalizacja jest naturalnym procesem i nie zmienia wartości miodu.
+  </aside>
   <CallToAction
     title="Zapytaj o dostępność"
     href="/kontakt"
@@ -152,26 +110,11 @@ import { products } from "../../data/products";
   }
 
   .product-guide {
-    padding-top: 0;
-  }
-
-  .product-guide__inner {
-    display: grid;
-    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
-    gap: var(--space-grid);
-    padding-block: var(--space-5);
-    border-block: var(--border);
-  }
-
-  .product-guide h2 {
-    max-width: 16ch;
-    margin-top: var(--space-2);
-  }
-
-  .product-guide__copy {
-    display: grid;
-    gap: var(--space-3);
-    max-width: 58ch;
+    max-width: var(--container-content);
+    padding: var(--space-3) var(--space-4);
+    margin-bottom: var(--space-section-sm);
+    border-left: 3px solid var(--color-primary);
+    background: var(--color-soft);
     color: var(--color-muted);
   }
 
@@ -189,10 +132,6 @@ import { products } from "../../data/products";
 
     .products-intro__copy {
       justify-self: start;
-    }
-
-    .product-guide__inner {
-      grid-template-columns: 1fr;
     }
   }
 

@@ -138,7 +138,6 @@ const otherProducts = products.filter(({ id }) => id !== product.id);
     border: var(--border);
     border-radius: var(--radius-image);
     overflow: hidden;
-    box-shadow: var(--shadow-subtle);
   }
   .product-detail__image {
     display: grid;
@@ -146,11 +145,7 @@ const otherProducts = products.filter(({ id }) => id !== product.id);
     min-height: 540px;
     padding: var(--space-5);
     border-right: var(--border);
-    background: radial-gradient(
-      circle at 50% 74%,
-      #eee8d8,
-      var(--color-soft) 67%
-    );
+    background: var(--color-soft);
   }
   .product-detail__image img {
     width: min(100%, 390px);
@@ -281,11 +276,7 @@ const otherProducts = products.filter(({ id }) => id !== product.id);
     display: grid;
     padding: var(--space-2);
     place-items: center;
-    background: radial-gradient(
-      circle at 50% 72%,
-      #eee8d8,
-      var(--color-soft) 70%
-    );
+    background: var(--color-soft);
   }
   .other-products__image img {
     width: 100%;

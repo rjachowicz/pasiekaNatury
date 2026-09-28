@@ -35,9 +35,7 @@
     border-radius: 28px;
     background: var(--color-white);
     color: var(--color-text);
-    box-shadow:
-      0 32px 96px var(--color-dark-60),
-      0 4px 16px var(--color-dark-22);
+    box-shadow: var(--shadow-subtle);
   }
 
   .privacy-consent::backdrop {
@@ -46,16 +44,8 @@
   }
 
   .privacy-consent__content {
-    position: relative;
-    isolation: isolate;
     padding: clamp(28px, 6vw, 48px);
-    background:
-      radial-gradient(
-        circle at 100% 0,
-        var(--color-primary-25),
-        transparent 11rem
-      ),
-      var(--color-white);
+    background: var(--color-white);
   }
 
   .privacy-consent__mark {
@@ -71,7 +61,7 @@
   .privacy-consent__mark span {
     width: 8px;
     height: 8px;
-    border-radius: 50%;
+    border-radius: var(--radius-pill);
     background: var(--color-dark);
   }
 
@@ -116,7 +106,6 @@
   .privacy-consent__accept {
     background: var(--color-primary);
     color: var(--color-dark);
-    box-shadow: 0 10px 20px var(--color-primary-25);
   }
 
   .privacy-consent__deny {

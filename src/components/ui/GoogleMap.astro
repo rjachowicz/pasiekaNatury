@@ -89,40 +89,21 @@ import { contact } from "../../data/site";
     border: var(--border);
     border-radius: var(--radius-image);
     background: var(--color-soft);
-    box-shadow: var(--shadow-subtle);
   }
 
   .google-map__placeholder {
-    position: relative;
-    isolation: isolate;
     display: grid;
     min-height: 440px;
     padding: var(--space-4);
     place-items: center;
     align-content: center;
-    background:
-      radial-gradient(
-        circle at 50% 42%,
-        var(--color-primary-25),
-        transparent 12rem
-      ),
-      linear-gradient(135deg, var(--color-soft), var(--color-warm));
+    background: var(--color-soft);
     text-align: center;
-  }
-
-  .google-map__placeholder::before {
-    position: absolute;
-    z-index: -1;
-    inset: 0;
-    background: url("/assets/honeycomb.png") center / 580px auto no-repeat;
-    content: "";
-    opacity: 0.055;
   }
 
   .google-map__placeholder > :global(svg) {
     margin-bottom: var(--space-2);
     color: var(--color-primary);
-    filter: drop-shadow(0 8px 10px var(--color-dark-18));
   }
 
   .google-map address {
@@ -178,6 +159,11 @@ import { contact } from "../../data/site";
     min-height: 440px;
     border: 0;
     background: var(--color-soft);
+  }
+
+  .google-map__placeholder[hidden],
+  .google-map__iframe[hidden] {
+    display: none !important;
   }
 
   @media (max-width: 479px) {
