@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
+  <title id="title">Liść</title>
+  <path d="M32 7 27.7 17.2l-7-4 1.7 10.1-8.7-1.8 6.1 8.3-7.5 3.1 11.6 6.2-3.6 7.1 10.1-2.4L29 57h6l-1.4-13.2 10.1 2.4-3.6-7.1 11.6-6.2-7.5-3.1 6.1-8.3-8.7 1.8 1.7-10.1-7 4L32 7Z" fill="#F9BD00" stroke="#222222" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M32 23v34" fill="none" stroke="#222222" stroke-width="2.2" stroke-linecap="round"/>
+</svg>

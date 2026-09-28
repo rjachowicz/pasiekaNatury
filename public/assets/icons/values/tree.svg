@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
+  <title id="title">Drzewo</title>
+  <path d="M32 7 20.5 24h6.2L16 38.5h7.8L13 52h38L40.2 38.5H48L37.3 24h6.2L32 7Z" fill="#F9BD00" stroke="#222222" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M32 32v25" fill="none" stroke="#222222" stroke-width="2.4" stroke-linecap="round"/>
+</svg>
