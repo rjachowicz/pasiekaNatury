@@ -32,10 +32,12 @@
     padding: 0;
     overflow: hidden;
     border: 1px solid var(--color-border);
-    border-radius: var(--radius-card);
+    border-radius: 28px;
     background: var(--color-white);
     color: var(--color-text);
-    box-shadow: var(--shadow-image);
+    box-shadow:
+      0 32px 96px var(--color-dark-60),
+      0 4px 16px var(--color-dark-22);
   }
 
   .privacy-consent::backdrop {
@@ -62,7 +64,7 @@
     width: max-content;
     padding: 10px;
     margin-bottom: var(--space-3);
-    border-radius: var(--radius-sm);
+    border-radius: 14px;
     background: var(--color-primary);
   }
 
@@ -114,6 +116,7 @@
   .privacy-consent__accept {
     background: var(--color-primary);
     color: var(--color-dark);
+    box-shadow: 0 10px 20px var(--color-primary-25);
   }
 
   .privacy-consent__deny {
@@ -125,7 +128,7 @@
   @media (max-width: 639px) {
     .privacy-consent {
       width: min(calc(100% - 24px), 540px);
-      border-radius: var(--radius-card);
+      border-radius: 24px;
     }
 
     .privacy-consent__actions {

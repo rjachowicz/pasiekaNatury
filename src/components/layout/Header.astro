@@ -95,7 +95,7 @@ const pathname = Astro.url.pathname.replace(/\/+$/, "") || "/";
 
   .header__inner {
     display: flex;
-    min-height: 112px;
+    min-height: 110px;
     align-items: center;
     justify-content: space-between;
     gap: var(--space-4);
@@ -104,13 +104,13 @@ const pathname = Astro.url.pathname.replace(/\/+$/, "") || "/";
   .header__inner :global(.brand-lockup) {
     position: relative;
     z-index: 2;
-    flex: 0 1 auto;
+    flex: 0 0 290px;
   }
 
   .nav {
     display: flex;
     align-items: center;
-    gap: var(--space-grid);
+    gap: clamp(1.25rem, 3vw, var(--space-grid));
   }
 
   .nav__link {
@@ -155,6 +155,10 @@ const pathname = Astro.url.pathname.replace(/\/+$/, "") || "/";
     .header__inner {
       min-height: 82px;
       gap: 0;
+    }
+
+    .header__inner :global(.brand-lockup) {
+      flex: 1 1 auto;
     }
 
     .nav {

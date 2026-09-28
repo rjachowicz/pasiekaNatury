@@ -18,7 +18,7 @@ const { variant = "header", loading = "eager" } = Astro.props;
     class="brand-lockup__mark"
     src="/assets/logo.png"
     widths={[160, 240]}
-    sizes={variant === "header" ? "148px" : "138px"}
+    sizes={variant === "header" ? "144px" : "132px"}
     loading={loading}
     alt=""
   />
@@ -31,20 +31,29 @@ const { variant = "header", loading = "eager" } = Astro.props;
   .brand-lockup {
     display: inline-flex;
     align-items: center;
-    gap: 14px;
+    position: relative;
+    display: grid;
+    grid-template-columns: 144px minmax(104px, 1fr);
+    width: 290px;
+    height: 110px;
+    align-items: center;
+    gap: 10px;
     min-width: 0;
     color: var(--color-white);
   }
 
   .brand-lockup__mark {
-    width: 148px;
-    flex: 0 0 auto;
+    position: absolute;
+    top: 2px;
+    left: 0;
+    width: 144px;
   }
 
   .brand-lockup__name {
     display: grid;
-    max-width: 10ch;
-    font: 500 clamp(1.1rem, 1.35vw, 1.35rem) / 0.98 var(--font-heading);
+    grid-column: 2;
+    max-width: 9ch;
+    font: 500 clamp(1.05rem, 1.25vw, 1.25rem) / 0.98 var(--font-heading);
     letter-spacing: -0.02em;
   }
 
@@ -54,27 +63,50 @@ const { variant = "header", loading = "eager" } = Astro.props;
   }
 
   .brand-lockup--footer .brand-lockup__mark {
-    width: 138px;
+    width: 132px;
   }
 
   .brand-lockup--footer .brand-lockup__name {
-    font-size: 1.15rem;
+    font-size: 1.1rem;
+  }
+
+  .brand-lockup--footer {
+    grid-template-columns: 132px minmax(112px, 1fr);
+    width: 278px;
+    height: 132px;
   }
 
   @media (max-width: 639px) {
-    .brand-lockup {
-      gap: 9px;
+    .brand-lockup--header {
+      grid-template-columns: 96px minmax(0, 1fr);
+      width: min(222px, calc(100% - 48px));
+      height: 82px;
+      gap: 8px;
     }
 
-    .brand-lockup__mark,
-    .brand-lockup--footer .brand-lockup__mark {
-      width: 82px;
+    .brand-lockup--header .brand-lockup__mark {
+      top: 1px;
+      width: 96px;
     }
 
-    .brand-lockup__name,
-    .brand-lockup--footer .brand-lockup__name {
+    .brand-lockup--header .brand-lockup__name {
       max-width: 9ch;
+      font-size: 0.98rem;
+    }
+
+    .brand-lockup--footer .brand-lockup__name {
+      max-width: 10ch;
       font-size: 1rem;
+    }
+
+    .brand-lockup--footer {
+      grid-template-columns: 128px minmax(0, 1fr);
+      width: 268px;
+      height: 128px;
+    }
+
+    .brand-lockup--footer .brand-lockup__mark {
+      width: 128px;
     }
   }
 </style>
