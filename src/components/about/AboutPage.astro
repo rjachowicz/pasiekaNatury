@@ -40,14 +40,14 @@ import { imageAssets } from "../../data/imageAssets";
         <button
           class="image-zoom-trigger"
           type="button"
-          data-lightbox-src={imageAssets["/assets/beekeeper.jpg"].src}
+          data-lightbox-src={imageAssets["/assets/beekeeper-face.jpg"].src}
           data-lightbox-alt="Pszczelarz przy ulach z ramką pszczelą w dłoniach"
           data-lightbox-group="about-gallery"
           aria-haspopup="dialog"
           aria-label="Powiększ zdjęcie: Pszczelarz przy ulach z ramką pszczelą w dłoniach"
         >
           <AssetImage
-            src="/assets/beekeeper.jpg"
+            src="/assets/beekeeper-face.jpg"
             widths={[640, 960, 1440]}
             sizes="(max-width: 899px) 92vw, 46vw"
             loading="lazy"
@@ -221,19 +221,19 @@ import { imageAssets } from "../../data/imageAssets";
       <div class="feature-grid">
         <FeatureTile
           index={0}
-          icon="heart"
+          icon="hand-stars"
           title="Szacunek do pszczół"
           description="Spokój i obserwacja pomagają dostrzegać potrzeby pszczelej rodziny."
         />
         <FeatureTile
           index={1}
-          icon="leaf"
+          icon="bee"
           title="Różnorodność pożytków"
           description="Szukamy miejsc, w których natura daje pszczołom różne źródła nektaru i pyłku."
         />
         <FeatureTile
           index={2}
-          icon="honey-jar"
+          icon="sun"
           title="Sezonowe rzemiosło"
           description="Rytm prac wyznaczają pory roku oraz to, co w danym czasie dzieje się w ulu."
         />
@@ -244,7 +244,7 @@ import { imageAssets } from "../../data/imageAssets";
   <section class="nature-rhythm">
     <div class="nature-rhythm__image">
       <AssetImage
-        src="/assets/apiary.jpg"
+        src="/assets/bee-field.jpg"
         widths={[640, 960, 1440]}
         sizes="(max-width: 899px) 100vw, 58vw"
         loading="lazy"

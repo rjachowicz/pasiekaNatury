@@ -1,7 +1,16 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
-  <title id="title">Słoik miodu</title>
-  <path d="M19 21h26l3 8v20.5A7.5 7.5 0 0 1 40.5 57h-17a7.5 7.5 0 0 1-7.5-7.5V29l3-8Z" fill="#F9BD00" stroke="#222222" stroke-width="2.5" stroke-linejoin="round"/>
-  <path d="M18 14h28v8H18z" fill="#F9BD00" stroke="#222222" stroke-width="2.5" stroke-linejoin="round"/>
-  <path d="M22 10h20v4H22zM23 37h18v10H23z" fill="#F9BD00" stroke="#222222" stroke-width="2.5" stroke-linejoin="round"/>
-  <path d="M28 37c0 3 1.8 5 4 5s4-2 4-5" fill="none" stroke="#222222" stroke-width="2.2" stroke-linecap="round"/>
-</svg>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Uploaded to: SVG Repo, www.svgrepo.com, Transformed by: SVG Repo Mixer Tools -->
+<svg width="800px" height="800px" viewBox="0 0 24 24" id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" fill="#F9BD00">
+<g id="SVGRepo_bgCarrier" stroke-width="0"/>
+<g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
+<g id="SVGRepo_iconCarrier">
+<defs>
+<style>.cls-1{fill:none;stroke:#F9BD00;stroke-miterlimit:10;stroke-width:1.91px;}</style>
+</defs>
+<path class="cls-1" d="M17.73,5.32V3.41A1.91,1.91,0,0,0,15.82,1.5H8.18A1.91,1.91,0,0,0,6.27,3.41V5.32h0A6.52,6.52,0,0,0,4.36,9.93V20.59A1.91,1.91,0,0,0,6.27,22.5H17.73a1.91,1.91,0,0,0,1.91-1.91V9.93a6.52,6.52,0,0,0-1.91-4.61Z"/>
+<line class="cls-1" x1="6.27" y1="5.32" x2="17.73" y2="5.32"/>
+<polygon class="cls-1" points="12 16.72 12 14.92 10.09 13.54 8.18 14.92 8.18 16.72 10.09 18.1 12 16.72"/>
+<polygon class="cls-1" points="15.82 16.72 15.82 14.92 13.91 13.54 12 14.92 12 16.72 13.91 18.1 15.82 16.72"/>
+<polygon class="cls-1" points="13.91 13.54 13.91 11.74 12 10.37 10.09 11.74 10.09 13.54 12 14.92 13.91 13.54"/>
+</g>
+</svg>

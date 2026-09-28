@@ -1,6 +1,8 @@
 import apiary from "../assets/images/apiary.jpg";
 import beeFlight from "../assets/images/bee-flight.png";
 import beekeeper from "../assets/images/beekeeper.jpg";
+import beekeeperFace from "../assets/images/beekeeperFace.jpg";
+import beeField from "../assets/images/bee-field.jpg";
 import flowers from "../assets/images/flowers.png";
 import galleryBee from "../assets/images/gallery-bee.jpg";
 import galleryComb from "../assets/images/gallery-comb.jpg";
@@ -18,6 +20,8 @@ export const imageAssets = {
   "/assets/apiary.jpg": apiary,
   "/assets/bee-flight.png": beeFlight,
   "/assets/beekeeper.jpg": beekeeper,
+  "/assets/beekeeper-face.jpg": beekeeperFace,
+  "/assets/bee-field.jpg": beeField,
   "/assets/flowers.png": flowers,
   "/assets/gallery-bee.jpg": galleryBee,
   "/assets/gallery-comb.jpg": galleryComb,
