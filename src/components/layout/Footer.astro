@@ -69,9 +69,12 @@ const year = new Date().getFullYear();
       </div>
     </div>
     <div class="footer__bottom">
-      <button class="footer__privacy" type="button" data-privacy-settings>
-        Ustawienia prywatności
-      </button>
+      <div class="footer__privacy-links">
+        <a href="/polityka-prywatnosci">Polityka prywatności</a>
+        <button class="footer__privacy" type="button" data-privacy-settings>
+          Ustawienia prywatności
+        </button>
+      </div>
       <p>© {year} Pasieka 100% Natury. Wszelkie prawa zastrzeżone.</p>
       <span>W rytmie natury</span>
     </div>
@@ -191,6 +194,18 @@ const year = new Date().getFullYear();
     background: transparent;
     color: inherit;
     cursor: pointer;
+    text-decoration: underline;
+    text-decoration-color: var(--color-primary);
+    text-underline-offset: 4px;
+  }
+
+  .footer__privacy-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+  }
+
+  .footer__privacy-links > a {
     text-decoration: underline;
     text-decoration-color: var(--color-primary);
     text-underline-offset: 4px;

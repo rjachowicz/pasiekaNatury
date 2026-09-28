@@ -1,0 +1,146 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PageHero from "../components/ui/PageHero.astro";
+import { contact } from "../data/site";
+---
+
+<BaseLayout
+  title="Polityka prywatności — Pasieka 100% Natury"
+  description="Informacje o prywatności i zgodzie na mapę Google w serwisie Pasieka 100% Natury."
+>
+  <PageHero eyebrow="Prywatność" title="Polityka prywatności">
+    <p>
+      Informacje o tym, jakie dane mogą być przetwarzane podczas korzystania ze
+      strony Pasieki 100% Natury.
+    </p>
+  </PageHero>
+
+  <article class="privacy-policy section">
+    <div class="container privacy-policy__content prose">
+      <section>
+        <h2>Administrator strony</h2>
+        <p>
+          Administratorem strony jest Pasieka 100% Natury. W sprawach związanych
+          ze stroną możesz skontaktować się telefonicznie pod numerem
+          <a href={contact.phoneHref}>{contact.phone}</a>, e-mailem
+          <a href={`mailto:${contact.email}`}>{contact.email}</a> lub pod
+          adresem {contact.address}.
+        </p>
+      </section>
+
+      <section>
+        <h2>Jakie dane mogą być przetwarzane</h2>
+        <p>
+          Gdy kontaktujesz się z pasieką przez telefon, e-mail lub media
+          społecznościowe, przekazujesz dane niezbędne do obsługi swojej sprawy,
+          takie jak dane kontaktowe i treść wiadomości.
+        </p>
+      </section>
+
+      <section>
+        <h2>Hosting i techniczne logi serwera</h2>
+        <p>
+          Podczas korzystania ze strony serwer hostingowy może zapisywać
+          techniczne logi, w tym adres IP, datę i czas żądania, adres
+          odwiedzanej strony oraz informacje o przeglądarce. Dane te służą
+          bezpieczeństwu i prawidłowemu działaniu serwisu.
+        </p>
+      </section>
+
+      <section>
+        <h2>Google Maps</h2>
+        <p>
+          Mapa Google jest ładowana tylko po wyrażeniu zgody. Po jej włączeniu
+          Google może otrzymać dane techniczne, takie jak adres IP, dane
+          urządzenia i informacje o przeglądarce. Bez zgody mapa nie jest
+          ładowana; nadal można otworzyć adres bezpośrednio w Google Maps.
+        </p>
+      </section>
+
+      <section>
+        <h2>Pamięć przeglądarki</h2>
+        <p>
+          W localStorage zapisujemy wyłącznie wybór dotyczący mapy Google:
+          wersję ustawienia, zgodę na mapę oraz datę podjęcia decyzji. Pomaga to
+          zapamiętać wybór po ponownym otwarciu strony.
+        </p>
+      </section>
+
+      <section>
+        <h2>Odnośniki zewnętrzne</h2>
+        <p>
+          Strona zawiera odnośniki do Facebooka, Instagrama i Google Maps. Po
+          przejściu do tych serwisów obowiązują ich własne zasady prywatności.
+        </p>
+      </section>
+
+      <section>
+        <h2>Analityka i reklamy</h2>
+        <p>
+          Aktualna wersja strony nie korzysta z narzędzi analitycznych ani
+          reklamowych.
+        </p>
+      </section>
+
+      <section>
+        <h2>Zmiana zgody</h2>
+        <p>
+          W każdej chwili możesz zmienić lub cofnąć zgodę w
+          <button type="button" data-privacy-settings>
+            ustawieniach prywatności.
+          </button>
+          Po cofnięciu zgody mapa traci źródło i przestaje być wyświetlana.
+        </p>
+      </section>
+
+      <section>
+        <h2>Kontakt w sprawach prywatności</h2>
+        <p>
+          Napisz na <a href={`mailto:${contact.email}`}>{contact.email}</a> lub
+          zadzwoń pod numer <a href={contact.phoneHref}>{contact.phone}</a>.
+        </p>
+      </section>
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .privacy-policy {
+    background: var(--color-background);
+  }
+
+  .privacy-policy__content {
+    max-width: var(--container-text);
+  }
+
+  .privacy-policy section + section {
+    margin-top: var(--space-4);
+    padding-top: var(--space-4);
+    border-top: var(--border);
+  }
+
+  .privacy-policy h2 {
+    font-size: var(--text-card-title);
+  }
+
+  .privacy-policy p {
+    margin-top: var(--space-2);
+    color: var(--color-muted);
+  }
+
+  .privacy-policy a,
+  .privacy-policy button {
+    color: var(--color-text);
+    font: inherit;
+    text-decoration: underline;
+    text-decoration-color: var(--color-primary);
+    text-underline-offset: 4px;
+  }
+
+  .privacy-policy button {
+    padding: 0;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+  }
+</style>

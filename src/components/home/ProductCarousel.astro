@@ -2,85 +2,102 @@
 import { products } from "../../data/products";
 import AssetImage from "../ui/AssetImage.astro";
 
+const featuredProducts = products.filter((product) => product.featured);
 const items = [
-  ...products.map((product) => ({ product, clone: true })),
-  ...products.map((product) => ({ product, clone: false })),
-  ...products.map((product) => ({ product, clone: true })),
+  ...featuredProducts.map((product, productIndex) => ({
+    product,
+    productIndex,
+    clone: true,
+  })),
+  ...featuredProducts.map((product, productIndex) => ({
+    product,
+    productIndex,
+    clone: false,
+  })),
+  ...featuredProducts.map((product, productIndex) => ({
+    product,
+    productIndex,
+    clone: true,
+  })),
 ];
 ---
 
-<div class="product-carousel" data-product-carousel>
-  <div
-    class="product-carousel__controls"
-    aria-label="Sterowanie karuzelą produktów"
-  >
-    <button
-      class="product-carousel__button"
-      type="button"
-      data-carousel-previous
-      aria-label="Poprzedni produkt"
+{featuredProducts.length > 0 && (
+  <div class="product-carousel" data-product-carousel>
+    <div
+      class="product-carousel__controls"
+      aria-label="Sterowanie karuzelą produktów"
     >
-      <span aria-hidden="true">←</span>
-    </button>
-    <button
-      class="product-carousel__button"
-      type="button"
-      data-carousel-next
-      aria-label="Następny produkt"
-    >
-      <span aria-hidden="true">→</span>
-    </button>
-  </div>
-  <div
-    class="product-carousel__viewport"
-    data-carousel-viewport
-    aria-label="Produkty z naszej pasieki"
-    role="region"
-    tabindex="0"
-  >
-    {items.map(({ product, clone }) => (
-      <article
-        class="product-carousel__card"
-        data-carousel-card
-        data-original={clone ? undefined : "true"}
-        aria-hidden={clone ? "true" : undefined}
-        inert={clone || undefined}
-        data-reveal={clone ? undefined : true}
+      <button
+        class="product-carousel__button"
+        type="button"
+        data-carousel-previous
+        aria-label="Poprzedni produkt"
       >
-        <a
-          href={`/produkty/${product.id}`}
-          tabindex={clone ? "-1" : undefined}
-          aria-label={
-            clone ? undefined : `Poznaj ${product.name.toLocaleLowerCase("pl")}`
-          }
+        <span aria-hidden="true">←</span>
+      </button>
+      <button
+        class="product-carousel__button"
+        type="button"
+        data-carousel-next
+        aria-label="Następny produkt"
+      >
+        <span aria-hidden="true">→</span>
+      </button>
+    </div>
+    <div
+      class="product-carousel__viewport"
+      data-carousel-viewport
+      aria-label="Produkty z naszej pasieki"
+      role="region"
+      tabindex="0"
+    >
+      {items.map(({ product, productIndex, clone }) => (
+        <article
+          class="product-carousel__card"
+          data-carousel-card
+          data-product-index={productIndex}
+          data-original={clone ? undefined : "true"}
+          aria-hidden={clone ? "true" : undefined}
+          data-reveal={clone ? undefined : true}
         >
-          <div class="product-carousel__image-wrap">
-            <AssetImage
-              src={product.image}
-              sizes="255px"
-              loading="lazy"
-              alt={
-                clone ? "" : `Słoik: ${product.name.toLocaleLowerCase("pl")}`
-              }
-            />
-          </div>
-          <div class="product-carousel__body">
-            <span class="product-carousel__number" aria-hidden="true">
-              {String(
-                products.findIndex(({ id }) => id === product.id) + 1,
-              ).padStart(2, "0")}
-            </span>
-            <h3>{product.name}</h3>
-            <p>{product.shortDescription}</p>
-            <span class="product-carousel__arrow" aria-hidden="true">
-              →
-            </span>
-          </div>
-        </a>
-      </article>
-    ))}
+          <a
+            href={`/produkty/${product.id}`}
+            tabindex={clone ? "-1" : undefined}
+            aria-label={
+              clone
+                ? undefined
+                : `Poznaj ${product.name.toLocaleLowerCase("pl")}`
+            }
+          >
+            <div class="product-carousel__image-wrap">
+              <AssetImage
+                src={product.image}
+                sizes="255px"
+                loading="lazy"
+                alt={
+                  clone
+                    ? ""
+                    : `Produkt: ${product.name.toLocaleLowerCase("pl")}`
+                }
+              />
+            </div>
+            <div class="product-carousel__body">
+              <span class="product-carousel__number" aria-hidden="true">
+                {String(productIndex + 1).padStart(2, "0")}
+              </span>
+              <h3>{product.name}</h3>
+              <p>{product.shortDescription}</p>
+              <span class="product-carousel__arrow" aria-hidden="true">
+                →
+              </span>
+            </div>
+          </a>
+        </article>
+      ))}
+    </div>
   </div>
-</div>
+)}
 
 <script>
   document
@@ -95,86 +112,138 @@ const items = [
       const next = carousel.querySelector<HTMLButtonElement>(
         "[data-carousel-next]",
       );
-      const originals = [
-        ...carousel.querySelectorAll<HTMLElement>('[data-original="true"]'),
+      const cards = [
+        ...carousel.querySelectorAll<HTMLElement>("[data-carousel-card]"),
       ];
+      const originals = cards.filter(
+        (card) => card.dataset.original === "true",
+      );
 
       if (!viewport || !previous || !next || originals.length === 0) return;
 
       const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)");
-      const first = originals[0];
-      const last = originals[originals.length - 1];
+      const productCount = originals.length;
       let cycleStart = 0;
       let cycleEnd = 0;
       let cycleWidth = 0;
-      let scrollTimer = 0;
-      let isAdjusting = false;
+      let isNormalizing = false;
+      let isCommandInProgress = false;
+      let settleTimer = 0;
 
-      const measure = () => {
-        const gap = Number.parseFloat(
-          getComputedStyle(viewport).columnGap || "0",
-        );
-        cycleStart = first.offsetLeft;
-        cycleEnd = last.offsetLeft + last.offsetWidth + gap;
-        cycleWidth = cycleEnd - cycleStart;
-      };
-
-      const normalizePosition = () => {
-        if (isAdjusting || cycleWidth === 0) return;
-
-        const position = viewport.scrollLeft;
-        if (position < cycleStart - 1) {
-          isAdjusting = true;
-          viewport.scrollTo({ left: position + cycleWidth, behavior: "auto" });
-        } else if (position >= cycleEnd - 1) {
-          isAdjusting = true;
-          viewport.scrollTo({ left: position - cycleWidth, behavior: "auto" });
-        } else {
-          return;
-        }
-
-        requestAnimationFrame(() => {
-          isAdjusting = false;
-        });
-      };
-
-      const finishScrolling = () => {
-        window.clearTimeout(scrollTimer);
-        scrollTimer = window.setTimeout(normalizePosition, 90);
-      };
-
-      const scrollToAdjacentCard = (direction: number) => {
-        const cards = [
-          ...viewport.querySelectorAll<HTMLElement>("[data-carousel-card]"),
-        ];
-        const currentIndex = cards.reduce((closestIndex, card, index) => {
+      const closestCardIndex = () =>
+        cards.reduce((closestIndex, card, index) => {
           const closest = cards[closestIndex];
           return Math.abs(card.offsetLeft - viewport.scrollLeft) <
             Math.abs(closest.offsetLeft - viewport.scrollLeft)
             ? index
             : closestIndex;
         }, 0);
-        const target = cards[currentIndex + direction];
 
+      const currentProductIndex = () => {
+        const card = cards[closestCardIndex()];
+        return Number(card?.dataset.productIndex ?? 0);
+      };
+
+      const measure = () => {
+        const gap = Number.parseFloat(
+          getComputedStyle(viewport).columnGap || "0",
+        );
+        const first = originals[0];
+        const last = originals[originals.length - 1];
+        cycleStart = first.offsetLeft;
+        cycleEnd = last.offsetLeft + last.offsetWidth + gap;
+        cycleWidth = cycleEnd - cycleStart;
+      };
+
+      const unlockCommands = () => {
+        isCommandInProgress = false;
+        previous.disabled = false;
+        next.disabled = false;
+      };
+
+      const normalizePosition = () => {
+        if (isNormalizing || cycleWidth === 0) return false;
+
+        const position = viewport.scrollLeft;
+        let normalizedPosition: number | null = null;
+        if (position < cycleStart - 1)
+          normalizedPosition = position + cycleWidth;
+        if (position >= cycleEnd - 1)
+          normalizedPosition = position - cycleWidth;
+        if (normalizedPosition === null) return false;
+
+        isNormalizing = true;
+        const previousSnapType = viewport.style.scrollSnapType;
+        viewport.style.scrollSnapType = "none";
+        viewport.scrollTo({ left: normalizedPosition, behavior: "auto" });
+
+        requestAnimationFrame(() => {
+          viewport.style.scrollSnapType = previousSnapType;
+          requestAnimationFrame(() => {
+            isNormalizing = false;
+            unlockCommands();
+          });
+        });
+        return true;
+      };
+
+      const finishScrolling = () => {
+        window.clearTimeout(settleTimer);
+        const normalized = normalizePosition();
+        if (!normalized && isCommandInProgress) unlockCommands();
+      };
+
+      const scheduleFinish = () => {
+        window.clearTimeout(settleTimer);
+        settleTimer = window.setTimeout(finishScrolling, 180);
+      };
+
+      const scrollToAdjacentCard = (direction: -1 | 1) => {
+        if (isCommandInProgress || isNormalizing) return;
+
+        const target = cards[closestCardIndex() + direction];
         if (!target) return;
+
+        isCommandInProgress = true;
+        previous.disabled = true;
+        next.disabled = true;
         viewport.scrollTo({
           left: target.offsetLeft,
           behavior: reduceMotion.matches ? "auto" : "smooth",
+        });
+        scheduleFinish();
+      };
+
+      const scrollToCurrentProductInMiddleCycle = (productIndex: number) => {
+        const target = originals[productIndex] ?? originals[0];
+        viewport.style.scrollSnapType = "none";
+        viewport.scrollTo({ left: target.offsetLeft, behavior: "auto" });
+        requestAnimationFrame(() => {
+          viewport.style.scrollSnapType = "";
         });
       };
 
       requestAnimationFrame(() => {
         measure();
-        viewport.scrollLeft = cycleStart;
+        scrollToCurrentProductInMiddleCycle(0);
       });
 
       previous.addEventListener("click", () => scrollToAdjacentCard(-1));
       next.addEventListener("click", () => scrollToAdjacentCard(1));
-      viewport.addEventListener("scroll", finishScrolling, { passive: true });
-      viewport.addEventListener("scrollend", normalizePosition);
+      viewport.addEventListener("keydown", (event) => {
+        if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
+          event.preventDefault();
+          scrollToAdjacentCard(event.key === "ArrowLeft" ? -1 : 1);
+        }
+      });
+      viewport.addEventListener("scroll", scheduleFinish, { passive: true });
+      if ("onscrollend" in viewport)
+        viewport.addEventListener("scrollend", finishScrolling);
+
       new ResizeObserver(() => {
+        const productIndex = currentProductIndex();
         measure();
-        normalizePosition();
+        scrollToCurrentProductInMiddleCycle(productIndex % productCount);
       }).observe(viewport);
     });
 </script>
@@ -206,14 +275,18 @@ const items = [
       color var(--transition),
       border-color var(--transition);
   }
-  .product-carousel__button:hover {
+  .product-carousel__button:hover:not(:disabled) {
     border-color: var(--color-primary);
     background: var(--color-primary);
+  }
+  .product-carousel__button:disabled {
+    cursor: wait;
   }
   .product-carousel__viewport {
     display: grid;
     grid-auto-columns: minmax(300px, 360px);
     grid-auto-flow: column;
+    grid-auto-rows: 530px;
     gap: var(--space-3);
     overflow-x: auto;
     overscroll-behavior-x: contain;
@@ -234,6 +307,7 @@ const items = [
   .product-carousel__card > a {
     display: grid;
     height: 100%;
+    grid-template-rows: 310px 220px;
   }
   .product-carousel__image-wrap {
     display: grid;
@@ -245,12 +319,13 @@ const items = [
   }
   .product-carousel__image-wrap :global(img) {
     width: min(100%, 255px);
-    height: 100%;
+    height: 278px !important;
     object-fit: contain;
+    object-position: center;
   }
   .product-carousel__body {
     position: relative;
-    min-height: 220px;
+    height: 220px;
     padding: var(--space-3) var(--space-3) var(--space-4);
   }
   .product-carousel__number {
@@ -300,10 +375,17 @@ const items = [
     }
     .product-carousel__viewport {
       grid-auto-columns: 276px;
+      grid-auto-rows: 490px;
       padding-right: var(--gutter);
+    }
+    .product-carousel__card > a {
+      grid-template-rows: 270px 220px;
     }
     .product-carousel__image-wrap {
       height: 270px;
+    }
+    .product-carousel__image-wrap :global(img) {
+      height: 238px !important;
     }
   }
 </style>

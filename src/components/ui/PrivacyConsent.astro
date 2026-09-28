@@ -1,22 +1,36 @@
 <dialog class="privacy-consent" aria-labelledby="privacy-consent-title">
   <div class="privacy-consent__content">
-    <div class="privacy-consent__mark" aria-hidden="true">
-      <span></span>
-      <span></span>
-      <span></span>
-    </div>
     <p class="eyebrow">Prywatność</p>
-    <h2 id="privacy-consent-title">Mapa Google Maps</h2>
+    <h2 id="privacy-consent-title">Szanujemy Twoją prywatność</h2>
     <p>
-      Na stronie kontaktowej możemy wyświetlić mapę Google Maps. To zewnętrzna
-      usługa, która zostanie załadowana dopiero po Twojej zgodzie.
+      Strona korzysta z niezbędnej pamięci przeglądarki, aby zapamiętać Twój
+      wybór. Mapa Google jest usługą zewnętrzną i zostanie załadowana wyłącznie
+      za Twoją zgodą. Bez zgody nadal możesz korzystać z całej strony oraz
+      otworzyć adres bezpośrednio w Google Maps.
     </p>
+    <section
+      class="privacy-consent__service"
+      aria-labelledby="maps-service-title"
+    >
+      <div class="privacy-consent__service-heading">
+        <h3 id="maps-service-title">Google Maps</h3>
+        <span>Opcjonalne</span>
+      </div>
+      <p>
+        Po włączeniu mapy Google może otrzymać informacje techniczne, takie jak
+        adres IP, dane urządzenia i informacje o przeglądarce.
+      </p>
+    </section>
+    <p class="privacy-consent__current" data-consent-current hidden></p>
+    <a class="privacy-consent__policy" href="/polityka-prywatnosci">
+      Przeczytaj politykę prywatności
+    </a>
     <div class="privacy-consent__actions">
       <button class="privacy-consent__accept" type="button" data-consent-accept>
-        Akceptuję mapę Google
+        Zezwól na mapę
       </button>
       <button class="privacy-consent__deny" type="button" data-consent-deny>
-        Tylko niezbędne
+        Korzystaj bez mapy
       </button>
     </div>
   </div>
@@ -28,11 +42,11 @@
 
 <style>
   .privacy-consent {
-    width: min(calc(100% - 32px), 540px);
+    width: min(calc(100% - 32px), 680px);
     padding: 0;
     overflow: hidden;
     border: 1px solid var(--color-border);
-    border-radius: 28px;
+    border-radius: var(--radius-card);
     background: var(--color-white);
     color: var(--color-text);
     box-shadow: var(--shadow-subtle);
@@ -40,29 +54,11 @@
 
   .privacy-consent::backdrop {
     background: var(--color-dark-50);
-    backdrop-filter: blur(6px);
   }
 
   .privacy-consent__content {
-    padding: clamp(28px, 6vw, 48px);
+    padding: clamp(28px, 6vw, 44px);
     background: var(--color-white);
-  }
-
-  .privacy-consent__mark {
-    display: flex;
-    gap: 5px;
-    width: max-content;
-    padding: 10px;
-    margin-bottom: var(--space-3);
-    border-radius: 14px;
-    background: var(--color-primary);
-  }
-
-  .privacy-consent__mark span {
-    width: 8px;
-    height: 8px;
-    border-radius: var(--radius-pill);
-    background: var(--color-dark);
   }
 
   .privacy-consent h2 {
@@ -77,6 +73,51 @@
     font-size: var(--text-small);
   }
 
+  .privacy-consent__service {
+    margin-top: var(--space-4);
+    padding: var(--space-3);
+    border-block: var(--border);
+    background: var(--color-soft);
+  }
+
+  .privacy-consent__service-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-2);
+  }
+
+  .privacy-consent__service h3 {
+    font-size: 1.5rem;
+  }
+
+  .privacy-consent__service-heading span {
+    color: var(--color-muted);
+    font-size: var(--text-eyebrow);
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .privacy-consent__service p {
+    margin-top: var(--space-1) !important;
+  }
+
+  .privacy-consent__current {
+    margin-top: var(--space-3) !important;
+  }
+
+  .privacy-consent__policy {
+    display: inline-block;
+    margin-top: var(--space-3);
+    color: var(--color-text);
+    font-size: var(--text-small);
+    font-weight: 600;
+    text-decoration: underline;
+    text-decoration-color: var(--color-primary);
+    text-underline-offset: 4px;
+  }
+
   .privacy-consent__actions {
     display: grid;
     grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.85fr);
@@ -85,7 +126,7 @@
   }
 
   .privacy-consent button {
-    min-height: 50px;
+    min-height: 48px;
     padding: 13px 18px;
     border: 1px solid var(--color-dark);
     border-radius: var(--radius-pill);
@@ -112,6 +153,11 @@
     border-color: var(--color-border) !important;
     background: var(--color-white);
     color: var(--color-text);
+  }
+
+  .privacy-consent button:focus-visible,
+  .privacy-consent__policy:focus-visible {
+    outline-color: var(--color-dark);
   }
 
   @media (max-width: 639px) {

@@ -52,7 +52,16 @@ import ValuesSection from "./ValuesSection.astro";
             alt="Pszczelarz przy ulach z ramką pszczelą w dłoniach"
           />
           <span class="image-zoom-trigger__icon" aria-hidden="true">
-            ⌕
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.7"
+              stroke-linecap="round"
+            >
+              <circle cx="10.5" cy="10.5" r="5.5" />
+              <path d="m15 15 4.5 4.5M10.5 8v5M8 10.5h5" />
+            </svg>
           </span>
         </button>
         <figcaption>Uważność w każdej porze roku</figcaption>
@@ -84,7 +93,16 @@ import ValuesSection from "./ValuesSection.astro";
               alt="Pszczoła zbierająca nektar z kwiatu"
             />
             <span class="image-zoom-trigger__icon" aria-hidden="true">
-              ⌕
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.7"
+                stroke-linecap="round"
+              >
+                <circle cx="10.5" cy="10.5" r="5.5" />
+                <path d="m15 15 4.5 4.5M10.5 8v5M8 10.5h5" />
+              </svg>
             </span>
           </button>
         </figure>
@@ -105,7 +123,16 @@ import ValuesSection from "./ValuesSection.astro";
               alt="Złocisty miód spływający do słoika"
             />
             <span class="image-zoom-trigger__icon" aria-hidden="true">
-              ⌕
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.7"
+                stroke-linecap="round"
+              >
+                <circle cx="10.5" cy="10.5" r="5.5" />
+                <path d="m15 15 4.5 4.5M10.5 8v5M8 10.5h5" />
+              </svg>
             </span>
           </button>
         </figure>
@@ -126,7 +153,16 @@ import ValuesSection from "./ValuesSection.astro";
               alt="Pszczoły pracujące na plastrze miodu"
             />
             <span class="image-zoom-trigger__icon" aria-hidden="true">
-              ⌕
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.7"
+                stroke-linecap="round"
+              >
+                <circle cx="10.5" cy="10.5" r="5.5" />
+                <path d="m15 15 4.5 4.5M10.5 8v5M8 10.5h5" />
+              </svg>
             </span>
           </button>
         </figure>
@@ -147,7 +183,16 @@ import ValuesSection from "./ValuesSection.astro";
               alt="Ule na łące z górami i lasem w tle"
             />
             <span class="image-zoom-trigger__icon" aria-hidden="true">
-              ⌕
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.7"
+                stroke-linecap="round"
+              >
+                <circle cx="10.5" cy="10.5" r="5.5" />
+                <path d="m15 15 4.5 4.5M10.5 8v5M8 10.5h5" />
+              </svg>
             </span>
           </button>
         </figure>
@@ -192,25 +237,12 @@ import ValuesSection from "./ValuesSection.astro";
 
   <section class="nature-rhythm">
     <div class="nature-rhythm__image">
-      <button
-        class="image-zoom-trigger"
-        type="button"
-        data-lightbox-src="/assets/apiary.jpg"
-        data-lightbox-alt="Wędrowna pasieka wśród łąk i gór"
-        data-lightbox-group="about-gallery"
-        aria-haspopup="dialog"
-        aria-label="Powiększ zdjęcie: Wędrowna pasieka wśród łąk i gór"
-      >
-        <AssetImage
-          src="/assets/apiary.jpg"
-          sizes="(max-width: 899px) 100vw, 58vw"
-          loading="lazy"
-          alt="Wędrowna pasieka wśród łąk i gór"
-        />
-        <span class="image-zoom-trigger__icon" aria-hidden="true">
-          ⌕
-        </span>
-      </button>
+      <AssetImage
+        src="/assets/apiary.jpg"
+        sizes="(max-width: 899px) 100vw, 58vw"
+        loading="lazy"
+        alt="Wędrowna pasieka wśród łąk i gór"
+      />
     </div>
     <div class="nature-rhythm__copy">
       <p class="eyebrow eyebrow--line">Wędrowna pasieka</p>
@@ -258,8 +290,6 @@ import ValuesSection from "./ValuesSection.astro";
   .about-story__copy .prose {
     margin-top: var(--space-3);
   }
-  .about-story__copy {
-  }
   .about-story__photo {
     position: relative;
     min-height: 540px;
@@ -293,10 +323,12 @@ import ValuesSection from "./ValuesSection.astro";
     right: var(--space-2);
     bottom: var(--space-2);
     color: var(--color-white);
-    font-size: 2rem;
-    line-height: 1;
     opacity: 0;
     transition: opacity var(--transition);
+  }
+  .image-zoom-trigger__icon svg {
+    width: 32px;
+    height: 32px;
   }
   .image-zoom-trigger:hover .image-zoom-trigger__icon,
   .image-zoom-trigger:focus-visible .image-zoom-trigger__icon {

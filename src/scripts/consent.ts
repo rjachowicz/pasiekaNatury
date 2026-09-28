@@ -1,4 +1,9 @@
-const storageKey = "pasieka_google_maps_consent_v1";
+import {
+  getPrivacyPreferences,
+  privacyPreferencesEvent,
+  savePrivacyPreferences,
+} from "./privacyPreferences";
+
 const dialog = document.querySelector<HTMLDialogElement>(".privacy-consent");
 const acceptButton = document.querySelector<HTMLButtonElement>(
   "[data-consent-accept]",
@@ -6,32 +11,40 @@ const acceptButton = document.querySelector<HTMLButtonElement>(
 const denyButton = document.querySelector<HTMLButtonElement>(
   "[data-consent-deny]",
 );
-
-const getConsent = () => {
-  const value = localStorage.getItem(storageKey);
-  return value === "accepted" || value === "denied" ? value : null;
-};
+const currentChoice = document.querySelector<HTMLElement>(
+  "[data-consent-current]",
+);
 
 const openDialog = () => {
+  const preferences = getPrivacyPreferences();
+  if (currentChoice) {
+    currentChoice.hidden = !preferences;
+    currentChoice.textContent = preferences
+      ? preferences.googleMaps
+        ? "Aktualny wybór: mapa Google jest włączona."
+        : "Aktualny wybór: mapa Google jest wyłączona."
+      : "";
+  }
   if (dialog && !dialog.open) dialog.showModal();
 };
 
-const saveConsent = (value: "accepted" | "denied") => {
-  localStorage.setItem(storageKey, value);
+const saveConsent = (googleMaps: boolean) => {
+  savePrivacyPreferences(googleMaps);
   dialog?.close();
-  window.dispatchEvent(
-    new CustomEvent("pasieka:google-maps-consent", { detail: value }),
-  );
 };
 
-acceptButton?.addEventListener("click", () => saveConsent("accepted"));
-denyButton?.addEventListener("click", () => saveConsent("denied"));
+acceptButton?.addEventListener("click", () => saveConsent(true));
+denyButton?.addEventListener("click", () => saveConsent(false));
 dialog?.addEventListener("cancel", (event) => {
   event.preventDefault();
-  dialog.close();
+  if (!getPrivacyPreferences()) saveConsent(false);
+  else dialog.close();
 });
 document
   .querySelectorAll<HTMLElement>("[data-privacy-settings]")
   .forEach((button) => button.addEventListener("click", openDialog));
 window.addEventListener("pasieka:open-privacy-settings", openDialog);
-if (!getConsent()) openDialog();
+window.addEventListener(privacyPreferencesEvent, () => {
+  if (dialog?.open) openDialog();
+});
+if (!getPrivacyPreferences()) openDialog();

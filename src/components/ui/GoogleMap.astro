@@ -34,7 +34,11 @@ import { contact } from "../../data/site";
 </section>
 
 <script>
-  const storageKey = "pasieka_google_maps_consent_v1";
+  import {
+    getPrivacyPreferences,
+    privacyPreferencesEvent,
+  } from "../../scripts/privacyPreferences";
+
   const map = document.querySelector<HTMLElement>(".google-map");
   const iframe = map?.querySelector<HTMLIFrameElement>(".google-map__iframe");
   const placeholder = map?.querySelector<HTMLElement>(
@@ -60,7 +64,7 @@ import { contact } from "../../data/site";
     map?.removeAttribute("data-map-ready");
   };
 
-  const hasConsent = () => localStorage.getItem(storageKey) === "accepted";
+  const hasConsent = () => getPrivacyPreferences()?.googleMaps === true;
 
   if (hasConsent()) loadMap();
 
@@ -72,8 +76,8 @@ import { contact } from "../../data/site";
     window.dispatchEvent(new CustomEvent("pasieka:open-privacy-settings"));
   });
 
-  window.addEventListener("pasieka:google-maps-consent", (event) => {
-    if ((event as CustomEvent<string>).detail === "accepted") {
+  window.addEventListener(privacyPreferencesEvent, (event) => {
+    if ((event as CustomEvent<{ googleMaps: boolean }>).detail.googleMaps) {
       loadMap();
       return;
     }
