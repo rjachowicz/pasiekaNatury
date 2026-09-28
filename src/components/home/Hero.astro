@@ -16,7 +16,7 @@ import NatureBadge from "../ui/NatureBadge.astro";
       pszczół, tradycji i otaczającego nas środowiska.
     </p>
     <div class="hero__actions" data-reveal>
-      <Button href="/o-pasiece">Poznaj naszą pasiekę</Button>
+      <Button href="/o-pasiece">Nasza pasieka</Button>
       <AssetImage
         class="hero__bee"
         src="/assets/bee-flight.png"
@@ -32,13 +32,14 @@ import NatureBadge from "../ui/NatureBadge.astro";
       class="hero__photo"
       sizes="(max-width: 1199px) 100vw, 58vw"
       src="/assets/hero.jpg"
-      alt="Pszczoła wśród białych kwiatów w ciepłym świetle słońca"
+      alt="Pszczoły na plastrze miodu"
       loading="eager"
       fetchpriority="high"
     />
     <NatureBadge />
   </div>
 </section>
+
 <style>
   .hero {
     display: grid;
@@ -47,12 +48,11 @@ import NatureBadge from "../ui/NatureBadge.astro";
   }
 
   .hero__copy {
-    position: relative;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
     min-height: 660px;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
     padding: var(--space-section) var(--space-grid) var(--space-section)
       var(--page-inset);
   }
@@ -95,20 +95,13 @@ import NatureBadge from "../ui/NatureBadge.astro";
     min-width: 0;
     height: 660px;
     overflow: hidden;
-    border-radius: var(--radius-image) 0 0 var(--radius-image);
-    box-shadow: var(--shadow-image);
   }
 
   .hero__visual::after {
-    content: "";
     position: absolute;
     inset: 0;
-    background: linear-gradient(
-      90deg,
-      var(--color-soft) 0%,
-      var(--color-soft-90) 12%,
-      transparent 34%
-    );
+    background: linear-gradient(90deg, var(--color-soft-90), transparent 14%);
+    content: "";
     pointer-events: none;
   }
 
@@ -118,18 +111,6 @@ import NatureBadge from "../ui/NatureBadge.astro";
     height: 100%;
     object-fit: cover;
     object-position: 47% center;
-    -webkit-mask-image: linear-gradient(
-      90deg,
-      transparent 0%,
-      var(--color-mask) 28%,
-      var(--color-mask) 100%
-    );
-    mask-image: linear-gradient(
-      90deg,
-      transparent 0%,
-      var(--color-mask) 28%,
-      var(--color-mask) 100%
-    );
   }
 
   .hero__visual :global(.nature-badge) {
@@ -142,12 +123,11 @@ import NatureBadge from "../ui/NatureBadge.astro";
   @media (max-width: 1199px) {
     .hero {
       grid-template-columns: 1fr;
-      min-height: 0;
     }
 
     .hero__copy {
-      padding: var(--space-section-sm) var(--page-inset);
       min-height: 0;
+      padding: var(--space-section-sm) var(--page-inset);
     }
 
     .hero__text {
@@ -157,30 +137,13 @@ import NatureBadge from "../ui/NatureBadge.astro";
     .hero__visual::after {
       background: linear-gradient(
         180deg,
-        var(--color-soft) 0%,
-        var(--color-soft-87) 14%,
-        transparent 38%
+        var(--color-soft-90),
+        transparent 14%
       );
     }
 
     .hero__photo {
       object-position: 50% 46%;
-      -webkit-mask-image: linear-gradient(
-        180deg,
-        transparent 0%,
-        var(--color-mask) 28%,
-        var(--color-mask) 100%
-      );
-      mask-image: linear-gradient(
-        180deg,
-        transparent 0%,
-        var(--color-mask) 28%,
-        var(--color-mask) 100%
-      );
-    }
-
-    .hero__visual {
-      border-radius: var(--radius-image) var(--radius-image) 0 0;
     }
   }
 
@@ -193,17 +156,15 @@ import NatureBadge from "../ui/NatureBadge.astro";
       width: 102px;
       opacity: 0.52;
     }
+
+    .hero__visual {
+      height: 300px;
+    }
   }
 
   @media (min-width: 640px) and (max-width: 1199px) {
     .hero__visual {
       height: 380px;
-    }
-  }
-
-  @media (max-width: 639px) {
-    .hero__visual {
-      height: 300px;
     }
   }
 </style>

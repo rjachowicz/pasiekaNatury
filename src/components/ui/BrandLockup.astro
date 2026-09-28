@@ -1,0 +1,80 @@
+---
+import AssetImage from "./AssetImage.astro";
+
+interface Props {
+  variant?: "header" | "footer";
+  loading?: "eager" | "lazy";
+}
+
+const { variant = "header", loading = "eager" } = Astro.props;
+---
+
+<a
+  class:list={["brand-lockup", `brand-lockup--${variant}`]}
+  href="/"
+  aria-label="Pasieka 100% Natury — strona główna"
+>
+  <AssetImage
+    class="brand-lockup__mark"
+    src="/assets/logo.png"
+    widths={[160, 240]}
+    sizes={variant === "header" ? "148px" : "138px"}
+    loading={loading}
+    alt=""
+  />
+  <span class="brand-lockup__name">
+    Pasieka <strong>100% Natury</strong>
+  </span>
+</a>
+
+<style>
+  .brand-lockup {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    min-width: 0;
+    color: var(--color-white);
+  }
+
+  .brand-lockup__mark {
+    width: 148px;
+    flex: 0 0 auto;
+  }
+
+  .brand-lockup__name {
+    display: grid;
+    max-width: 10ch;
+    font: 500 clamp(1.1rem, 1.35vw, 1.35rem) / 0.98 var(--font-heading);
+    letter-spacing: -0.02em;
+  }
+
+  .brand-lockup__name strong {
+    color: var(--color-primary);
+    font-weight: 600;
+  }
+
+  .brand-lockup--footer .brand-lockup__mark {
+    width: 138px;
+  }
+
+  .brand-lockup--footer .brand-lockup__name {
+    font-size: 1.15rem;
+  }
+
+  @media (max-width: 639px) {
+    .brand-lockup {
+      gap: 9px;
+    }
+
+    .brand-lockup__mark,
+    .brand-lockup--footer .brand-lockup__mark {
+      width: 82px;
+    }
+
+    .brand-lockup__name,
+    .brand-lockup--footer .brand-lockup__name {
+      max-width: 9ch;
+      font-size: 1rem;
+    }
+  }
+</style>

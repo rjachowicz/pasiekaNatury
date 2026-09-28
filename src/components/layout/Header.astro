@@ -1,18 +1,13 @@
 ---
-import AssetImage from "../ui/AssetImage.astro";
+import BrandLockup from "../ui/BrandLockup.astro";
 import { navigation } from "../../data/site";
+
 const pathname = Astro.url.pathname.replace(/\/+$/, "") || "/";
 ---
 
 <header class="header">
   <div class="container header__inner">
-    <a
-      class="header__logo"
-      href="/"
-      aria-label="Pasieka 100% Natury — strona główna"
-    >
-      <AssetImage src="/assets/logo.png" loading="eager" alt="" />
-    </a>
+    <BrandLockup />
     <button
       class="header__toggle"
       type="button"
@@ -99,24 +94,17 @@ const pathname = Astro.url.pathname.replace(/\/+$/, "") || "/";
   }
 
   .header__inner {
-    min-height: 108px;
     display: flex;
+    min-height: 112px;
     align-items: center;
     justify-content: space-between;
     gap: var(--space-4);
   }
 
-  .header__logo {
+  .header__inner :global(.brand-lockup) {
     position: relative;
     z-index: 2;
-    flex: 0 0 132px;
-    align-self: stretch;
-  }
-
-  .header__logo img {
-    position: absolute;
-    top: 7px;
-    width: 132px;
+    flex: 0 1 auto;
   }
 
   .nav {
@@ -128,8 +116,8 @@ const pathname = Astro.url.pathname.replace(/\/+$/, "") || "/";
   .nav__link {
     position: relative;
     display: flex;
-    align-items: center;
     min-height: 48px;
+    align-items: center;
     font-size: var(--text-eyebrow);
     font-weight: 600;
     letter-spacing: 0.06em;
@@ -142,13 +130,13 @@ const pathname = Astro.url.pathname.replace(/\/+$/, "") || "/";
   }
 
   .nav__link::after {
-    content: "";
     position: absolute;
     bottom: 4px;
     left: 0;
     width: 24px;
     height: 1px;
     background: var(--color-primary);
+    content: "";
     transform: scaleX(0);
     transform-origin: left;
     transition: transform var(--transition);
@@ -165,18 +153,8 @@ const pathname = Astro.url.pathname.replace(/\/+$/, "") || "/";
 
   @media (max-width: 899px) {
     .header__inner {
-      flex-wrap: wrap;
-      gap: 0;
-    }
-
-    .header__logo {
-      flex-basis: 98px;
       min-height: 82px;
-    }
-
-    .header__logo img {
-      top: 6px;
-      width: 98px;
+      gap: 0;
     }
 
     .nav {
@@ -222,12 +200,12 @@ const pathname = Astro.url.pathname.replace(/\/+$/, "") || "/";
 
     .header__toggle:not([hidden]) {
       display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      gap: 6px;
       width: 48px;
       height: 48px;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
       padding: 10px;
       border: 0;
       background: transparent;

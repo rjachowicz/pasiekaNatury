@@ -1,119 +1,88 @@
-<div class="nature-badge" aria-label="Czysta natura, prawdziwy miód">
-  <svg
-    class="nature-badge__leaves nature-badge__leaves--top"
-    viewBox="0 0 44 20"
-    aria-hidden="true"
-  >
-    <path d="M22 18C21 9 15 4 6 2c1 8 6 13 16 16ZM25 18C26 9 32 4 41 2c-1 8-6 13-16 16Z" />
-  </svg>
-  <span
-    class="nature-badge__spark nature-badge__spark--left"
-    aria-hidden="true"
-  ></span>
-  <span
-    class="nature-badge__spark nature-badge__spark--right"
-    aria-hidden="true"
-  ></span>
-  <span>Czysta natura</span>
-  <strong>Prawdziwy miód</strong>
-  <svg
-    class="nature-badge__leaves nature-badge__leaves--bottom"
-    viewBox="0 0 44 20"
-    aria-hidden="true"
-  >
-    <path d="M22 2C21 11 15 16 6 18c1-8 6-13 16-16ZM25 2c1 9 7 14 16 16-1-8-6-13-16-16Z" />
-  </svg>
-</div>
+<svg
+  class="nature-badge"
+  viewBox="0 0 100 115.47"
+  role="img"
+  aria-labelledby="nature-badge-title"
+>
+  <title id="nature-badge-title">Czysta natura, prawdziwy miód</title>
+  <polygon
+    class="nature-badge__surface"
+    points="50,1 99,29.29 99,86.18 50,114.47 1,86.18 1,29.29"
+  />
+  <polygon
+    class="nature-badge__border"
+    points="50,5 95,30.98 95,84.49 50,110.47 5,84.49 5,30.98"
+  />
+  <g class="nature-badge__branch">
+    <path d="M38 48c-5.5-2.4-9.1-6.6-10.7-12" />
+    <path d="M29.5 40.6c-2.7-.4-4.7-2.1-5.7-4.5 2.7-.3 5.1 1.1 5.7 4.5Z" />
+    <path d="M33 45c-2.9.2-5.3-1.2-6.7-3.5 2.7-.7 5.4.3 6.7 3.5Z" />
+  </g>
+  <g class="nature-badge__branch" transform="translate(100 0) scale(-1 1)">
+    <path d="M38 48c-5.5-2.4-9.1-6.6-10.7-12" />
+    <path d="M29.5 40.6c-2.7-.4-4.7-2.1-5.7-4.5 2.7-.3 5.1 1.1 5.7 4.5Z" />
+    <path d="M33 45c-2.9.2-5.3-1.2-6.7-3.5 2.7-.7 5.4.3 6.7 3.5Z" />
+  </g>
+  <text class="nature-badge__eyebrow" x="50" y="49">
+    Czysta natura
+  </text>
+  <text class="nature-badge__title" x="50" y="63">
+    Prawdziwy miód
+  </text>
+</svg>
+
 <style>
   .nature-badge {
-    display: grid;
-    place-items: center;
-    position: relative;
-    width: 148px;
-    aspect-ratio: 0.866;
-    padding: 23px 18px;
-    background: var(--color-dark);
-    color: var(--color-white);
-    clip-path: polygon(25% 0, 75% 0, 100% 50%, 75% 100%, 25% 100%, 0 50%);
-    box-shadow: var(--shadow-image);
-    text-align: center;
-  }
-
-  .nature-badge::before {
-    position: absolute;
-    inset: 5px;
-    border: 1px solid var(--color-primary-25);
-    clip-path: inherit;
-    content: "";
-  }
-
-  .nature-badge span,
-  .nature-badge strong {
-    position: relative;
-    z-index: 1;
     display: block;
-    line-height: 1.1;
+    width: 152px;
+    height: auto;
   }
 
-  .nature-badge span {
-    font-size: 0.64rem;
-    letter-spacing: 0.09em;
-    text-transform: uppercase;
+  .nature-badge__surface {
+    fill: var(--color-dark-72);
+    stroke: var(--color-accent-border);
+    stroke-width: 1;
+    stroke-linejoin: round;
   }
 
-  .nature-badge strong {
-    color: var(--color-primary);
-    font: 600 1.05rem/1 var(--font-heading);
+  .nature-badge__border {
+    fill: none;
+    stroke: var(--color-primary-25);
+    stroke-width: 0.8;
+    stroke-linejoin: round;
   }
 
-  .nature-badge__leaves {
-    position: relative;
-    z-index: 1;
-    width: 34px;
+  .nature-badge__branch {
+    fill: none;
+    stroke: var(--color-primary);
+    stroke-width: 1;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .nature-badge__branch path:not(:first-child) {
     fill: var(--color-primary);
   }
 
-  .nature-badge__spark {
-    position: absolute;
-    top: 50%;
-    width: 10px;
-    height: 10px;
-    background: var(--color-primary);
-    clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
+  text {
+    text-anchor: middle;
   }
 
-  .nature-badge__spark--left {
-    left: 20px;
+  .nature-badge__eyebrow {
+    fill: var(--color-white);
+    font: 700 6px / 1 var(--font-body);
+    letter-spacing: 0.65px;
+    text-transform: uppercase;
   }
 
-  .nature-badge__spark--right {
-    right: 20px;
+  .nature-badge__title {
+    fill: var(--color-primary);
+    font: 600 10px / 1 var(--font-heading);
   }
 
   @media (max-width: 639px) {
     .nature-badge {
-      width: 112px;
-      padding: 17px 12px;
-    }
-
-    .nature-badge span {
-      font-size: 0.5rem;
-    }
-
-    .nature-badge strong {
-      font-size: 0.86rem;
-    }
-
-    .nature-badge__leaves {
-      width: 28px;
-    }
-
-    .nature-badge__spark--left {
-      left: 15px;
-    }
-
-    .nature-badge__spark--right {
-      right: 15px;
+      width: 116px;
     }
   }
 </style>

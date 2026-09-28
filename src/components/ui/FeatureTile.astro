@@ -1,17 +1,19 @@
 ---
-import Icon, { type IconName } from "./Icon.astro";
+import ValueIcon, { type ValueIconName } from "./ValueIcon.astro";
+
 interface Props {
   title: string;
   description: string;
-  icon: IconName;
+  icon: ValueIconName;
   index?: number;
 }
+
 const { title, description, icon, index } = Astro.props;
 ---
 
 <article class="feature-tile" data-reveal>
   <div class="feature-tile__top">
-    <Icon name={icon} size={32} />
+    <ValueIcon name={icon} />
     {index !== undefined && (
       <span aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
     )}
@@ -19,15 +21,18 @@ const { title, description, icon, index } = Astro.props;
   <h3>{title}</h3>
   <p>{description}</p>
 </article>
+
 <style>
   .feature-tile {
     min-width: 0;
     padding: 28px;
-    border: 1px solid var(--color-border);
+    border: var(--border);
     border-radius: var(--radius-card);
     background: var(--color-white);
     box-shadow: var(--shadow-subtle);
-    transition: border-color var(--transition);
+    transition:
+      border-color var(--transition),
+      box-shadow var(--transition);
   }
 
   .feature-tile:hover {
@@ -37,19 +42,13 @@ const { title, description, icon, index } = Astro.props;
 
   .feature-tile__top {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-between;
     margin-bottom: 24px;
   }
 
-  .feature-tile__top :global(svg) {
-    width: 58px;
-    height: 58px;
-    padding: 12px;
-    border: 1px solid var(--color-primary);
-    background: var(--color-soft);
-    border-radius: 16px;
-    object-fit: contain;
+  .feature-tile__top :global(.value-icon) {
+    width: 70px;
   }
 
   .feature-tile__top span {
@@ -62,8 +61,8 @@ const { title, description, icon, index } = Astro.props;
   }
 
   p {
-    margin-top: 12px;
     max-width: 44ch;
+    margin-top: 12px;
     color: var(--color-muted);
     font-size: var(--text-small);
   }
@@ -71,7 +70,7 @@ const { title, description, icon, index } = Astro.props;
   @media (max-width: 899px) {
     .feature-tile {
       display: grid;
-      grid-template-columns: 58px minmax(0, 1fr);
+      grid-template-columns: 70px minmax(0, 1fr);
       column-gap: 20px;
       padding: 24px;
     }
@@ -79,7 +78,6 @@ const { title, description, icon, index } = Astro.props;
     .feature-tile__top {
       grid-row: span 2;
       margin: 0;
-      align-items: start;
     }
 
     .feature-tile__top span {

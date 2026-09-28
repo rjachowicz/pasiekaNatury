@@ -6,7 +6,7 @@ export const navigation = [
 ];
 
 export const contact = {
-  phone: "516 473 831",
+  phone: "+48 516 473 831",
   phoneHref: "tel:+48516473831",
   email: "lichon1988@interia.pl",
   address: "Jasienna 171, 33-322 Korzenna, Polska",

@@ -75,11 +75,7 @@ import ContactDetails from "../ui/ContactDetails.astro";
     z-index: -1;
     right: 12px;
     bottom: 0;
-    width: clamp(
-      40px,
-      calc((100vw - var(--container-content)) / 2 - 24px),
-      112px
-    );
+    width: clamp(40px, calc((100vw - var(--container-max)) / 2 - 24px), 112px);
     opacity: 0.3;
     pointer-events: none;
   }

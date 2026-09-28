@@ -1,10 +1,9 @@
 .container {
-  width: min(calc(100% - var(--gutter) * 2), var(--container-content));
+  width: min(calc(100% - var(--gutter) * 2), var(--container-max));
   margin-inline: auto;
 }
 .container--wide {
-  width: calc(100% - var(--gutter) * 2);
-  max-width: var(--container-wide);
+  width: min(calc(100% - var(--gutter) * 2), var(--container-max));
 }
 .container--narrow {
   max-width: var(--container-text);
