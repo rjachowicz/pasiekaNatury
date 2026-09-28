@@ -22,7 +22,8 @@ import Button from "../ui/Button.astro";
   <figure class="about__visual">
     <AssetImage
       src="/assets/beekeeper.jpg"
-      sizes="(max-width: 639px) 640px, (max-width: 899px) 100vw, max(50vw, 1000px)"
+      sizes="(max-width: 899px) 100vw, 50vw"
+      widths={[640, 960, 1440]}
       loading="lazy"
       alt="Pszczelarz oglądający ramkę z pszczołami w słonecznej pasiece"
     />

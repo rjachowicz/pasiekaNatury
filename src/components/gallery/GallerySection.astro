@@ -1,13 +1,23 @@
 ---
 import AssetImage from "../ui/AssetImage.astro";
+import { imageAssets, type ImageAssetPath } from "../../data/imageAssets";
 
-const gallery = [
-  { file: "hero.jpg", alt: "Pszczoła wśród białych kwiatów" },
-  { file: "apiary.jpg", alt: "Ule na kwitnącej łące" },
-  { file: "beekeeper.jpg", alt: "Pszczelarz przy ramce z pszczołami" },
-  { file: "gallery-bee.jpg", alt: "Pszczoła zbierająca nektar z kwiatu" },
-  { file: "gallery-honey.jpg", alt: "Złocisty miód spływający do słoika" },
-  { file: "gallery-comb.jpg", alt: "Pszczoły pracujące na plastrze miodu" },
+const gallery: { src: ImageAssetPath; alt: string }[] = [
+  { src: "/assets/hero.jpg", alt: "Pszczoła wśród białych kwiatów" },
+  { src: "/assets/apiary.jpg", alt: "Ule na kwitnącej łące" },
+  { src: "/assets/beekeeper.jpg", alt: "Pszczelarz przy ramce z pszczołami" },
+  {
+    src: "/assets/gallery-bee.jpg",
+    alt: "Pszczoła zbierająca nektar z kwiatu",
+  },
+  {
+    src: "/assets/gallery-honey.jpg",
+    alt: "Złocisty miód spływający do słoika",
+  },
+  {
+    src: "/assets/gallery-comb.jpg",
+    alt: "Pszczoły pracujące na plastrze miodu",
+  },
 ];
 ---
 
@@ -22,19 +32,20 @@ const gallery = [
   </div>
   <div class="container">
     <div class="gallery__mosaic">
-      {gallery.map(({ file, alt }) => (
+      {gallery.map(({ src, alt }) => (
         <button
           class="gallery__tile"
           type="button"
-          data-lightbox-src={`/assets/${file}`}
+          data-lightbox-src={imageAssets[src].src}
           data-lightbox-alt={alt}
           data-lightbox-group="homepage-gallery"
           aria-haspopup="dialog"
           aria-label={`Powiększ zdjęcie: ${alt}`}
         >
           <AssetImage
-            src={`/assets/${file}`}
+            src={src}
             sizes="(max-width: 639px) 100vw, 50vw"
+            widths={[320, 640, 960]}
             loading="lazy"
             alt={alt}
           />

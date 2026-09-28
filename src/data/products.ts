@@ -1,3 +1,5 @@
+import type { ImageAssetPath } from "./imageAssets";
+
 export type ProductCategory = "honey" | "bee-product";
 
 export interface Product {
@@ -6,7 +8,7 @@ export interface Product {
   category: ProductCategory;
   shortDescription: string;
   description: string;
-  image: string;
+  image: ImageAssetPath;
   tags: string[];
   sizes?: string[];
   variants?: string[];

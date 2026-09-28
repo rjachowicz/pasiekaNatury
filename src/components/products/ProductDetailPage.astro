@@ -30,6 +30,7 @@ const eyebrow =
         <AssetImage
           src={product.image}
           sizes="(max-width: 899px) 280px, 390px"
+          widths={[320, 640, 960]}
           loading="eager"
           fetchpriority="high"
           alt={`Produkt: ${product.name.toLocaleLowerCase("pl")}`}
@@ -146,6 +147,7 @@ const eyebrow =
               <AssetImage
                 src={other.image}
                 sizes="(max-width: 639px) 96px, 132px"
+                widths={[160, 320]}
                 loading="lazy"
                 alt=""
               />

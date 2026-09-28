@@ -5,6 +5,7 @@ import FeatureTile from "../ui/FeatureTile.astro";
 import PageHero from "../ui/PageHero.astro";
 import SectionHeading from "../ui/SectionHeading.astro";
 import ValuesSection from "./ValuesSection.astro";
+import { imageAssets } from "../../data/imageAssets";
 ---
 
 <>
@@ -39,7 +40,7 @@ import ValuesSection from "./ValuesSection.astro";
         <button
           class="image-zoom-trigger"
           type="button"
-          data-lightbox-src="/assets/beekeeper.jpg"
+          data-lightbox-src={imageAssets["/assets/beekeeper.jpg"].src}
           data-lightbox-alt="Pszczelarz przy ulach z ramką pszczelą w dłoniach"
           data-lightbox-group="about-gallery"
           aria-haspopup="dialog"
@@ -47,6 +48,7 @@ import ValuesSection from "./ValuesSection.astro";
         >
           <AssetImage
             src="/assets/beekeeper.jpg"
+            widths={[640, 960, 1440]}
             sizes="(max-width: 899px) 92vw, 46vw"
             loading="lazy"
             alt="Pszczelarz przy ulach z ramką pszczelą w dłoniach"
@@ -80,7 +82,7 @@ import ValuesSection from "./ValuesSection.astro";
           <button
             class="image-zoom-trigger"
             type="button"
-            data-lightbox-src="/assets/gallery-bee.jpg"
+            data-lightbox-src={imageAssets["/assets/gallery-bee.jpg"].src}
             data-lightbox-alt="Pszczoła zbierająca nektar z kwiatu"
             data-lightbox-group="about-gallery"
             aria-haspopup="dialog"
@@ -88,6 +90,7 @@ import ValuesSection from "./ValuesSection.astro";
           >
             <AssetImage
               src="/assets/gallery-bee.jpg"
+              widths={[320, 640, 960]}
               sizes="(max-width: 639px) 92vw, 28vw"
               loading="lazy"
               alt="Pszczoła zbierająca nektar z kwiatu"
@@ -110,7 +113,7 @@ import ValuesSection from "./ValuesSection.astro";
           <button
             class="image-zoom-trigger"
             type="button"
-            data-lightbox-src="/assets/gallery-honey.jpg"
+            data-lightbox-src={imageAssets["/assets/gallery-honey.jpg"].src}
             data-lightbox-alt="Złocisty miód spływający do słoika"
             data-lightbox-group="about-gallery"
             aria-haspopup="dialog"
@@ -118,6 +121,7 @@ import ValuesSection from "./ValuesSection.astro";
           >
             <AssetImage
               src="/assets/gallery-honey.jpg"
+              widths={[320, 640, 960]}
               sizes="(max-width: 639px) 92vw, 48vw"
               loading="lazy"
               alt="Złocisty miód spływający do słoika"
@@ -140,7 +144,7 @@ import ValuesSection from "./ValuesSection.astro";
           <button
             class="image-zoom-trigger"
             type="button"
-            data-lightbox-src="/assets/gallery-comb.jpg"
+            data-lightbox-src={imageAssets["/assets/gallery-comb.jpg"].src}
             data-lightbox-alt="Pszczoły pracujące na plastrze miodu"
             data-lightbox-group="about-gallery"
             aria-haspopup="dialog"
@@ -148,6 +152,7 @@ import ValuesSection from "./ValuesSection.astro";
           >
             <AssetImage
               src="/assets/gallery-comb.jpg"
+              widths={[320, 640, 960]}
               sizes="(max-width: 639px) 92vw, 30vw"
               loading="lazy"
               alt="Pszczoły pracujące na plastrze miodu"
@@ -170,7 +175,7 @@ import ValuesSection from "./ValuesSection.astro";
           <button
             class="image-zoom-trigger"
             type="button"
-            data-lightbox-src="/assets/apiary.jpg"
+            data-lightbox-src={imageAssets["/assets/apiary.jpg"].src}
             data-lightbox-alt="Ule na łące z górami i lasem w tle"
             data-lightbox-group="about-gallery"
             aria-haspopup="dialog"
@@ -178,6 +183,7 @@ import ValuesSection from "./ValuesSection.astro";
           >
             <AssetImage
               src="/assets/apiary.jpg"
+              widths={[320, 640, 960]}
               sizes="(max-width: 639px) 92vw, 70vw"
               loading="lazy"
               alt="Ule na łące z górami i lasem w tle"
@@ -239,6 +245,7 @@ import ValuesSection from "./ValuesSection.astro";
     <div class="nature-rhythm__image">
       <AssetImage
         src="/assets/apiary.jpg"
+        widths={[640, 960, 1440]}
         sizes="(max-width: 899px) 100vw, 58vw"
         loading="lazy"
         alt="Wędrowna pasieka wśród łąk i gór"

@@ -1,4 +1,7 @@
 ---
+import { imageAssets } from "../../data/imageAssets";
+
+const heroImage = imageAssets["/assets/hero.jpg"];
 ---
 
 <dialog
@@ -23,7 +26,7 @@
     >
       <span aria-hidden="true">←</span>
     </button>
-    <img data-lightbox-image src="/assets/hero.jpg" alt="" />
+    <img data-lightbox-image src={heroImage.src} alt="" />
     <button
       class="image-lightbox__navigation image-lightbox__navigation--next"
       type="button"
