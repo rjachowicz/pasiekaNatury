@@ -17,6 +17,7 @@ import productSpadziowy from "../assets/images/product-spadziowy.png";
 import products from "../assets/images/products.png";
 import rape from "../assets/images/rape.jpg";
 import bees from "../assets/images/bees.jpg";
+import sunset from "../assets/images/sunset.jpg";
 
 export const imageAssets = {
   "/assets/apiary.jpg": apiary,
@@ -38,6 +39,7 @@ export const imageAssets = {
   "/assets/products.png": products,
   "/assets/rape.jpg": rape,
   "/assets/bees.jpg": bees,
+  "/assets/sunset.jpg": sunset
 } as const;
 
 export type ImageAssetPath = keyof typeof imageAssets;
