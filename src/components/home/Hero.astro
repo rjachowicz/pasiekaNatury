@@ -30,7 +30,7 @@ import NatureBadge from "../ui/NatureBadge.astro";
   <div class="hero__visual">
     <AssetImage
       class="hero__photo"
-      sizes="(max-width: 1199px) 100vw, 58vw"
+      sizes="(max-width: 899px) 100vw, 58vw"
       src="/assets/hero.jpg"
       widths={[640, 960, 1440]}
       alt="Pszczoły na plastrze miodu"
@@ -45,17 +45,18 @@ import NatureBadge from "../ui/NatureBadge.astro";
   .hero {
     display: grid;
     grid-template-columns: minmax(0, 42fr) minmax(0, 58fr);
+    min-height: var(--hero-desktop-height);
     background: var(--color-soft);
   }
 
   .hero__copy {
     display: flex;
-    min-height: 660px;
+    min-height: var(--hero-desktop-height);
     flex-direction: column;
     align-items: flex-start;
     justify-content: center;
-    padding: var(--space-section) var(--space-grid) var(--space-section)
-      var(--page-inset);
+    padding: var(--hero-copy-padding-block) var(--space-grid)
+      var(--hero-copy-padding-block) var(--page-inset);
   }
 
   .eyebrow {
@@ -94,7 +95,7 @@ import NatureBadge from "../ui/NatureBadge.astro";
   .hero__visual {
     position: relative;
     min-width: 0;
-    height: 660px;
+    min-height: var(--hero-desktop-height);
     overflow: hidden;
     background: var(--color-soft);
   }
@@ -130,14 +131,18 @@ import NatureBadge from "../ui/NatureBadge.astro";
     bottom: var(--space-4);
   }
 
-  @media (max-width: 1199px) {
+  @media (max-width: 899px) {
     .hero {
       grid-template-columns: 1fr;
     }
 
     .hero__copy {
       min-height: 0;
-      padding: var(--space-section-sm) var(--page-inset);
+      padding: var(--hero-copy-padding-block) var(--page-inset);
+    }
+
+    .hero__visual {
+      min-height: 0;
     }
 
     .hero__text {
@@ -167,7 +172,7 @@ import NatureBadge from "../ui/NatureBadge.astro";
 
   @media (max-width: 639px) {
     .hero__copy {
-      padding-block: 48px 64px;
+      padding-block: var(--hero-copy-padding-block);
     }
 
     .hero__bee {
@@ -176,13 +181,13 @@ import NatureBadge from "../ui/NatureBadge.astro";
     }
 
     .hero__visual {
-      height: 300px;
+      height: var(--hero-mobile-visual-height);
     }
   }
 
-  @media (min-width: 640px) and (max-width: 1199px) {
+  @media (min-width: 640px) and (max-width: 899px) {
     .hero__visual {
-      height: 380px;
+      height: var(--hero-tablet-visual-height);
     }
   }
 </style>
