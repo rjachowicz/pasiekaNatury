@@ -253,15 +253,23 @@ const featuredProducts = products.filter((product) => product.featured);
   }
   .product-carousel__image-wrap {
     display: grid;
+    flex: 0 0 clamp(220px, 58vw, 280px);
     height: clamp(220px, 58vw, 280px);
+    min-height: clamp(220px, 58vw, 280px);
     padding: var(--space-2);
     place-items: center;
     border-bottom: var(--border);
     background: var(--color-soft);
+    overflow: hidden;
   }
   .product-carousel__image-wrap :global(img) {
-    width: min(100%, 255px);
-    height: 100%;
+    display: block;
+    width: auto;
+    height: auto;
+    min-width: 0;
+    min-height: 0;
+    max-width: min(100%, 255px);
+    max-height: 100%;
     object-fit: contain;
     object-position: center;
   }

@@ -178,8 +178,7 @@ const productOptions = products.map(({ id, name, sizes, variants }) => ({
     background: var(--color-background);
   }
 
-  .contact-overview__heading,
-  .map-section__heading {
+  .contact-overview__heading {
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(250px, 0.64fr);
     align-items: end;
@@ -189,6 +188,10 @@ const productOptions = products.map(({ id, name, sizes, variants }) => ({
 
   .contact-overview__heading h2 {
     max-width: 16ch;
+  }
+
+  .contact-overview__heading > * {
+    min-width: 0;
   }
 
   .contact-overview__heading > p {
@@ -295,6 +298,7 @@ const productOptions = products.map(({ id, name, sizes, variants }) => ({
     align-items: center;
     gap: var(--space-2);
     min-height: 64px;
+    min-width: 0;
     padding: var(--space-2) 0;
     border-bottom: var(--border);
     transition:
@@ -313,6 +317,12 @@ const productOptions = products.map(({ id, name, sizes, variants }) => ({
     height: 36px;
     place-items: center;
     color: var(--color-primary);
+  }
+
+  .social-links a > span:nth-child(2) {
+    min-width: 0;
+    word-break: normal;
+    overflow-wrap: break-word;
   }
 
   .social-links > a > :global(svg:last-child) {
@@ -339,9 +349,12 @@ const productOptions = products.map(({ id, name, sizes, variants }) => ({
     position: relative;
   }
 
+  .map-section__heading {
+    margin-bottom: var(--space-4);
+  }
+
   @media (max-width: 899px) {
     .contact-overview__heading,
-    .map-section__heading,
     .contact-overview__grid,
     .social-section__inner {
       grid-template-columns: 1fr;
@@ -352,8 +365,13 @@ const productOptions = products.map(({ id, name, sizes, variants }) => ({
       text-align: left;
     }
 
+    .contact-overview__grid {
+      gap: var(--space-3);
+    }
+
     .contact-overview__visit {
-      min-height: 290px;
+      padding-top: var(--space-3);
+      border-top: var(--border);
     }
   }
 
@@ -361,10 +379,6 @@ const productOptions = products.map(({ id, name, sizes, variants }) => ({
     .contextual-product {
       padding: var(--space-3);
       margin-bottom: var(--space-4);
-    }
-
-    .contact-overview__visit {
-      min-height: 0;
     }
   }
 </style>

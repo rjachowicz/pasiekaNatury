@@ -32,7 +32,7 @@ const details = [
         <span class="contact-row__icon">
           <Icon name={icon} size={22} />
         </span>
-        <span>
+        <span class="contact-row__content">
           <span class="contact-row__label">{label}</span>
           <span>{text}</span>
         </span>
@@ -63,7 +63,9 @@ const details = [
     padding: var(--space-2) 0;
     border-bottom: var(--border);
     font-size: var(--text-small);
-    overflow-wrap: anywhere;
+    min-width: 0;
+    word-break: normal;
+    overflow-wrap: break-word;
   }
   .contact-details--tiles .contact-row {
     min-height: 104px;
@@ -80,7 +82,7 @@ const details = [
     border-color: var(--color-accent-border);
     box-shadow: var(--shadow-subtle);
   }
-  .contact-row > span:last-child {
+  .contact-row__content {
     min-width: 0;
   }
   a.contact-row:hover {
@@ -121,6 +123,12 @@ const details = [
   @media (max-width: 479px) {
     .contact-details {
       grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 359px) {
+    .contact-row__content {
+      overflow-wrap: anywhere;
     }
   }
 </style>

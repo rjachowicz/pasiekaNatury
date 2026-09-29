@@ -247,6 +247,7 @@ const formatProductCount = (count: number) => {
 
   .product-grid {
     display: grid;
+    grid-auto-rows: minmax(min-content, 1fr);
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: var(--space-3);
     margin-top: var(--space-4);
