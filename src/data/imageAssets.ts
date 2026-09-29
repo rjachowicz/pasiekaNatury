@@ -39,7 +39,7 @@ export const imageAssets = {
   "/assets/products.png": products,
   "/assets/rape.jpg": rape,
   "/assets/bees.jpg": bees,
-  "/assets/sunset.jpg": sunset
+  "/assets/sunset.jpg": sunset,
 } as const;
 
 export type ImageAssetPath = keyof typeof imageAssets;

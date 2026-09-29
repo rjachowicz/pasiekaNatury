@@ -56,10 +56,6 @@ a {
 button {
   font: inherit;
 }
-button:active,
-a:active {
-  transform: translateY(1px);
-}
 img {
   display: block;
   max-width: 100%;

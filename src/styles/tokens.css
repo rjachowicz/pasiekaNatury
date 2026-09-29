@@ -61,6 +61,10 @@
   --space-section: 6rem;
   --space-section-sm: 4rem;
   --space-grid: clamp(2rem, 5vw, 4.5rem);
+  --hero-desktop-height: 560px;
+  --hero-tablet-visual-height: 380px;
+  --hero-mobile-visual-height: 300px;
+  --hero-copy-padding-block: var(--space-section-sm);
   --border-width: 1px;
   --border: var(--border-width) solid var(--color-border);
   --radius-sm: 12px;
