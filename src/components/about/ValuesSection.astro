@@ -1,5 +1,6 @@
 ---
 import { type ValueIconName } from "../../data/valueIcons";
+import SectionHeading from "../ui/SectionHeading.astro";
 import ValueIcon from "../ui/ValueIcon.astro";
 
 const values = [
@@ -26,15 +27,14 @@ const values = [
 ] satisfies { title: string; description: string; icon: ValueIconName }[];
 ---
 
-<section class="values section" aria-labelledby="values-title">
+<section class="values section" aria-label="Wartości">
   <div class="container">
     <div class="values__heading">
-      <p class="eyebrow">Wartości</p>
-      <h2 id="values-title">To, co jest dla nas ważne</h2>
+      <SectionHeading eyebrow="Wartości" title="To, co jest dla nas ważne" />
     </div>
     <div class="values__grid">
       {values.map((value) => (
-        <article class="value" data-reveal>
+        <article class="value">
           <ValueIcon name={value.icon} />
           <h3>{value.title}</h3>
           <p>{value.description}</p>

@@ -12,7 +12,7 @@ interface Props {
 const { title, description, icon, index } = Astro.props;
 ---
 
-<article class="feature-tile" data-reveal>
+<article class="feature-tile">
   <div class="feature-tile__top">
     <ValueIcon name={icon} />
     {index !== undefined && (
@@ -36,6 +36,11 @@ const { title, description, icon, index } = Astro.props;
   }
 
   .feature-tile:hover {
+    border-color: var(--color-accent-border);
+    box-shadow: var(--shadow-subtle);
+  }
+
+  .feature-tile:focus-within {
     border-color: var(--color-accent-border);
     box-shadow: var(--shadow-subtle);
   }

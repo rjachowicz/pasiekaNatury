@@ -9,7 +9,12 @@ import { imageAssets } from "../../data/imageAssets";
 ---
 
 <>
-  <PageHero eyebrow="O pasiece" title="Blisko pszczół, blisko natury">
+  <PageHero
+    eyebrow="O pasiece"
+    title="Blisko pszczół, blisko natury"
+    image="/assets/apiary.jpg"
+    imageAlt="Pszczelarz przy ulach z ramką pszczelą w dłoniach"
+  >
     <p>
       Poznaj podejście, w którym uważna obserwacja natury spotyka się z
       pszczelarskim rzemiosłem.
@@ -37,35 +42,13 @@ import { imageAssets } from "../../data/imageAssets";
         </div>
       </div>
       <figure class="about-story__photo">
-        <button
-          class="image-zoom-trigger"
-          type="button"
-          data-lightbox-src={imageAssets["/assets/beekeeper-face.jpg"].src}
-          data-lightbox-alt="Pszczelarz przy ulach z ramką pszczelą w dłoniach"
-          data-lightbox-group="about-gallery"
-          aria-haspopup="dialog"
-          aria-label="Powiększ zdjęcie: Pszczelarz przy ulach z ramką pszczelą w dłoniach"
-        >
-          <AssetImage
-            src="/assets/beekeeper-face.jpg"
-            widths={[640, 960, 1440]}
-            sizes="(max-width: 899px) 92vw, 46vw"
-            loading="lazy"
-            alt="Pszczelarz przy ulach z ramką pszczelą w dłoniach"
-          />
-          <span class="image-zoom-trigger__icon" aria-hidden="true">
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.7"
-              stroke-linecap="round"
-            >
-              <circle cx="10.5" cy="10.5" r="5.5" />
-              <path d="m15 15 4.5 4.5M10.5 8v5M8 10.5h5" />
-            </svg>
-          </span>
-        </button>
+        <AssetImage
+          src="/assets/beekeeper-face.jpg"
+          widths={[640, 960, 1440]}
+          sizes="(max-width: 899px) 92vw, 46vw"
+          loading="lazy"
+          alt="Pszczelarz przy ulach z ramką pszczelą w dłoniach"
+        />
         <figcaption>Uważność w każdej porze roku</figcaption>
       </figure>
     </div>

@@ -16,7 +16,12 @@ const productOptions = products.map(({ id, name, sizes, variants }) => ({
 ---
 
 <>
-  <PageHero eyebrow="Kontakt" title="Porozmawiajmy o produktach pasieki">
+  <PageHero
+    eyebrow="Kontakt"
+    title="Porozmawiajmy o produktach pasieki"
+    image="/assets/bees.jpg"
+    imageAlt="Wędrowna pasieka wśród łąk i gór"
+  >
     <p>
       Zapytaj o aktualną dostępność, gramatury i szczegóły. Jesteśmy do
       dyspozycji przez telefon, e-mail i media społecznościowe.
@@ -51,12 +56,9 @@ const productOptions = products.map(({ id, name, sizes, variants }) => ({
 
         <div class="contact-overview__grid">
           <div class="contact-overview__details">
-            <ContactDetails variant="tiles" />
+            <ContactDetails />
           </div>
           <aside class="contact-overview__visit">
-            <span class="contact-overview__icon">
-              <Icon name="honey-jar" size={26} />
-            </span>
             <p class="eyebrow">Wizyta w pasiece</p>
             <h3>Jasienna, blisko natury</h3>
             <p>
@@ -223,7 +225,7 @@ const productOptions = products.map(({ id, name, sizes, variants }) => ({
     display: grid;
     grid-template-columns: minmax(0, 1.25fr) minmax(270px, 0.75fr);
     gap: var(--space-3);
-    align-items: stretch;
+    align-items: start;
   }
 
   .contact-overview__visit {
@@ -231,18 +233,11 @@ const productOptions = products.map(({ id, name, sizes, variants }) => ({
     min-width: 0;
     flex-direction: column;
     align-items: flex-start;
-    padding: clamp(1.75rem, 3vw, 2.5rem);
-    border: var(--border);
-    border-radius: var(--radius-card);
-    background: var(--color-white);
-  }
-
-  .contact-overview__icon {
-    display: none;
+    padding: var(--space-2) 0;
   }
 
   .contact-overview__visit .eyebrow {
-    margin: var(--space-4) 0 var(--space-1);
+    margin: 0 0 var(--space-1);
   }
 
   .contact-overview__visit h3 {
@@ -299,26 +294,23 @@ const productOptions = products.map(({ id, name, sizes, variants }) => ({
     grid-template-columns: 52px minmax(0, 1fr) 24px;
     align-items: center;
     gap: var(--space-2);
-    min-height: 92px;
-    padding: var(--space-2) var(--space-3);
-    border: var(--border);
-    border-radius: var(--radius-card);
-    background: var(--color-white);
+    min-height: 64px;
+    padding: var(--space-2) 0;
+    border-bottom: var(--border);
     transition:
       border-color var(--transition),
-      box-shadow var(--transition);
+      color var(--transition);
   }
 
   .social-links a:hover,
   .social-links a:focus-visible {
-    border-color: var(--color-accent-border);
-    box-shadow: var(--shadow-subtle);
+    color: var(--color-primary);
   }
 
   .social-links__icon {
     display: grid;
-    width: 42px;
-    height: 42px;
+    width: 36px;
+    height: 36px;
     place-items: center;
     color: var(--color-primary);
   }
@@ -334,7 +326,7 @@ const productOptions = products.map(({ id, name, sizes, variants }) => ({
   }
 
   .social-links strong {
-    font: 600 var(--text-card-title)/1.1 var(--font-heading);
+    font: 600 1.35rem/1.1 var(--font-heading);
   }
 
   .social-links small {

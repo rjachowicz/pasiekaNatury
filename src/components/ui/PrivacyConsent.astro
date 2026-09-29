@@ -44,16 +44,14 @@
   .privacy-consent {
     width: min(calc(100% - 32px), 680px);
     padding: 0;
-    overflow: hidden;
+    max-height: calc(100dvh - 24px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
     border: 1px solid var(--color-border);
     border-radius: var(--radius-card);
     background: var(--color-white);
     color: var(--color-text);
     box-shadow: var(--shadow-subtle);
-  }
-
-  .privacy-consent::backdrop {
-    background: var(--color-dark-50);
   }
 
   .privacy-consent__content {
@@ -99,12 +97,12 @@
     text-transform: uppercase;
   }
 
-  .privacy-consent__service p {
-    margin-top: var(--space-1) !important;
+  .privacy-consent .privacy-consent__service p {
+    margin-top: var(--space-1);
   }
 
-  .privacy-consent__current {
-    margin-top: var(--space-3) !important;
+  .privacy-consent p.privacy-consent__current {
+    margin-top: var(--space-3);
   }
 
   .privacy-consent__policy {
@@ -150,7 +148,7 @@
   }
 
   .privacy-consent__deny {
-    border-color: var(--color-border) !important;
+    border-color: var(--color-border);
     background: var(--color-white);
     color: var(--color-text);
   }

@@ -26,7 +26,7 @@ const eyebrow =
     </nav>
 
     <div class="product-detail__hero">
-      <div class="product-detail__image" data-reveal>
+      <div class="product-detail__image">
         <AssetImage
           src={product.image}
           sizes="(max-width: 899px) 280px, 390px"
@@ -36,7 +36,7 @@ const eyebrow =
           alt={`Produkt: ${product.name.toLocaleLowerCase("pl")}`}
         />
       </div>
-      <div class="product-detail__content" data-reveal>
+      <div class="product-detail__content">
         <p class="eyebrow eyebrow--line">{eyebrow}</p>
         <h1>{product.name}</h1>
         <p class="product-detail__lead">{product.shortDescription}</p>
@@ -339,6 +339,9 @@ const eyebrow =
 
   .product-detail__options label {
     position: relative;
+    display: inline-flex;
+    min-height: 44px;
+    align-items: center;
     cursor: pointer;
   }
 
@@ -351,6 +354,11 @@ const eyebrow =
     border-color: var(--color-primary);
     background: var(--color-primary);
     color: var(--color-dark);
+  }
+
+  .product-detail__options label:hover span {
+    border-color: var(--color-accent-border);
+    color: var(--color-text);
   }
 
   .product-detail__options input:focus-visible + span {

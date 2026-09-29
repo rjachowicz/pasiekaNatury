@@ -1,301 +1,292 @@
 ---
-import AssetImage from "../ui/AssetImage.astro";
 import PageHero from "../ui/PageHero.astro";
 import SectionHeading from "../ui/SectionHeading.astro";
 import CallToAction from "../ui/CallToAction.astro";
 import ProductCard from "./ProductCard.astro";
-import {productCategoryLabels, products} from "../../data/products";
+import { productCategoryLabels, products } from "../../data/products";
 
 const formatProductCount = (count: number) => {
-    if (count === 1) return "1 produkt";
-    if (
-        count % 10 >= 2 &&
-        count % 10 <= 4 &&
-        (count % 100 < 12 || count % 100 > 14)
-    ) {
-        return `${count} produkty`;
-    }
-    return `${count} produktów`;
+  if (count === 1) return "1 produkt";
+  if (
+    count % 10 >= 2 &&
+    count % 10 <= 4 &&
+    (count % 100 < 12 || count % 100 > 14)
+  ) {
+    return `${count} produkty`;
+  }
+  return `${count} produktów`;
 };
 ---
 
 <>
-    <PageHero
-            eyebrow="Nasze produkty"
-            title="Naturalne produkty prosto z pasieki"
-    >
-        <p>
-            Poznaj miody i produkty pszczele przygotowywane w rytmie natury. Oferta
-            zmienia się wraz z sezonem.
+  <PageHero
+    eyebrow="Nasze produkty"
+    title="Naturalne produkty prosto z pasieki"
+    image="/assets/products.png"
+    imageAlt="Miody faceliowy, lipowy, gryczany i spadziowy w czterech słoikach"
+  >
+    <p>
+      Poznaj miody i produkty pszczele przygotowywane w rytmie natury. Oferta
+      zmienia się wraz z sezonem.
+    </p>
+  </PageHero>
+  <section class="section">
+    <div class="container">
+      <div class="products-intro" data-reveal>
+        <SectionHeading
+          eyebrow="Prosto z pasieki"
+          title="Oferta, która podąża za naturą"
+        />
+        <p class="products-intro__copy">
+          Każdy produkt ma własny charakter, wynikający z pracy pszczół, miejsca
+          i pory roku. Sprawdź, co jest obecnie prezentowane w katalogu.
         </p>
-    </PageHero>
-    <section class="section">
-        <div class="container">
-            <div class="products-intro" data-reveal>
-                <SectionHeading
-                        eyebrow="Prosto z pasieki"
-                        title="Oferta, która podąża za naturą"
-                />
-                <p class="products-intro__copy">
-                    Każdy produkt ma własny charakter, wynikający z pracy pszczół, miejsca
-                    i pory roku. Sprawdź, co jest obecnie prezentowane w katalogu.
-                </p>
-            </div>
-            <AssetImage
-                    class="products-photo"
-                    sizes="(max-width: 960px) 100vw, 900px"
-                    src="/assets/products.png"
-                    widths={[640, 960, 1440]}
-                    loading="lazy"
-                    alt="Miody faceliowy, lipowy, gryczany i spadziowy w czterech słoikach"
-            />
-            <div class="catalog-heading" data-reveal>
-                <div>
-                    <h2>Nasze produkty</h2>
-                </div>
-                <span data-product-count aria-live="polite">
+      </div>
+      <div class="catalog-heading" data-reveal>
+        <div>
+          <h2>Nasze produkty</h2>
+        </div>
+        <span data-product-count aria-live="polite">
           {formatProductCount(products.length)}
         </span>
-            </div>
-            <div class="product-filters" role="group" aria-label="Filtruj produkty">
-                <button type="button" data-product-filter="all" aria-pressed="true">
-                    Wszystkie
-                </button>
-                {Object.entries(productCategoryLabels).map(([category, label]) => (
-                        <button
-                                type="button"
-                                data-product-filter={category}
-                                aria-pressed="false"
-                        >
-                            {label}
-                        </button>
-                ))}
-            </div>
-            <p class="empty-products" data-empty-products hidden>
-                Produkty z tej kategorii pojawią się wkrótce.
-            </p>
-            <div class="product-grid">
-                {products.map((product, index) => (
-                        <ProductCard product={product} index={index}/>
-                ))}
-            </div>
-        </div>
-    </section>
-    <aside class="product-guide container" aria-label="Informacja o ofercie">
-        Dostępność produktów zależy od sezonu i bieżącej pracy pasieki. Skontaktuj
-        się z nami, aby poznać aktualną ofertę.
-    </aside>
-    <CallToAction
-            title="Zapytaj o dostępność"
-            href="/kontakt"
-            label="Zapytaj o dostępność"
-    >
-        <p>
-            Chętnie odpowiemy na pytania o produkty prezentowane w katalogu i ich
-            aktualną dostępność.
-        </p>
-    </CallToAction>
+      </div>
+      <div class="product-filters" role="group" aria-label="Filtruj produkty">
+        <button type="button" data-product-filter="all" aria-pressed="true">
+          Wszystkie
+        </button>
+        {Object.entries(productCategoryLabels).map(([category, label]) => (
+          <button
+            type="button"
+            data-product-filter={category}
+            aria-pressed="false"
+          >
+            {label}
+          </button>
+        ))}
+      </div>
+      <p class="empty-products" data-empty-products hidden>
+        Produkty z tej kategorii pojawią się wkrótce.
+      </p>
+      <div class="product-grid">
+        {products.map((product, index) => (
+          <ProductCard product={product} index={index} />
+        ))}
+      </div>
+    </div>
+  </section>
+  <aside class="product-guide container" aria-label="Informacja o ofercie">
+    Dostępność produktów zależy od sezonu i bieżącej pracy pasieki. Skontaktuj
+    się z nami, aby poznać aktualną ofertę.
+  </aside>
+  <CallToAction
+    title="Zapytaj o dostępność"
+    href="/kontakt"
+    label="Zapytaj o dostępność"
+  >
+    <p>
+      Chętnie odpowiemy na pytania o produkty prezentowane w katalogu i ich
+      aktualną dostępność.
+    </p>
+  </CallToAction>
 </>
 
 <script>
-    const filters = [
-        ...document.querySelectorAll<HTMLButtonElement>("[data-product-filter]"),
-    ];
-    const cards = [
-        ...document.querySelectorAll<HTMLElement>("[data-product-category]"),
-    ];
-    const count = document.querySelector<HTMLElement>("[data-product-count]");
-    const emptyMessage = document.querySelector<HTMLElement>(
-        "[data-empty-products]",
+  const filters = [
+    ...document.querySelectorAll<HTMLButtonElement>("[data-product-filter]"),
+  ];
+  const cards = [
+    ...document.querySelectorAll<HTMLElement>("[data-product-category]"),
+  ];
+  const count = document.querySelector<HTMLElement>("[data-product-count]");
+  const emptyMessage = document.querySelector<HTMLElement>(
+    "[data-empty-products]",
+  );
+  const queryValues = {
+    all: null,
+    honey: "miody",
+    "bee-product": "produkty-pszczele",
+  } as const;
+
+  type Filter = keyof typeof queryValues;
+
+  const formatProductCount = (amount: number) => {
+    if (amount === 1) return "1 produkt";
+    if (
+      amount % 10 >= 2 &&
+      amount % 10 <= 4 &&
+      (amount % 100 < 12 || amount % 100 > 14)
+    ) {
+      return `${amount} produkty`;
+    }
+    return `${amount} produktów`;
+  };
+
+  const getFilterFromUrl = (): Filter => {
+    const category = new URLSearchParams(window.location.search).get(
+      "kategoria",
     );
-    const queryValues = {
-        all: null,
-        honey: "miody",
-        "bee-product": "produkty-pszczele",
-    } as const;
+    return (
+      (Object.entries(queryValues).find(
+        ([, value]) => value === category,
+      )?.[0] as Filter | undefined) ?? "all"
+    );
+  };
 
-    type Filter = keyof typeof queryValues;
-
-    const formatProductCount = (amount: number) => {
-        if (amount === 1) return "1 produkt";
-        if (
-            amount % 10 >= 2 &&
-            amount % 10 <= 4 &&
-            (amount % 100 < 12 || amount % 100 > 14)
-        ) {
-            return `${amount} produkty`;
-        }
-        return `${amount} produktów`;
-    };
-
-    const getFilterFromUrl = (): Filter => {
-        const category = new URLSearchParams(window.location.search).get(
-            "kategoria",
-        );
-        return (
-            (Object.entries(queryValues).find(
-                ([, value]) => value === category,
-            )?.[0] as Filter | undefined) ?? "all"
-        );
-    };
-
-    const applyFilter = (filter: Filter) => {
-        let visibleCount = 0;
-        cards.forEach((card) => {
-            const visible =
-                filter === "all" || card.dataset.productCategory === filter;
-            card.hidden = !visible;
-            if (visible) visibleCount += 1;
-        });
-
-        filters.forEach((button) => {
-            button.setAttribute(
-                "aria-pressed",
-                String(button.dataset.productFilter === filter),
-            );
-        });
-
-        if (count) count.textContent = formatProductCount(visibleCount);
-        if (emptyMessage)
-            emptyMessage.hidden = filter === "all" || visibleCount > 0;
-    };
-
-    const updateUrl = (filter: Filter) => {
-        const url = new URL(window.location.href);
-        const value = queryValues[filter];
-        if (value) url.searchParams.set("kategoria", value);
-        else url.searchParams.delete("kategoria");
-        history.pushState({}, "", url);
-    };
-
-    filters.forEach((button) => {
-        button.addEventListener("click", () => {
-            const filter = button.dataset.productFilter as Filter;
-            applyFilter(filter);
-            updateUrl(filter);
-        });
+  const applyFilter = (filter: Filter) => {
+    let visibleCount = 0;
+    cards.forEach((card) => {
+      const visible =
+        filter === "all" || card.dataset.productCategory === filter;
+      card.hidden = !visible;
+      if (visible) visibleCount += 1;
     });
 
-    applyFilter(getFilterFromUrl());
-    window.addEventListener("popstate", () => applyFilter(getFilterFromUrl()));
+    filters.forEach((button) => {
+      button.setAttribute(
+        "aria-pressed",
+        String(button.dataset.productFilter === filter),
+      );
+    });
+
+    if (count) count.textContent = formatProductCount(visibleCount);
+    if (emptyMessage)
+      emptyMessage.hidden = filter === "all" || visibleCount > 0;
+  };
+
+  const updateUrl = (filter: Filter) => {
+    const url = new URL(window.location.href);
+    const value = queryValues[filter];
+    if (value) url.searchParams.set("kategoria", value);
+    else url.searchParams.delete("kategoria");
+    history.pushState({}, "", url);
+  };
+
+  filters.forEach((button) => {
+    button.addEventListener("click", () => {
+      const filter = button.dataset.productFilter as Filter;
+      applyFilter(filter);
+      updateUrl(filter);
+    });
+  });
+
+  applyFilter(getFilterFromUrl());
+  window.addEventListener("popstate", () => applyFilter(getFilterFromUrl()));
 </script>
 
 <style>
-    .products-intro {
-        display: grid;
-        grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
-        align-items: end;
-        gap: var(--space-grid);
-    }
+  .products-intro {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    align-items: end;
+    gap: var(--space-grid);
+  }
 
-    .products-intro :global(h2) {
-        max-width: 18ch;
+  .products-intro :global(h2) {
+    max-width: 18ch;
+  }
+
+  .products-intro__copy {
+    max-width: 54ch;
+    justify-self: end;
+    color: var(--color-muted);
+  }
+
+  .catalog-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    padding-bottom: var(--space-3);
+  }
+
+  .catalog-heading > span {
+    color: var(--color-muted);
+    font-size: var(--text-eyebrow);
+  }
+
+  .catalog-heading h2 {
+    margin-top: var(--space-1);
+  }
+
+  .product-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .product-filters button {
+    min-height: 44px;
+    padding: 8px var(--space-2);
+    border: var(--border);
+    border-radius: var(--radius-pill);
+    background: var(--color-white);
+    color: var(--color-dark);
+    cursor: pointer;
+    font-size: var(--text-small);
+    font-weight: 600;
+    transition:
+      background-color var(--transition),
+      border-color var(--transition);
+  }
+
+  .product-filters button:hover,
+  .product-filters button:focus-visible {
+    border-color: var(--color-accent-border);
+    background: var(--color-soft);
+  }
+
+  .product-filters button[aria-pressed="true"] {
+    border-color: var(--color-primary);
+    background: var(--color-primary);
+  }
+
+  .empty-products {
+    padding: var(--space-4) 0;
+    color: var(--color-muted);
+  }
+
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-3);
+    margin-top: var(--space-4);
+  }
+
+  .product-grid:has([hidden]) {
+    margin-top: var(--space-3);
+  }
+
+  .product-guide {
+    max-width: var(--container-content);
+    padding: var(--space-3) var(--space-4);
+    margin-bottom: var(--space-section-sm);
+    border-left: 3px solid var(--color-primary);
+    background: var(--color-soft);
+    color: var(--color-muted);
+  }
+
+  @media (max-width: 1199px) {
+    .product-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 899px) {
+    .products-intro {
+      grid-template-columns: 1fr;
+      gap: var(--space-3);
     }
 
     .products-intro__copy {
-        max-width: 54ch;
-        justify-self: end;
-        color: var(--color-muted);
+      justify-self: start;
     }
+  }
 
-    .products-photo {
-        width: min(100%, 900px);
-        margin: clamp(2.5rem, 7vw, 5.5rem) auto var(--space-section-sm);
-    }
-
+  @media (max-width: 639px) {
     .catalog-heading {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        gap: 16px;
-        padding-bottom: var(--space-3);
+      align-items: flex-start;
+      flex-direction: column;
+      gap: 8px;
     }
-
-    .catalog-heading > span {
-        color: var(--color-muted);
-        font-size: var(--text-eyebrow);
-    }
-
-    .catalog-heading h2 {
-        margin-top: var(--space-1);
-    }
-
-    .product-filters {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
-    }
-
-    .product-filters button {
-        min-height: 40px;
-        padding: 8px var(--space-2);
-        border: var(--border);
-        border-radius: var(--radius-pill);
-        background: var(--color-white);
-        color: var(--color-dark);
-        cursor: pointer;
-        font-size: var(--text-small);
-        font-weight: 600;
-        transition: background-color var(--transition),
-        border-color var(--transition);
-    }
-
-    .product-filters button[aria-pressed="true"] {
-        border-color: var(--color-primary);
-        background: var(--color-primary);
-    }
-
-    .empty-products {
-        padding: var(--space-4) 0;
-        color: var(--color-muted);
-    }
-
-    .product-grid {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: var(--space-3);
-        margin-top: var(--space-4);
-    }
-
-    .product-grid:has([hidden]) {
-        margin-top: var(--space-3);
-    }
-
-    .product-guide {
-        max-width: var(--container-content);
-        padding: var(--space-3) var(--space-4);
-        margin-bottom: var(--space-section-sm);
-        border-left: 3px solid var(--color-primary);
-        background: var(--color-soft);
-        color: var(--color-muted);
-    }
-
-    @media (max-width: 1199px) {
-        .product-grid {
-            grid-template-columns: 1fr;
-        }
-    }
-
-    @media (max-width: 899px) {
-        .products-intro {
-            grid-template-columns: 1fr;
-            gap: var(--space-3);
-        }
-
-        .products-intro__copy {
-            justify-self: start;
-        }
-    }
-
-    @media (max-width: 639px) {
-        .products-photo {
-            margin-block: var(--space-4);
-        }
-
-        .catalog-heading {
-            align-items: flex-start;
-            flex-direction: column;
-            gap: 8px;
-        }
-    }
+  }
 </style>

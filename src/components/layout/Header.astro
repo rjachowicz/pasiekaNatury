@@ -125,6 +125,7 @@ const pathname = Astro.url.pathname.replace(/\/+$/, "") || "/";
   }
 
   .nav__link:hover,
+  .nav__link:focus-visible,
   .nav__link[aria-current] {
     color: var(--color-primary);
   }
@@ -143,6 +144,7 @@ const pathname = Astro.url.pathname.replace(/\/+$/, "") || "/";
   }
 
   .nav__link:hover::after,
+  .nav__link:focus-visible::after,
   .nav__link[aria-current]::after {
     transform: scaleX(1);
   }
@@ -219,6 +221,12 @@ const pathname = Astro.url.pathname.replace(/\/+$/, "") || "/";
 
     .header__toggle:hover {
       color: var(--color-primary);
+    }
+
+    .header__toggle:focus-visible {
+      color: var(--color-primary);
+      outline-color: var(--color-primary);
+      outline-offset: -4px;
     }
 
     .header__toggle span {

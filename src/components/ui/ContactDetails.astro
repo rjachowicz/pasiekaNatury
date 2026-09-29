@@ -29,7 +29,7 @@ const details = [
     const Tag = href ? "a" : "div";
     return (
       <Tag class="contact-row" href={href || undefined}>
-        <span class="contact-row__hex">
+        <span class="contact-row__icon">
           <Icon name={icon} size={22} />
         </span>
         <span>
@@ -98,7 +98,7 @@ const details = [
     letter-spacing: 0.09em;
     text-transform: uppercase;
   }
-  .contact-row__hex {
+  .contact-row__icon {
     display: grid;
     place-items: center;
     flex: 0 0 38px;
