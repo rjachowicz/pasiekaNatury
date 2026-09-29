@@ -1,0 +1,100 @@
+---
+import AssetImage from "../../ui/AssetImage.astro";
+import SectionHeading from "../../ui/SectionHeading.astro";
+---
+
+<section class="about-story section">
+  <div class="container about-story__inner">
+    <div class="about-story__copy">
+      <SectionHeading
+        eyebrow="Nasze podejście"
+        title="Rzemiosło zaczyna się od uważności"
+      />
+      <div class="prose">
+        <p>
+          Pasieka to codzienna obecność przy pszczołach i szacunek do ich
+          naturalnego rytmu. Obserwujemy zmiany pór roku, kwitnienie roślin i
+          to, co dzieje się wokół uli.
+        </p>
+        <p>
+          W pracy liczą się cierpliwość, prostota i gotowość do uczenia się. To
+          z tych małych, powtarzalnych czynności wyrasta pszczelarskie
+          rzemiosło.
+        </p>
+      </div>
+    </div>
+    <figure class="about-story__photo">
+      <AssetImage
+        src="/assets/beekeeper-face.jpg"
+        widths={[640, 960, 1440]}
+        sizes="(max-width: 899px) 92vw, 46vw"
+        loading="lazy"
+        alt="Pszczelarz przy ulach z ramką pszczelą w dłoniach"
+      />
+      <figcaption>Uważność w każdej porze roku</figcaption>
+    </figure>
+  </div>
+</section>
+
+<style>
+  .about-story__inner {
+    display: grid;
+    grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+    align-items: center;
+    gap: var(--space-grid);
+  }
+  .about-story {
+    background: var(--color-background);
+  }
+  .about-story__copy .prose {
+    margin-top: var(--space-3);
+  }
+  .about-story__photo {
+    position: relative;
+    min-height: 540px;
+    overflow: hidden;
+    border: var(--border);
+    border-radius: var(--radius-image);
+  }
+  .about-story__photo :global(img) {
+    width: 100%;
+    height: 540px;
+    object-fit: cover;
+    object-position: center;
+  }
+  .about-story__photo::after {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(0deg, var(--color-dark-60), transparent 38%);
+    content: "";
+    pointer-events: none;
+  }
+  .about-story__photo figcaption {
+    position: absolute;
+    z-index: 1;
+    right: var(--space-3);
+    bottom: var(--space-3);
+    padding-right: var(--space-2);
+    border-right: 2px solid var(--color-primary);
+    color: var(--color-white);
+    font: italic 500 var(--text-card-title) / 1.1 var(--font-heading);
+    text-align: right;
+  }
+  @media (max-width: 899px) {
+    .about-story__inner {
+      grid-template-columns: 1fr;
+    }
+    .about-story__photo,
+    .about-story__photo :global(img) {
+      min-height: 420px;
+      height: 420px;
+    }
+  }
+  @media (max-width: 639px) {
+    .about-story__photo,
+    .about-story__photo :global(img) {
+      min-height: 340px;
+      height: 340px;
+    }
+  }
+</style>

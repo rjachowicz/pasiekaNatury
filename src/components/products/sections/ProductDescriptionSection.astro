@@ -1,0 +1,125 @@
+---
+import type { Product } from "../../../data/products";
+
+interface Props {
+  product: Product;
+}
+
+const { product } = Astro.props;
+---
+
+<div class="product-detail__body">
+  <div class="product-detail__description">
+    <p class="eyebrow eyebrow--line">O produkcie</p>
+    <h2>Poznaj produkt</h2>
+    <p>{product.description}</p>
+  </div>
+  {(product.sizes?.length || product.variants?.length) && (
+    <div class="product-detail__choices">
+      {product.sizes?.length && (
+        <section class="product-detail__sizes" aria-labelledby="sizes-title">
+          <p class="eyebrow eyebrow--line">Dostępne gramatury</p>
+          <h2 id="sizes-title">Wybierz gramaturę</h2>
+          <div
+            class="product-detail__options"
+            role="radiogroup"
+            aria-labelledby="sizes-title"
+          >
+            {product.sizes.map((size) => (
+              <label>
+                <input type="radio" name="product-variant" value={size} />
+                <span>{size}</span>
+              </label>
+            ))}
+          </div>
+        </section>
+      )}
+      {product.variants?.length && (
+        <section class="product-detail__sizes" aria-labelledby="variants-title">
+          <p class="eyebrow eyebrow--line">Dostępne warianty</p>
+          <h2 id="variants-title">Wybierz wariant</h2>
+          <div
+            class="product-detail__options"
+            role="radiogroup"
+            aria-labelledby="variants-title"
+          >
+            {product.variants.map((variant) => (
+              <label>
+                <input type="radio" name="product-variant" value={variant} />
+                <span>{variant}</span>
+              </label>
+            ))}
+          </div>
+        </section>
+      )}
+    </div>
+  )}
+</div>
+
+<style>
+  .product-detail__body {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(240px, 0.6fr);
+    gap: var(--space-grid);
+    max-width: 1040px;
+    margin: var(--space-section-sm) auto;
+  }
+  .product-detail__description p:last-child {
+    max-width: 58ch;
+    margin-top: var(--space-3);
+    color: var(--color-muted);
+  }
+  .product-detail__choices {
+    display: grid;
+    gap: var(--space-3);
+  }
+  .product-detail__sizes {
+    padding: var(--space-4);
+    border: var(--border);
+    border-radius: var(--radius-card);
+    background: var(--color-soft);
+  }
+  .product-detail__sizes h2 {
+    font-size: var(--text-card-title);
+  }
+  .product-detail__options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: var(--space-3);
+  }
+  .product-detail__options label {
+    position: relative;
+    display: inline-flex;
+    min-height: 44px;
+    align-items: center;
+    cursor: pointer;
+  }
+  .product-detail__options input {
+    position: absolute;
+    opacity: 0;
+  }
+  .product-detail__options input:checked + span {
+    border-color: var(--color-primary);
+    background: var(--color-primary);
+    color: var(--color-dark);
+  }
+  .product-detail__options label:hover span {
+    border-color: var(--color-accent-border);
+    color: var(--color-text);
+  }
+  .product-detail__options input:focus-visible + span {
+    outline: 2px solid var(--color-dark);
+    outline-offset: 3px;
+  }
+  @media (max-width: 899px) {
+    .product-detail__body {
+      grid-template-columns: 1fr;
+    }
+  }
+  @media (max-width: 639px) {
+    .product-detail__body {
+      margin-block: var(--space-section-sm);
+    }
+  }
+</style>

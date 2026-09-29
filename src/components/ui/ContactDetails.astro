@@ -2,11 +2,6 @@
 import Icon, { type IconName } from "./Icon.astro";
 import { contact } from "../../data/site";
 
-interface Props {
-  variant?: "compact" | "tiles";
-}
-
-const { variant = "compact" } = Astro.props;
 const details = [
   {
     label: "Telefon",
@@ -24,7 +19,7 @@ const details = [
 ] satisfies { label: string; text: string; href: string; icon: IconName }[];
 ---
 
-<address class:list={["contact-details", `contact-details--${variant}`]}>
+<address class="contact-details contact-details--compact">
   {details.map(({ label, text, href, icon }) => {
     const Tag = href ? "a" : "div";
     return (
@@ -51,10 +46,6 @@ const details = [
   .contact-details--compact {
     grid-template-columns: 1fr;
   }
-  .contact-details--tiles {
-    grid-template-columns: 1fr;
-    gap: var(--space-3);
-  }
   .contact-row {
     display: flex;
     align-items: center;
@@ -66,21 +57,6 @@ const details = [
     min-width: 0;
     word-break: normal;
     overflow-wrap: break-word;
-  }
-  .contact-details--tiles .contact-row {
-    min-height: 104px;
-    padding: var(--space-3);
-    border: var(--border);
-    border-radius: var(--radius-card);
-    background: var(--color-white);
-    transition:
-      border-color var(--transition),
-      box-shadow var(--transition),
-      transform var(--transition);
-  }
-  .contact-details--tiles .contact-row:hover {
-    border-color: var(--color-accent-border);
-    box-shadow: var(--shadow-subtle);
   }
   .contact-row__content {
     min-width: 0;
@@ -109,15 +85,9 @@ const details = [
     color: var(--color-primary);
   }
   @media (max-width: 639px) {
-    .contact-details--tiles {
-      gap: var(--space-2);
-    }
     .contact-row {
       min-height: 72px;
       padding-block: 12px;
-    }
-    .contact-details--tiles .contact-row {
-      min-height: 96px;
     }
   }
   @media (max-width: 479px) {

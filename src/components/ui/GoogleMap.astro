@@ -3,8 +3,8 @@ import Icon from "./Icon.astro";
 import { contact } from "../../data/site";
 ---
 
-<section class="google-map" aria-label="Mapa dojazdu">
-  <div class="google-map__placeholder">
+<section class="google-map" data-map-root aria-label="Mapa dojazdu">
+  <div class="google-map__placeholder" data-map-placeholder>
     <Icon name="location" size={42} />
     <div>
       <p class="eyebrow">Lokalizacja</p>
@@ -25,6 +25,7 @@ import { contact } from "../../data/site";
   </div>
   <iframe
     class="google-map__iframe"
+    data-map-iframe
     data-src={contact.mapEmbedUrl}
     title="Mapa dojazdu do Pasieki 100% Natury"
     loading="lazy"
@@ -34,55 +35,7 @@ import { contact } from "../../data/site";
 </section>
 
 <script>
-  import {
-    getPrivacyPreferences,
-    privacyPreferencesEvent,
-  } from "../../scripts/privacyPreferences";
-
-  const map = document.querySelector<HTMLElement>(".google-map");
-  const iframe = map?.querySelector<HTMLIFrameElement>(".google-map__iframe");
-  const placeholder = map?.querySelector<HTMLElement>(
-    ".google-map__placeholder",
-  );
-  const enableButton = map?.querySelector<HTMLButtonElement>(
-    "[data-enable-google-map]",
-  );
-
-  const loadMap = () => {
-    if (!iframe) return;
-    if (!iframe.getAttribute("src")) iframe.src = iframe.dataset.src ?? "";
-    placeholder?.setAttribute("hidden", "");
-    iframe.removeAttribute("hidden");
-    map?.setAttribute("data-map-ready", "true");
-  };
-
-  const unloadMap = () => {
-    if (!iframe) return;
-    iframe.removeAttribute("src");
-    iframe.setAttribute("hidden", "");
-    placeholder?.removeAttribute("hidden");
-    map?.removeAttribute("data-map-ready");
-  };
-
-  const hasConsent = () => getPrivacyPreferences()?.googleMaps === true;
-
-  if (hasConsent()) loadMap();
-
-  enableButton?.addEventListener("click", () => {
-    if (hasConsent()) {
-      loadMap();
-      return;
-    }
-    window.dispatchEvent(new CustomEvent("pasieka:open-privacy-settings"));
-  });
-
-  window.addEventListener(privacyPreferencesEvent, (event) => {
-    if ((event as CustomEvent<{ googleMaps: boolean }>).detail.googleMaps) {
-      loadMap();
-      return;
-    }
-    unloadMap();
-  });
+  import "../../scripts/googleMap";
 </script>
 
 <style>

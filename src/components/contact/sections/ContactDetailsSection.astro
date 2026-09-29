@@ -1,0 +1,167 @@
+---
+import ContactDetails from "../../ui/ContactDetails.astro";
+import Icon from "../../ui/Icon.astro";
+import { products } from "../../../data/products";
+import { contact } from "../../../data/site";
+
+const productOptions = products.map(({ id, name, sizes, variants }) => ({
+  id,
+  name,
+  variants: [...(sizes ?? []), ...(variants ?? [])],
+}));
+---
+
+<section class="contact-overview section">
+  <div class="container">
+    <div
+      class="contextual-product"
+      data-contact-product-context
+      hidden
+      data-products={JSON.stringify(productOptions)}
+    >
+      <p class="contextual-product__name" data-product-name></p>
+      <p>
+        Sprawdzimy aktualną dostępność, gramatury i szczegóły wybranego
+        produktu.
+      </p>
+    </div>
+
+    <div class="contact-overview__heading">
+      <div>
+        <p class="eyebrow eyebrow--line">Bądźmy w kontakcie</p>
+        <h2>Wybierz najwygodniejszą formę</h2>
+      </div>
+      <p>
+        Przed przyjazdem do pasieki zadzwoń lub napisz, aby wspólnie ustalić
+        dogodny termin.
+      </p>
+    </div>
+
+    <div class="contact-overview__grid">
+      <div class="contact-overview__details">
+        <ContactDetails />
+      </div>
+      <aside class="contact-overview__visit">
+        <p class="eyebrow">Wizyta w pasiece</p>
+        <h3>Jasienna, blisko natury</h3>
+        <p>
+          Chętnie opowiemy o dostępnych produktach i wskażemy drogę. Każdą
+          wizytę najlepiej umówić wcześniej.
+        </p>
+        <a
+          href={contact.directionsUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Wyznacz trasę <Icon name="arrow-up-right" size={17} />
+        </a>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<script>
+  import "../../../scripts/contactProductContext";
+</script>
+
+<style>
+  .contact-overview__heading {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(250px, 0.64fr);
+    align-items: end;
+    gap: var(--space-grid);
+    margin-bottom: var(--space-4);
+  }
+  .contact-overview__heading h2 {
+    max-width: 16ch;
+  }
+  .contact-overview__heading > * {
+    min-width: 0;
+  }
+  .contact-overview__heading > p {
+    max-width: 42ch;
+    justify-self: end;
+    color: var(--color-muted);
+  }
+  .contextual-product {
+    max-width: 740px;
+    padding: var(--space-3) var(--space-4);
+    margin-bottom: var(--space-5);
+    border: var(--border);
+    border-left: 3px solid var(--color-primary);
+    border-radius: var(--radius-sm);
+    background: var(--color-white);
+  }
+  .contextual-product .eyebrow {
+    margin-bottom: 4px;
+  }
+  .contextual-product__name {
+    font: 600 var(--text-card-title) / 1.1 var(--font-heading);
+  }
+  .contextual-product p:last-child {
+    margin-top: var(--space-1);
+    color: var(--color-muted);
+    font-size: var(--text-small);
+  }
+  .contact-overview__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.25fr) minmax(270px, 0.75fr);
+    gap: var(--space-3);
+    align-items: start;
+  }
+  .contact-overview__visit {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: var(--space-2) 0;
+  }
+  .contact-overview__visit .eyebrow {
+    margin: 0 0 var(--space-1);
+  }
+  .contact-overview__visit h3 {
+    font-size: clamp(1.75rem, 2vw, 2.2rem);
+  }
+  .contact-overview__visit > p:last-of-type {
+    margin-top: var(--space-2);
+    color: var(--color-muted);
+    font-size: var(--text-small);
+  }
+  .contact-overview__visit a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: var(--space-4);
+    color: var(--color-dark);
+    font-size: var(--text-eyebrow);
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-decoration: underline;
+    text-decoration-color: var(--color-primary-hover);
+    text-underline-offset: 6px;
+    text-transform: uppercase;
+  }
+  @media (max-width: 899px) {
+    .contact-overview__heading,
+    .contact-overview__grid {
+      grid-template-columns: 1fr;
+    }
+    .contact-overview__heading > p {
+      justify-self: start;
+      text-align: left;
+    }
+    .contact-overview__grid {
+      gap: var(--space-3);
+    }
+    .contact-overview__visit {
+      padding-top: var(--space-3);
+      border-top: var(--border);
+    }
+  }
+  @media (max-width: 639px) {
+    .contextual-product {
+      padding: var(--space-3);
+      margin-bottom: var(--space-4);
+    }
+  }
+</style>

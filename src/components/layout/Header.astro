@@ -5,11 +5,12 @@ import { navigation } from "../../data/site";
 const pathname = Astro.url.pathname.replace(/\/+$/, "") || "/";
 ---
 
-<header class="header">
+<header class="header" data-site-header>
   <div class="container header__inner">
     <BrandLockup />
     <button
       class="header__toggle"
+      data-navigation-toggle
       type="button"
       aria-controls="main-navigation"
       aria-expanded="false"
@@ -20,7 +21,12 @@ const pathname = Astro.url.pathname.replace(/\/+$/, "") || "/";
       <span></span>
       <span></span>
     </button>
-    <nav id="main-navigation" class="nav" aria-label="Nawigacja główna">
+    <nav
+      id="main-navigation"
+      class="nav"
+      data-navigation
+      aria-label="Nawigacja główna"
+    >
       {navigation.map(({ href, label }) => (
         <a
           class="nav__link"
@@ -35,52 +41,7 @@ const pathname = Astro.url.pathname.replace(/\/+$/, "") || "/";
 </header>
 
 <script>
-  const header = document.querySelector<HTMLElement>(".header");
-  const toggle = header?.querySelector<HTMLButtonElement>(".header__toggle");
-  const nav = header?.querySelector<HTMLElement>(".nav");
-  if (header && toggle && nav) {
-    header.classList.add("header--enhanced");
-    toggle.hidden = false;
-    const closeMenu = (restoreFocus = false) => {
-      toggle.setAttribute("aria-expanded", "false");
-      toggle.setAttribute("aria-label", "Otwórz menu");
-      header.classList.remove("header--open");
-      document.body.classList.remove("is-scroll-locked");
-      if (restoreFocus) toggle.focus();
-    };
-    toggle.addEventListener("click", () => {
-      const open = toggle.getAttribute("aria-expanded") !== "true";
-      toggle.setAttribute("aria-expanded", String(open));
-      toggle.setAttribute("aria-label", open ? "Zamknij menu" : "Otwórz menu");
-      header.classList.toggle("header--open", open);
-      document.body.classList.toggle("is-scroll-locked", open);
-    });
-    nav.addEventListener("click", (event) => {
-      if (event.target instanceof Element && event.target.closest("a"))
-        closeMenu();
-    });
-    document.addEventListener("keydown", (event) => {
-      if (
-        event.key === "Escape" &&
-        toggle.getAttribute("aria-expanded") === "true"
-      )
-        closeMenu(true);
-    });
-    document.addEventListener("click", (event) => {
-      if (event.target instanceof Node && !header.contains(event.target))
-        closeMenu();
-    });
-    header.addEventListener("focusout", (event) => {
-      if (
-        event.relatedTarget instanceof Node &&
-        !header.contains(event.relatedTarget)
-      )
-        closeMenu();
-    });
-    matchMedia("(min-width: 900px)").addEventListener("change", () =>
-      closeMenu(),
-    );
-  }
+  import "../../scripts/mobileNavigation";
 </script>
 
 <style>

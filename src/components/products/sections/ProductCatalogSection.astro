@@ -1,0 +1,107 @@
+---
+import ProductCard from "../ProductCard.astro";
+import { productCategoryLabels, products } from "../../../data/products";
+import { formatProductCount } from "../../../utils/formatProductCount";
+---
+
+<div class="catalog-heading" data-reveal>
+  <div>
+    <h2>Nasze produkty</h2>
+  </div>
+  <span data-product-count aria-live="polite">
+    {formatProductCount(products.length)}
+  </span>
+</div>
+<div class="product-filters" role="group" aria-label="Filtruj produkty">
+  <button type="button" data-product-filter="all" aria-pressed="true">
+    Wszystkie
+  </button>
+  {Object.entries(productCategoryLabels).map(([category, label]) => (
+    <button type="button" data-product-filter={category} aria-pressed="false">
+      {label}
+    </button>
+  ))}
+</div>
+<p class="empty-products" data-empty-products hidden>
+  Produkty z tej kategorii pojawią się wkrótce.
+</p>
+<div class="product-grid">
+  {products.map((product, index) => (
+    <ProductCard product={product} index={index} />
+  ))}
+</div>
+
+<script>
+  import "../../../scripts/productFilters";
+</script>
+
+<style>
+  .catalog-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    padding-bottom: var(--space-3);
+  }
+  .catalog-heading > span {
+    color: var(--color-muted);
+    font-size: var(--text-eyebrow);
+  }
+  .catalog-heading h2 {
+    margin-top: var(--space-1);
+  }
+  .product-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .product-filters button {
+    min-height: 44px;
+    padding: 8px var(--space-2);
+    border: var(--border);
+    border-radius: var(--radius-pill);
+    background: var(--color-white);
+    color: var(--color-dark);
+    cursor: pointer;
+    font-size: var(--text-small);
+    font-weight: 600;
+    transition:
+      background-color var(--transition),
+      border-color var(--transition);
+  }
+  .product-filters button:hover,
+  .product-filters button:focus-visible {
+    border-color: var(--color-accent-border);
+    background: var(--color-soft);
+  }
+  .product-filters button[aria-pressed="true"] {
+    border-color: var(--color-primary);
+    background: var(--color-primary);
+  }
+  .empty-products {
+    padding: var(--space-4) 0;
+    color: var(--color-muted);
+  }
+  .product-grid {
+    display: grid;
+    grid-auto-rows: minmax(min-content, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-3);
+    margin-top: var(--space-4);
+  }
+  .product-grid:has([hidden]) {
+    margin-top: var(--space-3);
+  }
+  @media (max-width: 1199px) {
+    .product-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  @media (max-width: 639px) {
+    .catalog-heading {
+      align-items: flex-start;
+      flex-direction: column;
+      gap: 8px;
+    }
+  }
+</style>

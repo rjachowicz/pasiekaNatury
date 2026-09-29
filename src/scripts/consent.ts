@@ -1,17 +1,20 @@
 import {
   getPrivacyPreferences,
+  openPrivacySettingsEvent,
   privacyPreferencesEvent,
   savePrivacyPreferences,
 } from "./privacyPreferences";
 
-const dialog = document.querySelector<HTMLDialogElement>(".privacy-consent");
-const acceptButton = document.querySelector<HTMLButtonElement>(
+const dialog = document.querySelector<HTMLDialogElement>(
+  "[data-privacy-consent]",
+);
+const acceptButton = dialog?.querySelector<HTMLButtonElement>(
   "[data-consent-accept]",
 );
-const denyButton = document.querySelector<HTMLButtonElement>(
+const denyButton = dialog?.querySelector<HTMLButtonElement>(
   "[data-consent-deny]",
 );
-const currentChoice = document.querySelector<HTMLElement>(
+const currentChoice = dialog?.querySelector<HTMLElement>(
   "[data-consent-current]",
 );
 
@@ -43,7 +46,7 @@ dialog?.addEventListener("cancel", (event) => {
 document
   .querySelectorAll<HTMLElement>("[data-privacy-settings]")
   .forEach((button) => button.addEventListener("click", openDialog));
-window.addEventListener("pasieka:open-privacy-settings", openDialog);
+window.addEventListener(openPrivacySettingsEvent, openDialog);
 window.addEventListener(privacyPreferencesEvent, () => {
   if (dialog?.open) openDialog();
 });

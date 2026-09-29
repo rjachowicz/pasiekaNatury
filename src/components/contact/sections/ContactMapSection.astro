@@ -1,0 +1,22 @@
+---
+import GoogleMap from "../../ui/GoogleMap.astro";
+import SectionHeading from "../../ui/SectionHeading.astro";
+---
+
+<section class="map-section section">
+  <div class="container">
+    <div class="map-section__heading">
+      <SectionHeading eyebrow="Dojazd" title="Odwiedź pasiekę" />
+    </div>
+    <GoogleMap />
+  </div>
+</section>
+
+<style>
+  .map-section {
+    position: relative;
+  }
+  .map-section__heading {
+    margin-bottom: var(--space-4);
+  }
+</style>

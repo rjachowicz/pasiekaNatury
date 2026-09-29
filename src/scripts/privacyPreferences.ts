@@ -7,6 +7,7 @@ export type PrivacyPreferences = {
 export const privacyPreferencesKey = "pasieka_privacy_preferences_v2";
 const legacyGoogleMapsConsentKey = "pasieka_google_maps_consent_v1";
 export const privacyPreferencesEvent = "pasieka:privacy-preferences";
+export const openPrivacySettingsEvent = "pasieka:open-privacy-settings";
 
 const isPrivacyPreferences = (value: unknown): value is PrivacyPreferences => {
   if (!value || typeof value !== "object") return false;

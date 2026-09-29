@@ -1,0 +1,173 @@
+---
+import AssetImage from "../../ui/AssetImage.astro";
+import Button from "../../ui/Button.astro";
+import type { Product } from "../../../data/products";
+
+interface Props {
+  product: Product;
+}
+
+const { product } = Astro.props;
+const eyebrow =
+  product.category === "honey"
+    ? "Miód z naszej pasieki"
+    : "Produkt pszczelarski";
+---
+
+<nav class="breadcrumb" aria-label="Okruszki">
+  <a href="/">Strona główna</a>
+  <span aria-hidden="true">/</span>
+  <a href="/produkty">Produkty</a>
+  <span aria-hidden="true">/</span>
+  <span aria-current="page">{product.name}</span>
+</nav>
+
+<div class="product-detail__hero">
+  <div class="product-detail__image">
+    <AssetImage
+      src={product.image}
+      sizes="(max-width: 899px) 280px, 390px"
+      widths={[320, 640, 960]}
+      loading="eager"
+      fetchpriority="high"
+      alt={`Produkt: ${product.name.toLocaleLowerCase("pl")}`}
+    />
+  </div>
+  <div class="product-detail__content">
+    <p class="eyebrow eyebrow--line">{eyebrow}</p>
+    <h1>{product.name}</h1>
+    <p class="product-detail__lead">{product.shortDescription}</p>
+    {product.details?.length ? (
+      <dl class="product-detail__details">
+        {product.details.map((detail) => (
+          <div>
+            <dt>{detail.label}</dt>
+            <dd>{detail.value}</dd>
+          </div>
+        ))}
+      </dl>
+    ) : null}
+    <ul
+      class="product-detail__tags"
+      aria-label={`Cechy produktu: ${product.name}`}
+    >
+      {product.tags.map((tag) => (
+        <li>{tag}</li>
+      ))}
+    </ul>
+    <Button
+      data-contact-link
+      href={`/kontakt?produkt=${encodeURIComponent(product.id)}`}
+    >
+      Zapytaj o produkt
+    </Button>
+  </div>
+</div>
+
+<style>
+  .breadcrumb {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: var(--space-5);
+    color: var(--color-muted);
+    font-size: var(--text-eyebrow);
+  }
+  .breadcrumb a:hover {
+    color: var(--color-dark);
+    text-decoration: underline;
+    text-decoration-color: var(--color-primary);
+    text-underline-offset: 4px;
+  }
+  .product-detail__hero {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    align-items: stretch;
+    overflow: hidden;
+    border: var(--border);
+    border-radius: var(--radius-image);
+  }
+  .product-detail__image {
+    display: grid;
+    min-height: 540px;
+    padding: var(--space-5);
+    place-items: center;
+    border-right: var(--border);
+    background: var(--color-soft);
+  }
+  .product-detail__image :global(img) {
+    width: min(100%, 390px);
+    max-height: 480px;
+    object-fit: contain;
+  }
+  .product-detail__content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    padding: clamp(2rem, 6vw, 5rem);
+  }
+  .product-detail__content h1 {
+    margin-top: var(--space-2);
+  }
+  .product-detail__lead {
+    max-width: 42ch;
+    margin-top: var(--space-3);
+    color: var(--color-muted);
+    font-size: clamp(1.05rem, 1rem + 0.25vw, 1.2rem);
+  }
+  .product-detail__details {
+    display: grid;
+    gap: var(--space-2);
+    width: 100%;
+    margin-top: var(--space-4);
+  }
+  .product-detail__details div {
+    display: grid;
+    gap: 4px;
+  }
+  .product-detail__details dt {
+    color: var(--color-muted);
+    font-size: var(--text-eyebrow);
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .product-detail__details dd {
+    margin: 0;
+    font-family: var(--font-heading);
+    font-size: 1.35rem;
+    font-weight: 600;
+  }
+  .product-detail__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 0;
+    margin: var(--space-3) 0 var(--space-4);
+    list-style: none;
+  }
+  @media (max-width: 899px) {
+    .product-detail__hero {
+      grid-template-columns: 1fr;
+    }
+    .product-detail__image {
+      min-height: 420px;
+      border-right: 0;
+      border-bottom: var(--border);
+    }
+  }
+  @media (max-width: 639px) {
+    .breadcrumb {
+      margin-bottom: var(--space-4);
+    }
+    .product-detail__image {
+      min-height: 310px;
+      padding: var(--space-3);
+    }
+    .product-detail__image :global(img) {
+      width: min(100%, 250px);
+      max-height: 280px;
+    }
+  }
+</style>
