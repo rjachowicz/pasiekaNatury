@@ -55,6 +55,12 @@ const organization = {
     addressLocality: "Korzenna",
     addressCountry: "PL",
   },
+  geo: {
+    "@type": "GeoCoordinates",
+    latitude: contact.coordinates.latitude,
+    longitude: contact.coordinates.longitude,
+  },
+  hasMap: contact.directionsUrl,
   sameAs: [contact.facebookUrl, contact.instagramUrl],
 };
 const structuredData = {

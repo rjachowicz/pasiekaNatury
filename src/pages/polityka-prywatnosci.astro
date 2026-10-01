@@ -23,90 +23,171 @@ import { contact } from "../data/site";
   <article class="privacy-policy section">
     <div class="container privacy-policy__content prose">
       <section>
-        <h2>Administrator strony</h2>
+        <p class="privacy-policy__updated">
+          Ostatnia aktualizacja: 1 października 2026 r.
+        </p>
+        <h2>Administrator i kontakt</h2>
         <p>
-          Administratorem strony jest Pasieka 100% Natury. W sprawach związanych
-          ze stroną możesz skontaktować się telefonicznie pod jednym z numerów:
-          <a href={contact.phones[0].href}> {contact.phones[0].display}</a> lub
-          <a href={contact.phones[1].href}> {contact.phones[1].display}</a>,
-          e-mailem
-          <a href={`mailto:${contact.email}`}> {contact.email} </a> lub pod
-          adresem {contact.address}.
+          Administratorem danych osobowych przekazywanych w związku z
+          korzystaniem ze strony jest Kazimierz Sowa, prowadzący Pasiekę 100%
+          Natury, Jasienna 171, 33-322 Korzenna, Polska.
+        </p>
+        <p>
+          Kontakt:{" "}
+          {contact.phones.map(({ display, href }, index) => (
+            <Fragment>
+              {index > 0 ? " oraz " : " "}
+              <a href={href}>{display}</a>
+            </Fragment>
+          ))}
+          , e-mail <a href={`mailto:${contact.email}`}>{contact.email}</a>,
+          adres pasieki: {contact.address}.
         </p>
       </section>
 
       <section>
-        <h2>Jakie dane mogą być przetwarzane</h2>
+        <h2>Dane przekazywane podczas kontaktu</h2>
         <p>
-          Gdy kontaktujesz się z pasieką przez telefon, e-mail lub media
-          społecznościowe, przekazujesz dane niezbędne do obsługi swojej sprawy,
-          takie jak dane kontaktowe i treść wiadomości.
+          Strona nie posiada formularza kontaktowego. Jeśli kontaktujesz się z
+          pasieką telefonicznie, e-mailem lub przez media społecznościowe,
+          przetwarzane mogą być dane, które samodzielnie przekażesz, na przykład
+          imię, numer telefonu, adres e-mail oraz treść wiadomości.
+        </p>
+        <p>
+          Dane są wykorzystywane w celu udzielenia odpowiedzi, potwierdzenia
+          dostępności produktów, uzgodnienia wizyty lub podjęcia działań na
+          Twoje żądanie przed ewentualnym zawarciem umowy. Podstawą
+          przetwarzania jest art. 6 ust. 1 lit. b RODO albo prawnie uzasadniony
+          interes administratora polegający na obsłudze korespondencji i
+          ochronie przed roszczeniami — art. 6 ust. 1 lit. f RODO. Jeżeli
+          przetwarzanie jest wymagane przez przepisy prawa, podstawą jest art. 6
+          ust. 1 lit. c RODO.
         </p>
       </section>
 
       <section>
-        <h2>Hosting i techniczne logi serwera</h2>
+        <h2>Hosting i dane techniczne</h2>
         <p>
-          Podczas korzystania ze strony serwer hostingowy może zapisywać
-          techniczne logi, w tym adres IP, datę i czas żądania, adres
-          odwiedzanej strony oraz informacje o przeglądarce. Dane te służą
-          bezpieczeństwu i prawidłowemu działaniu serwisu.
+          Strona jest hostowana przez Vercel. Podczas otwierania strony
+          infrastruktura hostingowa może przetwarzać dane techniczne niezbędne
+          do dostarczenia i zabezpieczenia serwisu, takie jak adres IP, data i
+          czas żądania, odwiedzony adres, informacje o przeglądarce oraz dane
+          dotyczące błędów.
+        </p>
+        <p>
+          Administrator nie wykorzystuje tych danych do profilowania
+          użytkowników ani prowadzenia własnej analityki marketingowej.
         </p>
       </section>
 
       <section>
-        <h2>Google Maps</h2>
+        <h2>Pamięć przeglądarki i Google Maps</h2>
         <p>
-          Mapa Google jest ładowana tylko po wyrażeniu zgody. Po jej włączeniu
-          Google może otrzymać dane techniczne, takie jak adres IP, dane
-          urządzenia i informacje o przeglądarce. Bez zgody mapa nie jest
-          ładowana; nadal można otworzyć adres bezpośrednio w Google Maps.
+          Strona zapisuje w pamięci <code>localStorage</code> wyłącznie
+          ustawienie dotyczące Google Maps: wersję ustawienia, informację o
+          udzieleniu lub odmowie zgody oraz datę podjęcia decyzji. Zapis służy
+          wyłącznie zapamiętaniu wyboru użytkownika.
+        </p>
+        <p>
+          Interaktywna mapa Google nie jest ładowana przed wyrażeniem zgody. Po
+          jej włączeniu przeglądarka łączy się z serwerami Google, a Google może
+          otrzymać między innymi adres IP, informacje o urządzeniu i
+          przeglądarce, adres strony odsyłającej oraz dane związane z
+          korzystaniem z mapy.
+        </p>
+        <p>
+          Więcej informacji:{" "}
+          <a
+            href="https://policies.google.com/privacy?hl=pl"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Polityka prywatności Google
+          </a>{" "}
+          oraz{" "}
+          <a
+            href="https://policies.google.com/technologies/partner-sites?hl=pl"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            informacje o wykorzystywaniu danych przez Google
+          </a>
+          .
+        </p>
+        <p>
+          Zgodę można w każdej chwili zmienić lub cofnąć w{" "}
+          <button type="button" data-privacy-settings>
+            ustawieniach prywatności
+          </button>{" "}
+          dostępnych w stopce. Po cofnięciu zgody źródło iframe jest usuwane, a
+          mapa przestaje być wyświetlana.
         </p>
       </section>
 
       <section>
-        <h2>Pamięć przeglądarki</h2>
+        <h2>Zewnętrzne serwisy</h2>
         <p>
-          W localStorage zapisujemy wyłącznie wybór dotyczący mapy Google:
-          wersję ustawienia, zgodę na mapę oraz datę podjęcia decyzji. Pomaga to
-          zapamiętać wybór po ponownym otwarciu strony.
+          Strona zawiera odnośniki do Google Maps, Facebooka i Instagrama. Samo
+          wyświetlenie strony nie powoduje osadzenia treści Facebooka ani
+          Instagrama. Po kliknięciu odnośnika użytkownik przechodzi do
+          zewnętrznego serwisu, który przetwarza dane zgodnie z własną polityką
+          prywatności.
         </p>
       </section>
 
       <section>
-        <h2>Odnośniki zewnętrzne</h2>
+        <h2>Okres przechowywania</h2>
         <p>
-          Strona zawiera odnośniki do Facebooka, Instagrama i Google Maps. Po
-          przejściu do tych serwisów obowiązują ich własne zasady prywatności.
+          Dane przekazane podczas kontaktu są przechowywane przez okres
+          potrzebny do obsługi sprawy, a następnie przez czas wymagany przez
+          przepisy prawa albo niezbędny do ustalenia, dochodzenia lub obrony
+          roszczeń. Ustawienie dotyczące mapy pozostaje w pamięci przeglądarki
+          do czasu jego zmiany, usunięcia danych strony lub wyczyszczenia
+          pamięci przeglądarki.
+        </p>
+      </section>
+
+      <section>
+        <h2>Prawa użytkownika</h2>
+        <p>
+          W zależności od podstawy i zakresu przetwarzania możesz żądać dostępu
+          do swoich danych, ich sprostowania, usunięcia lub ograniczenia
+          przetwarzania, a także wnieść sprzeciw wobec przetwarzania opartego na
+          prawnie uzasadnionym interesie administratora.
+        </p>
+        <p>
+          Jeżeli uważasz, że dane są przetwarzane niezgodnie z prawem, możesz
+          wnieść skargę do{" "}
+          <a
+            href="https://uodo.gov.pl/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Prezesa Urzędu Ochrony Danych Osobowych
+          </a>
+          .
         </p>
       </section>
 
       <section>
         <h2>Analityka i reklamy</h2>
         <p>
-          Aktualna wersja strony nie korzysta z narzędzi analitycznych ani
-          reklamowych.
+          Aktualna wersja strony nie korzysta z Google Analytics, narzędzi
+          reklamowych, pikseli marketingowych ani mechanizmów profilowania.
         </p>
       </section>
 
       <section>
-        <h2>Zmiana zgody</h2>
+        <h2>Materiały graficzne</h2>
         <p>
-          W każdej chwili możesz zmienić lub cofnąć zgodę w
-          <button type="button" data-privacy-settings>
-            ustawieniach prywatności.
-          </button>
-          Po cofnięciu zgody mapa traci źródło i przestaje być wyświetlana.
+          Część materiałów graficznych prezentowanych na stronie ma charakter
+          ilustracyjny i została przygotowana z wykorzystaniem narzędzi
+          generatywnej sztucznej inteligencji.
         </p>
-      </section>
-
-      <section>
-        <h2>Kontakt w sprawach prywatności</h2>
         <p>
-          Napisz na <a href={`mailto:${contact.email}`}>{contact.email}</a> lub
-          zadzwoń pod jeden z numerów:{" "}
-          <a href={contact.phones[0].href}>{contact.phones[0].display}</a>
-          lub <a href={contact.phones[1].href}>{contact.phones[1].display}</a>.
+          Materiały te służą prezentacji wizualnej strony i nie powinny być
+          traktowane jako dokładne odwzorowanie konkretnego produktu, partii
+          miodu, pasieki ani aktualnego wyglądu miejsca.
         </p>
       </section>
     </div>
@@ -120,6 +201,12 @@ import { contact } from "../data/site";
 
   .privacy-policy__content {
     max-width: var(--container-text);
+  }
+
+  .privacy-policy__updated {
+    margin-bottom: var(--space-4);
+    color: var(--color-muted);
+    font-size: var(--text-small);
   }
 
   .privacy-policy section + section {

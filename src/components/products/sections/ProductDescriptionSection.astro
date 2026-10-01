@@ -18,17 +18,15 @@ const { product } = Astro.props;
 
 <style>
   .product-detail__body {
+    width: 100%;
+    margin-block: var(--space-section-sm);
+  }
+  .product-detail__description {
     max-width: 760px;
-    margin: var(--space-section-sm) auto;
   }
   .product-detail__description p:last-child {
     max-width: 58ch;
     margin-top: var(--space-3);
     color: var(--color-muted);
-  }
-  @media (max-width: 639px) {
-    .product-detail__body {
-      margin-block: var(--space-section-sm);
-    }
   }
 </style>
