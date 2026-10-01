@@ -45,9 +45,10 @@ const featuredProducts = products.filter((product) => product.featured);
               <div class="product-carousel__image-wrap">
                 <AssetImage
                   src={product.image}
-                  sizes="255px"
-                  widths={[320, 640]}
-                  loading={productIndex < 4 ? "eager" : "lazy"}
+                  sizes="(max-width: 639px) 130px, 165px"
+                  widths={[160, 240, 280, 320, 360, 480, 640]}
+                  loading="lazy"
+                  fetchpriority="low"
                   alt={`Produkt: ${product.name.toLocaleLowerCase("pl")}`}
                 />
               </div>

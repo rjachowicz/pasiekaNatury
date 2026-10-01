@@ -24,6 +24,7 @@ import NatureBadge from "../../ui/NatureBadge.astro";
         sizes="160px"
         alt=""
         aria-hidden="true"
+        loading="eager"
       />
     </div>
   </div>
@@ -32,7 +33,7 @@ import NatureBadge from "../../ui/NatureBadge.astro";
       class="hero__photo"
       sizes="(max-width: 899px) 100vw, 58vw"
       src="/assets/hero.jpg"
-      widths={[640, 960, 1440]}
+      widths={[480, 640, 768, 800, 960, 1440]}
       alt="Pszczoły na plastrze miodu"
       loading="eager"
       fetchpriority="high"
@@ -88,6 +89,8 @@ import NatureBadge from "../../ui/NatureBadge.astro";
 
   .hero__bee {
     width: 138px;
+    height: 46.14px;
+    aspect-ratio: 320 / 107;
     opacity: 0.58;
     pointer-events: none;
   }
@@ -177,6 +180,7 @@ import NatureBadge from "../../ui/NatureBadge.astro";
 
     .hero__bee {
       width: 102px;
+      height: 34.09px;
       opacity: 0.52;
     }
 

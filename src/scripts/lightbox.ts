@@ -45,8 +45,10 @@ if (dialog && image && caption && closeButton && previous && next) {
 
     activeIndex = (index + items.length) % items.length;
     const item = items[activeIndex];
+    const src = item.dataset.lightboxSrc;
+    if (!src) return;
     const alt = item.dataset.lightboxAlt ?? "";
-    image.src = item.dataset.lightboxSrc ?? "";
+    image.src = src;
     image.alt = alt;
     caption.textContent = alt;
   };

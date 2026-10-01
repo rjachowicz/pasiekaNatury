@@ -2,21 +2,48 @@
 import AssetImage from "../ui/AssetImage.astro";
 import { imageAssets, type ImageAssetPath } from "../../data/imageAssets";
 
-const gallery: { src: ImageAssetPath; alt: string }[] = [
-  { src: "/assets/hero.jpg", alt: "Pszczoła wśród białych kwiatów" },
-  { src: "/assets/apiary.jpg", alt: "Ule na kwitnącej łące" },
-  { src: "/assets/beekeeper.jpg", alt: "Pszczelarz przy ramce z pszczołami" },
+const mobileSize = "calc((100vw - 48px) / 2)";
+const gallery: {
+  src: ImageAssetPath;
+  alt: string;
+  sizes: string;
+  widths: number[];
+}[] = [
+  {
+    src: "/assets/hero.jpg",
+    alt: "Pszczoła wśród białych kwiatów",
+    sizes: `(max-width: 639px) ${mobileSize}, min(25vw, 352px)`,
+    widths: [240, 320, 480, 640, 960],
+  },
+  {
+    src: "/assets/apiary.jpg",
+    alt: "Ule na kwitnącej łące",
+    sizes: `(max-width: 639px) ${mobileSize}, min(19vw, 260px)`,
+    widths: [160, 240, 320, 480, 640],
+  },
+  {
+    src: "/assets/beekeeper.jpg",
+    alt: "Pszczelarz przy ramce z pszczołami",
+    sizes: `(max-width: 639px) ${mobileSize}, min(22vw, 306px)`,
+    widths: [240, 320, 480, 640],
+  },
   {
     src: "/assets/gallery-bee.jpg",
     alt: "Pszczoła zbierająca nektar z kwiatu",
+    sizes: `(max-width: 639px) ${mobileSize}, min(22vw, 306px)`,
+    widths: [240, 320, 480, 640],
   },
   {
     src: "/assets/gallery-honey.jpg",
     alt: "Złocisty miód spływający do słoika",
+    sizes: `(max-width: 639px) ${mobileSize}, min(42vw, 584px)`,
+    widths: [240, 320, 480, 640, 960, 1280],
   },
   {
     src: "/assets/gallery-comb.jpg",
     alt: "Pszczoły pracujące na plastrze miodu",
+    sizes: `(max-width: 639px) ${mobileSize}, min(22vw, 306px)`,
+    widths: [240, 320, 480, 640],
   },
 ];
 ---
@@ -28,7 +55,7 @@ const gallery: { src: ImageAssetPath; alt: string }[] = [
   </div>
   <div class="container">
     <div class="gallery__mosaic">
-      {gallery.map(({ src, alt }) => (
+      {gallery.map(({ src, alt, sizes, widths }) => (
         <button
           class="gallery__tile"
           type="button"
@@ -40,8 +67,8 @@ const gallery: { src: ImageAssetPath; alt: string }[] = [
         >
           <AssetImage
             src={src}
-            sizes="(max-width: 639px) 100vw, 50vw"
-            widths={[320, 640, 960]}
+            sizes={sizes}
+            widths={widths}
             loading="lazy"
             alt={alt}
           />

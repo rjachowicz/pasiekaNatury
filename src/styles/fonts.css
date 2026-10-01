@@ -1,4 +1,43 @@
 @font-face {
+  font-family: "Montserrat Fallback";
+  font-style: normal;
+  font-weight: 400 700;
+  src: local("Arial");
+  size-adjust: 110%;
+  unicode-range:
+    U+0000-02CC, U+02CE-02D7, U+02DA, U+02DC-02FF, U+0304, U+0308, U+0329,
+    U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2000-206F, U+20A0-20C0, U+2113,
+    U+2122, U+2191, U+2193, U+2212, U+2215, U+2C60-2C7F, U+A720-A7FF, U+FEFF,
+    U+FFFD;
+}
+
+@font-face {
+  font-family: "Cormorant Garamond Fallback";
+  font-style: normal;
+  font-weight: 400 600;
+  src: local("Georgia");
+  size-adjust: 83.5%;
+  unicode-range:
+    U+0000-02CC, U+02CE-02D7, U+02DA, U+02DC-02FF, U+0304, U+0308, U+0329,
+    U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2000-206F, U+20A0-20C0, U+2113,
+    U+2122, U+2191, U+2193, U+2212, U+2215, U+2C60-2C7F, U+A720-A7FF, U+FEFF,
+    U+FFFD;
+}
+
+@font-face {
+  font-family: "Cormorant Garamond Fallback";
+  font-style: italic;
+  font-weight: 500;
+  src: local("Georgia Italic"), local("Georgia");
+  size-adjust: 83.5%;
+  unicode-range:
+    U+0000-02CC, U+02CE-02D7, U+02DA, U+02DC-02FF, U+0304, U+0308, U+0329,
+    U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2000-206F, U+20A0-20C0, U+2113,
+    U+2122, U+2191, U+2193, U+2212, U+2215, U+2C60-2C7F, U+A720-A7FF, U+FEFF,
+    U+FFFD;
+}
+
+@font-face {
   font-family: "Montserrat";
   font-style: normal;
   font-weight: 400 700;
