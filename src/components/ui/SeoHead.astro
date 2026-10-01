@@ -40,7 +40,13 @@ const organization = {
   name: "Pasieka 100% Natury",
   url: new URL("/", site).href,
   logo: logoUrl.href,
-  telephone: contact.phone,
+  telephone: contact.phones[0].display,
+  contactPoint: contact.phones.map(({ display }) => ({
+    "@type": "ContactPoint",
+    telephone: display,
+    contactType: "customer service",
+    availableLanguage: "pl",
+  })),
   email: contact.email,
   address: {
     "@type": "PostalAddress",

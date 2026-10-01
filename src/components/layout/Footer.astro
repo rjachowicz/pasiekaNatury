@@ -43,7 +43,9 @@ const year = new Date().getFullYear();
       <div>
         <h2 class="eyebrow">Porozmawiajmy</h2>
         <address class="footer__contact">
-          <a href={contact.phoneHref}>{contact.phone}</a>
+          {contact.phones.map(({ display, href }) => (
+            <a href={href}>{display}</a>
+          ))}
           <a href={`mailto:${contact.email}`}>{contact.email}</a>
           <span>{contact.address}</span>
           {contact.facebookUrl && (

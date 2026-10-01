@@ -4,10 +4,10 @@ import Icon from "../../ui/Icon.astro";
 import { products } from "../../../data/products";
 import { contact } from "../../../data/site";
 
-const productOptions = products.map(({ id, name, sizes, variants }) => ({
+const productOptions = products.map(({ id, name }) => ({
   id,
   name,
-  variants: [...(sizes ?? []), ...(variants ?? [])],
+  variants: [],
 }));
 ---
 
@@ -20,10 +20,7 @@ const productOptions = products.map(({ id, name, sizes, variants }) => ({
       data-products={JSON.stringify(productOptions)}
     >
       <p class="contextual-product__name" data-product-name></p>
-      <p>
-        Sprawdzimy aktualną dostępność, gramatury i szczegóły wybranego
-        produktu.
-      </p>
+      <p>Sprawdzimy aktualną dostępność i szczegóły wybranego produktu.</p>
     </div>
 
     <div class="contact-overview__heading">
@@ -32,8 +29,8 @@ const productOptions = products.map(({ id, name, sizes, variants }) => ({
         <h2>Wybierz najwygodniejszą formę</h2>
       </div>
       <p>
-        Przed przyjazdem do pasieki zadzwoń lub napisz, aby wspólnie ustalić
-        dogodny termin.
+        Zadzwoń lub napisz w sprawie produktów, a przed wizytą ustalmy dogodny
+        termin.
       </p>
     </div>
 
@@ -43,10 +40,10 @@ const productOptions = products.map(({ id, name, sizes, variants }) => ({
       </div>
       <aside class="contact-overview__visit">
         <p class="eyebrow">Wizyta w pasiece</p>
-        <h3>Jasienna, blisko natury</h3>
+        <h3>Jasienna, gmina Korzenna</h3>
         <p>
-          Chętnie opowiemy o dostępnych produktach i wskażemy drogę. Każdą
-          wizytę najlepiej umówić wcześniej.
+          Chętnie potwierdzimy dostępność produktów i wskażemy drogę. Każdą
+          wizytę prosimy wcześniej umówić.
         </p>
         <a
           href={contact.directionsUrl}

@@ -1,6 +1,6 @@
 ---
 import ProductCard from "../ProductCard.astro";
-import { productCategoryLabels, products } from "../../../data/products";
+import { productCategories, products } from "../../../data/products";
 import { formatProductCount } from "../../../utils/formatProductCount";
 ---
 
@@ -16,8 +16,8 @@ import { formatProductCount } from "../../../utils/formatProductCount";
   <button type="button" data-product-filter="all" aria-pressed="true">
     Wszystkie
   </button>
-  {Object.entries(productCategoryLabels).map(([category, label]) => (
-    <button type="button" data-product-filter={category} aria-pressed="false">
+  {productCategories.map(({ id, label }) => (
+    <button type="button" data-product-filter={id} aria-pressed="false">
       {label}
     </button>
   ))}
@@ -25,11 +25,25 @@ import { formatProductCount } from "../../../utils/formatProductCount";
 <p class="empty-products" data-empty-products hidden>
   Produkty z tej kategorii pojawią się wkrótce.
 </p>
-<div class="product-grid">
-  {products.map((product, index) => (
-    <ProductCard product={product} index={index} />
-  ))}
-</div>
+{productCategories.map(({ id, label }) => {
+  const categoryProducts = products.filter(
+    (product) => product.category === id,
+  );
+  return (
+    <section
+      class="product-group"
+      data-product-group={id}
+      aria-labelledby={`category-${id}`}
+    >
+      <h3 id={`category-${id}`}>{label}</h3>
+      <div class="product-grid">
+        {categoryProducts.map((product) => (
+          <ProductCard product={product} index={products.indexOf(product)} />
+        ))}
+      </div>
+    </section>
+  );
+})}
 
 <script>
   import "../../../scripts/productFilters";
@@ -82,15 +96,18 @@ import { formatProductCount } from "../../../utils/formatProductCount";
     padding: var(--space-4) 0;
     color: var(--color-muted);
   }
+  .product-group {
+    margin-top: var(--space-4);
+  }
+  .product-group h3 {
+    font-size: var(--text-card-title);
+  }
   .product-grid {
     display: grid;
     grid-auto-rows: minmax(min-content, 1fr);
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: var(--space-3);
-    margin-top: var(--space-4);
-  }
-  .product-grid:has([hidden]) {
-    margin-top: var(--space-3);
+    margin-top: var(--space-2);
   }
   @media (max-width: 1199px) {
     .product-grid {

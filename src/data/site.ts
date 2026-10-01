@@ -6,9 +6,19 @@ export const navigation = [
 ];
 
 export const contact = {
-  phone: "+48 516 473 831",
-  phoneHref: "tel:+48516473831",
-  email: "lichon1988@interia.pl",
+  phones: [
+    {
+      display: "+48 516 473 831",
+      href: "tel:+48516473831",
+      label: "Telefon 1",
+    },
+    {
+      display: "+48 575 303 550",
+      href: "tel:+48575303550",
+      label: "Telefon 2",
+    },
+  ] as const,
+  email: "ksowa86@interia.pl",
   address: "Jasienna 171, 33-322 Korzenna, Polska",
   addressLines: ["Jasienna 171", "33-322 Korzenna", "Polska"],
   facebookUrl:

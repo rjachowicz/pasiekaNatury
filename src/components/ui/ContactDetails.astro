@@ -3,12 +3,12 @@ import Icon, { type IconName } from "./Icon.astro";
 import { contact } from "../../data/site";
 
 const details = [
-  {
-    label: "Telefon",
-    text: contact.phone,
-    href: contact.phoneHref,
-    icon: "phone",
-  },
+  ...contact.phones.map(({ label, display, href }) => ({
+    label,
+    text: display,
+    href,
+    icon: "phone" as const,
+  })),
   {
     label: "E-mail",
     text: contact.email,

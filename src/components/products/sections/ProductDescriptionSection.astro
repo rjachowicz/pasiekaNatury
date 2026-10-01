@@ -14,46 +14,6 @@ const { product } = Astro.props;
     <h2>Poznaj produkt</h2>
     <p>{product.description}</p>
   </div>
-  {(product.sizes?.length || product.variants?.length) && (
-    <div class="product-detail__choices">
-      {product.sizes?.length && (
-        <section class="product-detail__sizes" aria-labelledby="sizes-title">
-          <p class="eyebrow eyebrow--line">Dostępne gramatury</p>
-          <h2 id="sizes-title">Wybierz gramaturę</h2>
-          <div
-            class="product-detail__options"
-            role="radiogroup"
-            aria-labelledby="sizes-title"
-          >
-            {product.sizes.map((size) => (
-              <label>
-                <input type="radio" name="product-variant" value={size} />
-                <span>{size}</span>
-              </label>
-            ))}
-          </div>
-        </section>
-      )}
-      {product.variants?.length && (
-        <section class="product-detail__sizes" aria-labelledby="variants-title">
-          <p class="eyebrow eyebrow--line">Dostępne warianty</p>
-          <h2 id="variants-title">Wybierz wariant</h2>
-          <div
-            class="product-detail__options"
-            role="radiogroup"
-            aria-labelledby="variants-title"
-          >
-            {product.variants.map((variant) => (
-              <label>
-                <input type="radio" name="product-variant" value={variant} />
-                <span>{variant}</span>
-              </label>
-            ))}
-          </div>
-        </section>
-      )}
-    </div>
-  )}
 </div>
 
 <style>

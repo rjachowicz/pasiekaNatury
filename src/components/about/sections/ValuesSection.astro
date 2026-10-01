@@ -3,28 +3,66 @@ import { type ValueIconName } from "../../../data/valueIcons";
 import SectionHeading from "../../ui/SectionHeading.astro";
 import ValueIcon from "../../ui/ValueIcon.astro";
 
-const values = [
+interface Props {
+  home?: boolean;
+}
+
+const { home = false } = Astro.props;
+const aboutValues = [
   {
-    title: "Szacunek do pszczół",
-    description: "Troska o pszczoły i dobre warunki w ulu.",
+    title: "Wiedza między pokoleniami",
+    description:
+      "Praktyczne doświadczenie przekazywane od Bronisława Furtaka przez Jana Sowę.",
     icon: "heart",
   },
   {
-    title: "Obserwacja natury",
-    description: "Uważność na to, co przynosi każda pora roku.",
+    title: "Troska o pszczoły",
+    description:
+      "Codzienna praca zaczyna się od uważności na potrzeby rodzin pszczelich.",
     icon: "leaf",
   },
   {
-    title: "Różnorodne pożytki",
-    description: "Wędrujemy za kwitnieniem i bogactwem roślin.",
+    title: "Wędrówka za pożytkami",
+    description:
+      "Pasieka podąża za miejscami ważnymi dla sezonowego rozwoju pszczół.",
     icon: "tree",
   },
   {
-    title: "Pszczelarskie rzemiosło",
-    description: "Cierpliwość i rzetelność obecne na każdym etapie pracy.",
+    title: "Rodzinna odpowiedzialność",
+    description:
+      "Kazimierza Sowę w prowadzeniu pasieki wspierają żona i dzieci.",
     icon: "honey-jar",
   },
 ] satisfies { title: string; description: string; icon: ValueIconName }[];
+
+const homeValues = [
+  {
+    title: "Wiedza między pokoleniami",
+    description:
+      "Domowe początki i późniejsze doświadczenie Kazimierza Sowy spotykają się w jednej pasiece.",
+    icon: "heart",
+  },
+  {
+    title: "Troska o pszczoły",
+    description:
+      "Praca przy około 70 rodzinach pszczelich wymaga uważności przez cały sezon.",
+    icon: "leaf",
+  },
+  {
+    title: "Wędrówka za pożytkami",
+    description:
+      "Kolejne miejsca wybieramy zgodnie z rytmem kwitnienia i dostępnymi pożytkami.",
+    icon: "tree",
+  },
+  {
+    title: "Rodzinna odpowiedzialność",
+    description:
+      "W codziennych obowiązkach Kazimierza wspierają żona i dzieci.",
+    icon: "honey-jar",
+  },
+] satisfies { title: string; description: string; icon: ValueIconName }[];
+
+const values = home ? homeValues : aboutValues;
 ---
 
 <section class="values section" aria-label="Wartości">

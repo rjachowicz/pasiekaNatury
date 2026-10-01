@@ -26,8 +26,10 @@ import { contact } from "../data/site";
         <h2>Administrator strony</h2>
         <p>
           Administratorem strony jest Pasieka 100% Natury. W sprawach związanych
-          ze stroną możesz skontaktować się telefonicznie pod numerem
-          <a href={contact.phoneHref}> {contact.phone}</a>, e-mailem
+          ze stroną możesz skontaktować się telefonicznie pod jednym z numerów:
+          <a href={contact.phones[0].href}> {contact.phones[0].display}</a> lub
+          <a href={contact.phones[1].href}> {contact.phones[1].display}</a>,
+          e-mailem
           <a href={`mailto:${contact.email}`}> {contact.email} </a> lub pod
           adresem {contact.address}.
         </p>
@@ -102,7 +104,9 @@ import { contact } from "../data/site";
         <h2>Kontakt w sprawach prywatności</h2>
         <p>
           Napisz na <a href={`mailto:${contact.email}`}>{contact.email}</a> lub
-          zadzwoń pod numer <a href={contact.phoneHref}>{contact.phone}</a>.
+          zadzwoń pod jeden z numerów:{" "}
+          <a href={contact.phones[0].href}>{contact.phones[0].display}</a>
+          lub <a href={contact.phones[1].href}>{contact.phones[1].display}</a>.
         </p>
       </section>
     </div>

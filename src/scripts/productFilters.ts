@@ -1,12 +1,12 @@
 import { formatProductCount } from "../utils/formatProductCount";
+import { productCategories, type ProductCategory } from "../data/products";
 
-const queryValues = {
-  all: null,
-  honey: "miody",
-  "bee-product": "produkty-pszczele",
-} as const;
+const queryValues = new Map<ProductCategory | "all", string | null>([
+  ["all", null],
+  ...productCategories.map(({ id, slug }) => [id, slug] as const),
+]);
 
-type Filter = keyof typeof queryValues;
+type Filter = ProductCategory | "all";
 
 document
   .querySelectorAll<HTMLElement>("[data-product-catalog]")
@@ -14,21 +14,21 @@ document
     const filters = [
       ...catalog.querySelectorAll<HTMLButtonElement>("[data-product-filter]"),
     ];
-    const cards = [
-      ...catalog.querySelectorAll<HTMLElement>("[data-product-category]"),
+    const groups = [
+      ...catalog.querySelectorAll<HTMLElement>("[data-product-group]"),
     ];
     const count = catalog.querySelector<HTMLElement>("[data-product-count]");
     const emptyMessage = catalog.querySelector<HTMLElement>(
       "[data-empty-products]",
     );
-    if (filters.length === 0 || cards.length === 0) return;
+    if (filters.length === 0 || groups.length === 0) return;
 
     const getFilterFromUrl = (): Filter => {
       const category = new URLSearchParams(window.location.search).get(
         "kategoria",
       );
       return (
-        (Object.entries(queryValues).find(
+        ([...queryValues.entries()].find(
           ([, value]) => value === category,
         )?.[0] as Filter | undefined) ?? "all"
       );
@@ -36,11 +36,15 @@ document
 
     const applyFilter = (filter: Filter) => {
       let visibleCount = 0;
-      cards.forEach((card) => {
+      groups.forEach((group) => {
         const visible =
-          filter === "all" || card.dataset.productCategory === filter;
-        card.hidden = !visible;
-        if (visible) visibleCount += 1;
+          filter === "all" || group.dataset.productGroup === filter;
+        group.hidden = !visible;
+        if (visible) {
+          visibleCount += group.querySelectorAll(
+            "[data-product-category]",
+          ).length;
+        }
       });
 
       filters.forEach((button) => {
@@ -58,7 +62,7 @@ document
 
     const updateUrl = (filter: Filter) => {
       const url = new URL(window.location.href);
-      const value = queryValues[filter];
+      const value = queryValues.get(filter);
       if (value) url.searchParams.set("kategoria", value);
       else url.searchParams.delete("kategoria");
       history.pushState({}, "", url);

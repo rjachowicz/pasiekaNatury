@@ -6,6 +6,9 @@ const root = dirname(dirname(fileURLToPath(import.meta.url)));
 const dist = join(root, "dist");
 const site = new URL("https://pasiekanatury.vercel.app");
 const errors = [];
+const titles = new Map();
+const descriptionsByContent = new Map();
+const canonicalsByUrl = new Map();
 
 const assert = (condition, message) => {
   if (!condition) errors.push(message);
@@ -59,17 +62,46 @@ for (const file of pageFiles) {
   const expectedUrl = new URL(route, site).href;
 
   assert(titleTags.length === 1, `${label}: expected exactly one <title>`);
+  const title = titleTags[0]?.replace(/<[^>]+>/g, "").trim() ?? "";
+  assert(Boolean(title), `${label}: title must not be empty`);
+  if (title) {
+    const previousRoute = titles.get(title);
+    assert(
+      !previousRoute,
+      `${label}: duplicate title also used by ${previousRoute}`,
+    );
+    titles.set(title, label);
+  }
   assert(
     descriptions.length === 1 &&
       Boolean(getAttribute(descriptions[0], "content")?.trim()),
     `${label}: expected one non-empty meta description`,
   );
+  const description =
+    getAttribute(descriptions[0] ?? "", "content")?.trim() ?? "";
+  if (description) {
+    const previousRoute = descriptionsByContent.get(description);
+    assert(
+      !previousRoute,
+      `${label}: duplicate meta description also used by ${previousRoute}`,
+    );
+    descriptionsByContent.set(description, label);
+  }
   assert(canonicals.length === 1, `${label}: expected exactly one canonical`);
   assert(
     canonicals.length === 1 &&
       getAttribute(canonicals[0], "href") === expectedUrl,
     `${label}: canonical must be ${expectedUrl}`,
   );
+  const canonical = getAttribute(canonicals[0] ?? "", "href");
+  if (canonical) {
+    const previousRoute = canonicalsByUrl.get(canonical);
+    assert(
+      !previousRoute,
+      `${label}: duplicate canonical also used by ${previousRoute}`,
+    );
+    canonicalsByUrl.set(canonical, label);
+  }
   assert(
     (html.match(/<h1\b/gi) ?? []).length === 1,
     `${label}: expected exactly one h1`,
@@ -141,10 +173,20 @@ for (const file of pageFiles) {
   }
 }
 
-assert(
-  pageFiles.length === 9,
-  `expected 9 public HTML pages, found ${pageFiles.length}`,
+const routes = new Set(pageFiles.map(pageRoute));
+for (const route of [
+  "/",
+  "/o-pasiece/",
+  "/produkty/",
+  "/kontakt/",
+  "/polityka-prywatnosci/",
+]) {
+  assert(routes.has(route), `missing required public route ${route}`);
+}
+const productRoutes = [...routes].filter((route) =>
+  /^\/produkty\/[^/]+\/$/.test(route),
 );
+assert(productRoutes.length > 0, "missing generated product pages");
 
 const robotsPath = join(dist, "robots.txt");
 assert(existsSync(robotsPath), "missing robots.txt");

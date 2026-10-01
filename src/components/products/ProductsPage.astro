@@ -2,37 +2,42 @@
 import CallToAction from "../ui/CallToAction.astro";
 import PageHero from "../ui/PageHero.astro";
 import ProductCatalogSection from "./sections/ProductCatalogSection.astro";
+import ProductAvailabilityNotice from "./sections/ProductAvailabilityNotice.astro";
 import ProductsIntroSection from "./sections/ProductsIntroSection.astro";
-import SeasonalAvailabilitySection from "./sections/SeasonalAvailabilitySection.astro";
 ---
 
 <>
   <PageHero
     eyebrow="Nasze produkty"
-    title="Naturalne produkty prosto z pasieki"
+    title="Katalog produktów pasieki"
     image="/assets/products.png"
-    imageAlt="Miody faceliowy, lipowy, gryczany i spadziowy w czterech słoikach"
+    imageAlt="Cztery słoiki miodu prezentowane przez Pasiekę 100% Natury"
   >
     <p>
-      Poznaj miody i produkty pszczele przygotowywane w rytmie natury. Oferta
-      zmienia się wraz z sezonem.
+      Poznaj miody, produkty pszczele i ziołomiody z rodzinnej, wędrownej
+      pasieki. Katalog porządkuje produkty według ich rodzaju.
     </p>
   </PageHero>
+  <div class="products-page__notice container">
+    <ProductAvailabilityNotice />
+  </div>
   <section class="section" data-product-catalog>
     <div class="container">
       <ProductsIntroSection />
       <ProductCatalogSection />
     </div>
   </section>
-  <SeasonalAvailabilitySection />
   <CallToAction
     title="Zapytaj o dostępność"
     href="/kontakt"
     label="Zapytaj o dostępność"
   >
-    <p>
-      Chętnie odpowiemy na pytania o produkty prezentowane w katalogu i ich
-      aktualną dostępność.
-    </p>
+    <p>Zadzwoń lub napisz, aby potwierdzić dostępność wybranej pozycji.</p>
   </CallToAction>
 </>
+
+<style>
+  .products-page__notice {
+    padding-top: var(--space-4);
+  }
+</style>
