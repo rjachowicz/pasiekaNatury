@@ -3,72 +3,41 @@ import { type ValueIconName } from "../../../data/valueIcons";
 import SectionHeading from "../../ui/SectionHeading.astro";
 import ValueIcon from "../../ui/ValueIcon.astro";
 
-interface Props {
-  home?: boolean;
-}
-
-const { home = false } = Astro.props;
-const aboutValues = [
+const values = [
   {
-    title: "Wiedza między pokoleniami",
+    title: "Dobrostan rodzin pszczelich",
     description:
-      "Praktyczne doświadczenie przekazywane od Bronisława Furtaka przez Jana Sowę.",
+      "Codzienną pracę planujemy przede wszystkim z myślą o kondycji i naturalnym rytmie rodzin pszczelich.",
     icon: "heart",
   },
   {
-    title: "Troska o pszczoły",
+    title: "Sezonowość bez pośpiechu",
     description:
-      "Codzienna praca zaczyna się od uważności na potrzeby rodzin pszczelich.",
+      "Zbiory zależą od pogody i rytmu kwitnienia, dlatego każda partia może mieć własny charakter.",
     icon: "leaf",
   },
   {
-    title: "Wędrówka za pożytkami",
+    title: "Rzetelna informacja",
     description:
-      "Pasieka podąża za miejscami ważnymi dla sezonowego rozwoju pszczół.",
+      "Jasno komunikujemy pochodzenie, charakter oraz bieżącą dostępność produktów z pasieki.",
     icon: "tree",
   },
   {
-    title: "Rodzinna odpowiedzialność",
+    title: "Dbałość o każdą partię",
     description:
-      "Kazimierza Sowę w prowadzeniu pasieki wspierają żona i dzieci.",
+      "Od pracy przy ulach po przygotowanie produktów pilnujemy porządku i powtarzalności kolejnych etapów.",
     icon: "honey-jar",
   },
 ] satisfies { title: string; description: string; icon: ValueIconName }[];
-
-const homeValues = [
-  {
-    title: "Wiedza między pokoleniami",
-    description:
-      "Domowe początki i późniejsze doświadczenie Kazimierza Sowy spotykają się w jednej pasiece.",
-    icon: "heart",
-  },
-  {
-    title: "Troska o pszczoły",
-    description:
-      "Praca przy około 70 rodzinach pszczelich wymaga uważności przez cały sezon.",
-    icon: "leaf",
-  },
-  {
-    title: "Wędrówka za pożytkami",
-    description:
-      "Kolejne miejsca wybieramy zgodnie z rytmem kwitnienia i dostępnymi pożytkami.",
-    icon: "tree",
-  },
-  {
-    title: "Rodzinna odpowiedzialność",
-    description:
-      "W codziennych obowiązkach Kazimierza wspierają żona i dzieci.",
-    icon: "honey-jar",
-  },
-] satisfies { title: string; description: string; icon: ValueIconName }[];
-
-const values = home ? homeValues : aboutValues;
 ---
 
 <section class="values section" aria-label="Wartości">
   <div class="container">
     <div class="values__heading">
-      <SectionHeading eyebrow="Wartości" title="To, co jest dla nas ważne" />
+      <SectionHeading
+        eyebrow="Wartości"
+        title="Zasady naszej codziennej pracy"
+      />
     </div>
     <div class="values__grid">
       {values.map((value) => (

@@ -33,8 +33,7 @@ export interface Product {
   /** New products use this neutral graphic until their photographs are supplied. */
   imagePlaceholder?: boolean;
   tags: string[];
-  featured: boolean;
-  details?: { label: string; value: string }[];
+  details: { label: string; value: string }[];
 }
 
 const placeholderImage = "/assets/logo.png" as const;
@@ -45,172 +44,217 @@ export const products: Product[] = [
     id: "faceliowy",
     name: "Miód faceliowy",
     category: "honey",
-    shortDescription: "Jasny miód o łagodnym, kwiatowym charakterze.",
+    shortDescription:
+      "Jasny, delikatny miód o kwiatowym aromacie i subtelnie świeżym finiszu.",
     description:
-      "Miód faceliowy prezentujemy jako delikatną propozycję z katalogu pasieki. O jego aktualną dostępność warto zapytać bezpośrednio.",
-    details: [{ label: "Charakter", value: "Łagodny i kwiatowy" }],
+      "Powstaje z nektaru facelii. Zwykle ma jasną, słomkową barwę, delikatny kwiatowy aromat oraz słodki smak z lekko świeżą nutą. Po krystalizacji może przyjmować drobnoziarnistą, kremową konsystencję.",
+    details: [
+      { label: "Pochodzenie", value: "Nektar facelii" },
+      { label: "Profil", value: "Delikatny i kwiatowy" },
+    ],
     tags: ["łagodny", "kwiatowy", "jasny"],
     image: "/assets/product-faceliowy.png",
     imageAlt: "Słoik miodu faceliowego",
-    featured: true,
   },
   {
     id: "wielokwiatowy",
     name: "Miód wielokwiatowy",
     category: "honey",
-    shortDescription: "Miód związany z różnorodnością sezonowych pożytków.",
+    shortDescription:
+      "Kwiatowy miód, którego barwa i smak zmieniają się wraz z pożytkami danego sezonu.",
     description:
-      "Miód wielokwiatowy odzwierciedla zmienność miejsc i czasu pracy pszczół. Jego obecność w katalogu wynika z pożytków, za którymi wędruje pasieka.",
+      "Powstaje z nektaru wielu roślin kwitnących w tym samym czasie. Kolejne partie mogą różnić się odcieniem, intensywnością aromatu i tempem krystalizacji. Jego profil odzwierciedla miejsce oraz porę zbioru.",
+    details: [
+      { label: "Pochodzenie", value: "Nektar wielu roślin" },
+      { label: "Profil", value: "Zmienny sezonowo" },
+    ],
     tags: ["sezonowy", "kwiatowy", "różnorodny"],
     image: placeholderImage,
     imageAlt: placeholderAlt,
     imagePlaceholder: true,
-    featured: false,
   },
   {
     id: "akacjowy",
     name: "Miód akacjowy",
     category: "honey",
-    shortDescription: "Miód o wyraźnie akacjowym profilu w katalogu pasieki.",
+    shortDescription:
+      "Bardzo jasny i łagodny miód o delikatnie kwiatowym aromacie.",
     description:
-      "Miód akacjowy uzupełnia katalog o pozycję związaną z okresem kwitnienia akacji. Szczegóły dotyczące aktualnych wariantów potwierdzamy telefonicznie.",
-    tags: ["akacjowy", "sezonowy", "kwiatowy"],
+      "Powstaje głównie z nektaru robinii akacjowej. Zwykle jest bardzo jasny, łagodny i delikatnie kwiatowy, bez ostrego finiszu. Dzięki przewadze fruktozy na ogół długo zachowuje płynną postać.",
+    details: [
+      { label: "Pochodzenie", value: "Nektar robinii akacjowej" },
+      { label: "Profil", value: "Łagodny i kwiatowy" },
+    ],
+    tags: ["akacjowy", "łagodny", "jasny"],
     image: placeholderImage,
     imageAlt: placeholderAlt,
     imagePlaceholder: true,
-    featured: false,
   },
   {
     id: "lipowy",
     name: "Miód lipowy",
     category: "honey",
-    shortDescription: "Miód o pełnym aromacie kojarzonym z kwitnieniem lipy.",
+    shortDescription:
+      "Aromatyczny miód o wyraźnym lipowym profilu i lekko ziołowym finiszu.",
     description:
-      "Miód lipowy ma wyrazisty, kwiatowy charakter. Jest jedną z czterech prezentowanych na stronie głównej pozycji z pasieki.",
-    details: [{ label: "Charakter", value: "Wyrazisty i kwiatowy" }],
+      "Powstaje z nektaru kwiatów lipy. Ma wyraźny lipowy aromat i słodki smak z ostrzejszą, lekko gorzkawą lub ziołową nutą. Po krystalizacji staje się jaśniejszy i może uzyskać drobnoziarnistą konsystencję.",
+    details: [
+      { label: "Pochodzenie", value: "Nektar kwiatów lipy" },
+      { label: "Profil", value: "Lipowy i lekko ziołowy" },
+    ],
     tags: ["lipowy", "wyrazisty", "kwiatowy"],
     image: "/assets/product-lipowy.png",
     imageAlt: "Słoik miodu lipowego",
-    featured: true,
   },
   {
     id: "spadziowy",
     name: "Miód spadziowy",
     category: "honey",
-    shortDescription: "Miód o głębokim, leśnym charakterze.",
+    shortDescription:
+      "Ciemniejszy miód o głębokim, leśnym i delikatnie żywicznym charakterze.",
     description:
-      "Miód spadziowy wyróżnia się w katalogu głębszym profilem i leśnymi nutami. Informację o bieżącej dostępności uzyskasz w kontakcie z pasieką.",
-    details: [{ label: "Charakter", value: "Głęboki i leśny" }],
+      "Powstaje ze spadzi, a nie bezpośrednio z nektaru kwiatów. Zwykle jest ciemniejszy, mniej jednoznacznie słodki i wyróżnia się leśnym lub żywicznym aromatem. Barwa oraz intensywność zależą od rodzaju spadzi i konkretnej partii.",
+    details: [
+      { label: "Pochodzenie", value: "Spadź" },
+      { label: "Profil", value: "Leśny i żywiczny" },
+    ],
     tags: ["leśny", "głęboki", "spadziowy"],
     image: "/assets/product-spadziowy.png",
     imageAlt: "Słoik miodu spadziowego",
-    featured: true,
   },
   {
     id: "nawlociowy",
     name: "Miód nawłociowy",
     category: "honey",
-    shortDescription: "Miód związany z późniejszym pożytkiem nawłociowym.",
+    shortDescription:
+      "Późnoletni miód o kwiatowo-ziołowym aromacie i wyrazistym finiszu.",
     description:
-      "Miód nawłociowy pojawia się w katalogu dzięki wędrówkom pasieki za pożytkami. Termin i szczegóły jego dostępności zależą od przebiegu sezonu.",
-    tags: ["nawłociowy", "sezonowy", "wędrowny"],
+      "Powstaje z późnoletniego pożytku nawłociowego. Wyróżnia go kwiatowo-ziołowy aromat i słodki smak z delikatnie kwaśną lub gorzkawą nutą. Zwykle dość szybko krystalizuje, przyjmując drobnoziarnistą konsystencję.",
+    details: [
+      { label: "Pochodzenie", value: "Późnoletni pożytek nawłociowy" },
+      { label: "Profil", value: "Kwiatowo-ziołowy" },
+    ],
+    tags: ["nawłociowy", "sezonowy", "kwiatowy"],
     image: placeholderImage,
     imageAlt: placeholderAlt,
     imagePlaceholder: true,
-    featured: false,
   },
   {
     id: "gryczany",
     name: "Miód gryczany",
     category: "honey",
     shortDescription:
-      "Ciemny miód o zdecydowanym smaku i intensywnym aromacie.",
+      "Ciemny, intensywny miód o zdecydowanym, korzennym charakterze.",
     description:
-      "Miód gryczany to propozycja o mocniejszym charakterze, związana z pożytkiem gryczanym. Został wybrany do stałej czwórki produktów na stronie głównej.",
-    details: [{ label: "Charakter", value: "Zdecydowany i intensywny" }],
+      "Powstaje z nektaru kwiatów gryki. Ma ciemnobursztynową lub brunatną barwę, intensywny aromat i zdecydowany, korzenny, lekko ostry smak. To jedna z najbardziej wyrazistych odmian w katalogu pasieki.",
+    details: [
+      { label: "Pochodzenie", value: "Nektar kwiatów gryki" },
+      { label: "Profil", value: "Zdecydowany i korzenny" },
+    ],
     tags: ["gryczany", "intensywny", "ciemny"],
     image: "/assets/product-gryczany.png",
     imageAlt: "Słoik miodu gryczanego",
-    featured: true,
   },
   {
     id: "propolis-surowy",
     name: "Propolis surowy",
     category: "bee-product",
     shortDescription:
-      "Produkt pszczeli prezentowany w naturalnej, surowej postaci.",
+      "Surowy kit pszczeli o intensywnym, żywicznym zapachu i naturalnie zmiennej barwie.",
     description:
-      "Propolis surowy znajduje się w katalogu produktów pszczelich. W sprawie aktualnej dostępności i szczegółów zapraszamy do kontaktu telefonicznego.",
-    tags: ["produkt pszczeli", "surowy", "katalog"],
+      "Propolis, nazywany również kitem pszczelim, powstaje z żywicznych substancji zbieranych przez pszczoły i służy im do uszczelniania ula. W surowej postaci ma nieregularną formę, wyrazisty zapach oraz barwę zależną od pochodzenia surowca.",
+    details: [
+      { label: "Forma", value: "Surowy kit pszczeli" },
+      { label: "Charakter", value: "Żywiczny i wyrazisty" },
+    ],
+    tags: ["produkt pszczeli", "surowy", "żywiczny"],
     image: placeholderImage,
     imageAlt: placeholderAlt,
     imagePlaceholder: true,
-    featured: false,
   },
   {
     id: "pierzga-w-koreczkach",
     name: "Pierzga pszczela w koreczkach",
     category: "bee-product",
-    shortDescription: "Pierzga pszczela w formie koreczków.",
+    shortDescription:
+      "Fermentowany pyłek pszczeli w zwartej formie wyjętej z komórek plastra.",
     description:
-      "Pierzga pszczela w koreczkach jest osobną pozycją w katalogu produktów pszczelich. O bieżące informacje dotyczące tej pozycji można zapytać pasiekę.",
+      "Pierzga powstaje z pyłku umieszczonego przez pszczoły w komórkach plastra, połączonego z miodem i poddanego naturalnej fermentacji. W formie koreczków zachowuje kształt komórek, ma zwartą konsystencję oraz żywiczny, lekko kwaskowaty smak.",
+    details: [
+      { label: "Forma", value: "Koreczki z komórek plastra" },
+      { label: "Charakter", value: "Żywiczny i lekko kwaskowaty" },
+    ],
     tags: ["produkt pszczeli", "pierzga", "koreczki"],
     image: placeholderImage,
     imageAlt: placeholderAlt,
     imagePlaceholder: true,
-    featured: false,
   },
   {
     id: "pierzga-w-miodzie",
     name: "Pierzga w miodzie",
     category: "bee-product",
     shortDescription:
-      "Połączenie pierzgi i miodu w jednej pozycji katalogowej.",
+      "Połączenie słodyczy miodu z bardziej wyrazistym, kwaskowatym charakterem pierzgi.",
     description:
-      "Pierzga w miodzie to odrębna pozycja katalogu, opisana osobno dla łatwiejszego potwierdzenia dostępności. Nie podajemy wariantów ani gramatur bez aktualnych danych.",
+      "To połączenie miodu i pierzgi pszczelej w jednej pozycji katalogowej. Miód łagodzi żywiczny i lekko kwaskowaty profil pierzgi. Smak oraz konsystencja zależą od proporcji zastosowanych w danej partii.",
+    details: [
+      { label: "Forma", value: "Pierzga połączona z miodem" },
+      { label: "Charakter", value: "Słodki i lekko kwaskowaty" },
+    ],
     tags: ["produkt pszczeli", "pierzga", "miód"],
     image: placeholderImage,
     imageAlt: placeholderAlt,
     imagePlaceholder: true,
-    featured: false,
   },
   {
     id: "pylek-pszczeli",
     name: "Pyłek pszczeli",
     category: "bee-product",
-    shortDescription: "Pyłek pszczeli jako osobna pozycja katalogu pasieki.",
+    shortDescription:
+      "Wielobarwne granulki pyłku zbieranego przez pszczoły z różnych kwitnących roślin.",
     description:
-      "Pyłek pszczeli prezentujemy w grupie produktów pszczelich. Aby potwierdzić szczegóły tej pozycji, skontaktuj się z Pasieką 100% Natury.",
-    tags: ["produkt pszczeli", "pyłek", "katalog"],
+      "Pyłek jest zbierany przez pszczoły z kwiatów, formowany w niewielkie granulki i przenoszony do ula. Jego barwa może zmieniać się od jasnej do bardzo ciemnej zależnie od odwiedzanych roślin. Ma suchą, ziarnistą formę i naturalnie zmienny roślinny profil.",
+    details: [
+      { label: "Forma", value: "Suche, ziarniste granulki" },
+      { label: "Charakter", value: "Naturalnie zmienny roślinny" },
+    ],
+    tags: ["produkt pszczeli", "pyłek", "granulki"],
     image: placeholderImage,
     imageAlt: placeholderAlt,
     imagePlaceholder: true,
-    featured: false,
   },
   {
     id: "ziolomiod-malinowy",
     name: "Ziołomiód malinowy",
     category: "herbal-honey",
-    shortDescription: "Ziołomiód o odmiennym charakterze, związany z maliną.",
+    shortDescription:
+      "Ziołomiód o słodkim profilu i wyczuwalnej, owocowej nucie malinowej.",
     description:
-      "Ziołomiód malinowy wyróżniamy w osobnej kategorii katalogu. W celu uzyskania szczegółów tej pozycji oraz aktualnej dostępności prosimy o kontakt.",
-    tags: ["ziołomiód", "malinowy", "katalog"],
+      "Ziołomiód malinowy jest produktem odrębnym od klasycznego miodu nektarowego. Jego charakter kształtuje składnik malinowy przetwarzany przez pszczoły, nadający całości słodką, owocową nutę. Dokładny skład i dostępność partii potwierdzamy telefonicznie.",
+    details: [
+      { label: "Rodzaj", value: "Ziołomiód malinowy" },
+      { label: "Profil", value: "Słodki i owocowy" },
+    ],
+    tags: ["ziołomiód", "malinowy", "owocowy"],
     image: placeholderImage,
     imageAlt: placeholderAlt,
     imagePlaceholder: true,
-    featured: false,
   },
   {
     id: "ziolomiod-pokrzywowy",
     name: "Ziołomiód pokrzywowy",
     category: "herbal-honey",
-    shortDescription: "Ziołomiód o odmiennym charakterze, związany z pokrzywą.",
+    shortDescription:
+      "Ziołomiód o charakterystycznym, roślinnym profilu i delikatnie ziołowym finiszu.",
     description:
-      "Ziołomiód pokrzywowy jest drugą pozycją w tej kategorii. Jego szczegółowy opis oraz dostępne warianty potwierdzamy bezpośrednio w pasiece.",
-    tags: ["ziołomiód", "pokrzywowy", "katalog"],
+      "Ziołomiód pokrzywowy jest produktem odrębnym od klasycznego miodu nektarowego. Jego charakter kształtuje składnik pokrzywowy przetwarzany przez pszczoły, nadający mu wyraźniejszą roślinną i ziołową nutę. Dokładny skład i dostępność partii potwierdzamy telefonicznie.",
+    details: [
+      { label: "Rodzaj", value: "Ziołomiód pokrzywowy" },
+      { label: "Profil", value: "Roślinny i ziołowy" },
+    ],
+    tags: ["ziołomiód", "pokrzywowy", "ziołowy"],
     image: placeholderImage,
     imageAlt: placeholderAlt,
     imagePlaceholder: true,
-    featured: false,
   },
 ];

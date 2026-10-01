@@ -35,24 +35,14 @@ const eyebrow = productCategoryLabels[product.category];
     <p class="eyebrow eyebrow--line">{eyebrow}</p>
     <h1>{product.name}</h1>
     <p class="product-detail__lead">{product.shortDescription}</p>
-    {product.details?.length ? (
-      <dl class="product-detail__details">
-        {product.details.map((detail) => (
-          <div>
-            <dt>{detail.label}</dt>
-            <dd>{detail.value}</dd>
-          </div>
-        ))}
-      </dl>
-    ) : null}
-    <ul
-      class="product-detail__tags"
-      aria-label={`Cechy produktu: ${product.name}`}
-    >
-      {product.tags.map((tag) => (
-        <li>{tag}</li>
+    <dl class="product-detail__details">
+      {product.details.map((detail) => (
+        <div>
+          <dt>{detail.label}</dt>
+          <dd>{detail.value}</dd>
+        </div>
       ))}
-    </ul>
+    </dl>
     <ProductAvailabilityNotice />
     <Button
       data-contact-link
@@ -138,13 +128,11 @@ const eyebrow = productCategoryLabels[product.category];
     font-size: 1.35rem;
     font-weight: 600;
   }
-  .product-detail__tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-    padding: 0;
-    margin: var(--space-3) 0 var(--space-4);
-    list-style: none;
+  .product-detail__content :global(.product-availability-notice) {
+    margin-top: var(--space-4);
+  }
+  .product-detail__content :global(.button) {
+    margin-top: var(--space-4);
   }
   @media (max-width: 899px) {
     .product-detail__hero {

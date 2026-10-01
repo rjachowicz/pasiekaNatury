@@ -2,10 +2,12 @@
 import { products } from "../../data/products";
 import AssetImage from "../ui/AssetImage.astro";
 
-const featuredProducts = products.filter((product) => product.featured);
+const honeyProducts = products.filter(
+  (product) => product.category === "honey",
+);
 ---
 
-{featuredProducts.length > 0 && (
+{honeyProducts.length > 0 && (
   <div class="product-carousel" data-product-carousel>
     <div
       class="product-carousel__controls"
@@ -36,7 +38,7 @@ const featuredProducts = products.filter((product) => product.featured);
       tabindex="0"
     >
       <div class="product-carousel__track" data-carousel-track>
-        {featuredProducts.map((product, productIndex) => (
+        {honeyProducts.map((product, productIndex) => (
           <article class="product-carousel__card" data-carousel-card>
             <a
               href={`/produkty/${product.id}`}
@@ -172,14 +174,12 @@ const featuredProducts = products.filter((product) => product.featured);
   .product-carousel h3 {
     max-width: 12ch;
     font-size: var(--text-card-title);
-    overflow-wrap: anywhere;
   }
   .product-carousel p {
     max-width: 30ch;
     margin-top: var(--space-2);
     color: var(--color-muted);
     font-size: var(--text-small);
-    overflow-wrap: anywhere;
   }
   .product-carousel__arrow {
     display: inline-flex;
@@ -198,7 +198,7 @@ const featuredProducts = products.filter((product) => product.featured);
   @media (max-width: 639px) {
     .product-carousel__card {
       flex-basis: min(276px, calc(100vw - var(--gutter) * 2));
-      min-height: 490px;
+      min-height: 0;
     }
   }
 </style>

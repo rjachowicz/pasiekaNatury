@@ -23,36 +23,38 @@ const productOptions = products.map(({ id, name }) => ({
       <p>Sprawdzimy aktualną dostępność i szczegóły wybranego produktu.</p>
     </div>
 
-    <div class="contact-overview__heading">
-      <div>
-        <p class="eyebrow eyebrow--line">Bądźmy w kontakcie</p>
-        <h2>Wybierz najwygodniejszą formę</h2>
-      </div>
-      <p>
-        Zadzwoń lub napisz w sprawie produktów, a przed wizytą ustalmy dogodny
-        termin.
-      </p>
-    </div>
-
-    <div class="contact-overview__grid">
-      <div class="contact-overview__details">
-        <ContactDetails />
-      </div>
-      <aside class="contact-overview__visit">
-        <p class="eyebrow">Wizyta w pasiece</p>
-        <h3>Jasienna, gmina Korzenna</h3>
+    <div class="contact-overview__panel">
+      <div class="contact-overview__heading">
+        <div>
+          <p class="eyebrow eyebrow--line">Bądźmy w kontakcie</p>
+          <h2>Wybierz najwygodniejszą formę</h2>
+        </div>
         <p>
-          Chętnie potwierdzimy dostępność produktów i wskażemy drogę. Każdą
-          wizytę prosimy wcześniej umówić.
+          Zadzwoń lub napisz w sprawie produktów, a przed wizytą ustalmy dogodny
+          termin.
         </p>
-        <a
-          href={contact.directionsUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Wyznacz trasę <Icon name="arrow-up-right" size={17} />
-        </a>
-      </aside>
+      </div>
+
+      <div class="contact-overview__grid">
+        <div class="contact-overview__details">
+          <ContactDetails prominent />
+        </div>
+        <aside class="contact-overview__visit">
+          <p class="eyebrow">Wizyta w pasiece</p>
+          <h3>Jasienna, gmina Korzenna</h3>
+          <p>
+            Chętnie potwierdzimy dostępność produktów i wskażemy drogę. Każdą
+            wizytę prosimy wcześniej umówić.
+          </p>
+          <a
+            href={contact.directionsUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Wyznacz trasę <Icon name="arrow-up-right" size={17} />
+          </a>
+        </aside>
+      </div>
     </div>
   </div>
 </section>
@@ -62,6 +64,14 @@ const productOptions = products.map(({ id, name }) => ({
 </script>
 
 <style>
+  .contact-overview__panel {
+    padding: clamp(var(--space-4), 5vw, var(--space-5));
+    border: var(--border);
+    border-top: 4px solid var(--color-primary);
+    border-radius: var(--radius-card);
+    background: var(--color-white);
+    box-shadow: var(--shadow-subtle);
+  }
   .contact-overview__heading {
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(250px, 0.64fr);
@@ -103,7 +113,7 @@ const productOptions = products.map(({ id, name }) => ({
   .contact-overview__grid {
     display: grid;
     grid-template-columns: minmax(0, 1.25fr) minmax(270px, 0.75fr);
-    gap: var(--space-3);
+    gap: var(--space-4);
     align-items: start;
   }
   .contact-overview__visit {
@@ -111,7 +121,8 @@ const productOptions = products.map(({ id, name }) => ({
     min-width: 0;
     flex-direction: column;
     align-items: flex-start;
-    padding: var(--space-2) 0;
+    padding: var(--space-2) 0 var(--space-2) var(--space-4);
+    border-left: var(--border);
   }
   .contact-overview__visit .eyebrow {
     margin: 0 0 var(--space-1);
@@ -151,11 +162,15 @@ const productOptions = products.map(({ id, name }) => ({
       gap: var(--space-3);
     }
     .contact-overview__visit {
-      padding-top: var(--space-3);
+      padding: var(--space-4) 0 0;
+      border-left: 0;
       border-top: var(--border);
     }
   }
   @media (max-width: 639px) {
+    .contact-overview__panel {
+      padding: var(--space-3);
+    }
     .contextual-product {
       padding: var(--space-3);
       margin-bottom: var(--space-4);

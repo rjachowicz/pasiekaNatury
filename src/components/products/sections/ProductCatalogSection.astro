@@ -6,7 +6,8 @@ import { formatProductCount } from "../../../utils/formatProductCount";
 
 <div class="catalog-heading" data-reveal>
   <div>
-    <h2>Nasze produkty</h2>
+    <h2>Katalog według rodzaju produktów</h2>
+    <p>Wybierz kategorię lub obejrzyj całość katalogu produktów z pasieki.</p>
   </div>
   <span data-product-count aria-live="polite">
     {formatProductCount(products.length)}
@@ -53,21 +54,32 @@ import { formatProductCount } from "../../../utils/formatProductCount";
   .catalog-heading {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    gap: 16px;
-    padding-bottom: var(--space-3);
+    align-items: end;
+    gap: var(--space-3);
+  }
+  .catalog-heading > div {
+    min-width: 0;
   }
   .catalog-heading > span {
+    flex: 0 0 auto;
     color: var(--color-muted);
     font-size: var(--text-eyebrow);
   }
   .catalog-heading h2 {
-    margin-top: var(--space-1);
+    max-width: 20ch;
+  }
+  .catalog-heading p {
+    max-width: 56ch;
+    margin-top: var(--space-3);
+    color: var(--color-muted);
   }
   .product-filters {
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
+    padding-top: var(--space-4);
+    margin-top: var(--space-4);
+    border-top: var(--border);
   }
   .product-filters button {
     min-height: 44px;
@@ -97,7 +109,11 @@ import { formatProductCount } from "../../../utils/formatProductCount";
     color: var(--color-muted);
   }
   .product-group {
-    margin-top: var(--space-4);
+    margin-top: var(--space-5);
+  }
+  .product-group + .product-group {
+    padding-top: var(--space-5);
+    border-top: var(--border);
   }
   .product-group h3 {
     font-size: var(--text-card-title);
@@ -118,7 +134,7 @@ import { formatProductCount } from "../../../utils/formatProductCount";
     .catalog-heading {
       align-items: flex-start;
       flex-direction: column;
-      gap: 8px;
+      gap: var(--space-2);
     }
   }
 </style>
