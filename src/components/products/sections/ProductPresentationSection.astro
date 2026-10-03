@@ -2,7 +2,8 @@
 import AssetImage from "../../ui/AssetImage.astro";
 import Button from "../../ui/Button.astro";
 import ProductAvailabilityNotice from "./ProductAvailabilityNotice.astro";
-import { productCategoryLabels, type Product } from "../../../data/products";
+import type { Product } from "../../../data/products";
+import { productCategoryLabels } from "../../../data/productCategories";
 
 interface Props {
   product: Product;
@@ -44,10 +45,7 @@ const eyebrow = productCategoryLabels[product.category];
       ))}
     </dl>
     <ProductAvailabilityNotice />
-    <Button
-      data-contact-link
-      href={`/kontakt?produkt=${encodeURIComponent(product.id)}`}
-    >
+    <Button href={`/kontakt?produkt=${encodeURIComponent(product.id)}`}>
       Zapytaj o produkt
     </Button>
   </div>

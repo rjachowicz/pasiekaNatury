@@ -1,26 +1,7 @@
 import type { ImageAssetPath } from "./imageAssets";
+import type { ProductCategory } from "./productCategories";
 
-export type ProductCategory = "honey" | "bee-product" | "herbal-honey";
-
-export const productCategories = [
-  { id: "honey", label: "Miody", slug: "miody", order: 1 },
-  {
-    id: "bee-product",
-    label: "Produkty pszczele",
-    slug: "produkty-pszczele",
-    order: 2,
-  },
-  { id: "herbal-honey", label: "Ziołomiody", slug: "ziolomiody", order: 3 },
-] as const satisfies readonly {
-  id: ProductCategory;
-  label: string;
-  slug: string;
-  order: number;
-}[];
-
-export const productCategoryLabels = Object.fromEntries(
-  productCategories.map(({ id, label }) => [id, label]),
-) as Record<ProductCategory, string>;
+export type { ProductCategory } from "./productCategories";
 
 export interface Product {
   id: string;
@@ -30,8 +11,6 @@ export interface Product {
   description: string;
   image: ImageAssetPath;
   imageAlt: string;
-  /** New products use this neutral graphic until their photographs are supplied. */
-  imagePlaceholder?: boolean;
   tags: string[];
   details: { label: string; value: string }[];
 }
@@ -53,7 +32,7 @@ export const products: Product[] = [
       { label: "Profil", value: "Delikatny i kwiatowy" },
     ],
     tags: ["łagodny", "kwiatowy", "jasny"],
-    image: "/assets/product-faceliowy.png",
+    image: placeholderImage,
     imageAlt: "Słoik miodu faceliowego",
   },
   {
@@ -71,7 +50,6 @@ export const products: Product[] = [
     tags: ["sezonowy", "kwiatowy", "różnorodny"],
     image: placeholderImage,
     imageAlt: placeholderAlt,
-    imagePlaceholder: true,
   },
   {
     id: "akacjowy",
@@ -88,7 +66,6 @@ export const products: Product[] = [
     tags: ["akacjowy", "łagodny", "jasny"],
     image: placeholderImage,
     imageAlt: placeholderAlt,
-    imagePlaceholder: true,
   },
   {
     id: "lipowy",
@@ -103,7 +80,7 @@ export const products: Product[] = [
       { label: "Profil", value: "Lipowy i lekko ziołowy" },
     ],
     tags: ["lipowy", "wyrazisty", "kwiatowy"],
-    image: "/assets/product-lipowy.png",
+    image: placeholderImage,
     imageAlt: "Słoik miodu lipowego",
   },
   {
@@ -119,7 +96,7 @@ export const products: Product[] = [
       { label: "Profil", value: "Leśny i żywiczny" },
     ],
     tags: ["leśny", "głęboki", "spadziowy"],
-    image: "/assets/product-spadziowy.png",
+    image: placeholderImage,
     imageAlt: "Słoik miodu spadziowego",
   },
   {
@@ -137,7 +114,6 @@ export const products: Product[] = [
     tags: ["nawłociowy", "sezonowy", "kwiatowy"],
     image: placeholderImage,
     imageAlt: placeholderAlt,
-    imagePlaceholder: true,
   },
   {
     id: "gryczany",
@@ -152,7 +128,7 @@ export const products: Product[] = [
       { label: "Profil", value: "Zdecydowany i korzenny" },
     ],
     tags: ["gryczany", "intensywny", "ciemny"],
-    image: "/assets/product-gryczany.png",
+    image: placeholderImage,
     imageAlt: "Słoik miodu gryczanego",
   },
   {
@@ -170,7 +146,6 @@ export const products: Product[] = [
     tags: ["produkt pszczeli", "surowy", "żywiczny"],
     image: placeholderImage,
     imageAlt: placeholderAlt,
-    imagePlaceholder: true,
   },
   {
     id: "pierzga-w-koreczkach",
@@ -187,7 +162,6 @@ export const products: Product[] = [
     tags: ["produkt pszczeli", "pierzga", "koreczki"],
     image: placeholderImage,
     imageAlt: placeholderAlt,
-    imagePlaceholder: true,
   },
   {
     id: "pierzga-w-miodzie",
@@ -204,7 +178,6 @@ export const products: Product[] = [
     tags: ["produkt pszczeli", "pierzga", "miód"],
     image: placeholderImage,
     imageAlt: placeholderAlt,
-    imagePlaceholder: true,
   },
   {
     id: "pylek-pszczeli",
@@ -221,7 +194,6 @@ export const products: Product[] = [
     tags: ["produkt pszczeli", "pyłek", "granulki"],
     image: placeholderImage,
     imageAlt: placeholderAlt,
-    imagePlaceholder: true,
   },
   {
     id: "ziolomiod-malinowy",
@@ -238,7 +210,6 @@ export const products: Product[] = [
     tags: ["ziołomiód", "malinowy", "owocowy"],
     image: placeholderImage,
     imageAlt: placeholderAlt,
-    imagePlaceholder: true,
   },
   {
     id: "ziolomiod-pokrzywowy",
@@ -255,6 +226,5 @@ export const products: Product[] = [
     tags: ["ziołomiód", "pokrzywowy", "ziołowy"],
     image: placeholderImage,
     imageAlt: placeholderAlt,
-    imagePlaceholder: true,
   },
 ];

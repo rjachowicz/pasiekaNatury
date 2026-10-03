@@ -5,9 +5,8 @@ import Footer from "../components/layout/Footer.astro";
 import PrivacyConsent from "../components/ui/PrivacyConsent.astro";
 import ImageLightbox from "../components/ui/ImageLightbox.astro";
 import SeoHead, { type BreadcrumbItem } from "../components/ui/SeoHead.astro";
-import { imageAssets } from "../data/imageAssets";
 import type { ImageAssetPath } from "../data/imageAssets";
-import { getImage } from "astro:assets";
+import { site } from "../data/site";
 interface Props {
   title: string;
   description: string;
@@ -16,17 +15,10 @@ interface Props {
   breadcrumbs?: BreadcrumbItem[];
 }
 const { title, description, image, imageAlt, breadcrumbs } = Astro.props;
-const logoImage = imageAssets["/assets/logo.png"];
-const favicon = await getImage({
-  src: logoImage,
-  width: 240,
-  format: "webp",
-  quality: 82,
-});
 ---
 
 <!doctype html>
-<html lang="pl">
+<html lang={site.language}>
   <head>
     <script is:inline>
       document.documentElement.classList.add("js");
@@ -57,7 +49,7 @@ const favicon = await getImage({
       breadcrumbs={breadcrumbs}
     />
     <meta name="theme-color" content="#222222" />
-    <link rel="icon" type="image/webp" href={favicon.src} />
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon.png" />
   </head>
   <body>
     <a class="skip-link" href="#main-content">

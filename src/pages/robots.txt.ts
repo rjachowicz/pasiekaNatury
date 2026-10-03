@@ -3,8 +3,10 @@ import type { APIRoute } from "astro";
 export const prerender = true;
 
 export const GET: APIRoute = ({ site }) => {
-  const productionSite = site ?? new URL("https://pasiekanatury.vercel.app");
-  const sitemapUrl = new URL("/sitemap-index.xml", productionSite);
+  if (!site)
+    throw new Error("Astro site configuration is required for robots.txt.");
+
+  const sitemapUrl = new URL("/sitemap-index.xml", site);
 
   return new Response(
     `User-agent: *\nAllow: /\nSitemap: ${sitemapUrl.href}\n`,

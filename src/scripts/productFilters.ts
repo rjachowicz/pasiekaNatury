@@ -1,5 +1,8 @@
 import { formatProductCount } from "../utils/formatProductCount";
-import { productCategories, type ProductCategory } from "../data/products";
+import {
+  productCategories,
+  type ProductCategory,
+} from "../data/productCategories";
 
 const queryValues = new Map<ProductCategory | "all", string | null>([
   ["all", null],

@@ -1,12 +1,14 @@
 ---
 import type { ImageMetadata } from "astro";
-import { contact } from "../../data/site";
+import { products } from "../../data/products";
+import { site } from "../../data/site";
 import { imageAssets, type ImageAssetPath } from "../../data/imageAssets";
+import {
+  createStructuredData,
+  type BreadcrumbItem,
+} from "../../utils/structuredData";
 
-export interface BreadcrumbItem {
-  name: string;
-  path: string;
-}
+export type { BreadcrumbItem } from "../../utils/structuredData";
 
 interface Props {
   title: string;
@@ -19,77 +21,47 @@ interface Props {
 const {
   title,
   description,
-  image = "/assets/hero.jpg",
+  image = "/assets/hero.png",
   imageAlt = "Pszczoła wśród kwiatów — Pasieka 100% Natury",
   breadcrumbs,
 } = Astro.props;
-const site = Astro.site ?? new URL("https://pasiekanatury.vercel.app");
-const canonical = new URL(Astro.url.pathname, site);
+if (!Astro.site) {
+  throw new Error("Astro site configuration is required for SEO metadata.");
+}
+
+const siteUrl = Astro.site;
+const canonical = new URL(Astro.url.pathname, siteUrl);
 const imageAsset: ImageMetadata = imageAssets[image];
-const imageUrl = new URL(imageAsset.src, site);
-const logoUrl = new URL(imageAssets["/assets/logo.png"].src, site);
+const imageUrl = new URL(imageAsset.src, siteUrl);
+const logoUrl = new URL(imageAssets["/assets/logo.png"].src, siteUrl);
 const imageType =
-  image.endsWith(".jpg") || image.endsWith(".jpeg")
-    ? "image/jpeg"
-    : image.endsWith(".png")
-      ? "image/png"
-      : `image/${imageAsset.format}`;
-const organization = {
-  "@type": "LocalBusiness",
-  "@id": new URL("/#organization", site).href,
-  name: "Pasieka 100% Natury",
-  url: new URL("/", site).href,
-  logo: logoUrl.href,
-  telephone: contact.phones[0].display,
-  contactPoint: contact.phones.map(({ display }) => ({
-    "@type": "ContactPoint",
-    telephone: display,
-    contactType: "customer service",
-    availableLanguage: "pl",
-  })),
-  email: contact.email,
-  address: {
-    "@type": "PostalAddress",
-    streetAddress: "Jasienna 171",
-    postalCode: "33-322",
-    addressLocality: "Korzenna",
-    addressCountry: "PL",
-  },
-  geo: {
-    "@type": "GeoCoordinates",
-    latitude: contact.coordinates.latitude,
-    longitude: contact.coordinates.longitude,
-  },
-  hasMap: contact.directionsUrl,
-  sameAs: [contact.facebookUrl, contact.instagramUrl],
-};
-const structuredData = {
-  "@context": "https://schema.org",
-  "@graph": [
-    organization,
-    ...(breadcrumbs?.length
-      ? [
-          {
-            "@type": "BreadcrumbList",
-            itemListElement: breadcrumbs.map((item, index) => ({
-              "@type": "ListItem",
-              position: index + 1,
-              name: item.name,
-              item: new URL(item.path, site).href,
-            })),
-          },
-        ]
-      : []),
-  ],
-};
+  imageAsset.format === "jpg" ? "image/jpeg" : `image/${imageAsset.format}`;
+const structuredData = createStructuredData({
+  siteUrl,
+  pageUrl: canonical,
+  title,
+  description,
+  imageUrl,
+  logoUrl,
+  breadcrumbs,
+  catalogProducts:
+    Astro.url.pathname.replace(/\/+$/, "") === "/produkty"
+      ? products
+      : undefined,
+});
+const googleSiteVerification =
+  Astro.url.pathname === "/"
+    ? import.meta.env.GOOGLE_SITE_VERIFICATION?.trim()
+    : undefined;
 ---
 
 <title>{title}</title>
 <meta name="description" content={description} />
 <link rel="canonical" href={canonical} />
+<meta name="robots" content="index,follow,max-image-preview:large" />
 <meta property="og:type" content="website" />
-<meta property="og:locale" content="pl_PL" />
-<meta property="og:site_name" content="Pasieka 100% Natury" />
+<meta property="og:locale" content={site.locale} />
+<meta property="og:site_name" content={site.name} />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
 <meta property="og:url" content={canonical} />
@@ -103,4 +75,7 @@ const structuredData = {
 <meta name="twitter:description" content={description} />
 <meta name="twitter:image" content={imageUrl} />
 <meta name="twitter:image:alt" content={imageAlt} />
+{googleSiteVerification && (
+  <meta name="google-site-verification" content={googleSiteVerification} />
+)}
 <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />

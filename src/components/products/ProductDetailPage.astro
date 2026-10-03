@@ -11,7 +11,7 @@ interface Props {
 const { product } = Astro.props;
 ---
 
-<section class="product-detail section" data-product-detail>
+<section class="product-detail section">
   <div class="container">
     <ProductPresentationSection product={product} />
     <ProductDescriptionSection product={product} />
@@ -19,7 +19,3 @@ const { product } = Astro.props;
 </section>
 
 <RelatedProductsSection product={product} />
-
-<script>
-  import "../../scripts/productVariant";
-</script>
