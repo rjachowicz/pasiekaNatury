@@ -11,97 +11,31 @@ import { imageAssets } from "../../../data/imageAssets";
     </div>
     <div class="photo-story__grid">
       <figure class="photo-story__bee">
-        <button
-          class="image-zoom-trigger"
-          type="button"
-          data-lightbox-src={imageAssets["/assets/logo.png"].src}
-          data-lightbox-alt="Pszczoła zbierająca nektar z kwiatu"
-          data-lightbox-group="about-gallery"
-          aria-haspopup="dialog"
-          aria-label="Powiększ zdjęcie: Pszczoła zbierająca nektar z kwiatu"
-        >
-          <AssetImage
-            src="/assets/logo.png"
-            widths={[320, 640, 960]}
-            sizes="(max-width: 639px) 92vw, 28vw"
-            loading="lazy"
-            alt="Pszczoła zbierająca nektar z kwiatu"
-          />
-          <span class="image-zoom-trigger__icon" aria-hidden="true">
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.7"
-              stroke-linecap="round"
-            >
-              <circle cx="10.5" cy="10.5" r="5.5"></circle>
-              <path d="m15 15 4.5 4.5M10.5 8v5M8 10.5h5"></path>
-            </svg>
-          </span>
-        </button>
+        <AssetImage
+          src="/assets/logo.png"
+          widths={[320, 640, 960]}
+          sizes="(max-width: 639px) 92vw, 28vw"
+          loading="lazy"
+          alt="Logo Pasieki 100% Natury"
+        />
       </figure>
       <figure class="photo-story__honey">
-        <button
-          class="image-zoom-trigger"
-          type="button"
-          data-lightbox-src={imageAssets["/assets/logo.png"].src}
-          data-lightbox-alt="Złocisty miód spływający do słoika"
-          data-lightbox-group="about-gallery"
-          aria-haspopup="dialog"
-          aria-label="Powiększ zdjęcie: Złocisty miód spływający do słoika"
-        >
-          <AssetImage
-            src="/assets/logo.png"
-            widths={[320, 640, 960]}
-            sizes="(max-width: 639px) 92vw, 48vw"
-            loading="lazy"
-            alt="Złocisty miód spływający do słoika"
-          />
-          <span class="image-zoom-trigger__icon" aria-hidden="true">
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.7"
-              stroke-linecap="round"
-            >
-              <circle cx="10.5" cy="10.5" r="5.5"></circle>
-              <path d="m15 15 4.5 4.5M10.5 8v5M8 10.5h5"></path>
-            </svg>
-          </span>
-        </button>
+        <AssetImage
+          src="/assets/logo.png"
+          widths={[320, 640, 960]}
+          sizes="(max-width: 639px) 92vw, 48vw"
+          loading="lazy"
+          alt="Logo Pasieki 100% Natury"
+        />
       </figure>
       <figure class="photo-story__comb">
-        <button
-          class="image-zoom-trigger"
-          type="button"
-          data-lightbox-src={imageAssets["/assets/logo.png"].src}
-          data-lightbox-alt="Pszczoły pracujące na plastrze miodu"
-          data-lightbox-group="about-gallery"
-          aria-haspopup="dialog"
-          aria-label="Powiększ zdjęcie: Pszczoły pracujące na plastrze miodu"
-        >
-          <AssetImage
-            src="/assets/logo.png"
-            widths={[320, 640, 960]}
-            sizes="(max-width: 639px) 92vw, 30vw"
-            loading="lazy"
-            alt="Pszczoły pracujące na plastrze miodu"
-          />
-          <span class="image-zoom-trigger__icon" aria-hidden="true">
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.7"
-              stroke-linecap="round"
-            >
-              <circle cx="10.5" cy="10.5" r="5.5"></circle>
-              <path d="m15 15 4.5 4.5M10.5 8v5M8 10.5h5"></path>
-            </svg>
-          </span>
-        </button>
+        <AssetImage
+          src="/assets/logo.png"
+          widths={[320, 640, 960]}
+          sizes="(max-width: 639px) 92vw, 30vw"
+          loading="lazy"
+          alt="Logo Pasieki 100% Natury"
+        />
       </figure>
       <figure class="photo-story__apiary">
         <button
@@ -203,6 +137,11 @@ import { imageAssets } from "../../../data/imageAssets";
     width: 100%;
     height: 100%;
     object-fit: cover;
+  }
+  .photo-story__bee :global(img),
+  .photo-story__honey :global(img),
+  .photo-story__comb :global(img) {
+    object-fit: contain;
   }
   .photo-story__bee {
     grid-column: 1 / 4;

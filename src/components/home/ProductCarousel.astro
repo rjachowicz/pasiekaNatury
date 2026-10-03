@@ -51,7 +51,7 @@ const honeyProducts = products.filter(
                   widths={[160, 240, 280, 320, 360, 480, 640]}
                   loading="lazy"
                   fetchpriority="low"
-                  alt={`Produkt: ${product.name.toLocaleLowerCase("pl")}`}
+                  alt={product.imageAlt}
                 />
               </div>
               <div class="product-carousel__body">

@@ -33,7 +33,7 @@ export const products: Product[] = [
     ],
     tags: ["łagodny", "kwiatowy", "jasny"],
     image: placeholderImage,
-    imageAlt: "Słoik miodu faceliowego",
+    imageAlt: placeholderAlt,
   },
   {
     id: "wielokwiatowy",
@@ -81,7 +81,7 @@ export const products: Product[] = [
     ],
     tags: ["lipowy", "wyrazisty", "kwiatowy"],
     image: placeholderImage,
-    imageAlt: "Słoik miodu lipowego",
+    imageAlt: placeholderAlt,
   },
   {
     id: "spadziowy",
@@ -97,7 +97,7 @@ export const products: Product[] = [
     ],
     tags: ["leśny", "głęboki", "spadziowy"],
     image: placeholderImage,
-    imageAlt: "Słoik miodu spadziowego",
+    imageAlt: placeholderAlt,
   },
   {
     id: "nawlociowy",
@@ -129,7 +129,7 @@ export const products: Product[] = [
     ],
     tags: ["gryczany", "intensywny", "ciemny"],
     image: placeholderImage,
-    imageAlt: "Słoik miodu gryczanego",
+    imageAlt: placeholderAlt,
   },
   {
     id: "propolis-surowy",
