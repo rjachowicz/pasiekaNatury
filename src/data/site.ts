@@ -12,7 +12,9 @@ export const site = {
     lines: ["Jasienna 171", "33-322 Korzenna", "Polska"],
     streetAddress: "Jasienna 171",
     postalCode: "33-322",
-    addressLocality: "Korzenna",
+    locality: "Jasienna",
+    municipality: "gmina Korzenna",
+    postalLocality: "Korzenna",
     addressCountry: "PL",
   },
   contact: {

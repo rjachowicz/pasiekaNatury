@@ -1,10 +1,8 @@
 import sitemap from "@astrojs/sitemap";
 import { defineConfig } from "astro/config";
-import { loadEnv } from "vite";
-import { resolveSiteUrl } from "./src/config/siteUrl.mjs";
+import { resolveConfiguredSiteUrl } from "./src/config/siteUrl.mjs";
 
-const { SITE_URL } = loadEnv("", ".", "");
-const site = resolveSiteUrl(SITE_URL);
+const site = resolveConfiguredSiteUrl({ root: ".", mode: "production" });
 
 export default defineConfig({
   site,

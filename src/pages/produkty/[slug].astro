@@ -14,8 +14,8 @@ const { product } = Astro.props as { product: Product };
 ---
 
 <BaseLayout
-  title={`${product.name} — Pasieka 100% Natury`}
-  description={product.shortDescription}
+  title={`${product.name} | Pasieka w Jasiennej`}
+  description={`${product.shortDescription} Katalog Pasieki 100% Natury w Jasiennej.`}
   image={product.image}
   imageAlt={`Produkt: ${product.name.toLocaleLowerCase("pl")}`}
   breadcrumbs={[

@@ -25,6 +25,18 @@ document
     const cards = () => [
       ...track.querySelectorAll<HTMLElement>("[data-carousel-card]"),
     ];
+    const updateFocusableCards = () => {
+      const viewportBounds = viewport.getBoundingClientRect();
+      cards().forEach((card) => {
+        const link = card.querySelector<HTMLAnchorElement>("a[href]");
+        if (!link) return;
+        const cardBounds = card.getBoundingClientRect();
+        const isOutsideViewport =
+          cardBounds.right <= viewportBounds.left ||
+          cardBounds.left >= viewportBounds.right;
+        link.tabIndex = isOutsideViewport ? -1 : 0;
+      });
+    };
     const measure = () => {
       const first = cards()[0];
       if (!first) return;
@@ -34,6 +46,7 @@ document
       if (!moving) {
         track.style.transition = "none";
         track.style.transform = "translateX(0)";
+        requestAnimationFrame(updateFocusableCards);
       }
     };
     const finish = () => {
@@ -45,6 +58,7 @@ document
       track.style.transform = "translateX(0)";
       track.getBoundingClientRect();
       moving = false;
+      requestAnimationFrame(updateFocusableCards);
       runNext();
     };
     const runNext = () => {

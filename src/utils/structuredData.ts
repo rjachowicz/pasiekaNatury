@@ -1,4 +1,5 @@
 import type { Product } from "../data/products";
+import { canonicalUrl } from "../config/siteUrl.mjs";
 import { site } from "../data/site";
 
 type JsonLdValue = string | number | boolean | JsonLdObject | JsonLdValue[];
@@ -15,6 +16,9 @@ interface StructuredDataOptions {
   title: string;
   description: string;
   imageUrl: URL;
+  imageWidth: number;
+  imageHeight: number;
+  imageType: string;
   logoUrl: URL;
   breadcrumbs?: BreadcrumbItem[];
   catalogProducts?: readonly Pick<Product, "id" | "name">[];
@@ -23,15 +27,15 @@ interface StructuredDataOptions {
 const absoluteFragment = (siteUrl: URL, fragment: string) =>
   new URL(fragment, siteUrl).href;
 
-const canonicalPageUrl = (path: string, siteUrl: URL) =>
-  new URL(path === "/" ? "/" : `/${path.replace(/^\/+|\/+$/g, "")}/`, siteUrl);
-
 export function createStructuredData({
   siteUrl,
   pageUrl,
   title,
   description,
   imageUrl,
+  imageWidth,
+  imageHeight,
+  imageType,
   logoUrl,
   breadcrumbs,
   catalogProducts,
@@ -53,6 +57,8 @@ export function createStructuredData({
     url: siteUrl.href,
     logo: logoUrl.href,
     image: logoUrl.href,
+    description:
+      "Rodzinna pasieka w Jasiennej w gminie Korzenna, prezentująca miody i produkty pszczele.",
     founder: {
       "@type": "Person",
       name: site.ownerName,
@@ -69,7 +75,8 @@ export function createStructuredData({
       "@type": "PostalAddress",
       streetAddress: site.address.streetAddress,
       postalCode: site.address.postalCode,
-      addressLocality: site.address.addressLocality,
+      addressLocality: site.address.locality,
+      addressRegion: "małopolskie",
       addressCountry: site.address.addressCountry,
     },
     geo: {
@@ -95,7 +102,14 @@ export function createStructuredData({
     name: title,
     description,
     inLanguage: site.language,
-    primaryImageOfPage: imageUrl.href,
+    primaryImageOfPage: {
+      "@type": "ImageObject",
+      contentUrl: imageUrl.href,
+      url: imageUrl.href,
+      width: imageWidth,
+      height: imageHeight,
+      encodingFormat: imageType,
+    },
     isPartOf: { "@id": websiteId },
     about: { "@id": organizationId },
     ...(breadcrumbs?.length ? { breadcrumb: { "@id": breadcrumbId } } : {}),
@@ -111,7 +125,7 @@ export function createStructuredData({
         "@type": "ListItem",
         position: index + 1,
         name,
-        item: canonicalPageUrl(path, siteUrl).href,
+        item: canonicalUrl(path, siteUrl).href,
       })),
     });
   }
@@ -124,7 +138,7 @@ export function createStructuredData({
         "@type": "ListItem",
         position: index + 1,
         name,
-        url: new URL(`/produkty/${id}`, siteUrl).href,
+        url: canonicalUrl(`/produkty/${id}`, siteUrl).href,
       })),
     });
   }

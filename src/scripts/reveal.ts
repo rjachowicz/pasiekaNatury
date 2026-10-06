@@ -19,6 +19,7 @@ if (motion.matches || !("IntersectionObserver" in window)) {
   );
 
   elements.forEach((element) => observer.observe(element));
+  document.documentElement.classList.add("reveal-ready");
   motion.addEventListener("change", () => {
     if (motion.matches) {
       observer.disconnect();

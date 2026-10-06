@@ -1,5 +1,7 @@
 ---
+import { getImage } from "astro:assets";
 import type { ImageMetadata } from "astro";
+import { canonicalUrl, robotsDirective } from "../../config/siteUrl.mjs";
 import { products } from "../../data/products";
 import { site } from "../../data/site";
 import { imageAssets, type ImageAssetPath } from "../../data/imageAssets";
@@ -22,7 +24,7 @@ const {
   title,
   description,
   image = "/assets/hero.png",
-  imageAlt = "Pszczoła wśród kwiatów — Pasieka 100% Natury",
+  imageAlt = "Pszczoły na plastrze miodu",
   breadcrumbs,
 } = Astro.props;
 if (!Astro.site) {
@@ -30,18 +32,30 @@ if (!Astro.site) {
 }
 
 const siteUrl = Astro.site;
-const canonical = new URL(Astro.url.pathname, siteUrl);
+const canonical = canonicalUrl(Astro.url, siteUrl);
 const imageAsset: ImageMetadata = imageAssets[image];
-const imageUrl = new URL(imageAsset.src, siteUrl);
+const isLogo = image === "/assets/logo.png";
+const socialImage = await getImage({
+  src: imageAsset,
+  width: Math.min(imageAsset.width, 1200),
+  ...(isLogo
+    ? { format: "png" as const }
+    : { format: "webp" as const, quality: 82 }),
+});
+const imageUrl = new URL(socialImage.src, siteUrl);
 const logoUrl = new URL(imageAssets["/assets/logo.png"].src, siteUrl);
-const imageType =
-  imageAsset.format === "jpg" ? "image/jpeg" : `image/${imageAsset.format}`;
+const imageType = isLogo ? "image/png" : "image/webp";
+const socialImageAlt = isLogo ? "Logo Pasieki 100% Natury" : imageAlt;
+const robots = robotsDirective(import.meta.env.VERCEL_ENV);
 const structuredData = createStructuredData({
   siteUrl,
   pageUrl: canonical,
   title,
   description,
   imageUrl,
+  imageWidth: socialImage.attributes.width,
+  imageHeight: socialImage.attributes.height,
+  imageType,
   logoUrl,
   breadcrumbs,
   catalogProducts:
@@ -58,7 +72,7 @@ const googleSiteVerification =
 <title>{title}</title>
 <meta name="description" content={description} />
 <link rel="canonical" href={canonical} />
-<meta name="robots" content="index,follow,max-image-preview:large" />
+<meta name="robots" content={robots} />
 <meta property="og:type" content="website" />
 <meta property="og:locale" content={site.locale} />
 <meta property="og:site_name" content={site.name} />
@@ -66,15 +80,21 @@ const googleSiteVerification =
 <meta property="og:description" content={description} />
 <meta property="og:url" content={canonical} />
 <meta property="og:image" content={imageUrl} />
-<meta property="og:image:alt" content={imageAlt} />
-<meta property="og:image:width" content={String(imageAsset.width)} />
-<meta property="og:image:height" content={String(imageAsset.height)} />
+<meta property="og:image:alt" content={socialImageAlt} />
+<meta
+  property="og:image:width"
+  content={String(socialImage.attributes.width)}
+/>
+<meta
+  property="og:image:height"
+  content={String(socialImage.attributes.height)}
+/>
 <meta property="og:image:type" content={imageType} />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content={title} />
 <meta name="twitter:description" content={description} />
 <meta name="twitter:image" content={imageUrl} />
-<meta name="twitter:image:alt" content={imageAlt} />
+<meta name="twitter:image:alt" content={socialImageAlt} />
 {googleSiteVerification && (
   <meta name="google-site-verification" content={googleSiteVerification} />
 )}

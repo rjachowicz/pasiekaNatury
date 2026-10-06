@@ -1,4 +1,6 @@
-export const fallbackSiteUrl = "https://pasiekanatury.vercel.app";
+import { loadEnv } from "vite";
+
+export const fallbackSiteUrl = "https://www.pasiekanatury.com";
 
 export function resolveSiteUrl(value = fallbackSiteUrl) {
   let url;
@@ -21,4 +23,29 @@ export function resolveSiteUrl(value = fallbackSiteUrl) {
   }
 
   return url.href;
+}
+
+export function resolveConfiguredSiteUrl({
+  root = process.cwd(),
+  mode = "production",
+  env = process.env,
+} = {}) {
+  const fileEnv = loadEnv(mode, root, "");
+  return resolveSiteUrl(env.SITE_URL ?? fileEnv.SITE_URL);
+}
+
+export function canonicalUrl(path, siteUrl) {
+  const pathUrl =
+    path instanceof URL ? path : new URL(path, "https://url.invalid");
+  const pathname = pathUrl.pathname.replace(/\/{2,}/g, "/");
+  const canonicalPath =
+    pathname === "/" ? "/" : `/${pathname.replace(/^\/+|\/+$/g, "")}/`;
+
+  return new URL(canonicalPath, siteUrl);
+}
+
+export function robotsDirective(vercelEnvironment) {
+  return vercelEnvironment === "preview"
+    ? "noindex,nofollow"
+    : "index,follow,max-image-preview:large";
 }

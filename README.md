@@ -34,6 +34,14 @@ Serwer developerski można uruchomić w tle przez `npm run dev -- --background`,
 
 ## Konfiguracja produkcyjna
 
-Skopiuj `.env.example` do odpowiedniego pliku środowiskowego i ustaw `SITE_URL` na pełny kanoniczny adres HTTPS bez ścieżki. Jeżeli zmienna nie jest ustawiona, używany jest `https://pasiekanatury.vercel.app`. Canonicale, Open Graph, Twitter, JSON-LD, sitemap i `robots.txt` korzystają z jednej wartości. Opcjonalne `GOOGLE_SITE_VERIFICATION` tworzy wyłącznie na stronie głównej tag wymagany przez weryfikację URL-prefix Google Search Console.
+Skopiuj `.env.example` do odpowiedniego pliku środowiskowego i ustaw `SITE_URL` na pełny kanoniczny adres HTTPS bez ścieżki. Jeżeli zmienna nie jest ustawiona, używany jest `https://www.pasiekanatury.com`. Jawna zmienna środowiskowa ma pierwszeństwo przed wartością z pliku `.env`. Canonicale, Open Graph, Twitter, JSON-LD, sitemap i `robots.txt` korzystają z jednej wartości. Opcjonalne `GOOGLE_SITE_VERIFICATION` tworzy wyłącznie na stronie głównej tag wymagany przez weryfikację URL-prefix Google Search Console.
+
+## Kontrola po wdrożeniu
+
+1. Zweryfikuj kanoniczną domenę w Google Search Console i zgłoś `https://www.pasiekanatury.com/sitemap-index.xml`.
+2. W URL Inspection sprawdź stronę główną, `/produkty/` i przykładową stronę produktu, a następnie porównaj canonical wybrany przez Google z adresem deklarowanym w kodzie.
+3. Sprawdź przekierowanie 308 z `https://pasiekanatury.vercel.app` dla strony głównej oraz adresu z parametrami.
+4. Zweryfikuj dane strukturalne w Rich Results Test albo Schema Markup Validator.
+5. Po zebraniu danych porównaj w Search Console zapytania, wyświetlenia i kliknięcia. To nie gwarantuje indeksacji ani określonej pozycji.
 
 Szczegółowa lista czynności po wdrożeniu jest w [docs/SEO-SEARCH-CONSOLE.md](docs/SEO-SEARCH-CONSOLE.md).

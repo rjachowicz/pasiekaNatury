@@ -1,12 +1,18 @@
 import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { dirname, extname, join, relative } from "node:path";
 import { fileURLToPath } from "node:url";
-import { resolveSiteUrl } from "../src/config/siteUrl.mjs";
+import {
+  canonicalUrl,
+  resolveConfiguredSiteUrl,
+  resolveSiteUrl,
+  robotsDirective,
+} from "../src/config/siteUrl.mjs";
 
 const root = dirname(dirname(fileURLToPath(import.meta.url)));
 const dist = join(root, "dist");
 const sourceImages = join(root, "src", "assets", "images");
-const site = new URL(resolveSiteUrl(process.env.SITE_URL));
+const site = new URL(resolveConfiguredSiteUrl({ root, mode: "production" }));
+const expectedRobots = robotsDirective(process.env.VERCEL_ENV);
 const errors = [];
 const titles = new Map();
 const descriptions = new Map();
@@ -102,9 +108,15 @@ const verifyJsonLdOrigins = (value, route) => {
   for (const [key, child] of Object.entries(value)) {
     if (
       typeof child === "string" &&
-      ["@id", "url", "item", "logo", "image", "primaryImageOfPage"].includes(
-        key,
-      ) &&
+      [
+        "@id",
+        "url",
+        "item",
+        "logo",
+        "image",
+        "primaryImageOfPage",
+        "contentUrl",
+      ].includes(key) &&
       /^https:\/\//.test(child)
     ) {
       assert(
@@ -135,7 +147,7 @@ const requiredMeta = [
 for (const file of pageFiles) {
   const route = pageRoute(file);
   const label = route === "/" ? "/" : route.replace(/\/$/, "");
-  const expectedUrl = new URL(route, site).href;
+  const expectedUrl = canonicalUrl(route, site).href;
   const html = readFileSync(file, "utf8");
   const head = html.match(/<head\b[^>]*>([\s\S]*?)<\/head>/i)?.[1] ?? "";
   const titleTags = head.match(/<title\b[^>]*>[\s\S]*?<\/title>/gi) ?? [];
@@ -205,9 +217,8 @@ for (const file of pageFiles) {
   const robots = getMeta(metaTags, "name", "robots");
   assert(
     robots.length === 1 &&
-      getAttribute(robots[0], "content") ===
-        "index,follow,max-image-preview:large",
-    `${label}: missing required robots metadata`,
+      getAttribute(robots[0], "content") === expectedRobots,
+    `${label}: robots metadata must be ${expectedRobots}`,
   );
 
   for (const [attribute, name] of requiredMeta) {
@@ -223,6 +234,26 @@ for (const file of pageFiles) {
       "content",
     ) === expectedUrl,
     `${label}: og:url must match canonical`,
+  );
+  const ogImage = getAttribute(
+    getMeta(metaTags, "property", "og:image")[0] ?? "",
+    "content",
+  );
+  const ogImageType = getAttribute(
+    getMeta(metaTags, "property", "og:image:type")[0] ?? "",
+    "content",
+  );
+  const ogImageWidth = Number(
+    getAttribute(
+      getMeta(metaTags, "property", "og:image:width")[0] ?? "",
+      "content",
+    ),
+  );
+  const ogImageHeight = Number(
+    getAttribute(
+      getMeta(metaTags, "property", "og:image:height")[0] ?? "",
+      "content",
+    ),
   );
   for (const [attribute, name] of [
     ["property", "og:image"],
@@ -245,7 +276,6 @@ for (const file of pageFiles) {
       getAttribute(favicon[0], "type") === "image/png",
     `${label}: missing stable PNG favicon`,
   );
-
   const jsonLdBlocks = [
     ...html.matchAll(
       /<script\b[^>]*type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi,
@@ -289,6 +319,16 @@ for (const file of pageFiles) {
     webpage?.["@id"] === `${expectedUrl}#webpage`,
     `${label}: missing WebPage @id`,
   );
+  const primaryImage = webpage?.primaryImageOfPage;
+  assert(
+    primaryImage?.["@type"] === "ImageObject" &&
+      primaryImage.contentUrl === ogImage &&
+      primaryImage.url === ogImage &&
+      primaryImage.width === ogImageWidth &&
+      primaryImage.height === ogImageHeight &&
+      primaryImage.encodingFormat === ogImageType,
+    `${label}: primaryImageOfPage must be an ImageObject matching og:image`,
+  );
   assert(
     webpage?.isPartOf?.["@id"] === websiteId,
     `${label}: WebPage must link WebSite`,
@@ -327,6 +367,10 @@ for (const file of pageFiles) {
         isSameSite(item.item),
         `${label}: breadcrumb item uses a different domain`,
       );
+      assert(
+        item.item === canonicalUrl(item.item, site).href,
+        `${label}: breadcrumb item must use a canonical URL`,
+      );
     });
     assert(
       items.at(-1)?.item === expectedUrl,
@@ -348,6 +392,12 @@ for (const file of pageFiles) {
       "/produkty: page must link ItemList",
     );
     assert(itemList?.itemListElement?.length > 0, "/produkty: empty ItemList");
+    itemList?.itemListElement?.forEach((item) => {
+      assert(
+        item.url === canonicalUrl(item.url, site).href,
+        "/produkty: ItemList URL must use a canonical URL",
+      );
+    });
   }
   for (const tag of anchorTags)
     verifyLocalReference(route, getAttribute(tag, "href"));
@@ -445,13 +495,29 @@ if (existsSync(sitemapIndexPath)) {
     "sitemap must contain every public page exactly once",
   );
   for (const file of pageFiles) {
-    const expectedUrl = new URL(pageRoute(file), site).href;
+    const expectedUrl = canonicalUrl(pageRoute(file), site).href;
     assert(publicUrls.has(expectedUrl), `sitemap is missing ${expectedUrl}`);
   }
 }
 
 for (const image of walk(sourceImages)) verifyImageMagic(image);
 verifyImageMagic(join(root, "public", "favicon.png"));
+assert(
+  site.href === resolveConfiguredSiteUrl({ root, mode: "production" }),
+  "validator must use the same effective SITE_URL as the production build",
+);
+assert(
+  resolveSiteUrl() === "https://www.pasiekanatury.com/",
+  "production SITE_URL fallback must use www.pasiekanatury.com",
+);
+assert(
+  robotsDirective("production") === "index,follow,max-image-preview:large",
+  "production must be indexable",
+);
+assert(
+  robotsDirective("preview") === "noindex,nofollow",
+  "Vercel previews must be noindex",
+);
 
 if (errors.length) {
   console.error(errors.map((error) => `- ${error}`).join("\n"));
