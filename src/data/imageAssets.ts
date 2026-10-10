@@ -8,9 +8,16 @@ import hero from "../assets/images/hero.png";
 import logo from "../assets/images/logo.png";
 import mountains from "../assets/images/mountains.png";
 import products from "../assets/images/products.png";
-import rape from "../assets/images/rape.png";
+import rape from "../assets/images/rape-apiary.png";
 import bees from "../assets/images/bees.png";
-import sunset from "../assets/images/sunset.png";
+import spadz from "../assets/images/products/spadz.png";
+import wielokwiat from "../assets/images/products/wielokwiat.png";
+import lipa from "../assets/images/products/lipa.png";
+import nawloc from "../assets/images/products/nawloc.png";
+import pylek from "../assets/images/products/pylek.png";
+import pierzga_miod from "../assets/images/products/pierzga_miod.png";
+import ziol_mailna from "../assets/images/products/ziol_mailna.png";
+import ziol_pokrzywa from "../assets/images/products/ziol_pokrzywa.png";
 
 export const imageAssets = {
   "/assets/apiary.png": apiary,
@@ -23,9 +30,16 @@ export const imageAssets = {
   "/assets/logo.png": logo,
   "/assets/mountains.png": mountains,
   "/assets/products.png": products,
-  "/assets/rape.png": rape,
+  "/assets/rape-apiary.png": rape,
   "/assets/bees.png": bees,
-  "/assets/sunset.png": sunset,
+  "/assets/spadz.png": spadz,
+  "/assets/wielokwiat.png": wielokwiat,
+  "/assets/lipa.png": lipa,
+  "/assets/nawloc.png": nawloc,
+  "/assets/pylek.png": pylek,
+  "/assets/pierzga_miod.png": pierzga_miod,
+  "/assets/ziol_pokrzywa.png": ziol_pokrzywa,
+  "/assets/ziol_mailna.png": ziol_mailna
 } as const;
 
 export type ImageAssetPath = keyof typeof imageAssets;
