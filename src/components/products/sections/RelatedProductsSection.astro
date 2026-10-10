@@ -1,6 +1,6 @@
 ---
 import AssetImage from "../../ui/AssetImage.astro";
-import { products, type Product } from "../../../data/products";
+import { isProductLogo, products, type Product } from "../../../data/products";
 
 interface Props {
   product: Product;
@@ -27,10 +27,16 @@ const otherProducts = [
       <div class="other-products__grid">
         {otherProducts.map((other) => (
           <a href={`/produkty/${other.id}`}>
-            <div class="other-products__image">
+            <div
+              class:list={[
+                "other-products__image",
+                { "other-products__image--photo": !isProductLogo(other) },
+              ]}
+              style={`--product-image-position: ${other.imagePosition ?? "center"}`}
+            >
               <AssetImage
                 src={other.image}
-                sizes="(max-width: 639px) 96px, 132px"
+                sizes="(max-width: 639px) 112px, 132px"
                 widths={[160, 320]}
                 loading="lazy"
                 alt={other.imageAlt}
@@ -85,7 +91,22 @@ const otherProducts = [
     place-items: center;
     background: var(--color-soft);
   }
-  .other-products__image :global(img) {
+  .other-products__image--photo {
+    position: relative;
+    display: block;
+    padding: 0;
+    overflow: hidden;
+  }
+  .other-products__image--photo :global(img) {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    object-fit: cover;
+    object-position: var(--product-image-position);
+  }
+  .other-products__image:not(.other-products__image--photo) :global(img) {
     width: 100%;
     height: 100%;
     object-fit: contain;

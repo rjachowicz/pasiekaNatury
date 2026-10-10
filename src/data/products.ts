@@ -11,6 +11,7 @@ export interface Product {
     description: string;
     image: ImageAssetPath;
     imageAlt: string;
+    imagePosition?: string;
     tags: string[];
     details: { label: string; value: string }[];
 }
@@ -25,6 +26,9 @@ const pierzga_miod = "/assets/pierzga_miod.png" as const;
 const ziol_mailna = "/assets/ziol_mailna.png" as const;
 const ziol_pokrzywa = "/assets/ziol_pokrzywa.png" as const;
 const placeholderAlt = "Logo Pasieki 100% Natury";
+
+export const isProductLogo = (product: Pick<Product, "image">) =>
+    product.image === placeholderImage;
 
 export const products: Product[] = [
     {
@@ -41,7 +45,8 @@ export const products: Product[] = [
         ],
         tags: ["leśny", "głęboki", "spadziowy"],
         image: spadz,
-        imageAlt: placeholderAlt,
+        imageAlt: "Słoik miodu spadziowego",
+        imagePosition: "50% 48%",
     },
     {
         id: "wielokwiatowy",
@@ -57,7 +62,8 @@ export const products: Product[] = [
         ],
         tags: ["sezonowy", "kwiatowy", "różnorodny"],
         image: wielokwiat,
-        imageAlt: placeholderAlt,
+        imageAlt: "Słoik miodu wielokwiatowego",
+        imagePosition: "50% 48%",
     },
 
     {
@@ -74,7 +80,8 @@ export const products: Product[] = [
         ],
         tags: ["lipowy", "wyrazisty", "kwiatowy"],
         image: lipa,
-        imageAlt: placeholderAlt,
+        imageAlt: "Słoik miodu lipowego",
+        imagePosition: "50% 46%",
     },
     {
         id: "gryczany",
@@ -106,7 +113,8 @@ export const products: Product[] = [
         ],
         tags: ["nawłociowy", "sezonowy", "kwiatowy"],
         image: nawloc,
-        imageAlt: placeholderAlt,
+        imageAlt: "Słoik miodu nawłociowego",
+        imagePosition: "50% 46%",
     },
     {
         id: "faceliowy",
@@ -186,7 +194,8 @@ export const products: Product[] = [
         ],
         tags: ["produkt pszczeli", "pierzga", "miód"],
         image: pierzga_miod,
-        imageAlt: placeholderAlt,
+        imageAlt: "Słoik pierzgi w miodzie",
+        imagePosition: "50% 48%",
     },
     {
         id: "pylek-pszczeli",
@@ -202,7 +211,8 @@ export const products: Product[] = [
         ],
         tags: ["produkt pszczeli", "pyłek", "granulki"],
         image: pylek,
-        imageAlt: placeholderAlt,
+        imageAlt: "Słoik pyłku pszczelego",
+        imagePosition: "50% 46%",
     },
     {
         id: "ziolomiod-malinowy",
@@ -218,7 +228,8 @@ export const products: Product[] = [
         ],
         tags: ["ziołomiód", "malinowy", "owocowy"],
         image: ziol_mailna,
-        imageAlt: placeholderAlt,
+        imageAlt: "Słoik ziołomiodu malinowego",
+        imagePosition: "50% 48%",
     },
     {
         id: "ziolomiod-pokrzywowy",
@@ -234,7 +245,8 @@ export const products: Product[] = [
         ],
         tags: ["ziołomiód", "pokrzywowy", "ziołowy"],
         image: ziol_pokrzywa,
-        imageAlt: placeholderAlt,
+        imageAlt: "Słoik ziołomiodu pokrzywowego",
+        imagePosition: "50% 46%",
     },
     {
         id: "kosze-prezentowe",
@@ -250,6 +262,6 @@ export const products: Product[] = [
         ],
         tags: ["kosze prezentowe", "zestawy prezentowe", "miody na prezent", "prezent z pasieki"],
         image: placeholderImage,
-        imageAlt: "Kosz prezentowy z naturalnymi miodami, produktami pszczelimi i dodatkami",
+        imageAlt: placeholderAlt,
     },
 ];

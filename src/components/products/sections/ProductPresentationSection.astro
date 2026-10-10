@@ -2,7 +2,7 @@
 import AssetImage from "../../ui/AssetImage.astro";
 import Button from "../../ui/Button.astro";
 import ProductAvailabilityNotice from "./ProductAvailabilityNotice.astro";
-import type { Product } from "../../../data/products";
+import { isProductLogo, type Product } from "../../../data/products";
 import { productCategoryLabels } from "../../../data/productCategories";
 
 interface Props {
@@ -22,11 +22,17 @@ const eyebrow = productCategoryLabels[product.category];
 </nav>
 
 <div class="product-detail__hero">
-  <div class="product-detail__image">
+  <div
+    class:list={[
+      "product-detail__image",
+      { "product-detail__image--photo": !isProductLogo(product) },
+    ]}
+    style={`--product-image-position: ${product.imagePosition ?? "center"}`}
+  >
     <AssetImage
       src={product.image}
-      sizes="(max-width: 899px) 280px, 390px"
-      widths={[320, 640, 960]}
+      sizes="(max-width: 639px) calc(100vw - 40px), (max-width: 899px) calc(100vw - 96px), 576px"
+      widths={[320, 480, 640, 768, 960, 1024]}
       loading="eager"
       fetchpriority="high"
       alt={product.imageAlt}
@@ -82,7 +88,22 @@ const eyebrow = productCategoryLabels[product.category];
     border-right: var(--border);
     background: var(--color-soft);
   }
-  .product-detail__image :global(img) {
+  .product-detail__image--photo {
+    position: relative;
+    padding: 0;
+    overflow: hidden;
+  }
+  .product-detail__image--photo :global(img) {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    max-height: none;
+    object-fit: cover;
+    object-position: var(--product-image-position);
+  }
+  .product-detail__image:not(.product-detail__image--photo) :global(img) {
     width: min(100%, 390px);
     max-height: 480px;
     object-fit: contain;
@@ -150,7 +171,7 @@ const eyebrow = productCategoryLabels[product.category];
       min-height: 310px;
       padding: var(--space-3);
     }
-    .product-detail__image :global(img) {
+    .product-detail__image:not(.product-detail__image--photo) :global(img) {
       width: min(100%, 250px);
       max-height: 280px;
     }
