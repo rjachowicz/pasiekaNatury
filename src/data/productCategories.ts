@@ -15,7 +15,7 @@ export const productCategories = [
     {
         id: "bee-product",
         label: "Produkty pszczele",
-        slug: "produkty-pszczele",
+        slug: "produkty-pszczele"
     },
     {
         id: "herbal-honey",
