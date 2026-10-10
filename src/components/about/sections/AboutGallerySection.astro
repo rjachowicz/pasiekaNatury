@@ -1,6 +1,60 @@
 ---
+import { getImage } from "astro:assets";
 import AssetImage from "../../ui/AssetImage.astro";
-import { imageAssets } from "../../../data/imageAssets";
+import { imageAssets, type ImageAssetPath } from "../../../data/imageAssets";
+
+const gallery: {
+  className: string;
+  src: ImageAssetPath;
+  alt: string;
+  sizes: string;
+  widths: number[];
+  position: string;
+}[] = [
+  {
+    className: "photo-story__bee",
+    src: "/assets/hives.png",
+    alt: "Rząd kolorowych uli",
+    sizes: "(max-width: 639px) calc((100vw - 48px) / 2), 24vw",
+    widths: [320, 480, 640, 960],
+    position: "20% center",
+  },
+  {
+    className: "photo-story__honey",
+    src: "/assets/winter_apiary.png",
+    alt: "Ule pokryte śniegiem",
+    sizes: "(max-width: 639px) calc((100vw - 48px) / 2), 40vw",
+    widths: [320, 640, 960, 1280],
+    position: "center 52%",
+  },
+  {
+    className: "photo-story__comb",
+    src: "/assets/bee_brood.png",
+    alt: "Ramka z czerwiem i pszczołami",
+    sizes: "(max-width: 639px) calc((100vw - 48px) / 2), 32vw",
+    widths: [320, 640, 960],
+    position: "center 52%",
+  },
+  {
+    className: "photo-story__apiary",
+    src: "/assets/bees_hive.png",
+    alt: "Pszczoły na ulach w rzepaku",
+    sizes: "(max-width: 639px) calc(100vw - 40px), 72vw",
+    widths: [480, 960, 1440, 1920],
+    position: "center 57%",
+  },
+];
+const galleryWithLightbox = await Promise.all(
+  gallery.map(async (item) => ({
+    ...item,
+    lightboxImage: await getImage({
+      src: imageAssets[item.src],
+      width: Math.min(2400, imageAssets[item.src].width),
+      format: "webp",
+      quality: 82,
+    }),
+  })),
+);
 ---
 
 <section class="photo-story section--sm" aria-labelledby="photo-story-title">
@@ -10,64 +64,42 @@ import { imageAssets } from "../../../data/imageAssets";
       <h2 id="photo-story-title">Natura w zbliżeniu</h2>
     </div>
     <div class="photo-story__grid">
-      <figure class="photo-story__bee">
-        <AssetImage
-          src="/assets/logo.png"
-          widths={[320, 640, 960]}
-          sizes="(max-width: 639px) 92vw, 28vw"
-          loading="lazy"
-          alt="Logo Pasieki 100% Natury"
-        />
-      </figure>
-      <figure class="photo-story__honey">
-        <AssetImage
-          src="/assets/logo.png"
-          widths={[320, 640, 960]}
-          sizes="(max-width: 639px) 92vw, 48vw"
-          loading="lazy"
-          alt="Logo Pasieki 100% Natury"
-        />
-      </figure>
-      <figure class="photo-story__comb">
-        <AssetImage
-          src="/assets/logo.png"
-          widths={[320, 640, 960]}
-          sizes="(max-width: 639px) 92vw, 30vw"
-          loading="lazy"
-          alt="Logo Pasieki 100% Natury"
-        />
-      </figure>
-      <figure class="photo-story__apiary">
-        <button
-          class="image-zoom-trigger"
-          type="button"
-          data-lightbox-src={imageAssets["/assets/apiary.png"].src}
-          data-lightbox-alt="Ule na łące z górami i lasem w tle"
-          data-lightbox-group="about-gallery"
-          aria-haspopup="dialog"
-          aria-label="Powiększ zdjęcie: Ule na łące z górami i lasem w tle"
-        >
-          <AssetImage
-            src="/assets/apiary.png"
-            widths={[320, 640, 960]}
-            sizes="(max-width: 639px) 92vw, 70vw"
-            loading="lazy"
-            alt="Ule na łące z górami i lasem w tle"
-          />
-          <span class="image-zoom-trigger__icon" aria-hidden="true">
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.7"
-              stroke-linecap="round"
+      {galleryWithLightbox.map(
+        ({ className, src, alt, sizes, widths, position, lightboxImage }) => (
+          <figure class={className}>
+            <button
+              class="image-zoom-trigger"
+              type="button"
+              data-lightbox-src={lightboxImage.src}
+              data-lightbox-alt={alt}
+              data-lightbox-group="about-gallery"
+              aria-haspopup="dialog"
+              aria-label={`Powiększ zdjęcie: ${alt}`}
             >
-              <circle cx="10.5" cy="10.5" r="5.5"></circle>
-              <path d="m15 15 4.5 4.5M10.5 8v5M8 10.5h5"></path>
-            </svg>
-          </span>
-        </button>
-      </figure>
+              <AssetImage
+                src={src}
+                widths={widths}
+                sizes={sizes}
+                loading="lazy"
+                alt={alt}
+                style={`--photo-story-image-position: ${position}`}
+              />
+              <span class="image-zoom-trigger__icon" aria-hidden="true">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.7"
+                  stroke-linecap="round"
+                >
+                  <circle cx="10.5" cy="10.5" r="5.5"></circle>
+                  <path d="m15 15 4.5 4.5M10.5 8v5M8 10.5h5"></path>
+                </svg>
+              </span>
+            </button>
+          </figure>
+        ),
+      )}
     </div>
   </div>
 </section>
@@ -87,6 +119,7 @@ import { imageAssets } from "../../../data/imageAssets";
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: var(--photo-story-image-position);
   }
   .image-zoom-trigger__icon {
     position: absolute;
@@ -132,16 +165,6 @@ import { imageAssets } from "../../../data/imageAssets";
   .photo-story figure:hover {
     box-shadow: var(--shadow-subtle);
     transform: translateY(-2px);
-  }
-  .photo-story :global(img) {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-  .photo-story__bee :global(img),
-  .photo-story__honey :global(img),
-  .photo-story__comb :global(img) {
-    object-fit: contain;
   }
   .photo-story__bee {
     grid-column: 1 / 4;

@@ -1,5 +1,5 @@
 ---
-import type { Product } from "../../data/products";
+import { isProductLogo, type Product } from "../../data/products";
 import AssetImage from "../ui/AssetImage.astro";
 
 interface Props {
@@ -18,15 +18,19 @@ const number = String(index + 1).padStart(2, "0");
   data-product-category={product.category}
 >
   <a
-    class="product-card__image"
+    class:list={[
+      "product-card__image",
+      { "product-card__image--photo": !isProductLogo(product) },
+    ]}
     href={`/produkty/${product.id}`}
     tabindex="-1"
     aria-hidden="true"
+    style={`--product-image-position: ${product.imagePosition ?? "center"}`}
   >
     <AssetImage
       src={product.image}
-      sizes="(max-width: 639px) 220px, (max-width: 1199px) 275px, 22vw"
-      widths={[320, 640]}
+      sizes="(max-width: 639px) calc(100vw - 40px), (max-width: 1199px) 43vw, 283px"
+      widths={[320, 480, 640, 768, 960]}
       loading="lazy"
       alt={product.imageAlt}
     />
@@ -84,7 +88,24 @@ const number = String(index + 1).padStart(2, "0");
     overflow: hidden;
   }
 
-  .product-card__image :global(img) {
+  .product-card__image--photo {
+    position: relative;
+    display: block;
+    padding: 0;
+  }
+
+  .product-card__image--photo :global(img) {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    object-fit: cover;
+    object-position: var(--product-image-position);
+  }
+
+  .product-card__image:not(.product-card__image--photo) :global(img) {
     display: block;
     width: auto;
     height: auto;
@@ -157,7 +178,7 @@ const number = String(index + 1).padStart(2, "0");
       border-bottom: var(--border);
     }
 
-    .product-card__image :global(img) {
+    .product-card__image:not(.product-card__image--photo) :global(img) {
       max-width: min(100%, 220px);
       max-height: 100%;
     }

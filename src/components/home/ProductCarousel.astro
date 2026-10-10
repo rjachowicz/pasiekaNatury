@@ -1,5 +1,5 @@
 ---
-import { products } from "../../data/products";
+import { isProductLogo, products } from "../../data/products";
 import AssetImage from "../ui/AssetImage.astro";
 
 const honeyProducts = products.filter(
@@ -44,11 +44,20 @@ const honeyProducts = products.filter(
               href={`/produkty/${product.id}`}
               aria-label={`Poznaj ${product.name.toLocaleLowerCase("pl")}`}
             >
-              <div class="product-carousel__image-wrap">
+              <div
+                class:list={[
+                  "product-carousel__image-wrap",
+                  {
+                    "product-carousel__image-wrap--photo":
+                      !isProductLogo(product),
+                  },
+                ]}
+                style={`--product-image-position: ${product.imagePosition ?? "center"}`}
+              >
                 <AssetImage
                   src={product.image}
-                  sizes="(max-width: 639px) 130px, 165px"
-                  widths={[160, 240, 280, 320, 360, 480, 640]}
+                  sizes="(max-width: 639px) calc(100vw - 40px), 360px"
+                  widths={[320, 480, 640, 768]}
                   loading="lazy"
                   fetchpriority="low"
                   alt={product.imageAlt}
@@ -145,7 +154,23 @@ const honeyProducts = products.filter(
     background: var(--color-soft);
     overflow: hidden;
   }
-  .product-carousel__image-wrap :global(img) {
+  .product-carousel__image-wrap--photo {
+    position: relative;
+    display: block;
+    padding: 0;
+  }
+  .product-carousel__image-wrap--photo :global(img) {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    object-fit: cover;
+    object-position: var(--product-image-position);
+  }
+  .product-carousel__image-wrap:not(.product-carousel__image-wrap--photo)
+    :global(img) {
     display: block;
     width: auto;
     height: auto;
