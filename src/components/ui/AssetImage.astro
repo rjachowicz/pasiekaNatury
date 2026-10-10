@@ -18,11 +18,15 @@ const asset: ImageMetadata | undefined = imageAssets[src];
 if (!asset) throw new Error(`Unknown local image: ${src}`);
 const isLogo = src === "/assets/logo.png";
 const defaultWidths = isLogo ? [120, 240] : [320, 640];
-const widths = [
+const requestedCandidates = [
   ...new Set(
-    (requestedWidths ?? defaultWidths).filter((width) => width <= asset.width),
+    (requestedWidths ?? defaultWidths).filter(
+      (width) => Number.isFinite(width) && width > 0 && width <= asset.width,
+    ),
   ),
 ].sort((a, b) => a - b);
+const widths =
+  requestedCandidates.length > 0 ? requestedCandidates : [asset.width];
 ---
 
 <Image

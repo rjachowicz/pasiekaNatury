@@ -1,15 +1,6 @@
 ---
 export type IconName =
-  | "leaf"
-  | "heart"
-  | "tree"
-  | "honey-jar"
-  | "phone"
-  | "email"
-  | "location"
-  | "facebook"
-  | "instagram"
-  | "arrow-up-right";
+  "phone" | "email" | "location" | "facebook" | "instagram" | "arrow-up-right";
 
 interface Props {
   name: IconName;
@@ -35,27 +26,6 @@ const labelled = Boolean(title);
   stroke-linejoin="round"
 >
   {title && <title>{title}</title>}
-  {name === "leaf" && (
-    <>
-      <path d="M19.7 4.3C12 4 5.2 7.1 4.2 13.7c-.4 2.7 1.4 5.1 4.1 5.1C14.8 18.8 18.6 12.1 19.7 4.3Z" />
-      <path d="M4.6 19.5c2.7-4 6.1-6.8 10.5-9" />
-    </>
-  )}
-  {name === "heart" && (
-    <path d="M20.8 8.7c0 5.7-8.8 10.6-8.8 10.6S3.2 14.4 3.2 8.7A4.5 4.5 0 0 1 12 7.2a4.5 4.5 0 0 1 8.8 1.5Z" />
-  )}
-  {name === "tree" && (
-    <>
-      <path d="m12 3-5.2 6h3.1L5 15h3.3L4.8 20h14.4L15.7 15H19l-4.9-6h3.1L12 3Z" />
-      <path d="M12 20v2" />
-    </>
-  )}
-  {name === "honey-jar" && (
-    <>
-      <path d="M8 5h8M7 8h10l-.8 10.2A2 2 0 0 1 14.2 20h-4.4a2 2 0 0 1-2-1.8L7 8Z" />
-      <path d="M9 5V3.5h6V5M9 12h6M9.8 15h4.4" />
-    </>
-  )}
   {name === "phone" && (
     <path d="M7.2 3.5 5.4 5.1c-.6.6-.8 1.5-.5 2.3 1.7 4.6 5.3 8.2 9.9 9.9.8.3 1.7.1 2.3-.5l1.6-1.8-3.1-2.1-1.5 1c-1.8-.9-3-2.1-3.9-3.9l1-1.5-2-3Z" />
   )}

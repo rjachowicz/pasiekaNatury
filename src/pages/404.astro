@@ -1,0 +1,42 @@
+---
+import Button from "../components/ui/Button.astro";
+import PageHero from "../components/ui/PageHero.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Nie znaleziono strony | Pasieka 100% Natury"
+  description="Ten adres nie prowadzi do istniejącej strony Pasieki 100% Natury."
+  image="/assets/bee-field.png"
+  imageAlt="Pszczoła na żółtym kwiecie"
+  noindex
+>
+  <PageHero
+    eyebrow="404"
+    title="Nie znaleziono strony"
+    image="/assets/bee-field.png"
+    imageAlt="Pszczoła na żółtym kwiecie"
+  >
+    <p>
+      Ten adres nie prowadzi do istniejącej strony. Wróć na stronę główną lub
+      zajrzyj do katalogu produktów.
+    </p>
+  </PageHero>
+  <section class="not-found-actions section--sm">
+    <div class="container">
+      <Button href="/">Wróć na stronę główną</Button>
+      <a class="text-link" href="/produkty">
+        Zobacz produkty <span aria-hidden="true">→</span>
+      </a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .not-found-actions .container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-4);
+  }
+</style>

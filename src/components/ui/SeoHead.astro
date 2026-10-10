@@ -18,14 +18,16 @@ interface Props {
   image?: ImageAssetPath;
   imageAlt?: string;
   breadcrumbs?: BreadcrumbItem[];
+  noindex?: boolean;
 }
 
 const {
   title,
   description,
   image = "/assets/hero.png",
-  imageAlt = "Pszczoły na plastrze miodu",
+  imageAlt = "Ramka z pszczołami na tle pola rzepaku",
   breadcrumbs,
+  noindex = false,
 } = Astro.props;
 if (!Astro.site) {
   throw new Error("Astro site configuration is required for SEO metadata.");
@@ -46,7 +48,11 @@ const imageUrl = new URL(socialImage.src, siteUrl);
 const logoUrl = new URL(imageAssets["/assets/logo.png"].src, siteUrl);
 const imageType = isLogo ? "image/png" : "image/webp";
 const socialImageAlt = isLogo ? "Logo Pasieki 100% Natury" : imageAlt;
-const robots = robotsDirective(import.meta.env.VERCEL_ENV);
+const robots = noindex
+  ? import.meta.env.VERCEL_ENV === "preview"
+    ? "noindex,nofollow"
+    : "noindex"
+  : robotsDirective(import.meta.env.VERCEL_ENV);
 const structuredData = createStructuredData({
   siteUrl,
   pageUrl: canonical,

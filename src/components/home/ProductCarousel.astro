@@ -56,7 +56,7 @@ const honeyProducts = products.filter(
               >
                 <AssetImage
                   src={product.image}
-                  sizes="(max-width: 639px) calc(100vw - 40px), 360px"
+                  sizes="(max-width: 639px) min(276px, calc(100vw - 40px)), 360px"
                   widths={[320, 480, 640, 768]}
                   loading="lazy"
                   fetchpriority="low"
