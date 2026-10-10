@@ -18,6 +18,7 @@ import pylek from "../assets/images/products/pylek.png";
 import pierzga_miod from "../assets/images/products/pierzga_miod.png";
 import ziol_mailna from "../assets/images/products/ziol_mailna.png";
 import ziol_pokrzywa from "../assets/images/products/ziol_pokrzywa.png";
+import winter_apiary from "../assets/images/winter_apiary.png";
 
 export const imageAssets = {
   "/assets/apiary.png": apiary,
@@ -39,7 +40,8 @@ export const imageAssets = {
   "/assets/pylek.png": pylek,
   "/assets/pierzga_miod.png": pierzga_miod,
   "/assets/ziol_pokrzywa.png": ziol_pokrzywa,
-  "/assets/ziol_mailna.png": ziol_mailna
+  "/assets/ziol_mailna.png": ziol_mailna,
+  "/assets/winter_apiary.png": winter_apiary
 } as const;
 
 export type ImageAssetPath = keyof typeof imageAssets;
