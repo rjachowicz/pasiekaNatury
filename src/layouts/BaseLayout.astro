@@ -13,8 +13,10 @@ interface Props {
   image?: ImageAssetPath;
   imageAlt?: string;
   breadcrumbs?: BreadcrumbItem[];
+  noindex?: boolean;
 }
-const { title, description, image, imageAlt, breadcrumbs } = Astro.props;
+const { title, description, image, imageAlt, breadcrumbs, noindex } =
+  Astro.props;
 ---
 
 <!doctype html>
@@ -44,6 +46,7 @@ const { title, description, image, imageAlt, breadcrumbs } = Astro.props;
       image={image}
       imageAlt={imageAlt}
       breadcrumbs={breadcrumbs}
+      noindex={noindex}
     />
     <meta name="theme-color" content="#222222" />
     <link rel="icon" type="image/png" sizes="96x96" href="/favicon.png" />

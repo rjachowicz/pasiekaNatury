@@ -25,7 +25,7 @@ import Button from "../../ui/Button.astro";
       sizes="(max-width: 899px) 100vw, 50vw"
       widths={[640, 960, 1440]}
       loading="lazy"
-      alt="Pszczelarz oglądający ramkę z pszczołami w słonecznej pasiece"
+      alt="Pszczelarz pracujący przy ulach"
     />
   </figure>
 </section>
@@ -77,18 +77,6 @@ import Button from "../../ui/Button.astro";
     height: 100%;
     object-fit: cover;
     object-position: 32% center;
-  }
-
-  figcaption {
-    position: absolute;
-    z-index: 1;
-    right: var(--space-4);
-    bottom: var(--space-4);
-    padding-right: var(--space-2);
-    border-right: 2px solid var(--color-primary);
-    color: var(--color-white);
-    font: italic 500 var(--text-card-title)/1.15 var(--font-heading);
-    text-align: right;
   }
 
   @media (max-width: 899px) {

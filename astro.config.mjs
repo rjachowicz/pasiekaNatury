@@ -6,5 +6,9 @@ const site = resolveConfiguredSiteUrl({ root: ".", mode: "production" });
 
 export default defineConfig({
   site,
-  integrations: [sitemap()],
+  integrations: [
+    sitemap({
+      filter: (page) => page !== new URL("404/", site).href,
+    }),
+  ],
 });

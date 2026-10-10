@@ -50,7 +50,12 @@ const localTargetExists = (pathname) => {
     dist,
     ...decodeURIComponent(pathname).split("/").filter(Boolean),
   );
-  return existsSync(target) || existsSync(join(target, "index.html"));
+  return (
+    existsSync(target) ||
+    existsSync(join(target, "index.html")) ||
+    (pathname.replace(/\/+$/, "") === "/404" &&
+      existsSync(join(dist, "404.html")))
+  );
 };
 
 const isSameSite = (value) => {
@@ -415,6 +420,65 @@ for (const file of pageFiles) {
   }
 }
 
+const notFoundPath = join(dist, "404.html");
+assert(existsSync(notFoundPath), "missing 404.html");
+if (existsSync(notFoundPath)) {
+  const route = "/404/";
+  const expectedUrl = canonicalUrl(route, site).href;
+  const html = readFileSync(notFoundPath, "utf8");
+  const head = html.match(/<head\b[^>]*>([\s\S]*?)<\/head>/i)?.[1] ?? "";
+  const metaTags = head.match(/<meta\b[^>]*>/gi) ?? [];
+  const linkTags = head.match(/<link\b[^>]*>/gi) ?? [];
+  const titleTags = head.match(/<title\b[^>]*>[\s\S]*?<\/title>/gi) ?? [];
+  const canonicalTags = linkTags.filter((tag) =>
+    (getAttribute(tag, "rel") ?? "")
+      .toLowerCase()
+      .split(/\s+/)
+      .includes("canonical"),
+  );
+
+  assert(titleTags.length === 1, "/404: expected exactly one title");
+  assert(
+    getMeta(metaTags, "name", "description").length === 1,
+    "/404: expected one meta description",
+  );
+  assert(
+    canonicalTags.length === 1 &&
+      getAttribute(canonicalTags[0], "href") === expectedUrl,
+    `/404: canonical must be ${expectedUrl}`,
+  );
+  const robots = getMeta(metaTags, "name", "robots");
+  assert(
+    robots.length === 1 && getAttribute(robots[0], "content") === "noindex",
+    "/404: robots metadata must be noindex",
+  );
+  assert(
+    (html.match(/<main\b/gi) ?? []).length === 1,
+    "/404: expected one main",
+  );
+  assert((html.match(/<h1\b/gi) ?? []).length === 1, "/404: expected one h1");
+  assert(
+    /<a\b[^>]*href=(['"])\/\1[^>]*>\s*Wróć na stronę główną/s.test(html),
+    "/404: missing home link",
+  );
+  assert(
+    /<a\b[^>]*href=(['"])\/produkty\1[^>]*>\s*Zobacz produkty/s.test(html),
+    "/404: missing products link",
+  );
+  for (const [attribute, name] of requiredMeta) {
+    const tags = getMeta(metaTags, attribute, name);
+    assert(
+      tags.length === 1 && Boolean(getAttribute(tags[0], "content")?.trim()),
+      `/404: missing or duplicate ${name}`,
+    );
+  }
+  for (const [, , value] of html.matchAll(
+    /\b(?:src|href|data-src|data-lightbox-src)\s*=\s*(["'])(.*?)\1/gi,
+  )) {
+    verifyLocalReference(route, value);
+  }
+}
+
 const routes = new Set(pageFiles.map(pageRoute));
 for (const route of [
   "/",
@@ -498,6 +562,10 @@ if (existsSync(sitemapIndexPath)) {
     const expectedUrl = canonicalUrl(pageRoute(file), site).href;
     assert(publicUrls.has(expectedUrl), `sitemap is missing ${expectedUrl}`);
   }
+  assert(
+    !publicUrls.has(canonicalUrl("/404/", site).href),
+    "sitemap must not contain /404/",
+  );
 }
 
 for (const image of walk(sourceImages)) verifyImageMagic(image);

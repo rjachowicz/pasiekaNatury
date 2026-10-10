@@ -1,5 +1,7 @@
 export {};
 
+import { lockDocumentScroll, unlockDocumentScroll } from "./documentScrollLock";
+
 document
   .querySelectorAll<HTMLElement>("[data-site-header]")
   .forEach((header) => {
@@ -17,9 +19,7 @@ document
       toggle.setAttribute("aria-expanded", "false");
       toggle.setAttribute("aria-label", "Otwórz menu");
       header.classList.remove("header--open");
-      if (wasOpen && !document.querySelector("dialog[open]")) {
-        document.body.classList.remove("is-scroll-locked");
-      }
+      if (wasOpen) unlockDocumentScroll("mobile-navigation");
       if (restoreFocus) toggle.focus();
     };
 
@@ -28,7 +28,8 @@ document
       toggle.setAttribute("aria-expanded", String(open));
       toggle.setAttribute("aria-label", open ? "Zamknij menu" : "Otwórz menu");
       header.classList.toggle("header--open", open);
-      document.body.classList.toggle("is-scroll-locked", open);
+      if (open) lockDocumentScroll("mobile-navigation");
+      else unlockDocumentScroll("mobile-navigation");
     });
 
     nav.addEventListener("click", (event) => {

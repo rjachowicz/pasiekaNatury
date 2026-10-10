@@ -4,6 +4,7 @@ import {
   privacyPreferencesEvent,
   savePrivacyPreferences,
 } from "./privacyPreferences";
+import { lockDocumentScroll, unlockDocumentScroll } from "./documentScrollLock";
 
 const dialog = document.querySelector<HTMLDialogElement>(
   "[data-privacy-consent]",
@@ -17,8 +18,9 @@ const denyButton = dialog?.querySelector<HTMLButtonElement>(
 const currentChoice = dialog?.querySelector<HTMLElement>(
   "[data-consent-current]",
 );
+let opener: HTMLElement | null = null;
 
-const openDialog = () => {
+const openDialog = (openingElement?: HTMLElement) => {
   const preferences = getPrivacyPreferences();
   if (currentChoice) {
     currentChoice.hidden = !preferences;
@@ -28,7 +30,15 @@ const openDialog = () => {
         : "Aktualny wybór: mapa Google jest wyłączona."
       : "";
   }
-  if (dialog && !dialog.open) dialog.showModal();
+  if (dialog && !dialog.open) {
+    opener =
+      openingElement ??
+      (document.activeElement instanceof HTMLElement
+        ? document.activeElement
+        : null);
+    lockDocumentScroll("privacy-consent");
+    dialog.showModal();
+  }
 };
 
 const saveConsent = (googleMaps: boolean) => {
@@ -45,9 +55,17 @@ dialog?.addEventListener("cancel", (event) => {
 });
 document
   .querySelectorAll<HTMLElement>("[data-privacy-settings]")
-  .forEach((button) => button.addEventListener("click", openDialog));
-window.addEventListener(openPrivacySettingsEvent, openDialog);
+  .forEach((button) =>
+    button.addEventListener("click", () => openDialog(button)),
+  );
+window.addEventListener(openPrivacySettingsEvent, () => openDialog());
 window.addEventListener(privacyPreferencesEvent, () => {
   if (dialog?.open) openDialog();
 });
 if (!getPrivacyPreferences()) openDialog();
+
+dialog?.addEventListener("close", () => {
+  unlockDocumentScroll("privacy-consent");
+  opener?.focus();
+  opener = null;
+});

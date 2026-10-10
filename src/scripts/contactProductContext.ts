@@ -3,7 +3,6 @@ export {};
 type ProductOption = {
   id: string;
   name: string;
-  variants: string[];
 };
 
 const parseProductOptions = (value: string | undefined): ProductOption[] => {
@@ -26,15 +25,10 @@ document
 
     const searchParams = new URLSearchParams(window.location.search);
     const productId = searchParams.get("produkt");
-    const variant = searchParams.get("wariant");
     const productOptions = parseProductOptions(contextualBox.dataset.products);
     const product = productOptions.find(({ id }) => id === productId);
     if (!product) return;
 
-    const validVariant =
-      variant && product.variants.includes(variant) ? variant : null;
-    productName.textContent = `Pytasz o: ${product.name}${
-      validVariant ? ` — ${validVariant}` : ""
-    }`;
+    productName.textContent = `Pytasz o: ${product.name}`;
     contextualBox.hidden = false;
   });

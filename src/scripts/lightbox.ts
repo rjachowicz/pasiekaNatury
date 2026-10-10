@@ -1,5 +1,7 @@
 export {};
 
+import { lockDocumentScroll, unlockDocumentScroll } from "./documentScrollLock";
+
 const dialog = document.querySelector<HTMLDialogElement>(
   "[data-image-lightbox]",
 );
@@ -17,27 +19,11 @@ if (dialog && image && caption && closeButton && previous && next) {
   let activeIndex = 0;
   let activeGroup = "";
   let opener: HTMLElement | null = null;
-  let originalBodyPadding = "";
 
   const getItems = () =>
     [...document.querySelectorAll<HTMLElement>("[data-lightbox-src]")].filter(
       (item) => (item.dataset.lightboxGroup ?? "default") === activeGroup,
     );
-
-  const lockScroll = () => {
-    const scrollbarWidth =
-      window.innerWidth - document.documentElement.clientWidth;
-    originalBodyPadding = document.body.style.paddingRight;
-    if (scrollbarWidth > 0) {
-      document.body.style.paddingRight = `${scrollbarWidth}px`;
-    }
-    document.body.classList.add("is-scroll-locked");
-  };
-
-  const unlockScroll = () => {
-    document.body.classList.remove("is-scroll-locked");
-    document.body.style.paddingRight = originalBodyPadding;
-  };
 
   const render = (index: number) => {
     const items = getItems();
@@ -63,7 +49,7 @@ if (dialog && image && caption && closeButton && previous && next) {
 
     opener = trigger;
     render(index);
-    lockScroll();
+    lockDocumentScroll("image-lightbox");
     dialog.showModal();
     closeButton.focus();
   };
@@ -94,7 +80,7 @@ if (dialog && image && caption && closeButton && previous && next) {
   });
 
   dialog.addEventListener("close", () => {
-    unlockScroll();
+    unlockDocumentScroll("image-lightbox");
     opener?.focus();
     opener = null;
   });
