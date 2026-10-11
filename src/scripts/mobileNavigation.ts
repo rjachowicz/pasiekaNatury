@@ -19,8 +19,9 @@ document
       toggle.setAttribute("aria-expanded", "false");
       toggle.setAttribute("aria-label", "Otwórz menu");
       header.classList.remove("header--open");
+      header.style.removeProperty("--header-lock-offset");
       if (wasOpen) unlockDocumentScroll("mobile-navigation");
-      if (restoreFocus) toggle.focus();
+      if (restoreFocus) toggle.focus({ preventScroll: true });
     };
 
     toggle.addEventListener("click", () => {
@@ -28,8 +29,14 @@ document
       toggle.setAttribute("aria-expanded", String(open));
       toggle.setAttribute("aria-label", open ? "Zamknij menu" : "Otwórz menu");
       header.classList.toggle("header--open", open);
-      if (open) lockDocumentScroll("mobile-navigation");
-      else unlockDocumentScroll("mobile-navigation");
+      if (open) {
+        const offset = window.scrollY;
+        lockDocumentScroll("mobile-navigation");
+        header.style.setProperty("--header-lock-offset", `${offset}px`);
+      } else {
+        header.style.removeProperty("--header-lock-offset");
+        unlockDocumentScroll("mobile-navigation");
+      }
     });
 
     nav.addEventListener("click", (event) => {

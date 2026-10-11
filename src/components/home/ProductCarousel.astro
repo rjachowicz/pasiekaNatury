@@ -225,5 +225,16 @@ const honeyProducts = products.filter(
       flex-basis: min(276px, calc(100vw - var(--gutter) * 2));
       min-height: 0;
     }
+
+    .product-carousel__image-wrap {
+      height: auto;
+      min-height: 0;
+      flex-basis: auto;
+      aspect-ratio: 4 / 5;
+    }
+
+    .product-carousel__image-wrap--photo :global(img) {
+      object-fit: contain;
+    }
   }
 </style>

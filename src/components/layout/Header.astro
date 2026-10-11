@@ -165,6 +165,10 @@ const pathname = Astro.url.pathname.replace(/\/+$/, "") || "/";
       transform: translateY(0);
     }
 
+    .header--open {
+      transform: translateY(var(--header-lock-offset, 0));
+    }
+
     .header__toggle:not([hidden]) {
       display: flex;
       width: 48px;

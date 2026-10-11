@@ -162,12 +162,19 @@ const eyebrow = productCategoryLabels[product.category];
       border-right: 0;
       border-bottom: var(--border);
     }
+    .product-detail__image--photo {
+      min-height: 0;
+      aspect-ratio: 3 / 4;
+    }
+    .product-detail__image--photo :global(img) {
+      object-fit: contain;
+    }
   }
   @media (max-width: 639px) {
     .breadcrumb {
       margin-bottom: var(--space-4);
     }
-    .product-detail__image {
+    .product-detail__image:not(.product-detail__image--photo) {
       min-height: 310px;
       padding: var(--space-3);
     }

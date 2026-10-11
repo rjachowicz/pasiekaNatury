@@ -172,10 +172,15 @@ const number = String(index + 1).padStart(2, "0");
     }
 
     .product-card__image {
-      height: clamp(240px, 68vw, 300px);
-      min-height: clamp(240px, 68vw, 300px);
+      height: auto;
+      min-height: 0;
+      aspect-ratio: 4 / 5;
       border-right: 0;
       border-bottom: var(--border);
+    }
+
+    .product-card__image--photo :global(img) {
+      object-fit: contain;
     }
 
     .product-card__image:not(.product-card__image--photo) :global(img) {
