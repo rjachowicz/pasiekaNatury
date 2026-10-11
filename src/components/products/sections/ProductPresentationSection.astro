@@ -31,7 +31,7 @@ const eyebrow = productCategoryLabels[product.category];
   >
     <AssetImage
       src={product.image}
-      sizes="(max-width: 639px) calc(100vw - 40px), (max-width: 899px) calc(100vw - 96px), 45vw"
+      sizes="(max-width: 899px) calc(100vw - 40px), 45vw"
       widths={[320, 480, 640, 768, 960, 1024]}
       loading="eager"
       fetchpriority="high"
@@ -163,11 +163,18 @@ const eyebrow = productCategoryLabels[product.category];
       border-bottom: var(--border);
     }
     .product-detail__image--photo {
+      position: static;
+      display: block;
       min-height: 0;
-      aspect-ratio: 3 / 4;
+      aspect-ratio: auto;
     }
     .product-detail__image--photo :global(img) {
-      object-fit: contain;
+      position: static;
+      display: block;
+      width: 100%;
+      height: auto;
+      max-width: 100%;
+      max-height: none;
     }
   }
   @media (max-width: 639px) {
@@ -177,9 +184,6 @@ const eyebrow = productCategoryLabels[product.category];
     .product-detail__image:not(.product-detail__image--photo) {
       min-height: 310px;
       padding: var(--space-3);
-    }
-    .product-detail__image--photo {
-      aspect-ratio: 2 / 3;
     }
     .product-detail__image:not(.product-detail__image--photo) :global(img) {
       width: min(100%, 250px);

@@ -169,6 +169,7 @@ const number = String(index + 1).padStart(2, "0");
   @media (max-width: 639px) {
     .product-card {
       grid-template-columns: 1fr;
+      height: auto;
     }
 
     .product-card__image {
@@ -179,8 +180,18 @@ const number = String(index + 1).padStart(2, "0");
       border-bottom: var(--border);
     }
 
+    .product-card__image--photo {
+      position: static;
+      aspect-ratio: auto;
+    }
+
     .product-card__image--photo :global(img) {
-      object-fit: contain;
+      position: static;
+      display: block;
+      width: 100%;
+      height: auto;
+      max-width: 100%;
+      max-height: none;
     }
 
     .product-card__image:not(.product-card__image--photo) :global(img) {

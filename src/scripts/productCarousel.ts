@@ -22,6 +22,7 @@ document
     let direction: -1 | 1 = 1;
     let fallbackTimer: ReturnType<typeof setTimeout> | undefined;
     let pointerStart: { id: number; x: number; y: number } | undefined;
+    let suppressClick = false;
     const cards = () => [
       ...track.querySelectorAll<HTMLElement>("[data-carousel-card]"),
     ];
@@ -119,9 +120,20 @@ document
         Math.abs(distanceX) >= 36 &&
         Math.abs(distanceX) > Math.abs(distanceY)
       ) {
+        suppressClick = true;
         enqueue(distanceX < 0 ? 1 : -1);
       }
     });
+    viewport.addEventListener(
+      "click",
+      (event) => {
+        if (!suppressClick) return;
+        suppressClick = false;
+        event.preventDefault();
+        event.stopPropagation();
+      },
+      true,
+    );
     viewport.addEventListener(
       "pointercancel",
       () => (pointerStart = undefined),

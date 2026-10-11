@@ -37,7 +37,7 @@ const otherProducts = [
               <AssetImage
                 src={other.image}
                 sizes="(max-width: 639px) 112px, 132px"
-                widths={[160, 320]}
+                widths={[160, 320, 480]}
                 loading="lazy"
                 alt={other.imageAlt}
               />
@@ -148,11 +148,20 @@ const otherProducts = [
       min-height: 180px;
     }
     .other-products__image--photo :global(img) {
+      position: static;
+      display: block;
+      width: 100%;
+      height: auto;
+      max-width: 100%;
+      max-height: 100%;
       object-fit: contain;
     }
     .other-products__image--photo {
-      align-self: start;
-      aspect-ratio: 2 / 3;
+      position: static;
+      display: grid;
+      align-self: stretch;
+      aspect-ratio: auto;
+      place-items: center;
     }
   }
 </style>
