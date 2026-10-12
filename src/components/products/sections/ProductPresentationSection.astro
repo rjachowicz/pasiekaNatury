@@ -85,7 +85,7 @@ const eyebrow = productCategoryLabels[product.category];
   .product-detail__hero {
     display: grid;
     grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
-    align-items: stretch;
+    align-items: start;
     overflow: hidden;
     border: var(--border);
     border-radius: var(--radius-image);
@@ -99,19 +99,19 @@ const eyebrow = productCategoryLabels[product.category];
     background: var(--color-soft);
   }
   .product-detail__image--photo {
-    position: relative;
+    position: static;
+    display: block;
+    min-height: 0;
     padding: 0;
-    overflow: hidden;
   }
   .product-detail__image--photo :global(img) {
-    position: absolute;
-    inset: 0;
+    position: static;
+    inset: auto;
+    display: block;
     width: 100%;
-    height: 100%;
-    max-width: none;
+    height: auto;
+    max-width: 100%;
     max-height: none;
-    object-fit: cover;
-    object-position: var(--product-image-position);
   }
   .product-detail__image:not(.product-detail__image--photo) :global(img) {
     width: min(100%, 390px);
@@ -178,23 +178,11 @@ const eyebrow = productCategoryLabels[product.category];
       grid-template-columns: 1fr;
     }
     .product-detail__image {
-      min-height: 420px;
       border-right: 0;
       border-bottom: var(--border);
     }
-    .product-detail__image--photo {
-      position: static;
-      display: block;
-      min-height: 0;
-      aspect-ratio: auto;
-    }
-    .product-detail__image--photo :global(img) {
-      position: static;
-      display: block;
-      width: 100%;
-      height: auto;
-      max-width: 100%;
-      max-height: none;
+    .product-detail__image:not(.product-detail__image--photo) {
+      min-height: 420px;
     }
   }
   @media (max-width: 639px) {
