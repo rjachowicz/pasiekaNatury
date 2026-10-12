@@ -1,5 +1,6 @@
 ---
 import type { Product } from "../../../data/products";
+import HoneyCrystallizationNotice from "./HoneyCrystallizationNotice.astro";
 
 interface Props {
   product: Product;
@@ -12,7 +13,12 @@ const { product } = Astro.props;
   <div class="product-detail__description">
     <p class="eyebrow eyebrow--line">O produkcie</p>
     <h2>Poznaj produkt</h2>
-    <p>{product.description}</p>
+    <p class="product-detail__copy">{product.description}</p>
+    {product.category === "honey" && (
+      <div class="product-detail__crystallization-notice">
+        <HoneyCrystallizationNotice />
+      </div>
+    )}
   </div>
 </div>
 
@@ -24,9 +30,12 @@ const { product } = Astro.props;
   .product-detail__description {
     max-width: 760px;
   }
-  .product-detail__description p:last-child {
+  .product-detail__copy {
     max-width: 58ch;
     margin-top: var(--space-3);
     color: var(--color-muted);
+  }
+  .product-detail__crystallization-notice {
+    margin-top: var(--space-4);
   }
 </style>

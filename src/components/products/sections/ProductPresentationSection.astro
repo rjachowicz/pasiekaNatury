@@ -1,6 +1,7 @@
 ---
 import AssetImage from "../../ui/AssetImage.astro";
 import Button from "../../ui/Button.astro";
+import ProductPackaging from "../ProductPackaging.astro";
 import ProductAvailabilityNotice from "./ProductAvailabilityNotice.astro";
 import { isProductLogo, type Product } from "../../../data/products";
 import { productCategoryLabels } from "../../../data/productCategories";
@@ -50,6 +51,11 @@ const eyebrow = productCategoryLabels[product.category];
         </div>
       ))}
     </dl>
+    {product.packaging && (
+      <div class="product-detail__packaging">
+        <ProductPackaging product={product} />
+      </div>
+    )}
     <ProductAvailabilityNotice />
     <Button href={`/kontakt?produkt=${encodeURIComponent(product.id)}`}>
       Zapytaj o produkt
@@ -146,6 +152,10 @@ const eyebrow = productCategoryLabels[product.category];
     font-family: var(--font-heading);
     font-size: 1.35rem;
     font-weight: 600;
+  }
+  .product-detail__packaging {
+    width: 100%;
+    margin-top: var(--space-4);
   }
   .product-detail__content :global(.product-availability-notice) {
     margin-top: var(--space-4);

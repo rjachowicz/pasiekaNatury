@@ -1,5 +1,6 @@
 ---
 import { isProductLogo, products } from "../../data/products";
+import ProductPackaging from "../products/ProductPackaging.astro";
 import AssetImage from "../ui/AssetImage.astro";
 
 const honeyProducts = products.filter(
@@ -69,6 +70,11 @@ const honeyProducts = products.filter(
                 </span>
                 <h3>{product.name}</h3>
                 <p>{product.shortDescription}</p>
+                {product.packaging && (
+                  <div class="product-carousel__packaging">
+                    <ProductPackaging product={product} compact />
+                  </div>
+                )}
                 <span class="product-carousel__arrow" aria-hidden="true">
                   →
                 </span>
@@ -201,6 +207,9 @@ const honeyProducts = products.filter(
     margin-top: var(--space-2);
     color: var(--color-muted);
     font-size: var(--text-small);
+  }
+  .product-carousel__packaging {
+    margin-top: var(--space-2);
   }
   .product-carousel__arrow {
     display: inline-flex;

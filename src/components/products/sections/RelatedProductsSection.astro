@@ -1,5 +1,6 @@
 ---
 import AssetImage from "../../ui/AssetImage.astro";
+import ProductPackaging from "../ProductPackaging.astro";
 import { isProductLogo, products, type Product } from "../../../data/products";
 
 interface Props {
@@ -50,6 +51,11 @@ const otherProducts = [
               </span>
               <h3>{other.name}</h3>
               <p>{other.shortDescription}</p>
+              {other.packaging && (
+                <div class="other-products__packaging">
+                  <ProductPackaging product={other} compact />
+                </div>
+              )}
               <b aria-hidden="true">→</b>
             </div>
           </a>
@@ -131,6 +137,9 @@ const otherProducts = [
     margin-top: var(--space-2);
     color: var(--color-muted);
     font-size: var(--text-small);
+  }
+  .other-products__packaging {
+    margin-top: var(--space-2);
   }
   .other-products__grid b {
     padding-top: var(--space-2);

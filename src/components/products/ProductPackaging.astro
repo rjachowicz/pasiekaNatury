@@ -1,0 +1,64 @@
+---
+import type { Product } from "../../data/products";
+import { formatPolishCurrency } from "../../utils/formatCurrency";
+
+interface Props {
+  product: Pick<Product, "packaging">;
+  compact?: boolean;
+}
+
+const { product, compact = false } = Astro.props;
+const packaging = product.packaging;
+const quantityLabel =
+  packaging?.unit === "ml" ? "Objętość netto" : "Masa netto";
+---
+
+{packaging && (
+  <dl
+    class:list={[
+      "product-packaging",
+      { "product-packaging--compact": compact },
+    ]}
+  >
+    <div>
+      <dt>{quantityLabel}:</dt>
+      <dd>
+        {packaging.netQuantity}&nbsp;{packaging.unit}
+      </dd>
+    </div>
+    <div>
+      <dt>Cena:</dt>
+      <dd>{formatPolishCurrency(packaging.priceGrosze)}</dd>
+    </div>
+  </dl>
+)}
+
+<style>
+  .product-packaging {
+    display: grid;
+    gap: 4px;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+  }
+  .product-packaging div {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35em;
+  }
+  .product-packaging dt {
+    color: var(--color-muted);
+  }
+  .product-packaging dd {
+    margin: 0;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+  .product-packaging--compact {
+    gap: 2px;
+    font-size: var(--text-small);
+  }
+  .product-packaging--compact div {
+    gap: 0.3em;
+  }
+</style>

@@ -1,5 +1,6 @@
 ---
 import ProductCard from "../ProductCard.astro";
+import HoneyCrystallizationNotice from "./HoneyCrystallizationNotice.astro";
 import { products } from "../../../data/products";
 import { productCategories } from "../../../data/productCategories";
 import { formatProductCount } from "../../../utils/formatProductCount";
@@ -38,6 +39,11 @@ import { formatProductCount } from "../../../utils/formatProductCount";
       aria-labelledby={`category-${id}`}
     >
       <h3 id={`category-${id}`}>{label}</h3>
+      {id === "honey" && (
+        <div class="product-group__notice">
+          <HoneyCrystallizationNotice />
+        </div>
+      )}
       <div class="product-grid">
         {categoryProducts.map((product) => (
           <ProductCard product={product} index={products.indexOf(product)} />
@@ -118,6 +124,9 @@ import { formatProductCount } from "../../../utils/formatProductCount";
   }
   .product-group h3 {
     font-size: var(--text-card-title);
+  }
+  .product-group__notice {
+    margin-top: var(--space-2);
   }
   .product-grid {
     display: grid;

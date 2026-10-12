@@ -3,6 +3,12 @@ import type { ProductCategory } from "./productCategories";
 
 export type { ProductCategory } from "./productCategories";
 
+export interface ProductPackaging {
+  netQuantity: number;
+  unit: "g" | "ml";
+  priceGrosze: number;
+}
+
 export interface Product {
   id: string;
   name: string;
@@ -14,6 +20,7 @@ export interface Product {
   imagePosition?: string;
   tags: string[];
   details: { label: string; value: string }[];
+  packaging?: ProductPackaging;
 }
 
 const placeholderImage = "/assets/logo.png" as const;
@@ -47,6 +54,7 @@ export const products: Product[] = [
     image: spadz,
     imageAlt: "Słoik miodu spadziowego",
     imagePosition: "50% 48%",
+    packaging: { netQuantity: 1200, unit: "g", priceGrosze: 7000 },
   },
   {
     id: "wielokwiatowy",
@@ -64,6 +72,7 @@ export const products: Product[] = [
     image: wielokwiat,
     imageAlt: "Słoik miodu wielokwiatowego",
     imagePosition: "50% 48%",
+    packaging: { netQuantity: 1200, unit: "g", priceGrosze: 5000 },
   },
 
   {
@@ -82,6 +91,7 @@ export const products: Product[] = [
     image: lipa,
     imageAlt: "Słoik miodu lipowego",
     imagePosition: "50% 46%",
+    packaging: { netQuantity: 1200, unit: "g", priceGrosze: 5000 },
   },
   {
     id: "gryczany",
@@ -98,6 +108,7 @@ export const products: Product[] = [
     tags: ["gryczany", "intensywny", "ciemny"],
     image: placeholderImage,
     imageAlt: placeholderAlt,
+    packaging: { netQuantity: 1200, unit: "g", priceGrosze: 5000 },
   },
   {
     id: "nawlociowy",
@@ -115,6 +126,7 @@ export const products: Product[] = [
     image: nawloc,
     imageAlt: "Słoik miodu nawłociowego",
     imagePosition: "50% 46%",
+    packaging: { netQuantity: 1200, unit: "g", priceGrosze: 5000 },
   },
   {
     id: "faceliowy",
@@ -163,6 +175,24 @@ export const products: Product[] = [
     tags: ["produkt pszczeli", "surowy", "żywiczny"],
     image: placeholderImage,
     imageAlt: placeholderAlt,
+    packaging: { netQuantity: 50, unit: "g", priceGrosze: 4000 },
+  },
+  {
+    id: "propolis-krople",
+    name: "Propolis w kroplach",
+    category: "bee-product",
+    shortDescription:
+      "Propolis w płynnej postaci, w opakowaniu o objętości netto 30 ml.",
+    description:
+      "Propolis w kroplach to płynna postać produktu pszczelego. Informacje o składzie, stężeniu i sposobie stosowania potwierdzamy telefonicznie przed zakupem.",
+    details: [
+      { label: "Forma", value: "Płynna" },
+      { label: "Charakter", value: "Produkt pszczeli" },
+    ],
+    tags: ["produkt pszczeli", "propolis", "krople"],
+    image: placeholderImage,
+    imageAlt: placeholderAlt,
+    packaging: { netQuantity: 30, unit: "ml", priceGrosze: 3500 },
   },
   {
     id: "pierzga-w-koreczkach",
@@ -196,6 +226,7 @@ export const products: Product[] = [
     image: pierzga_miod,
     imageAlt: "Słoik pierzgi w miodzie",
     imagePosition: "50% 48%",
+    packaging: { netQuantity: 400, unit: "g", priceGrosze: 4000 },
   },
   {
     id: "pylek-pszczeli",
@@ -213,6 +244,7 @@ export const products: Product[] = [
     image: pylek,
     imageAlt: "Słoik pyłku pszczelego",
     imagePosition: "50% 46%",
+    packaging: { netQuantity: 500, unit: "g", priceGrosze: 5000 },
   },
   {
     id: "ziolomiod-malinowy",
