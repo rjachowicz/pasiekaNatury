@@ -1,5 +1,6 @@
 ---
 import type { Product } from "../../data/products";
+import ProductAvailabilityNotice from "./sections/ProductAvailabilityNotice.astro";
 import ProductDescriptionSection from "./sections/ProductDescriptionSection.astro";
 import ProductPresentationSection from "./sections/ProductPresentationSection.astro";
 import RelatedProductsSection from "./sections/RelatedProductsSection.astro";
@@ -14,8 +15,17 @@ const { product } = Astro.props;
 <section class="product-detail section">
   <div class="container">
     <ProductPresentationSection product={product} />
+    <div class="product-detail__notice">
+      <ProductAvailabilityNotice />
+    </div>
     <ProductDescriptionSection product={product} />
   </div>
 </section>
 
 <RelatedProductsSection product={product} />
+
+<style>
+  .product-detail__notice {
+    margin-top: var(--space-4);
+  }
+</style>

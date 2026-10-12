@@ -21,6 +21,7 @@ export interface Product {
   tags: string[];
   details: { label: string; value: string }[];
   packaging?: ProductPackaging;
+  priceOnRequest?: boolean;
 }
 
 const placeholderImage = "/assets/logo.png" as const;
@@ -303,5 +304,6 @@ export const products: Product[] = [
     ],
     image: placeholderImage,
     imageAlt: placeholderAlt,
+    priceOnRequest: true,
   },
 ];

@@ -70,7 +70,7 @@ const honeyProducts = products.filter(
                 </span>
                 <h3>{product.name}</h3>
                 <p>{product.shortDescription}</p>
-                {product.packaging && (
+                {(product.packaging || product.priceOnRequest) && (
                   <div class="product-carousel__packaging">
                     <ProductPackaging product={product} compact />
                   </div>

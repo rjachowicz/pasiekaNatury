@@ -51,7 +51,7 @@ const otherProducts = [
               </span>
               <h3>{other.name}</h3>
               <p>{other.shortDescription}</p>
-              {other.packaging && (
+              {(other.packaging || other.priceOnRequest) && (
                 <div class="other-products__packaging">
                   <ProductPackaging product={other} compact />
                 </div>
