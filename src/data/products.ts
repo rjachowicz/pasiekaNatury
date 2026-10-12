@@ -130,22 +130,6 @@ export const products: Product[] = [
     packaging: { netQuantity: 1200, unit: "g", priceGrosze: 5000 },
   },
   {
-    id: "faceliowy",
-    name: "Miód faceliowy",
-    category: "honey",
-    shortDescription:
-      "Jasny, delikatny miód o kwiatowym aromacie i subtelnie świeżym finiszu.",
-    description:
-      "Powstaje z nektaru facelii. Zwykle ma jasną, słomkową barwę, delikatny kwiatowy aromat oraz słodki smak z lekko świeżą nutą. Po krystalizacji może przyjmować drobnoziarnistą, kremową konsystencję.",
-    details: [
-      { label: "Pochodzenie", value: "Nektar facelii" },
-      { label: "Profil", value: "Delikatny i kwiatowy" },
-    ],
-    tags: ["łagodny", "kwiatowy", "jasny"],
-    image: placeholderImage,
-    imageAlt: placeholderAlt,
-  },
-  {
     id: "akacjowy",
     name: "Miód akacjowy",
     category: "honey",
@@ -160,6 +144,7 @@ export const products: Product[] = [
     tags: ["akacjowy", "łagodny", "jasny"],
     image: placeholderImage,
     imageAlt: placeholderAlt,
+    packaging: { netQuantity: 1200, unit: "g", priceGrosze: 5000 },
   },
   {
     id: "propolis-surowy",
@@ -227,7 +212,7 @@ export const products: Product[] = [
     image: pierzga_miod,
     imageAlt: "Słoik pierzgi w miodzie",
     imagePosition: "50% 48%",
-    packaging: { netQuantity: 400, unit: "g", priceGrosze: 4000 },
+    packaging: { netQuantity: 400, unit: "g", priceGrosze: 5000 },
   },
   {
     id: "pylek-pszczeli",
@@ -263,6 +248,7 @@ export const products: Product[] = [
     image: ziol_mailna,
     imageAlt: "Słoik ziołomiodu malinowego",
     imagePosition: "50% 48%",
+    packaging: { netQuantity: 1200, unit: "g", priceGrosze: 4000 },
   },
   {
     id: "ziolomiod-pokrzywowy",
@@ -280,6 +266,7 @@ export const products: Product[] = [
     image: ziol_pokrzywa,
     imageAlt: "Słoik ziołomiodu pokrzywowego",
     imagePosition: "50% 46%",
+    packaging: { netQuantity: 1200, unit: "g", priceGrosze: 4000 },
   },
   {
     id: "kosze-prezentowe",
